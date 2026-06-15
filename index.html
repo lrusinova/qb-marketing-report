@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QB Marketing · H2 2026 Program Report</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F0F4F8;
+      --surface:      #FFFFFF;
+      --surface-2:    #F8FAFC;
+      --border:       #E2E8F0;
+      --border-2:     #CBD5E1;
+      --text-1:       #0F172A;
+      --text-2:       #475569;
+      --text-3:       #94A3B8;
+      --accent:       #2563EB;
+      --accent-light: #EFF6FF;
+      --green:        #059669;
+      --green-bg:     #ECFDF5;
+      --green-border: #6EE7B7;
+      --amber:        #D97706;
+      --amber-bg:     #FFFBEB;
+      --amber-border: #FCD34D;
+      --red:          #DC2626;
+      --red-bg:       #FEF2F2;
+      --red-border:   #FCA5A5;
+      --ff:           #0284C7;
+      --ff-bg:        #F0F9FF;
+      --pave:         #7C3AED;
+      --pave-bg:      #F5F3FF;
+      --core:         #EA580C;
+      --core-bg:      #FFF7ED;
+      --cross:        #374151;
+      --cross-bg:     #F9FAFB;
+      --shadow-sm:    0 1px 2px rgba(0,0,0,.05);
+      --shadow:       0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:    0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+      --r:            10px;
+      --r-sm:         6px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--bg);
+      color: var(--text-1);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #0F172A;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 28px;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .header-brand {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .health-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .header-sep { color: rgba(255,255,255,.2); font-size: 18px; }
+    .header-subtitle { color: rgba(255,255,255,.45); font-size: 13px; white-space: nowrap; }
+    .header-right { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+    .header-status {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 500; color: rgba(255,255,255,.65);
+    }
+    .header-updated { font-size: 11px; color: rgba(255,255,255,.3); white-space: nowrap; }
+
+    /* ── TABS ── */
+    .tabs-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 56px;
+      z-index: 90;
+    }
+    .tabs-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+    }
+    .tab {
+      padding: 14px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-3);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .tab:hover { color: var(--text-2); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── MAIN ── */
+    .main { max-width: 1300px; margin: 0 auto; padding: 28px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── METRIC ROW ── */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 800px) { .metrics-row { grid-template-columns: repeat(2,1fr); } }
+
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .metric-card.featured { background: #0F172A; border-color: #0F172A; color: #fff; }
+    .metric-number {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .metric-sub { font-size: 12px; color: var(--text-3); }
+    .metric-card.featured .metric-sub { color: rgba(255,255,255,.5); }
+    .metric-delta { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+
+    /* ── SECTION HEADER ── */
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin: 32px 0 16px;
+    }
+    .section-head:first-child { margin-top: 0; }
+    .section-title { font-size: 16px; font-weight: 700; letter-spacing: -.3px; }
+    .section-desc { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .badge-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
+    .badge-green  .badge-dot { background: var(--green); }
+    .badge-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
+    .badge-amber  .badge-dot { background: var(--amber); }
+    .badge-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
+    .badge-red    .badge-dot { background: var(--red); }
+
+    /* ── PROGRESS ── */
+    .prog-wrap { margin: 2px 0 4px; }
+    .prog-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3); margin-bottom: 5px; }
+    .prog-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .prog-fill  { height: 100%; border-radius: 3px; }
+
+    /* ── INITIATIVE CARDS ── */
+    .init-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .init-grid { grid-template-columns: 1fr; } }
+
+    .init-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left-width: 3px;
+      border-radius: var(--r);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .15s;
+    }
+    .init-card:hover { box-shadow: var(--shadow-md); }
+    .init-card.on-track { border-left-color: var(--green); }
+    .init-card.at-risk  { border-left-color: var(--amber); }
+    .init-card.blocked  { border-left-color: var(--red); }
+
+    .init-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+    .init-title { font-size: 14px; font-weight: 600; letter-spacing: -.2px; line-height: 1.3; }
+    .init-key   { font-size: 11px; color: var(--text-3); margin-top: 2px; }
+
+    .init-meta  { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 12px; }
+    .meta-pill  { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
+
+    .epic-row  { display: flex; gap: 14px; margin-top: 10px; }
+    .epic-chip {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 11px; color: var(--text-3);
+    }
+    .epic-dot  { width: 7px; height: 7px; border-radius: 50%; }
+
+    .init-note {
+      margin-top: 12px;
+      padding: 9px 12px;
+      background: var(--surface-2);
+      border-left: 3px solid var(--border-2);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      font-size: 12px; color: var(--text-2);
+    }
+
+    /* ── QUARTER CARDS ── */
+    .q-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    @media (max-width: 700px) { .q-grid { grid-template-columns: 1fr; } }
+
+    .q-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .q-name { font-size: 17px; font-weight: 800; letter-spacing: -.5px; }
+    .phase-chip {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+      padding: 3px 9px; border-radius: 20px;
+    }
+    .phase-active   { background: var(--green-bg); color: var(--green); }
+    .phase-planning { background: var(--accent-light); color: var(--accent); }
+    .phase-early    { background: var(--surface-2); color: var(--text-3); border: 1px solid var(--border); }
+
+    .q-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 14px; text-align: center; }
+    .q-stat-num   { font-size: 20px; font-weight: 700; letter-spacing: -.5px; }
+    .q-stat-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: .3px; }
+
+    /* ── SPOTLIGHT ── */
+    .spotlight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    @media (max-width: 800px) { .spotlight-grid { grid-template-columns: 1fr; } }
+
+    .spot-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .spot-head {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 14px;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .spot-list { list-style: none; }
+    .spot-item {
+      display: flex; align-items: flex-start; gap: 9px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px; color: var(--text-2); line-height: 1.4;
+    }
+    .spot-item:last-child { border-bottom: none; }
+    .spot-icon { flex-shrink: 0; width: 18px; text-align: center; }
+
+    /* ── OUTPUT TRACKER ── */
+    .ch-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+    .ch-thead {
+      display: grid;
+      grid-template-columns: 170px 1fr 70px 70px 64px;
+      padding: 11px 20px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .6px;
+      color: var(--text-3);
+      gap: 8px;
+    }
+    .ch-row {
+      display: grid;
+      grid-template-columns: 170px 1fr 70px 70px 64px;
+      padding: 13px 20px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      gap: 8px;
+      transition: background .1s;
+    }
+    .ch-row:last-child { border-bottom: none; }
+    .ch-row:hover { background: var(--surface-2); }
+
+    .ch-name { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+    .ch-icon { font-size: 16px; }
+    .ch-bar-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .ch-bar-fill  { height: 100%; border-radius: 4px; }
+    .ch-num   { font-size: 14px; font-weight: 700; text-align: right; }
+    .ch-total { font-size: 12px; color: var(--text-3); text-align: right; }
+    .ch-pct   { font-size: 12px; font-weight: 600; text-align: right; }
+
+    /* BU breakdown */
+    .bu-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .bu-table-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .bu-legend { display: flex; gap: 16px; }
+    .bu-leg-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
+    .bu-leg-dot  { width: 10px; height: 10px; border-radius: 2px; }
+
+    .bu-row {
+      display: grid;
+      grid-template-columns: 170px repeat(3, 1fr);
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      gap: 16px;
+    }
+    .bu-row:last-child { border-bottom: none; }
+    .bu-col-label { font-size: 12px; color: var(--text-2); display: flex; align-items: center; gap: 6px; }
+
+    .bu-bar-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .bu-bar-item { display: flex; align-items: center; gap: 6px; }
+    .bu-mini-bar { height: 7px; border-radius: 3px; min-width: 4px; }
+    .bu-mini-label { font-size: 11px; color: var(--text-3); white-space: nowrap; min-width: 18px; }
+
+    /* ── ROADMAP ── */
+    .roadmap-outer {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow-x: auto;
+      box-shadow: var(--shadow-sm);
+    }
+    .roadmap-inner { min-width: 780px; }
+
+    .rm-head-row {
+      display: grid;
+      grid-template-columns: 180px repeat(9,1fr);
+      border-bottom: 2px solid var(--border-2);
+    }
+    .rm-label-cell {
+      padding: 11px 16px;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .6px;
+      color: var(--text-3);
+      border-right: 1px solid var(--border);
+    }
+    .rm-month {
+      padding: 11px 4px;
+      text-align: center;
+      font-size: 11px; font-weight: 600;
+      color: var(--text-3);
+      border-right: 1px solid var(--border);
+    }
+    .rm-month:last-child { border-right: none; }
+    .rm-month.q2-col  { background: rgba(37,99,235,.03); }
+    .rm-month.q3-col  { background: rgba(5,150,105,.03); }
+    .rm-month.q4-col  { background: rgba(234,88,12,.03); }
+    .rm-month.now-col { background: rgba(37,99,235,.12); color: var(--accent); font-weight: 800; }
+
+    .rm-q-row {
+      display: grid;
+      grid-template-columns: 180px repeat(3, 3fr);
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .rm-q-spacer { border-right: 1px solid var(--border); }
+    .rm-q-cell {
+      text-align: center;
+      font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 5px;
+      border-right: 1px solid var(--border);
+    }
+    .rm-q-cell:last-child { border-right: none; }
+
+    .rm-bu-row {
+      display: grid;
+      grid-template-columns: 180px repeat(9,1fr);
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border-2);
+    }
+    .rm-bu-label {
+      padding: 9px 16px;
+      display: flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700;
+      border-right: 1px solid var(--border);
+    }
+    .rm-bu-cell {
+      border-right: 1px solid var(--border);
+    }
+    .rm-bu-cell:last-child { border-right: none; }
+
+    .rm-prog-row {
+      display: grid;
+      grid-template-columns: 180px repeat(9,1fr);
+      border-bottom: 1px solid var(--border);
+      min-height: 38px;
+      align-items: center;
+    }
+    .rm-prog-row:last-child { border-bottom: none; }
+
+    .rm-prog-label {
+      padding: 8px 16px;
+      font-size: 12px; color: var(--text-2);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      border-right: 1px solid var(--border);
+    }
+    .rm-cell {
+      position: relative;
+      height: 38px;
+      border-right: 1px solid var(--border);
+    }
+    .rm-cell:last-child { border-right: none; }
+    .rm-cell.q2-col { background: rgba(37,99,235,.02); }
+    .rm-cell.q3-col { background: rgba(5,150,105,.02); }
+    .rm-cell.q4-col { background: rgba(234,88,12,.02); }
+    .rm-cell.now-col { background: rgba(37,99,235,.08); }
+
+    .rm-bar {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 20px;
+      border-radius: 4px;
+      left: 3px; right: 3px;
+      display: flex; align-items: center;
+      padding: 0 7px;
+      font-size: 10px; font-weight: 600; color: #fff;
+      white-space: nowrap; overflow: hidden;
+    }
+
+    /* ── BY BU ── */
+    .bu-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    @media (max-width: 800px) { .bu-cards { grid-template-columns: 1fr; } }
+
+    .bu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top-width: 3px;
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .bu-card-head {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .bu-card-name { font-size: 16px; font-weight: 800; letter-spacing: -.4px; }
+    .bu-card-full { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+    .bu-card-body { padding: 20px; }
+
+    .bu-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 16px; text-align: center; }
+    .bu-kpi-n { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+    .bu-kpi-l { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: .3px; }
+
+    .bu-prog-list { margin-top: 16px; }
+    .bu-prog-head {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: var(--text-3); margin-bottom: 8px;
+    }
+    .bu-prog-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .bu-prog-item:last-child { border-bottom: none; }
+    .bu-prog-name { font-size: 12px; color: var(--text-2); }
+    .bu-prog-quarters { font-size: 10px; color: var(--text-3); margin-top: 1px; }
+    .prog-status {
+      font-size: 11px; font-weight: 600;
+      padding: 2px 8px; border-radius: 20px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    /* ── UTIL ── */
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<header class="header">
+  <div class="header-brand">
+    <div class="health-dot" id="hDot"></div>
+    QB Marketing
+  </div>
+  <span class="header-sep">·</span>
+  <div class="header-subtitle" id="hSubtitle"></div>
+  <div class="header-right">
+    <div class="header-status" id="hStatus"></div>
+    <div class="header-updated" id="hUpdated"></div>
+  </div>
+</header>
+
+<!-- ================================================================
+     TABS
+================================================================ -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <div class="tab active"  onclick="switchTab(0)">📊 Program Health</div>
+    <div class="tab"         onclick="switchTab(1)">📦 Output Tracker</div>
+    <div class="tab"         onclick="switchTab(2)">🗺 Roadmap</div>
+    <div class="tab"         onclick="switchTab(3)">🏢 By BU</div>
+  </div>
+</div>
+
+<!-- ================================================================
+     PANELS
+================================================================ -->
+<div class="main">
+  <div class="panel active" id="p0"></div>
+  <div class="panel"        id="p1"></div>
+  <div class="panel"        id="p2"></div>
+  <div class="panel"        id="p3"></div>
+</div>
+
+<footer class="footer">
+  <div id="footL"></div>
+  <div>Generated by Claude · Live data from Jira MKT · <a href="https://quickbase.atlassian.net" target="_blank">Open Jira ↗</a></div>
+</footer>
+
+<script>
+/* ============================================================
+   REPORT DATA — auto-generated by Claude from Jira MKT
+   ============================================================ */
+const DATA = {
+  generatedAt: "2026-06-15",
+  weekOf:      "June 16, 2026",
+  health:      "on-track", /* on-track | at-risk | blocked */
+
+  summary: {
+    initiatives:      7,
+    programs:        45,
+    epicsTotal:     155,
+    epicsDone:       62,
+    weeklyCompleted:  8
+  },
+
+  initiatives: [
+    { key:"MKT-12568", title:"Growth — Next Gen (FF + Pave)",           owner:"Gar",     status:"on-track", pct:62, programs:21, total:84, done:52, flight:24, blocked:2,  note:"" },
+    { key:"MKT-12569", title:"Core BU Marketing",                        owner:"Mirissa", status:"on-track", pct:55, programs:12, total:36, done:20, flight:12, blocked:1,  note:"" },
+    { key:"MKT-12570", title:"Integrated Marketing",                     owner:"Carlos",  status:"at-risk",  pct:28, programs:0,  total:14, done:4,  flight:6,  blocked:3,  note:"Programs not yet linked — coordination needed with cross-BU leads." },
+    { key:"MKT-12571", title:"Digital Programs & Website Development",   owner:"Lynn",    status:"on-track", pct:48, programs:1,  total:10, done:5,  flight:4,  blocked:0,  note:"" },
+    { key:"MKT-12572", title:"Corporate / Exec Comms, PR & Social",      owner:"Tory",    status:"on-track", pct:61, programs:2,  total:8,  done:5,  flight:3,  blocked:0,  note:"" },
+    { key:"MKT-12573", title:"Marketing Systems & AI",                   owner:"Luiza",   status:"on-track", pct:44, programs:3,  total:6,  done:3,  flight:2,  blocked:0,  note:"" },
+    { key:"MKT-12574", title:"Program Management",                       owner:"Luiza",   status:"on-track", pct:70, programs:3,  total:6,  done:4,  flight:2,  blocked:0,  note:"" }
+  ],
+
+  quarters: [
+    { name:"Q2", phase:"active",   pct:78, done:48, flight:10, blocked:2, total:62 },
+    { name:"Q3", phase:"planning", pct:22, done:14, flight:30, blocked:1, total:65 },
+    { name:"Q4", phase:"early",    pct:5,  done:3,  flight:18, blocked:0, total:58 }
+  ],
+
+  spotlight: {
+    wins: [
+      "42 Always-On epics assigned across Q3 + Q4 for all 3 BUs",
+      "7 H2 strategic initiatives fully linked to 46 quarterly programs",
+      "Pave SEO Content Program staffed and in flight",
+      "All 55 epics restored to correct quarterly parents"
+    ],
+    upcoming: [
+      "Q2 close-out review — end of June",
+      "H2 kickoff alignment with all 7 initiative owners",
+      "Brand refresh kickoff (Integrated Marketing)",
+      "Q3 campaign briefs due — FF & Pave"
+    ],
+    watchlist: [
+      "MKT-12570 Integrated Marketing: programs not yet linked",
+      "MKT-11912 (SD FastField SEO Articles) still unparented",
+      "Core BU Q3 launch program not yet staffed",
+      "Q2 close-out: confirm all in-flight items resolve or roll"
+    ]
+  },
+
+  /* Output Tracker ------------------------------------------------- */
+  output: [
+    { name:"Creative Requests", icon:"🎨", done:42, target:60, FF:18, Pave:14, Core:10 },
+    { name:"Social",            icon:"📱", done:36, target:54, FF:16, Pave:12, Core:8  },
+    { name:"Email & Newsletter",icon:"📧", done:24, target:36, FF:10, Pave:8,  Core:6  },
+    { name:"Content",           icon:"✍️",  done:18, target:30, FF:8,  Pave:6,  Core:4  },
+    { name:"Paid Media",        icon:"📣", done:8,  target:18, FF:4,  Pave:3,  Core:1  },
+    { name:"Event Digest",      icon:"📅", done:6,  target:9,  FF:3,  Pave:2,  Core:1  },
+    { name:"Webinars",          icon:"🎙️", done:4,  target:9,  FF:2,  Pave:1,  Core:1  }
+  ],
+
+  /* Roadmap -------------------------------------------------------- */
+  /* months indexed 0=Apr … 8=Dec */
+  roadmap: [
+    { bu:"FastField", key:"ff", rows:[
+      { label:"Always-On",    s:0, e:8, type:"always-on" },
+      { label:"Webinar Prog", s:0, e:8, type:"webinar"   },
+      { label:"Campaigns",    s:0, e:8, type:"campaign"   },
+      { label:"Launch Prog",  s:0, e:8, type:"launch"    }
+    ]},
+    { bu:"Pave", key:"pave", rows:[
+      { label:"Always-On",    s:0, e:8, type:"always-on" },
+      { label:"Webinar Prog", s:0, e:8, type:"webinar"   },
+      { label:"Campaigns",    s:0, e:8, type:"campaign"   },
+      { label:"Launch Prog",  s:0, e:8, type:"launch"    },
+      { label:"SEO Content",  s:0, e:2, type:"seo"       }
+    ]},
+    { bu:"Core", key:"core", rows:[
+      { label:"Always-On",    s:0, e:8, type:"always-on" },
+      { label:"Webinar Prog", s:0, e:8, type:"webinar"   },
+      { label:"Campaigns",    s:0, e:8, type:"campaign"   },
+      { label:"Launch Prog",  s:0, e:8, type:"launch"    }
+    ]},
+    { bu:"Cross-BU", key:"cross", rows:[
+      { label:"Ext Comms & Social",  s:3, e:8, type:"comms" },
+      { label:"Marketing Prog Setup",s:0, e:8, type:"ops"   },
+      { label:"Internal Programs",   s:0, e:8, type:"ops"   }
+    ]}
+  ],
+
+  /* By BU ---------------------------------------------------------- */
+  byBU: [
+    { id:"ff",   name:"FastField", full:"FastField (FF)",    health:"on-track", pct:63, total:62, done:39, flight:18, programs:[
+      { name:"Always-On Program",  quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Webinar Program",    quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Campaigns",          quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Launch Program",     quarters:"Q2 · Q3 · Q4", status:"at-risk"  }
+    ]},
+    { id:"pave", name:"Pave",      full:"Pave",              health:"on-track", pct:55, total:55, done:30, flight:19, programs:[
+      { name:"Always-On Program",  quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Webinar Program",    quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Campaigns",          quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Launch Program",     quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"SEO Content Program",quarters:"Q2",            status:"on-track" }
+    ]},
+    { id:"core", name:"Core",      full:"QuickBase Core",    health:"at-risk",  pct:42, total:48, done:20, flight:20, programs:[
+      { name:"Always-On Program",  quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Webinar Program",    quarters:"Q2 · Q3 · Q4", status:"at-risk"  },
+      { name:"Campaigns",          quarters:"Q2 · Q3 · Q4", status:"on-track" },
+      { name:"Launch Program",     quarters:"Q2 · Q3 · Q4", status:"at-risk"  }
+    ]}
+  ]
+};
+
+/* ============================================================
+   CONSTANTS
+============================================================ */
+const JIRA = "https://quickbase.atlassian.net/browse/";
+const MONTHS = ["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const NOW_IDX = 2; /* Jun = index 2 in Apr–Dec */
+const Q_CLASS = ["q2-col","q2-col","q2-col","q3-col","q3-col","q3-col","q4-col","q4-col","q4-col"];
+const TYPE_COLOR = {
+  "always-on":"#059669","webinar":"#0284C7","campaign":"#6366F1",
+  "launch":"#D97706","seo":"#7C3AED","comms":"#DB2777","ops":"#6B7280"
+};
+const BU_COLOR = { ff:"#0284C7", pave:"#7C3AED", core:"#EA580C", cross:"#374151" };
+const STATUS_CFG = {
+  "on-track": { cls:"badge-green", label:"On Track",  fill:"#059669", pFill:"var(--green)"  },
+  "at-risk":  { cls:"badge-amber", label:"At Risk",   fill:"#D97706", pFill:"var(--amber)"  },
+  "blocked":  { cls:"badge-red",   label:"Blocked",   fill:"#DC2626", pFill:"var(--red)"    }
+};
+
+/* ============================================================
+   HELPERS
+============================================================ */
+function badge(status) {
+  const c = STATUS_CFG[status] || STATUS_CFG["on-track"];
+  return `<span class="badge ${c.cls}"><span class="badge-dot"></span>${c.label}</span>`;
+}
+
+function prog(pct, status) {
+  const c = STATUS_CFG[status]?.pFill || "var(--accent)";
+  return `<div class="prog-wrap">
+    <div class="prog-labels"><span>Progress</span><span>${pct}%</span></div>
+    <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${c}"></div></div>
+  </div>`;
+}
+
+function statusChip(status) {
+  const c = STATUS_CFG[status];
+  if (!c) return "";
+  return `<span class="prog-status" style="background:${c.fill}18;color:${c.fill}">${c.label}</span>`;
+}
+
+/* ============================================================
+   TAB SWITCH
+============================================================ */
+function switchTab(idx) {
+  document.querySelectorAll(".tab").forEach((t,i)   => t.classList.toggle("active", i===idx));
+  document.querySelectorAll(".panel").forEach((p,i) => p.classList.toggle("active", i===idx));
+}
+
+/* ============================================================
+   RENDER: HEADER
+============================================================ */
+function renderHeader() {
+  const d = DATA;
+  const dotColor = d.health==="on-track" ? "#10B981" : d.health==="at-risk" ? "#F59E0B" : "#EF4444";
+  document.getElementById("hDot").style.background = dotColor;
+  document.getElementById("hSubtitle").textContent  = `H2 2026 · Week of ${d.weekOf}`;
+  document.getElementById("hStatus").innerHTML =
+    `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${dotColor}"></span>
+     ${d.health==="on-track" ? "On Track" : d.health==="at-risk" ? "At Risk" : "Blocked"}`;
+  document.getElementById("hUpdated").textContent = `Updated ${d.generatedAt}`;
+  document.getElementById("footL").textContent    = `QB Marketing · H2 2026 · Week of ${d.weekOf}`;
+}
+
+/* ============================================================
+   RENDER: PROGRAM HEALTH (Tab 0)
+============================================================ */
+function renderHealth() {
+  const s = DATA.summary;
+  const overallPct = Math.round(s.epicsDone / s.epicsTotal * 100);
+
+  document.getElementById("p0").innerHTML = `
+    <!-- KPI ROW -->
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-number">${s.initiatives}</div>
+        <div class="metric-sub">Strategic Initiatives</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">${s.programs}</div>
+        <div class="metric-sub">Linked Programs</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">${s.epicsDone}<span style="font-size:18px;color:var(--text-3);font-weight:500">/${s.epicsTotal}</span></div>
+        <div class="metric-sub">Epics Complete</div>
+        <div class="metric-delta">${overallPct}% overall</div>
+      </div>
+      <div class="metric-card featured">
+        <div class="metric-number">${s.weeklyCompleted}</div>
+        <div class="metric-sub">Completed This Week</div>
+      </div>
+    </div>
+
+    <!-- INITIATIVES -->
+    <div class="section-head">
+      <div>
+        <div class="section-title">H2 2026 Strategic Initiatives</div>
+        <div class="section-desc">Aly's H2 goals — each linked to all relevant quarterly programs via "Relates to"</div>
+      </div>
+    </div>
+
+    <div class="init-grid">
+      ${DATA.initiatives.map(i => `
+        <div class="init-card ${i.status}">
+          <div class="init-top">
+            <div>
+              <div class="init-title">
+                <a href="${JIRA}${i.key}" target="_blank">${i.title}</a>
+              </div>
+              <div class="init-key">${i.key} · ${i.programs} program${i.programs!==1?"s":""} linked</div>
+            </div>
+            ${badge(i.status)}
+          </div>
+          <div class="init-meta">
+            <div class="meta-pill">👤 ${i.owner}</div>
+            <div class="meta-pill">📋 ${i.total} epics</div>
+          </div>
+          ${prog(i.pct, i.status)}
+          <div class="epic-row">
+            <div class="epic-chip"><span class="epic-dot" style="background:var(--green)"></span>${i.done} done</div>
+            <div class="epic-chip"><span class="epic-dot" style="background:var(--accent)"></span>${i.flight} in flight</div>
+            ${i.blocked > 0 ? `<div class="epic-chip"><span class="epic-dot" style="background:var(--red)"></span>${i.blocked} blocked</div>` : ""}
+          </div>
+          ${i.note ? `<div class="init-note">${i.note}</div>` : ""}
+        </div>
+      `).join("")}
+    </div>
+
+    <!-- QUARTERS -->
+    <div class="section-head">
+      <div>
+        <div class="section-title">Quarter Health</div>
+        <div class="section-desc">Program completion across Q2 · Q3 · Q4 2026</div>
+      </div>
+    </div>
+
+    <div class="q-grid">
+      ${DATA.quarters.map(q => `
+        <div class="q-card">
+          <div class="q-top">
+            <div class="q-name">${q.name} 2026</div>
+            <div class="phase-chip phase-${q.phase}">${
+              q.phase==="active"   ? "● Active"   :
+              q.phase==="planning" ? "◆ Planning" : "○ Early"
+            }</div>
+          </div>
+          ${prog(q.pct, q.phase==="active" ? "on-track" : "on-track")}
+          <div class="q-stats">
+            <div class="q-stat">
+              <div class="q-stat-num" style="color:var(--green)">${q.done}</div>
+              <div class="q-stat-label">Done</div>
+            </div>
+            <div class="q-stat">
+              <div class="q-stat-num" style="color:var(--accent)">${q.flight}</div>
+              <div class="q-stat-label">In Flight</div>
+            </div>
+            <div class="q-stat">
+              <div class="q-stat-num" style="color:${q.blocked>0?"var(--red)":"var(--text-3)"}">${q.blocked}</div>
+              <div class="q-stat-label">Blocked</div>
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+
+    <!-- SPOTLIGHT -->
+    <div class="section-head">
+      <div>
+        <div class="section-title">Spotlight</div>
+        <div class="section-desc">Week of ${DATA.weekOf}</div>
+      </div>
+    </div>
+
+    <div class="spotlight-grid">
+      <div class="spot-card">
+        <div class="spot-head" style="color:var(--green)">🏆 Wins This Week</div>
+        <ul class="spot-list">
+          ${DATA.spotlight.wins.map(w=>`
+            <li class="spot-item"><span class="spot-icon">✓</span>${w}</li>
+          `).join("")}
+        </ul>
+      </div>
+      <div class="spot-card">
+        <div class="spot-head" style="color:var(--accent)">📅 Coming Up</div>
+        <ul class="spot-list">
+          ${DATA.spotlight.upcoming.map(u=>`
+            <li class="spot-item"><span class="spot-icon">→</span>${u}</li>
+          `).join("")}
+        </ul>
+      </div>
+      <div class="spot-card">
+        <div class="spot-head" style="color:var(--amber)">⚠️ Watch List</div>
+        <ul class="spot-list">
+          ${DATA.spotlight.watchlist.map(w=>`
+            <li class="spot-item"><span class="spot-icon">!</span>${w}</li>
+          `).join("")}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+/* ============================================================
+   RENDER: OUTPUT TRACKER (Tab 1)
+============================================================ */
+function renderOutput() {
+  const channels = DATA.output;
+  const totalDone   = channels.reduce((s,c)=>s+c.done,   0);
+  const totalTarget = channels.reduce((s,c)=>s+c.target, 0);
+  const overallPct  = Math.round(totalDone / totalTarget * 100);
+
+  const BU_MAX = channels.reduce((acc, c) => ({
+    FF:   Math.max(acc.FF,   c.FF),
+    Pave: Math.max(acc.Pave, c.Pave),
+    Core: Math.max(acc.Core, c.Core)
+  }), {FF:0,Pave:0,Core:0});
+  const BU_SCALE = 90; /* px for 100% */
+
+  document.getElementById("p1").innerHTML = `
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-number">${totalDone}</div>
+        <div class="metric-sub">Total Published (YTD Q2)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">${overallPct}%</div>
+        <div class="metric-sub">Of Quarter Target</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-number">${channels.length}</div>
+        <div class="metric-sub">Active Channels</div>
+      </div>
+      <div class="metric-card featured">
+        <div class="metric-number">${totalTarget - totalDone}</div>
+        <div class="metric-sub">Remaining to Target</div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <div class="section-title">Output by Channel</div>
+        <div class="section-desc">Tasks in Done status vs. Q2 target — pulled from Jira</div>
+      </div>
+    </div>
+
+    <div class="ch-table">
+      <div class="ch-thead">
+        <div>Channel</div>
+        <div>Progress</div>
+        <div style="text-align:right">Done</div>
+        <div style="text-align:right">Target</div>
+        <div style="text-align:right">%</div>
+      </div>
+      ${channels.map(c => {
+        const pct = Math.round(c.done / c.target * 100);
+        const color = pct >= 80 ? "var(--green)" : pct >= 50 ? "var(--accent)" : "var(--amber)";
+        return `
+          <div class="ch-row">
+            <div class="ch-name"><span class="ch-icon">${c.icon}</span>${c.name}</div>
+            <div>
+              <div class="ch-bar-track">
+                <div class="ch-bar-fill" style="width:${pct}%;background:${color}"></div>
+              </div>
+            </div>
+            <div class="ch-num">${c.done}</div>
+            <div class="ch-total">${c.target}</div>
+            <div class="ch-pct" style="color:${color}">${pct}%</div>
+          </div>`;
+      }).join("")}
+    </div>
+
+    <div class="section-head">
+      <div>
+        <div class="section-title">Output by BU</div>
+        <div class="section-desc">FastField · Pave · Core breakdown per channel</div>
+      </div>
+    </div>
+
+    <div class="bu-table">
+      <div class="bu-table-head">
+        <div class="section-title" style="font-size:13px">Channel × BU</div>
+        <div class="bu-legend">
+          <div class="bu-leg-item"><div class="bu-leg-dot" style="background:var(--ff)"></div>FastField</div>
+          <div class="bu-leg-item"><div class="bu-leg-dot" style="background:var(--pave)"></div>Pave</div>
+          <div class="bu-leg-item"><div class="bu-leg-dot" style="background:var(--core)"></div>Core</div>
+        </div>
+      </div>
+      ${channels.map(c => `
+        <div class="bu-row">
+          <div class="bu-col-label"><span>${c.icon}</span>${c.name}</div>
+          ${["FF","Pave","Core"].map((bu,bi) => {
+            const val = c[bu];
+            const maxV = BU_MAX[bu] || 1;
+            const w = Math.round((val / maxV) * BU_SCALE);
+            const col = bi===0?"var(--ff)":bi===1?"var(--pave)":"var(--core)";
+            return `<div class="bu-bar-wrap">
+              <div class="bu-bar-item">
+                <div class="bu-mini-bar" style="width:${Math.max(w,4)}px;background:${col}"></div>
+                <div class="bu-mini-label" style="color:${col};font-weight:600">${val}</div>
+              </div>
+            </div>`;
+          }).join("")}
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+/* ============================================================
+   RENDER: ROADMAP (Tab 2)
+============================================================ */
+function renderRoadmap() {
+  const qColors = { "q2-col":"rgba(37,99,235,.03)", "q3-col":"rgba(5,150,105,.03)", "q4-col":"rgba(234,88,12,.03)" };
+
+  function cellCls(i) {
+    return i===NOW_IDX ? "now-col" : Q_CLASS[i];
+  }
+
+  let html = `
+    <div class="section-head" style="margin-top:0">
+      <div>
+        <div class="section-title">Program Roadmap — April → December 2026</div>
+        <div class="section-desc">All programs across Q2 · Q3 · Q4, grouped by BU · <span style="font-weight:700;color:var(--accent)">◀ = current month</span></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+        ${Object.entries(TYPE_COLOR).map(([t,c])=>`
+          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)">
+            <div style="width:20px;height:7px;border-radius:3px;background:${c}"></div>
+            ${t.charAt(0).toUpperCase()+t.slice(1)}
+          </div>`).join("")}
+      </div>
+    </div>
+
+    <div class="roadmap-outer">
+      <div class="roadmap-inner">
+
+        <!-- Quarter label row -->
+        <div class="rm-q-row">
+          <div class="rm-q-spacer"></div>
+          <div class="rm-q-cell" style="color:var(--accent)">Q2 2026</div>
+          <div class="rm-q-cell" style="color:var(--green)">Q3 2026</div>
+          <div class="rm-q-cell" style="color:var(--core)">Q4 2026</div>
+        </div>
+
+        <!-- Month header row -->
+        <div class="rm-head-row">
+          <div class="rm-label-cell">Program</div>
+          ${MONTHS.map((m,i)=>`
+            <div class="rm-month ${cellCls(i)}">${m}${i===NOW_IDX?" ◀":""}</div>
+          `).join("")}
+        </div>
+  `;
+
+  DATA.roadmap.forEach(group => {
+    const col = BU_COLOR[group.key];
+    html += `
+      <!-- BU header -->
+      <div class="rm-bu-row">
+        <div class="rm-bu-label" style="color:${col}">
+          <div style="width:10px;height:10px;border-radius:2px;background:${col};flex-shrink:0"></div>
+          ${group.bu}
+        </div>
+        ${MONTHS.map((_,i)=>`<div class="rm-bu-cell ${cellCls(i)}"></div>`).join("")}
+      </div>`;
+
+    group.rows.forEach(row => {
+      html += `<div class="rm-prog-row">
+        <div class="rm-prog-label" title="${row.label}">${row.label}</div>`;
+
+      let i = 0;
+      while (i < 9) {
+        const cls = cellCls(i);
+        if (i === row.s) {
+          /* bar starts here — span to row.e */
+          const span = row.e - row.s + 1;
+          const barColor = TYPE_COLOR[row.type] || "#6B7280";
+          html += `<div class="rm-cell ${cls}" style="grid-column:span ${span}">
+            <div class="rm-bar" style="background:${barColor}">${span > 2 ? row.label : ""}</div>
+          </div>`;
+          i += span;
+        } else if (i < row.s || i > row.e) {
+          html += `<div class="rm-cell ${cls}"></div>`;
+          i++;
+        } else {
+          i++; /* inside span, skip */
+        }
+      }
+
+      html += `</div>`;
+    });
+  });
+
+  html += `</div></div>`; /* roadmap-inner, roadmap-outer */
+  document.getElementById("p2").innerHTML = html;
+}
+
+/* ============================================================
+   RENDER: BY BU (Tab 3)
+============================================================ */
+function renderByBU() {
+  document.getElementById("p3").innerHTML = `
+    <div class="section-head" style="margin-top:0">
+      <div>
+        <div class="section-title">By Business Unit</div>
+        <div class="section-desc">Program health and output per BU — Q2 · Q3 · Q4 2026</div>
+      </div>
+    </div>
+
+    <div class="bu-cards">
+      ${DATA.byBU.map(bu => `
+        <div class="bu-card" style="border-top-color:var(--${bu.id})">
+          <div class="bu-card-head">
+            <div>
+              <div class="bu-card-name" style="color:var(--${bu.id})">${bu.name}</div>
+              <div class="bu-card-full">${bu.full}</div>
+            </div>
+            ${badge(bu.health)}
+          </div>
+          <div class="bu-card-body">
+            <div class="bu-kpis">
+              <div class="bu-kpi">
+                <div class="bu-kpi-n" style="color:var(--${bu.id})">${bu.pct}%</div>
+                <div class="bu-kpi-l">Complete</div>
+              </div>
+              <div class="bu-kpi">
+                <div class="bu-kpi-n" style="color:var(--green)">${bu.done}</div>
+                <div class="bu-kpi-l">Done</div>
+              </div>
+              <div class="bu-kpi">
+                <div class="bu-kpi-n" style="color:var(--accent)">${bu.flight}</div>
+                <div class="bu-kpi-l">In Flight</div>
+              </div>
+            </div>
+            ${prog(bu.pct, bu.health)}
+            <div class="bu-prog-list">
+              <div class="bu-prog-head">Programs</div>
+              ${bu.programs.map(p=>`
+                <div class="bu-prog-item">
+                  <div>
+                    <div class="bu-prog-name">${p.name}</div>
+                    <div class="bu-prog-quarters">${p.quarters}</div>
+                  </div>
+                  ${statusChip(p.status)}
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+renderHeader();
+renderHealth();
+renderOutput();
+renderRoadmap();
+renderByBU();
+</script>
+</body>
+</html>
