@@ -1,1154 +1,969 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QB Marketing · H2 2026 Program Report</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>QB Marketing — Executive Dashboard H2 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#002855;--navy2:#001832;
+  --qb-dark:#1A0F1E;--qb-teal:#00A68F;--qb-teal2:#007D6A;
+  --orange:#FF6820;--orange-lt:rgba(255,104,32,.12);
+  --blue:#0066D6;--blue-lt:#EBF3FF;
+  --green:#14A558;--green-lt:#E6F7EE;
+  --amber:#F59E0B;--amber-lt:#FEF3C7;
+  --red:#E53935;--red-lt:#FFEBEE;
+  --purple:#7C3AED;--purple-lt:#f3eeff;
+  --teal:#0891B2;--emerald:#059669;
+  --g50:#F8FAFC;--g100:#F1F5F9;--g200:#E2E8F0;
+  --g300:#CBD5E1;--g400:#94A3B8;--g500:#64748B;
+  --g600:#475569;--g700:#334155;--g900:#0F172A;
+  --bg:#EAEFF5;
+  --sh:0 1px 3px rgba(0,40,85,.07),0 4px 14px rgba(0,40,85,.05);
+  --sh2:0 8px 32px rgba(0,40,85,.14),0 2px 8px rgba(0,40,85,.07);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--g900);font-size:14px;line-height:1.5;min-height:100vh}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
 
-    :root {
-      --bg:           #F0F4F8;
-      --surface:      #FFFFFF;
-      --surface-2:    #F8FAFC;
-      --border:       #E2E8F0;
-      --border-2:     #CBD5E1;
-      --text-1:       #0F172A;
-      --text-2:       #475569;
-      --text-3:       #94A3B8;
-      --accent:       #2563EB;
-      --accent-light: #EFF6FF;
-      --green:        #059669;
-      --green-bg:     #ECFDF5;
-      --green-border: #6EE7B7;
-      --amber:        #D97706;
-      --amber-bg:     #FFFBEB;
-      --amber-border: #FCD34D;
-      --red:          #DC2626;
-      --red-bg:       #FEF2F2;
-      --red-border:   #FCA5A5;
-      --ff:           #0284C7;
-      --ff-bg:        #F0F9FF;
-      --pave:         #7C3AED;
-      --pave-bg:      #F5F3FF;
-      --core:         #EA580C;
-      --core-bg:      #FFF7ED;
-      --cross:        #374151;
-      --cross-bg:     #F9FAFB;
-      --shadow-sm:    0 1px 2px rgba(0,0,0,.05);
-      --shadow:       0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
-      --shadow-md:    0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
-      --r:            10px;
-      --r-sm:         6px;
-    }
+/* ── HEADER ─────────────────────────────────────────── */
+.hdr{background:var(--qb-dark);border-bottom:2px solid rgba(0,166,143,.35);padding:0 28px;display:flex;align-items:center;gap:14px;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+.qb-mark{width:36px;height:36px;position:relative;flex-shrink:0}
+.qb-mark svg{width:36px;height:36px}
+.hdr-t h1{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.2px}
+.hdr-t p{font-size:11px;color:rgba(255,255,255,.35);margin-top:1px;font-weight:400}
+.hdr-r{margin-left:auto;display:flex;align-items:center;gap:8px}
+.hbadge{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px;font-weight:500}
+.hbadge.teal{background:rgba(0,166,143,.2);border-color:rgba(0,166,143,.4);color:#5DDBC9;font-weight:700}
+.live-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background: var(--bg);
-      color: var(--text-1);
-      font-size: 14px;
-      line-height: 1.5;
-    }
+/* ── TABS ───────────────────────────────────────────── */
+.tbar{background:#fff;border-bottom:2px solid var(--g100);display:flex;padding:0 28px;position:sticky;top:60px;z-index:99;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.tbtn{padding:13px 20px;font-size:13px;font-weight:600;color:var(--g400);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap}
+.tbtn:hover{color:var(--navy)}
+.tbtn.on{color:var(--navy);border-bottom-color:var(--orange);font-weight:800}
+.pane{display:none;padding:28px;max-width:1520px;margin:0 auto}
+.pane.on{display:block}
 
-    /* ── HEADER ── */
-    .header {
-      background: #0F172A;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 0 28px;
-      height: 56px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-    .header-brand {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: -.3px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-    .health-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .header-sep { color: rgba(255,255,255,.2); font-size: 18px; }
-    .header-subtitle { color: rgba(255,255,255,.45); font-size: 13px; white-space: nowrap; }
-    .header-right { margin-left: auto; display: flex; align-items: center; gap: 18px; }
-    .header-status {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 12px; font-weight: 500; color: rgba(255,255,255,.65);
-    }
-    .header-updated { font-size: 11px; color: rgba(255,255,255,.3); white-space: nowrap; }
+/* ── KPI STRIP ──────────────────────────────────────── */
+.kpi-strip{display:flex;gap:0;background:#fff;border-radius:14px;border:1px solid var(--g200);box-shadow:var(--sh);margin-bottom:20px;overflow:hidden}
+.kpi-cell{flex:1;padding:18px 22px;position:relative;text-align:left}
+.kpi-cell+.kpi-cell::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:var(--g200)}
+.kpi-n{font-size:34px;font-weight:900;line-height:1;letter-spacing:-1.5px}
+.kpi-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--g400);margin-top:5px}
+.kpi-sub{font-size:11px;color:var(--g500);margin-top:3px;font-weight:500}
 
-    /* ── TABS ── */
-    .tabs-bar {
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 56px;
-      z-index: 90;
-    }
-    .tabs-inner {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 0 28px;
-      display: flex;
-    }
-    .tab {
-      padding: 14px 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-3);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: color .15s, border-color .15s;
-      user-select: none;
-      white-space: nowrap;
-    }
-    .tab:hover { color: var(--text-2); }
-    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+/* ── TIMELINE ───────────────────────────────────────── */
+.tl-card{background:#fff;border-radius:12px;padding:16px 22px;box-shadow:var(--sh);margin-bottom:22px;border:1px solid var(--g200)}
+.tl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tl-title{font-size:11px;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.5px}
+.tl-stat{font-size:12px;color:var(--g600);font-weight:600}
+.tl-track{position:relative;height:10px;background:var(--g100);border-radius:5px;overflow:visible;margin-bottom:5px}
+.tl-q2fill{position:absolute;left:0;height:100%;border-radius:5px 0 0 5px;background:linear-gradient(90deg,var(--green),#22c55e)}
+.tl-q3{position:absolute;left:33.33%;height:100%;background:var(--blue);opacity:.25;width:33.33%}
+.tl-q4{position:absolute;left:66.66%;height:100%;border-radius:0 5px 5px 0;background:var(--purple);opacity:.18;width:33.34%}
+.tl-pin{position:absolute;top:-6px;width:20px;height:20px;background:var(--orange);border:3px solid #fff;border-radius:50%;transform:translateX(-50%);box-shadow:0 0 0 3px rgba(255,104,32,.22);z-index:2}
+.tl-labels{display:flex;font-size:10px;color:var(--g400);font-weight:600;margin-top:3px}
+.tl-ql{flex:1;text-align:center}
 
-    /* ── MAIN ── */
-    .main { max-width: 1300px; margin: 0 auto; padding: 28px; }
-    .panel { display: none; }
-    .panel.active { display: block; }
+/* ── SECTION HEADER ─────────────────────────────────── */
+.sec-hd{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sec-hd h2{font-size:16px;font-weight:900;color:var(--navy);border-left:3px solid var(--orange);padding-left:12px;letter-spacing:-.2px}
+.sec-hd p{font-size:12px;color:var(--g400);font-weight:500}
 
-    /* ── METRIC ROW ── */
-    .metrics-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 28px;
-    }
-    @media (max-width: 800px) { .metrics-row { grid-template-columns: repeat(2,1fr); } }
+/* ── SP CARDS ───────────────────────────────────────── */
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.sp-card{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);border-top:4px solid;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.sp-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.sp-head{padding:15px 17px 12px}
+.sp-top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+.sp-key-link{font-size:10px;font-family:'SF Mono','Fira Code',monospace;background:var(--g100);color:var(--g500);border-radius:6px;padding:2px 8px;font-weight:700;letter-spacing:.3px;text-decoration:none}
+.sp-key-link:hover{background:var(--blue-lt);color:var(--blue);text-decoration:none}
+.sp-title{font-size:14px;font-weight:900;color:var(--navy);line-height:1.2;margin-bottom:2px;letter-spacing:-.2px}
+.sp-sub{font-size:11px;color:var(--g400);margin-bottom:7px}
+.sp-owner{font-size:11px;color:var(--g600);display:flex;align-items:center;gap:4px}
+.sp-owner.vacant{color:var(--amber);font-style:italic}
+.sp-progress{padding:11px 17px;border-top:1px solid var(--g100);border-bottom:1px solid var(--g100)}
+.sp-prow{display:flex;align-items:baseline;gap:9px;margin-bottom:8px}
+.sp-pct{font-size:30px;font-weight:900;line-height:1;letter-spacing:-1px}
+.sp-pdelta-up{font-size:11px;font-weight:700;color:var(--green)}
+.sp-pdelta-dn{font-size:11px;font-weight:700;color:var(--red)}
+.sp-pdelta-flat{font-size:11px;color:var(--g400)}
+.sp-items-count{font-size:11px;color:var(--g400);margin-left:auto}
+.sp-bar{height:7px;background:var(--g100);border-radius:4px;overflow:hidden}
+.sp-fill{height:100%;border-radius:4px;transition:width .7s}
+.sp-bar-lbl{font-size:9px;color:var(--g400);margin-top:5px;font-weight:500}
+.sp-goals{padding:11px 17px;flex:1}
+.sp-goals-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g400);margin-bottom:8px}
+.sp-goal{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;font-size:11.5px;color:var(--g700);line-height:1.45}
+.sp-gnum{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;font-weight:900;color:#fff;margin-top:1px}
+.sp-p1s{padding:9px 17px 11px;border-top:1px solid var(--g100);background:var(--g50)}
+.sp-p1-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--amber);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.sp-p1-item{display:flex;align-items:center;gap:7px;margin-bottom:5px;font-size:11px;color:var(--g700);line-height:1.4}
+.sp-p1-key{font-size:9px;font-family:'SF Mono','Fira Code',monospace;background:rgba(245,158,11,.1);color:#92400E;border-radius:5px;padding:2px 7px;font-weight:800;text-decoration:none;white-space:nowrap;flex-shrink:0}
+.sp-p1-key:hover{background:rgba(245,158,11,.22);text-decoration:none}
+.sp-p1-more{font-size:10px;color:var(--blue);margin-top:4px;font-weight:600}
+.sp-note{padding:7px 17px;font-size:10.5px;color:#92400E;background:var(--amber-lt);border-top:1px solid #FDE68A;display:flex;align-items:flex-start;gap:6px}
+.sp-foot{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--g100);background:var(--g50);margin-top:auto}
+.sp-fstat{padding:9px 6px;text-align:center;position:relative}
+.sp-fstat+.sp-fstat::before{content:'';position:absolute;left:0;top:15%;height:70%;width:1px;background:var(--g200)}
+.sp-fsn{font-size:16px;font-weight:900;line-height:1}
+.sp-fsl{font-size:8px;text-transform:uppercase;letter-spacing:.6px;color:var(--g400);font-weight:700;display:block;margin-top:2px}
+@media(max-width:1200px){.sp-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.sp-grid{grid-template-columns:1fr}}
 
-    .metric-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 22px 20px;
-      box-shadow: var(--shadow-sm);
-    }
-    .metric-card.featured { background: #0F172A; border-color: #0F172A; color: #fff; }
-    .metric-number {
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .metric-sub { font-size: 12px; color: var(--text-3); }
-    .metric-card.featured .metric-sub { color: rgba(255,255,255,.5); }
-    .metric-delta { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+/* ── PROGRAMS TAB ───────────────────────────────────── */
+.prog-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.prog-filter-lbl{font-size:10px;font-weight:800;color:var(--g400);text-transform:uppercase;letter-spacing:.7px;margin-right:2px}
+.pf-btn{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--g200);background:#fff;cursor:pointer;color:var(--g600);transition:all .15s}
+.pf-btn.on{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 2px 8px rgba(0,40,85,.2)}
+.pf-btn:hover:not(.on){border-color:var(--g400);background:var(--g50)}
+.prog-sp-group{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);border-top:4px solid;margin-bottom:16px;overflow:hidden}
+.prog-sp-hd{padding:14px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--g100)}
+.prog-sp-key{font-size:10px;font-family:monospace;background:var(--g100);color:var(--g500);border-radius:6px;padding:2px 8px;font-weight:700;text-decoration:none}
+.prog-sp-key:hover{background:var(--blue-lt);color:var(--blue);text-decoration:none}
+.prog-sp-title{font-size:14px;font-weight:800;color:var(--navy)}
+.prog-sp-sub{font-size:11px;color:var(--g400);margin-left:4px}
+.prog-table{width:100%;border-collapse:collapse}
+.prog-th{padding:8px 18px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--g500);border-bottom:1px solid var(--g100);text-align:left;background:var(--g50)}
+.prog-row{border-top:1px solid var(--g100);cursor:pointer;transition:background .1s}
+.prog-row:hover td{background:#EEF5FF}
+.prog-row td{padding:10px 18px;font-size:12.5px;vertical-align:middle}
+.prog-title-cell{border-left:3px solid}
+.prog-title-cell a{color:var(--g900);font-weight:600}
+.prog-title-cell a:hover{color:var(--blue)}
+.prog-key-sub{display:block;font-size:10px;color:var(--g400);margin-top:2px;font-family:monospace}
+.prio-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:.3px}
+.prio-p1{background:rgba(245,158,11,.12);color:#92400E}
+.prio-p2{background:var(--blue-lt);color:var(--blue)}
+.prio-p3{background:var(--g100);color:var(--g500)}
+.status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;white-space:nowrap}
+.sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-    /* ── SECTION HEADER ── */
-    .section-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin: 32px 0 16px;
-    }
-    .section-head:first-child { margin-top: 0; }
-    .section-title { font-size: 16px; font-weight: 700; letter-spacing: -.3px; }
-    .section-desc { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+/* ── DELIVERABLES ────────────────────────────────────── */
+.fl{font-size:11px;font-weight:800;color:var(--g400);text-transform:uppercase;letter-spacing:.6px;margin-right:2px}
+.fb{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;border:1.5px solid var(--g200);background:#fff;cursor:pointer;color:var(--g700);transition:all .15s}
+.fb.on{background:var(--navy);color:#fff;border-color:var(--navy);box-shadow:0 2px 8px rgba(0,40,85,.2)}
+.fb:hover:not(.on){border-color:var(--g400);background:var(--g50)}
+.dch-grid{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.dch-card{display:inline-flex;align-items:center;gap:7px;padding:6px 12px 6px 9px;background:#fff;border-radius:30px;border:1.5px solid var(--g200);cursor:pointer;transition:all .16s;white-space:nowrap;user-select:none;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.dch-card:hover{border-color:var(--g400);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.dch-card.dch-active{box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.dch-chdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dch-ch-name{font-size:12px;font-weight:700;color:var(--g700)}
+.dch-vsep{width:1px;height:12px;background:var(--g200);flex-shrink:0}
+.dch-num{font-size:13px;font-weight:900;line-height:1}
+.dch-inf{font-size:11px;color:var(--g400)}
+.dch-blk-badge{padding:1px 5px;border-radius:5px;background:var(--red-lt);color:var(--red);font-size:9px;font-weight:700}
+.del-toolbar{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.del-label-bar{display:flex;align-items:center;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.lbl-chip{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid var(--g200);background:#fff;cursor:pointer;color:var(--g600);transition:all .15s;font-family:'SF Mono','Fira Code',monospace;letter-spacing:.2px}
+.lbl-chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.lbl-chip:hover:not(.on){border-color:var(--g400);background:var(--g50)}
+.del-clear{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:700;border:1.5px solid var(--orange);background:var(--orange);color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.del-clear:hover{background:#e85a10}
+.del-count{margin-left:auto;font-size:12px;font-weight:700;color:var(--g500)}
+.del-table{background:#fff;border-radius:14px;box-shadow:var(--sh);overflow:hidden;border:1px solid var(--g200)}
+.del-table-hd{padding:14px 20px;background:var(--qb-dark);display:flex;align-items:center;justify-content:space-between}
+.del-table-hd h3{font-size:13px;font-weight:800;color:#fff}
+.del-table-hd p{font-size:11px;color:rgba(255,255,255,.4)}
+.del-table table{width:100%;border-collapse:collapse}
+.del-th{padding:8px 16px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--g500);border-bottom:1px solid var(--g200);text-align:left;background:var(--g50)}
+.del-row{border-top:1px solid var(--g100);transition:background .1s;cursor:pointer}
+.del-row:nth-child(even) td{background:#FAFBFD}
+.del-row:hover td{background:#EEF5FF !important}
+.del-row td{padding:9px 16px;font-size:12.5px;vertical-align:middle}
+.del-ttl{border-left:4px solid;padding-left:14px !important}
+.del-ttl a{color:var(--g900);font-weight:600;line-height:1.4}
+.del-ttl a:hover{color:var(--blue)}
+.del-key{display:block;font-size:10px;color:var(--g400);margin-top:2px;font-family:monospace;letter-spacing:.3px}
+.del-ch-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:10px;font-size:10.5px;font-weight:700}
+.del-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.del-lbl{font-size:10px;font-weight:700;font-family:monospace;padding:2px 7px;border-radius:6px;background:var(--g100);color:var(--g600);white-space:nowrap}
+.del-date{font-size:11px;color:var(--g500);white-space:nowrap;font-weight:600}
+.del-empty{padding:36px;text-align:center;color:var(--g400);font-size:13px}
 
-    /* ── BADGES ── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
-    .badge-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
-    .badge-green  .badge-dot { background: var(--green); }
-    .badge-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
-    .badge-amber  .badge-dot { background: var(--amber); }
-    .badge-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-    .badge-red    .badge-dot { background: var(--red); }
+/* ── ANALYTICS ──────────────────────────────────────── */
+.an-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.an-full{grid-column:1/-1}
+.an-card{background:#fff;border-radius:14px;box-shadow:var(--sh);padding:22px 24px;border:1px solid var(--g200)}
+.an-hd{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:4px}
+.an-sub{font-size:11px;color:var(--g400);margin-bottom:18px}
+.an-chart-area{overflow-x:auto}
+.an-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.an-kpi{background:var(--g50);border-radius:10px;padding:16px;text-align:center}
+.an-kpi-n{font-size:34px;font-weight:900;line-height:1;letter-spacing:-1px}
+.an-kpi-l{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--g400);margin-top:5px;display:block}
+.an-kpi-sub{font-size:10px;color:var(--g500);margin-top:3px}
 
-    /* ── PROGRESS ── */
-    .prog-wrap { margin: 2px 0 4px; }
-    .prog-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3); margin-bottom: 5px; }
-    .prog-track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .prog-fill  { height: 100%; border-radius: 3px; }
-
-    /* ── INITIATIVE CARDS ── */
-    .init-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-    }
-    @media (max-width: 900px) { .init-grid { grid-template-columns: 1fr; } }
-
-    .init-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left-width: 3px;
-      border-radius: var(--r);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow .15s;
-    }
-    .init-card:hover { box-shadow: var(--shadow-md); }
-    .init-card.on-track { border-left-color: var(--green); }
-    .init-card.at-risk  { border-left-color: var(--amber); }
-    .init-card.blocked  { border-left-color: var(--red); }
-
-    .init-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-    .init-title { font-size: 14px; font-weight: 600; letter-spacing: -.2px; line-height: 1.3; }
-    .init-key   { font-size: 11px; color: var(--text-3); margin-top: 2px; }
-
-    .init-meta  { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 12px; }
-    .meta-pill  { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
-
-    .epic-row  { display: flex; gap: 14px; margin-top: 10px; }
-    .epic-chip {
-      display: flex; align-items: center; gap: 4px;
-      font-size: 11px; color: var(--text-3);
-    }
-    .epic-dot  { width: 7px; height: 7px; border-radius: 50%; }
-
-    .init-note {
-      margin-top: 12px;
-      padding: 9px 12px;
-      background: var(--surface-2);
-      border-left: 3px solid var(--border-2);
-      border-radius: 0 var(--r-sm) var(--r-sm) 0;
-      font-size: 12px; color: var(--text-2);
-    }
-
-    /* ── QUARTER CARDS ── */
-    .q-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    @media (max-width: 700px) { .q-grid { grid-template-columns: 1fr; } }
-
-    .q-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-    }
-    .q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .q-name { font-size: 17px; font-weight: 800; letter-spacing: -.5px; }
-    .phase-chip {
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .5px;
-      padding: 3px 9px; border-radius: 20px;
-    }
-    .phase-active   { background: var(--green-bg); color: var(--green); }
-    .phase-planning { background: var(--accent-light); color: var(--accent); }
-    .phase-early    { background: var(--surface-2); color: var(--text-3); border: 1px solid var(--border); }
-
-    .q-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 14px; text-align: center; }
-    .q-stat-num   { font-size: 20px; font-weight: 700; letter-spacing: -.5px; }
-    .q-stat-label { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: .3px; }
-
-    /* ── SPOTLIGHT ── */
-    .spotlight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    @media (max-width: 800px) { .spotlight-grid { grid-template-columns: 1fr; } }
-
-    .spot-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
-    }
-    .spot-head {
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1px;
-      margin-bottom: 14px;
-      display: flex; align-items: center; gap: 7px;
-    }
-    .spot-list { list-style: none; }
-    .spot-item {
-      display: flex; align-items: flex-start; gap: 9px;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px; color: var(--text-2); line-height: 1.4;
-    }
-    .spot-item:last-child { border-bottom: none; }
-    .spot-icon { flex-shrink: 0; width: 18px; text-align: center; }
-
-    /* ── OUTPUT TRACKER ── */
-    .ch-table {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 24px;
-    }
-    .ch-thead {
-      display: grid;
-      grid-template-columns: 170px 1fr 70px 70px 64px;
-      padding: 11px 20px;
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .6px;
-      color: var(--text-3);
-      gap: 8px;
-    }
-    .ch-row {
-      display: grid;
-      grid-template-columns: 170px 1fr 70px 70px 64px;
-      padding: 13px 20px;
-      border-bottom: 1px solid var(--border);
-      align-items: center;
-      gap: 8px;
-      transition: background .1s;
-    }
-    .ch-row:last-child { border-bottom: none; }
-    .ch-row:hover { background: var(--surface-2); }
-
-    .ch-name { font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
-    .ch-icon { font-size: 16px; }
-    .ch-bar-track { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
-    .ch-bar-fill  { height: 100%; border-radius: 4px; }
-    .ch-num   { font-size: 14px; font-weight: 700; text-align: right; }
-    .ch-total { font-size: 12px; color: var(--text-3); text-align: right; }
-    .ch-pct   { font-size: 12px; font-weight: 600; text-align: right; }
-
-    /* BU breakdown */
-    .bu-table {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-    .bu-table-head {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .bu-legend { display: flex; gap: 16px; }
-    .bu-leg-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); }
-    .bu-leg-dot  { width: 10px; height: 10px; border-radius: 2px; }
-
-    .bu-row {
-      display: grid;
-      grid-template-columns: 170px repeat(3, 1fr);
-      padding: 12px 20px;
-      border-bottom: 1px solid var(--border);
-      align-items: center;
-      gap: 16px;
-    }
-    .bu-row:last-child { border-bottom: none; }
-    .bu-col-label { font-size: 12px; color: var(--text-2); display: flex; align-items: center; gap: 6px; }
-
-    .bu-bar-wrap { display: flex; flex-direction: column; gap: 2px; }
-    .bu-bar-item { display: flex; align-items: center; gap: 6px; }
-    .bu-mini-bar { height: 7px; border-radius: 3px; min-width: 4px; }
-    .bu-mini-label { font-size: 11px; color: var(--text-3); white-space: nowrap; min-width: 18px; }
-
-    /* ── ROADMAP ── */
-    .roadmap-outer {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      overflow-x: auto;
-      box-shadow: var(--shadow-sm);
-    }
-    .roadmap-inner { min-width: 780px; }
-
-    .rm-head-row {
-      display: grid;
-      grid-template-columns: 180px repeat(9,1fr);
-      border-bottom: 2px solid var(--border-2);
-    }
-    .rm-label-cell {
-      padding: 11px 16px;
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .6px;
-      color: var(--text-3);
-      border-right: 1px solid var(--border);
-    }
-    .rm-month {
-      padding: 11px 4px;
-      text-align: center;
-      font-size: 11px; font-weight: 600;
-      color: var(--text-3);
-      border-right: 1px solid var(--border);
-    }
-    .rm-month:last-child { border-right: none; }
-    .rm-month.q2-col  { background: rgba(37,99,235,.03); }
-    .rm-month.q3-col  { background: rgba(5,150,105,.03); }
-    .rm-month.q4-col  { background: rgba(234,88,12,.03); }
-    .rm-month.now-col { background: rgba(37,99,235,.12); color: var(--accent); font-weight: 800; }
-
-    .rm-q-row {
-      display: grid;
-      grid-template-columns: 180px repeat(3, 3fr);
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-    }
-    .rm-q-spacer { border-right: 1px solid var(--border); }
-    .rm-q-cell {
-      text-align: center;
-      font-size: 10px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 1px;
-      padding: 5px;
-      border-right: 1px solid var(--border);
-    }
-    .rm-q-cell:last-child { border-right: none; }
-
-    .rm-bu-row {
-      display: grid;
-      grid-template-columns: 180px repeat(9,1fr);
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      border-top: 1px solid var(--border-2);
-    }
-    .rm-bu-label {
-      padding: 9px 16px;
-      display: flex; align-items: center; gap: 7px;
-      font-size: 12px; font-weight: 700;
-      border-right: 1px solid var(--border);
-    }
-    .rm-bu-cell {
-      border-right: 1px solid var(--border);
-    }
-    .rm-bu-cell:last-child { border-right: none; }
-
-    .rm-prog-row {
-      display: grid;
-      grid-template-columns: 180px repeat(9,1fr);
-      border-bottom: 1px solid var(--border);
-      min-height: 38px;
-      align-items: center;
-    }
-    .rm-prog-row:last-child { border-bottom: none; }
-
-    .rm-prog-label {
-      padding: 8px 16px;
-      font-size: 12px; color: var(--text-2);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      border-right: 1px solid var(--border);
-    }
-    .rm-cell {
-      position: relative;
-      height: 38px;
-      border-right: 1px solid var(--border);
-    }
-    .rm-cell:last-child { border-right: none; }
-    .rm-cell.q2-col { background: rgba(37,99,235,.02); }
-    .rm-cell.q3-col { background: rgba(5,150,105,.02); }
-    .rm-cell.q4-col { background: rgba(234,88,12,.02); }
-    .rm-cell.now-col { background: rgba(37,99,235,.08); }
-
-    .rm-bar {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 20px;
-      border-radius: 4px;
-      left: 3px; right: 3px;
-      display: flex; align-items: center;
-      padding: 0 7px;
-      font-size: 10px; font-weight: 600; color: #fff;
-      white-space: nowrap; overflow: hidden;
-    }
-
-    /* ── BY BU ── */
-    .bu-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    @media (max-width: 800px) { .bu-cards { grid-template-columns: 1fr; } }
-
-    .bu-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-top-width: 3px;
-      border-radius: var(--r);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-    .bu-card-head {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .bu-card-name { font-size: 16px; font-weight: 800; letter-spacing: -.4px; }
-    .bu-card-full { font-size: 11px; color: var(--text-3); margin-top: 1px; }
-    .bu-card-body { padding: 20px; }
-
-    .bu-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 16px; text-align: center; }
-    .bu-kpi-n { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
-    .bu-kpi-l { font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: .3px; }
-
-    .bu-prog-list { margin-top: 16px; }
-    .bu-prog-head {
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .5px;
-      color: var(--text-3); margin-bottom: 8px;
-    }
-    .bu-prog-item {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .bu-prog-item:last-child { border-bottom: none; }
-    .bu-prog-name { font-size: 12px; color: var(--text-2); }
-    .bu-prog-quarters { font-size: 10px; color: var(--text-3); margin-top: 1px; }
-    .prog-status {
-      font-size: 11px; font-weight: 600;
-      padding: 2px 8px; border-radius: 20px;
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px 28px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: var(--text-3);
-    }
-
-    /* ── UTIL ── */
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-  </style>
+/* ── SHARED TAGS ────────────────────────────────────── */
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap}
+.t-g{background:var(--green-lt);color:var(--green)}.t-b{background:var(--blue-lt);color:var(--blue)}
+.t-a{background:var(--amber-lt);color:#92400E}.t-r{background:var(--red-lt);color:var(--red)}
+.t-n{background:var(--g100);color:var(--g600)}.t-p{background:var(--purple-lt);color:var(--purple)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.b-on{background:var(--green-lt);color:var(--green)}.b-rk{background:var(--amber-lt);color:#92400E}
+.b-off{background:var(--red-lt);color:var(--red)}.b-ip{background:var(--blue-lt);color:var(--blue)}
+@media(max-width:1200px){.an-grid{grid-template-columns:1fr}.an-full{grid-column:1}}
+</style>
 </head>
 <body>
 
-<!-- ================================================================
-     HEADER
-================================================================ -->
-<header class="header">
-  <div class="header-brand">
-    <div class="health-dot" id="hDot"></div>
-    QB Marketing
+<header class="hdr">
+  <div class="qb-mark">
+    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="14" height="14" fill="#00A68F"/>
+      <rect x="20" y="2" width="14" height="14" fill="#fff" opacity=".15"/>
+      <rect x="2" y="20" width="14" height="14" fill="#fff" opacity=".15"/>
+      <rect x="20" y="20" width="14" height="14" fill="#FF6820"/>
+    </svg>
   </div>
-  <span class="header-sep">·</span>
-  <div class="header-subtitle" id="hSubtitle"></div>
-  <div class="header-right">
-    <div class="header-status" id="hStatus"></div>
-    <div class="header-updated" id="hUpdated"></div>
+  <div class="hdr-t">
+    <h1>Marketing Executive Dashboard</h1>
+    <p>H2 2026 · 7 Strategic Projects · Jira live</p>
+  </div>
+  <div class="hdr-r">
+    <div class="hbadge"><div class="live-dot"></div>Live</div>
+    <div class="hbadge teal" id="upd-badge"></div>
   </div>
 </header>
 
-<!-- ================================================================
-     TABS
-================================================================ -->
-<div class="tabs-bar">
-  <div class="tabs-inner">
-    <div class="tab active"  onclick="switchTab(0)">📊 Program Health</div>
-    <div class="tab"         onclick="switchTab(1)">📦 Output Tracker</div>
-    <div class="tab"         onclick="switchTab(2)">🗺 Roadmap</div>
-    <div class="tab"         onclick="switchTab(3)">🏢 By BU</div>
-  </div>
-</div>
+<nav class="tbar">
+  <button class="tbtn on"  onclick="go('brief',this)">Executive Briefing</button>
+  <button class="tbtn"     onclick="go('programs',this)">Programs</button>
+  <button class="tbtn"     onclick="go('deliverables',this)">Deliverables</button>
+  <button class="tbtn"     onclick="go('analytics',this)">Analytics</button>
+</nav>
 
-<!-- ================================================================
-     PANELS
-================================================================ -->
-<div class="main">
-  <div class="panel active" id="p0"></div>
-  <div class="panel"        id="p1"></div>
-  <div class="panel"        id="p2"></div>
-  <div class="panel"        id="p3"></div>
-</div>
-
-<footer class="footer">
-  <div id="footL"></div>
-  <div>Generated by Claude · Live data from Jira MKT · <a href="https://quickbase.atlassian.net" target="_blank">Open Jira ↗</a></div>
-</footer>
+<div id="brief"        class="pane on"></div>
+<div id="programs"     class="pane"></div>
+<div id="deliverables" class="pane"></div>
+<div id="analytics"    class="pane"></div>
 
 <script>
-/* ============================================================
-   REPORT DATA — auto-generated by Claude from Jira MKT
-   ============================================================ */
-const DATA = {
-  generatedAt: "2026-06-15",
-  weekOf:      "June 16, 2026",
-  health:      "on-track", /* on-track | at-risk | blocked */
-
-  summary: {
-    initiatives:      7,
-    programs:        45,
-    epicsTotal:     155,
-    epicsDone:       62,
-    weeklyCompleted:  8
-  },
-
-  initiatives: [
-    { key:"MKT-12568", title:"Growth — Next Gen (FF + Pave)",           owner:"Gar",     status:"on-track", pct:62, programs:21, total:84, done:52, flight:24, blocked:2,  note:"" },
-    { key:"MKT-12569", title:"Core BU Marketing",                        owner:"Mirissa", status:"on-track", pct:55, programs:12, total:36, done:20, flight:12, blocked:1,  note:"" },
-    { key:"MKT-12570", title:"Integrated Marketing",                     owner:"Carlos",  status:"at-risk",  pct:28, programs:0,  total:14, done:4,  flight:6,  blocked:3,  note:"Programs not yet linked — coordination needed with cross-BU leads." },
-    { key:"MKT-12571", title:"Digital Programs & Website Development",   owner:"Lynn",    status:"on-track", pct:48, programs:1,  total:10, done:5,  flight:4,  blocked:0,  note:"" },
-    { key:"MKT-12572", title:"Corporate / Exec Comms, PR & Social",      owner:"Tory",    status:"on-track", pct:61, programs:2,  total:8,  done:5,  flight:3,  blocked:0,  note:"" },
-    { key:"MKT-12573", title:"Marketing Systems & AI",                   owner:"Luiza",   status:"on-track", pct:44, programs:3,  total:6,  done:3,  flight:2,  blocked:0,  note:"" },
-    { key:"MKT-12574", title:"Program Management",                       owner:"Luiza",   status:"on-track", pct:70, programs:3,  total:6,  done:4,  flight:2,  blocked:0,  note:"" }
-  ],
-
-  quarters: [
-    { name:"Q2", phase:"active",   pct:78, done:48, flight:10, blocked:2, total:62 },
-    { name:"Q3", phase:"planning", pct:22, done:14, flight:30, blocked:1, total:65 },
-    { name:"Q4", phase:"early",    pct:5,  done:3,  flight:18, blocked:0, total:58 }
-  ],
-
-  spotlight: {
-    wins: [
-      "42 Always-On epics assigned across Q3 + Q4 for all 3 BUs",
-      "7 H2 strategic initiatives fully linked to 46 quarterly programs",
-      "Pave SEO Content Program staffed and in flight",
-      "All 55 epics restored to correct quarterly parents"
-    ],
-    upcoming: [
-      "Q2 close-out review — end of June",
-      "H2 kickoff alignment with all 7 initiative owners",
-      "Brand refresh kickoff (Integrated Marketing)",
-      "Q3 campaign briefs due — FF & Pave"
-    ],
-    watchlist: [
-      "MKT-12570 Integrated Marketing: programs not yet linked",
-      "MKT-11912 (SD FastField SEO Articles) still unparented",
-      "Core BU Q3 launch program not yet staffed",
-      "Q2 close-out: confirm all in-flight items resolve or roll"
-    ]
-  },
-
-  /* Output Tracker ------------------------------------------------- */
-  output: [
-    { name:"Creative Requests", icon:"🎨", done:42, target:60, FF:18, Pave:14, Core:10 },
-    { name:"Social",            icon:"📱", done:36, target:54, FF:16, Pave:12, Core:8  },
-    { name:"Email & Newsletter",icon:"📧", done:24, target:36, FF:10, Pave:8,  Core:6  },
-    { name:"Content",           icon:"✍️",  done:18, target:30, FF:8,  Pave:6,  Core:4  },
-    { name:"Paid Media",        icon:"📣", done:8,  target:18, FF:4,  Pave:3,  Core:1  },
-    { name:"Event Digest",      icon:"📅", done:6,  target:9,  FF:3,  Pave:2,  Core:1  },
-    { name:"Webinars",          icon:"🎙️", done:4,  target:9,  FF:2,  Pave:1,  Core:1  }
-  ],
-
-  /* Roadmap -------------------------------------------------------- */
-  /* months indexed 0=Apr … 8=Dec */
-  roadmap: [
-    { bu:"FastField", key:"ff", rows:[
-      { label:"Always-On",    s:0, e:8, type:"always-on" },
-      { label:"Webinar Prog", s:0, e:8, type:"webinar"   },
-      { label:"Campaigns",    s:0, e:8, type:"campaign"   },
-      { label:"Launch Prog",  s:0, e:8, type:"launch"    }
-    ]},
-    { bu:"Pave", key:"pave", rows:[
-      { label:"Always-On",    s:0, e:8, type:"always-on" },
-      { label:"Webinar Prog", s:0, e:8, type:"webinar"   },
-      { label:"Campaigns",    s:0, e:8, type:"campaign"   },
-      { label:"Launch Prog",  s:0, e:8, type:"launch"    },
-      { label:"SEO Content",  s:0, e:2, type:"seo"       }
-    ]},
-    { bu:"Core", key:"core", rows:[
-      { label:"Always-On",    s:0, e:8, type:"always-on" },
-      { label:"Webinar Prog", s:0, e:8, type:"webinar"   },
-      { label:"Campaigns",    s:0, e:8, type:"campaign"   },
-      { label:"Launch Prog",  s:0, e:8, type:"launch"    }
-    ]},
-    { bu:"Cross-BU", key:"cross", rows:[
-      { label:"Ext Comms & Social",  s:3, e:8, type:"comms" },
-      { label:"Marketing Prog Setup",s:0, e:8, type:"ops"   },
-      { label:"Internal Programs",   s:0, e:8, type:"ops"   }
-    ]}
-  ],
-
-  /* By BU ---------------------------------------------------------- */
-  byBU: [
-    { id:"ff",   name:"FastField", full:"FastField (FF)",    health:"on-track", pct:63, total:62, done:39, flight:18, programs:[
-      { name:"Always-On Program",  quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Webinar Program",    quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Campaigns",          quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Launch Program",     quarters:"Q2 · Q3 · Q4", status:"at-risk"  }
-    ]},
-    { id:"pave", name:"Pave",      full:"Pave",              health:"on-track", pct:55, total:55, done:30, flight:19, programs:[
-      { name:"Always-On Program",  quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Webinar Program",    quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Campaigns",          quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Launch Program",     quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"SEO Content Program",quarters:"Q2",            status:"on-track" }
-    ]},
-    { id:"core", name:"Core",      full:"QuickBase Core",    health:"at-risk",  pct:42, total:48, done:20, flight:20, programs:[
-      { name:"Always-On Program",  quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Webinar Program",    quarters:"Q2 · Q3 · Q4", status:"at-risk"  },
-      { name:"Campaigns",          quarters:"Q2 · Q3 · Q4", status:"on-track" },
-      { name:"Launch Program",     quarters:"Q2 · Q3 · Q4", status:"at-risk"  }
-    ]}
-  ]
-};
-
-/* ============================================================
-   CONSTANTS
-============================================================ */
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
 const JIRA = "https://quickbase.atlassian.net/browse/";
-const MONTHS = ["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const NOW_IDX = 2; /* Jun = index 2 in Apr–Dec */
-const Q_CLASS = ["q2-col","q2-col","q2-col","q3-col","q3-col","q3-col","q4-col","q4-col","q4-col"];
-const TYPE_COLOR = {
-  "always-on":"#059669","webinar":"#0284C7","campaign":"#6366F1",
-  "launch":"#D97706","seo":"#7C3AED","comms":"#DB2777","ops":"#6B7280"
-};
-const BU_COLOR = { ff:"#0284C7", pave:"#7C3AED", core:"#EA580C", cross:"#374151" };
-const STATUS_CFG = {
-  "on-track": { cls:"badge-green", label:"On Track",  fill:"#059669", pFill:"var(--green)"  },
-  "at-risk":  { cls:"badge-amber", label:"At Risk",   fill:"#D97706", pFill:"var(--amber)"  },
-  "blocked":  { cls:"badge-red",   label:"Blocked",   fill:"#DC2626", pFill:"var(--red)"    }
+const jl = (k,l) => `<a href="${JIRA}${k}" target="_blank" rel="noopener">${l||k}</a>`;
+
+const Q2_PCT     = 85;
+const DAYS_TO_H2 = 14; // Jun 17 → Jul 1
+
+const DATA = {
+  lastUpdated: "Jun 17, 2026",
+  weekInQ2: 12, weeksInQ2: 13,
+
+  initiatives:[
+    {key:"MKT-12568",title:"Growth — Next Gen",sub:"FastField + Pave",
+     owner:"Gar Smyth",status:"on-track",pct:62,done:52,flight:24,blocked:2,total:84,color:"#0066D6",delta:+4,note:"",
+     goals:["Focus on Pave ICP — Field & Business Ops","Critical FF & Pave product launches","Ramp content & social engine on YouTube/LinkedIn"],
+     p1progs:[
+       {key:"MKT-11852",title:"Pave June Launches",status:"in-progress"},
+       {key:"MKT-11797",title:"Pave Marketplace & App Gallery",status:"blocked"},
+       {key:"MKT-11823",title:"FF AI Builder Trial Experience",status:"in-progress"},
+       {key:"MKT-11621",title:"Paveathon Campaign",status:"in-progress"},
+     ]},
+    {key:"MKT-12569",title:"Core BU Marketing",sub:"QuickBase Classic",
+     owner:"",status:"on-track",pct:55,done:20,flight:12,blocked:1,total:36,color:"#14A558",delta:+2,note:"Sr Director of Core Marketing role in hiring.",
+     goals:["Customer expansion & cross-sell (upsell, UserGems, Empower)","Core new-logo demand — campaigns + CRO + partner","Retention & at-risk plays (save/win-back with CX)"],
+     p1progs:[
+       {key:"MKT-11666",title:"Grid Reports Launch",status:"in-progress"},
+       {key:"MKT-11667",title:"QB Extensions Launch",status:"in-progress"},
+       {key:"MKT-11668",title:"QB Intelligence Package Launch",status:"in-progress"},
+     ]},
+    {key:"MKT-12570",title:"Integrated Marketing",sub:"Brand · Content · Community · Partners",
+     owner:"Mirissa Kampf",status:"at-risk",pct:32,done:4,flight:7,blocked:3,total:14,color:"#FF6820",delta:0,note:"Community migration underway (Gainsight kickoff Jun 3). Brand refresh active.",
+     goals:["Brand refresh: architecture, narrative & visual identity","Content (SEO, AEO) + Studio + Community + Partners","Integrated planning + experiences (Empower, launches, Qrew)"],
+     p1progs:[
+       {key:"MKT-12615",title:"Brand Identity & Expression",status:"in-progress"},
+       {key:"MKT-12614",title:"Portfolio Architecture & Narrative",status:"intake"},
+       {key:"MKT-12463",title:"Qrew Community Migration — Khoros → Gainsight",status:"in-progress"},
+       {key:"MKT-12469",title:"Pave Community Launch",status:"intake"},
+       {key:"MKT-12471",title:"FF Community Launch",status:"intake"},
+     ]},
+    {key:"MKT-12571",title:"Digital",sub:"Web · SEO · CRO · Paid Media",
+     owner:"Carlos Cortez de Barros",status:"on-track",pct:48,done:5,flight:4,blocked:0,total:10,color:"#7C3AED",delta:+1,note:"",
+     goals:["Website refresh + CRO — 3-stage audit → copy → experience","Pave TOFU with ICP focus — ICP conversion tracking in paid","SEO across QB Core · FF · Pave — unified strategy"],
+     p1progs:[
+       {key:"MKT-11822",title:"FF Website Migration — Marketing Readiness",status:"in-progress"},
+       {key:"MKT-12114",title:"Pave SEO Content Program — Q2",status:"in-progress"},
+       {key:"MKT-12590",title:"Core SEO Content Program — Q2",status:"intake"},
+       {key:"MKT-12593",title:"FF SEO Content Program — Q2",status:"intake"},
+     ]},
+    {key:"MKT-12572",title:"Corporate Communications",sub:"PR · Social · ELT Comms",
+     owner:"Tory Waldron",status:"on-track",pct:61,done:5,flight:3,blocked:0,total:8,color:"#0891B2",delta:+1,note:"",
+     goals:["Uplift media relations — GEO + SEO best practices, new PR agency","Brand narrative via exec + customer storytelling","PLG: employee advocacy + short-form organic social video"],
+     p1progs:[
+       {key:"MKT-12353",title:"PR & Media Relations — Q2",status:"intake"},
+       {key:"MKT-12355",title:"Executive Social & ELT — Q2",status:"intake"},
+       {key:"MKT-12354",title:"Organic Social — Q2",status:"intake"},
+     ]},
+    {key:"MKT-12573",title:"Marketing Systems & AI",sub:"Ops · Automation · AI Growth",
+     owner:"Lynn Tan",status:"on-track",pct:44,done:3,flight:2,blocked:0,total:6,color:"#059669",delta:+1,note:"",
+     goals:["Own all marketing systems — single-team martech ownership","GTM engineering: AI-led improvement of GTM & marketing ops","Lifecycle & campaign automation across all 3 BUs"],
+     p1progs:[
+       {key:"MKT-11888",title:"PiperX Launch & Optimization",status:"in-progress"},
+       {key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",status:"in-progress"},
+     ]},
+    {key:"MKT-12574",title:"Program Management",sub:"Delivery · Rhythm · Visibility",
+     owner:"Luiza Rusinova",status:"on-track",pct:70,done:4,flight:2,blocked:0,total:6,color:"#002855",delta:+1,note:"",
+     goals:["Marketing operating system — briefs, request guides, RACIs, Jira structure","Cross-team program coordination — website refresh, launches","Delivery rhythm & visibility — planning calendar, status reporting"],
+     p1progs:[
+       {key:"MKT-12078",title:"Jira & Confluence Program Structure — Q2",status:"in-progress"},
+     ]},
+  ],
+
+  programs:[
+    // MKT-12568 Growth Next Gen
+    {sp:"MKT-12568",key:"MKT-11852",title:"Pave June Launches",owner:"McPhee, Stephanie",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12568",key:"MKT-11797",title:"Pave Marketplace & App Gallery",owner:"Hendley, Michelle",status:"blocked",priority:"P1"},
+    {sp:"MKT-12568",key:"MKT-11823",title:"FF AI Builder Trial Experience — PMM Discovery",owner:"Saeed, Hira",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12568",key:"MKT-11621",title:"Paveathon Campaign",owner:"Nickols, Meaghan",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12568",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"in-progress",priority:"P2"},
+    {sp:"MKT-12568",key:"MKT-11521",title:"FF AI Photo Insights — Launch T2",owner:"Saeed, Hira",status:"done",priority:"P1"},
+    {sp:"MKT-12568",key:"MKT-11522",title:"FF AI Label Scanner — Launch T2",owner:"Saeed, Hira",status:"done",priority:"P1"},
+    {sp:"MKT-12568",key:"MKT-11523",title:"FF Asset & Team Tracker — Launch T1",owner:"Saeed, Hira",status:"done",priority:"P2"},
+    {sp:"MKT-12568",key:"MKT-11658",title:"Pave Persona Pages Campaign",owner:"Young-Ward, Michael",status:"done",priority:"P1"},
+    // MKT-12569 Core BU
+    {sp:"MKT-12569",key:"MKT-11666",title:"Grid Reports — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12569",key:"MKT-11667",title:"QB Extensions — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12569",key:"MKT-11668",title:"QB Intelligence Package — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12569",key:"MKT-11534",title:"Q3 QBR Prep & Reporting",owner:"Rusinova, Luiza",status:"intake",priority:"P3"},
+    // MKT-12570 Integrated Marketing
+    {sp:"MKT-12570",key:"MKT-12615",title:"Brand Identity & Expression",owner:"Liu, Jenny",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12570",key:"MKT-12614",title:"Portfolio Architecture & Narrative",owner:"McGuire, Andy",status:"intake",priority:"P1"},
+    {sp:"MKT-12570",key:"MKT-12463",title:"Qrew Community Migration — Khoros to Gainsight",owner:"Simon, Ben",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12570",key:"MKT-12469",title:"Pave Community Launch",owner:"Rusinova, Luiza",status:"intake",priority:"P1"},
+    {sp:"MKT-12570",key:"MKT-12471",title:"FF Community Launch",owner:"Rusinova, Luiza",status:"intake",priority:"P1"},
+    // MKT-12571 Digital
+    {sp:"MKT-12571",key:"MKT-11822",title:"FF Website Migration — Marketing Readiness & Go-Live",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12114",title:"Pave SEO Content Program — Q2 2026",owner:"South, Tom",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12590",title:"Core SEO Content Program — Q2 2026",owner:"",status:"intake",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12593",title:"FF SEO Content Program — Q2 2026",owner:"",status:"intake",priority:"P1"},
+    // MKT-12572 Corp Comms
+    {sp:"MKT-12572",key:"MKT-12353",title:"PR & Media Relations — Q2 2026",owner:"Waldron, Tory",status:"intake",priority:"P1"},
+    {sp:"MKT-12572",key:"MKT-12355",title:"Executive Social & ELT — Q2 2026",owner:"Waldron, Tory",status:"intake",priority:"P1"},
+    {sp:"MKT-12572",key:"MKT-12354",title:"Organic Social — Q2 2026",owner:"",status:"intake",priority:"P2"},
+    {sp:"MKT-12572",key:"MKT-12356",title:"Reporting & Internal — Q2 2026",owner:"",status:"intake",priority:"P3"},
+    // MKT-12573 Systems & AI
+    {sp:"MKT-12573",key:"MKT-11888",title:"PiperX Launch & Optimization",owner:"Tan, Lynn",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12573",key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",owner:"Tan, Lynn",status:"in-progress",priority:"P2"},
+    // MKT-12574 Program Mgmt
+    {sp:"MKT-12574",key:"MKT-12078",title:"Jira & Confluence Program Structure — Q2 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1"},
+  ],
+
+  channels:[
+    {ch:"Content & SEO",    done:18,flight:12,blocked:1,color:"#0066D6"},
+    {ch:"Email & Lifecycle",done:22,flight:8, blocked:0,color:"#14A558"},
+    {ch:"Creative & Design",done:14,flight:4, blocked:0,color:"#DB2777"},
+    {ch:"Web / Digital",    done:3, flight:5, blocked:0,color:"#6366F1"},
+    {ch:"Paid Media",       done:11,flight:6, blocked:2,color:"#7C3AED"},
+    {ch:"Social Media",     done:8, flight:5, blocked:0,color:"#0891B2"},
+    {ch:"Community",        done:4, flight:6, blocked:0,color:"#D97706"},
+    {ch:"Webinars & Events",done:6, flight:5, blocked:1,color:"#F59E0B"},
+    {ch:"PR & Exec Comms",  done:5, flight:3, blocked:0,color:"#059669"},
+    {ch:"Launches & GTM",   done:8, flight:4, blocked:2,color:"#E53935"},
+    {ch:"Systems & AI",     done:6, flight:2, blocked:0,color:"#002855"},
+  ],
+
+  shipped:[
+    {key:"MKT-11775",title:"Best Real Estate Portfolio Management Software",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Wahl, Nathan",type:"Blog/SEO",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11774",title:"Best Property Management Software",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Wahl, Nathan",type:"Blog/SEO",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11773",title:"Best Legal Case & Practice Management Software",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Wahl, Nathan",type:"Blog/SEO",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11634",title:"Best Contract Lifecycle Management (CLM) Software",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Wahl, Nathan",type:"Blog/SEO",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11388",title:"Best CRM Software for Real Estate & Developers",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Husain, Javeria",type:"Blog/SEO",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11633",title:"Best CRM for Nonprofits",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Wahl, Nathan",type:"Blog/SEO",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11386",title:"Best Maintenance Management Software (CMMS)",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Mondal, Sanchita",type:"Blog/SEO",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11387",title:"Best Workflow Management Software",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Patro, Shreya",type:"Blog/SEO",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11412",title:"No-code Glossary",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Mondal, Sanchita",type:"Glossary",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11409",title:"Data Visualization Glossary",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Mondal, Sanchita",type:"Glossary",doneDate:"Jun 15, 2026"},
+    {key:"MKT-12260",title:"Blog: Grid Reports going GA at Empower",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Decker, Michael",type:"Blog",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11673",title:"Content & Advocacy — Grid Reports",ch:"Content & SEO",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Decker, Michael",type:"Content",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11759",title:"GUIDE: Pave Best Practices",ch:"Content & SEO",bu:"Pave",label:"Pave-MKT",owner:"Ghosh, Soumya",type:"Guide",doneDate:"May 19, 2026"},
+    {key:"MKT-11395",title:"Pave Vibeathon Content",ch:"Content & SEO",bu:"Pave",label:"Pave-MKT",owner:"Ghosh, Soumya",type:"Content",doneDate:"Jun 10, 2026"},
+    {key:"MKT-11418",title:"Empower Customer Awards Finalists Blog Posts",ch:"Content & SEO",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Ghosh, Soumya",type:"Blog",doneDate:"May 12, 2026"},
+    {key:"MKT-12021",title:"Follow-Up Email – No-Shows – FastField Forward June",ch:"Email & Lifecycle",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Email",doneDate:"Jun 15, 2026"},
+    {key:"MKT-12020",title:"Post-Event Email – Attendees – FastField Forward June",ch:"Email & Lifecycle",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Email",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11220",title:"IESNA2026: Event Follow-Up Email Sequence",ch:"Email & Lifecycle",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Email",doneDate:"Jun 14, 2026"},
+    {key:"MKT-11216",title:"IESNA2026: Thank You Email Banner (Canva)",ch:"Email & Lifecycle",bu:"FastField",label:"FF-MKT",owner:"Scura, Coco-Marie",type:"Email",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11853",title:"Pave: Email Nurture Stream Updates",ch:"Email & Lifecycle",bu:"Pave",label:"Pave-MKT",owner:"McPhee, Stephanie",type:"Nurture",doneDate:"Jun 14, 2026"},
+    {key:"MKT-12259",title:"Pave Sequence: Self Serve Buyers & Extended Nurture",ch:"Email & Lifecycle",bu:"Pave",label:"Pave-MKT",owner:"McPhee, Stephanie",type:"Nurture",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11768",title:"Email Build to Past FF Trailers for Pave Promotion",ch:"Email & Lifecycle",bu:"Pave",label:"Pave-MKT",owner:"McPhee, Stephanie",type:"Email",doneDate:"Jun 9, 2026"},
+    {key:"MKT-11507",title:"AI Intelligence Pack Webinar Emails & Marketo Build",ch:"Email & Lifecycle",bu:"Cross-BU",label:"CrossBU-MKT",owner:"(unassigned)",type:"Email",doneDate:"May 4, 2026"},
+    {key:"MKT-11769",title:"Outreach Email to Past FF Expired Trials for Pave Promotion",ch:"Email & Lifecycle",bu:"Pave",label:"Pave-MKT",owner:"Koutsoukos, Elena",type:"Email",doneDate:"May 19, 2026"},
+    {key:"MKT-11536",title:"FastField Customer + Active Trial Emails – Launch Activation",ch:"Email & Lifecycle",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Email",doneDate:"May 11, 2026"},
+    {key:"MKT-12014",title:"Promotional Email Sends x3 (Intercom) — FastField Forward June",ch:"Email & Lifecycle",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Email",doneDate:"May 29, 2026"},
+    {key:"MKT-11329",title:"Pave Email Landing Page (quickbase.com/pave/email)",ch:"Web / Digital",bu:"Pave",label:"Pave-MKT",owner:"Rusinova, Luiza",type:"Web",doneDate:"Apr 22, 2026"},
+    {key:"MKT-11357",title:"Fun Empower Emails",ch:"Email & Lifecycle",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Scura, Coco-Marie",type:"Email",doneDate:"Apr 8, 2026"},
+    {key:"MKT-11356",title:"Inside the Quickbase Catalog Emails",ch:"Email & Lifecycle",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Scura, Coco-Marie",type:"Email",doneDate:"Apr 8, 2026"},
+    {key:"MKT-11355",title:"Quickbase + EdgeIQ for Manufacturing Emails",ch:"Email & Lifecycle",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Scura, Coco-Marie",type:"Email",doneDate:"Apr 8, 2026"},
+    {key:"MKT-11512",title:"Pave Screenshots and Email Design",ch:"Email & Lifecycle",bu:"Pave",label:"Pave-MKT",owner:"(unassigned)",type:"Email",doneDate:"May 4, 2026"},
+    {key:"MKT-12218",title:"Webinar Creative Assets — Paveathon Finalist Showcase",ch:"Creative & Design",bu:"Pave",label:"Pave-MKT",owner:"Alvarez, Luis",type:"Creative",doneDate:"Jun 9, 2026"},
+    {key:"MKT-12206",title:"Webinar Creative Assets — QB Extensions Webinar",ch:"Creative & Design",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Alvarez, Luis",type:"Creative",doneDate:"Jun 5, 2026"},
+    {key:"MKT-12231",title:"Email Banner: FastField Webinar Series",ch:"Creative & Design",bu:"FastField",label:"FF-MKT",owner:"Scura, Coco-Marie",type:"Creative",doneDate:"Jun 1, 2026"},
+    {key:"MKT-11358",title:"Pave Banner and Email Designs",ch:"Creative & Design",bu:"Pave",label:"Pave-MKT",owner:"Scura, Coco-Marie",type:"Creative",doneDate:"May 4, 2026"},
+    {key:"MKT-11315",title:"Email Banner Design",ch:"Creative & Design",bu:"FastField",label:"FF-MKT",owner:"Schiff, Ayva",type:"Creative",doneDate:"Apr 6, 2026"},
+    {key:"MKT-11326",title:"New Banner Design Template",ch:"Creative & Design",bu:"Cross-BU",label:"CrossBU-MKT",owner:"A, Vikraman",type:"Creative",doneDate:"Apr 8, 2026"},
+    {key:"MKT-11337",title:"LinkedIn Banners & Graphics for Sales/CX Teams",ch:"Creative & Design",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Rich, Sarah",type:"Creative",doneDate:"Apr 14, 2026"},
+    {key:"MKT-11445",title:"Pave Launch: Homepage Hero & Banner Iterations",ch:"Web / Digital",bu:"Pave",label:"Pave-MKT",owner:"Young-Ward, Michael",type:"Web",doneDate:"Apr 29, 2026"},
+    {key:"MKT-11489",title:"Pave Empower Booth Swag Design",ch:"Creative & Design",bu:"Pave",label:"Pave-MKT",owner:"Liu, Jenny",type:"Creative",doneDate:"May 14, 2026"},
+    {key:"MKT-11494",title:"Qrew Meetup T-Shirts Design",ch:"Creative & Design",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Liu, Jenny",type:"Creative",doneDate:"May 12, 2026"},
+    {key:"MKT-11510",title:"Empower Buttons Design",ch:"Creative & Design",bu:"Cross-BU",label:"CrossBU-MKT",owner:"(unassigned)",type:"Creative",doneDate:"May 4, 2026"},
+    {key:"MKT-11541",title:"Website — Homepage Banner & PR Pages",ch:"Web / Digital",bu:"FastField",label:"FF-MKT",owner:"Young-Ward, Michael",type:"Web",doneDate:"May 14, 2026"},
+    {key:"MKT-12233",title:"Creative: Raffle AD Design",ch:"Creative & Design",bu:"FastField",label:"FF-MKT",owner:"Scura, Coco-Marie",type:"Creative",doneDate:"Jun 2, 2026"},
+    {key:"MKT-12236",title:"Design: Postcard Insert",ch:"Creative & Design",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Creative",doneDate:"Jun 2, 2026"},
+    {key:"MKT-11340",title:"Empower Customer Award Winner Social Media Templates",ch:"Creative & Design",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Alvarez, Luis",type:"Creative",doneDate:"May 6, 2026"},
+    {key:"MKT-11328",title:"Social Media Customer Awards Toolkit",ch:"Creative & Design",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Alvarez, Luis",type:"Creative",doneDate:"May 5, 2026"},
+    {key:"MKT-12093",title:"Review & Finalize Copy – Pave June 2026",ch:"Paid Media",bu:"Pave",label:"Pave-MKT",owner:"Hendley, Michelle",type:"Ad Copy",doneDate:"Jun 14, 2026"},
+    {key:"MKT-12092",title:"Draft Ad & Supporting Post Copy – Pave June 2026",ch:"Paid Media",bu:"Pave",label:"Pave-MKT",owner:"McPhee, Stephanie",type:"Ad Copy",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11858",title:"June Pave Ad Refresh",ch:"Paid Media",bu:"Pave",label:"Pave-MKT",owner:"McPhee, Stephanie",type:"Paid Ad",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11931",title:"[Pave] Paid Media – Always-On – Q2 2026",ch:"Paid Media",bu:"Pave",label:"Pave-MKT",owner:"McPhee, Stephanie",type:"Campaign",doneDate:"Jun 3, 2026"},
+    {key:"MKT-11851",title:"Paid Persona AD Creative",ch:"Paid Media",bu:"Pave",label:"Pave-MKT",owner:"Martins, Raul",type:"Paid Ad",doneDate:"May 28, 2026"},
+    {key:"MKT-11623",title:"Empower: Remaining Social – Sponsor & Promo Graphics",ch:"Social Media",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Liu, Jenny",type:"Social",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11306",title:"Social Assets and Banners for Empower26",ch:"Social Media",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Rich, Sarah",type:"Social",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11921",title:"LinkedIn / Social Posts — AI Label Scanner",ch:"Social Media",bu:"FastField",label:"FF-MKT",owner:"Rich, Sarah",type:"Social",doneDate:"Jun 5, 2026"},
+    {key:"MKT-11307",title:"Empower26 Agenda Now Live Social Graphic",ch:"Social Media",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Alvarez, Luis",type:"Social",doneDate:"Apr 6, 2026"},
+    {key:"MKT-10701",title:"Community Blog Post – Content & Social (Vibe Post Launch)",ch:"Community",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Simon, Ben",type:"Community Post",doneDate:"Apr 29, 2026"},
+    {key:"MKT-10645",title:"Community Post for Early Bird Extension – Empower 2026",ch:"Community",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Simon, Ben",type:"Community Post",doneDate:"Feb 2, 2026"},
+    {key:"MKT-10500",title:"Community Blog Post – Leadership AMA Webinar",ch:"Community",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Simon, Ben",type:"Community Post",doneDate:"Jan 22, 2026"},
+    {key:"MKT-10129",title:"Community Post – Dec 2025 UX Refresh",ch:"Community",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Cafferelli, Brian",type:"Community Post",doneDate:"Dec 15, 2025"},
+    {key:"MKT-11211",title:"IESNA2026: Seller/SDR Event Enablement Deck",ch:"Webinars & Events",bu:"FastField",label:"FF-MKT",owner:"McPhee, Stephanie",type:"Enablement",doneDate:"Jun 14, 2026"},
+    {key:"MKT-11286",title:"AEP2026: Create Onsite Slack Channel",ch:"Webinars & Events",bu:"FastField",label:"FF-MKT",owner:"Gutierrez, Susana",type:"Event Ops",doneDate:"Jun 12, 2026"},
+    {key:"MKT-12247",title:"AEP2026: Speaking Session",ch:"Webinars & Events",bu:"FastField",label:"FF-MKT",owner:"Waldron, Tory",type:"Event",doneDate:"Jun 12, 2026"},
+    {key:"MKT-12193",title:"Content / Slide Deck – QB Extensions Webinar",ch:"Webinars & Events",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Kleiner, Charlie",type:"Webinar",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11419",title:"Weekly Media Scan",ch:"PR & Exec Comms",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Waldron, Tory",type:"PR",doneDate:"May 12, 2026"},
+    {key:"MKT-11669",title:"PMM Positioning & Messaging – Grid Reports",ch:"Launches & GTM",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Decker, Michael",type:"PMM",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11670",title:"PMM Content – Grid Reports",ch:"Launches & GTM",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Decker, Michael",type:"PMM",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11671",title:"PMM Internal Comms – Grid Reports",ch:"Launches & GTM",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Decker, Michael",type:"PMM",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11672",title:"Enablement – Grid Reports",ch:"Launches & GTM",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Decker, Michael",type:"Enablement",doneDate:"Jun 12, 2026"},
+    {key:"MKT-11523",title:"[FF] Launch T1 – Asset & Team Tracker",ch:"Launches & GTM",bu:"FastField",label:"FF-MKT",owner:"Saeed, Hira",type:"Launch",doneDate:"Jun 10, 2026"},
+    {key:"MKT-12264",title:"Segment Build – Intel Pack High Fit Accounts",ch:"Launches & GTM",bu:"Core (QB)",label:"QB-Core-MKT",owner:"Lynch, Emma",type:"DG",doneDate:"Jun 15, 2026"},
+    {key:"MKT-11878",title:"Define approach: training Claude on all three BUs",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Bogdanov, Iliyan",type:"AI/Systems",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11871",title:"Document workflow & go live with Digital Team",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Bogdanov, Iliyan",type:"AI/Systems",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11870",title:"Pilot: blog post & landing page through Claude workflow",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Bogdanov, Iliyan",type:"AI/Systems",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11869",title:"Build Claude models: Blog & Landing Page system prompts",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Bogdanov, Iliyan",type:"AI/Systems",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11893",title:"Build target account list & waterfall logic – PiperX",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Caufield, Karen",type:"MarTech",doneDate:"Jun 11, 2026"},
+    {key:"MKT-11891",title:"Review & refresh PDFs, snippets, inbox for PiperX",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Lynch, Emma",type:"MarTech",doneDate:"Jun 11, 2026"},
+  ],
 };
 
-/* ============================================================
+/* ══════════════════════════════════════════════════════
    HELPERS
-============================================================ */
-function badge(status) {
-  const c = STATUS_CFG[status] || STATUS_CFG["on-track"];
-  return `<span class="badge ${c.cls}"><span class="badge-dot"></span>${c.label}</span>`;
+══════════════════════════════════════════════════════ */
+const SC = {
+  "on-track":{cls:"b-on",label:"On Track"},
+  "at-risk":{cls:"b-rk",label:"At Risk"},
+  "off-track":{cls:"b-off",label:"Off Track"},
+};
+const CH_COLORS = {
+  "Content & SEO":"#0066D6","Email & Lifecycle":"#14A558","Creative & Design":"#DB2777",
+  "Web / Digital":"#6366F1","Paid Media":"#7C3AED","Social Media":"#0891B2",
+  "Community":"#D97706","Webinars & Events":"#F59E0B","PR & Exec Comms":"#059669",
+  "Launches & GTM":"#E53935","Systems & AI":"#002855"
+};
+const BU_COLORS = {"FastField":"#0066D6","Pave":"#7C3AED","Core (QB)":"#14A558","Cross-BU":"#0891B2"};
+const LABEL_COLORS = {"FF-MKT":"#0066D6","Pave-MKT":"#7C3AED","QB-Core-MKT":"#14A558","CrossBU-MKT":"#0891B2"};
+const TYPE_CLS = {
+  "Blog/SEO":"t-b","Blog":"t-b","Guide":"t-b","Glossary":"t-b","Content":"t-b",
+  "Email":"t-g","Nurture":"t-g","Paid Ad":"t-p","Ad Copy":"t-p","Campaign":"t-p",
+  "Creative":"t-p","Web":"t-p","Social":"t-a","Community Post":"t-a",
+  "Enablement":"t-n","Event Ops":"t-n","Event":"t-n","Webinar":"t-n",
+  "PMM":"t-n","DG":"t-n","Launch":"t-r","AI/Systems":"t-n","MarTech":"t-n",
+  "Program":"t-b","Epic":"t-b","Task":"t-n"
+};
+const STATUS_DOT = {
+  "in-progress":["var(--green)","In Progress"],
+  "blocked":["var(--red)","Blocked"],
+  "done":["var(--g300)","Done"],
+  "intake":["var(--g300)","Intake"],
+  "cancelled":["var(--g200)","Cancelled"],
+};
+const PRIO_CLS = {"P1":"prio-p1","P2":"prio-p2","P3":"prio-p3"};
+
+function badge(s){const c=SC[s]||SC["on-track"];return `<span class="badge ${c.cls}"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block"></span>${c.label}</span>`;}
+function typeTag(t){return `<span class="tag ${TYPE_CLS[t]||'t-n'}">${t}</span>`;}
+function buTag(bu){const col=BU_COLORS[bu]||"#64748B";return `<span class="tag" style="background:${col}22;color:${col}">${bu}</span>`;}
+function labelChip(lbl){const col=LABEL_COLORS[lbl]||"#64748B";return `<span class="del-lbl" style="background:${col}15;color:${col}">${lbl}</span>`;}
+function statusPill(s){const[col,txt]=STATUS_DOT[s]||["var(--g300)","Unknown"];return `<span class="status-pill"><span class="sdot" style="background:${col}"></span>${txt}</span>`;}
+function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}">${p}</span>`;}
+
+/* ══════════════════════════════════════════════════════
+   TAB
+══════════════════════════════════════════════════════ */
+let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All';
+
+function go(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(btn)btn.classList.add('on');
+  if(id==='brief'        && !document.querySelector('#brief .kpi-strip'))        renderBriefing();
+  if(id==='programs'     && !document.querySelector('#programs .prog-sp-group')) renderPrograms();
+  if(id==='deliverables' && !document.querySelector('#deliverables .del-table')) renderDeliverables();
+  if(id==='analytics'    && !document.querySelector('#analytics .an-card'))       renderAnalytics();
 }
 
-function prog(pct, status) {
-  const c = STATUS_CFG[status]?.pFill || "var(--accent)";
-  return `<div class="prog-wrap">
-    <div class="prog-labels"><span>Progress</span><span>${pct}%</span></div>
-    <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${c}"></div></div>
-  </div>`;
-}
+/* ══════════════════════════════════════════════════════
+   TAB 1 — EXECUTIVE BRIEFING
+══════════════════════════════════════════════════════ */
+function renderBriefing(){
+  const inits = DATA.initiatives;
+  const totalDone    = inits.reduce((s,i)=>s+i.done,0);
+  const totalFlight  = inits.reduce((s,i)=>s+i.flight,0);
+  const totalBlocked = inits.reduce((s,i)=>s+i.blocked,0);
+  const onTrack      = inits.filter(i=>i.status==='on-track').length;
 
-function statusChip(status) {
-  const c = STATUS_CFG[status];
-  if (!c) return "";
-  return `<span class="prog-status" style="background:${c.fill}18;color:${c.fill}">${c.label}</span>`;
-}
-
-/* ============================================================
-   TAB SWITCH
-============================================================ */
-function switchTab(idx) {
-  document.querySelectorAll(".tab").forEach((t,i)   => t.classList.toggle("active", i===idx));
-  document.querySelectorAll(".panel").forEach((p,i) => p.classList.toggle("active", i===idx));
-}
-
-/* ============================================================
-   RENDER: HEADER
-============================================================ */
-function renderHeader() {
-  const d = DATA;
-  const dotColor = d.health==="on-track" ? "#10B981" : d.health==="at-risk" ? "#F59E0B" : "#EF4444";
-  document.getElementById("hDot").style.background = dotColor;
-  document.getElementById("hSubtitle").textContent  = `H2 2026 · Week of ${d.weekOf}`;
-  document.getElementById("hStatus").innerHTML =
-    `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${dotColor}"></span>
-     ${d.health==="on-track" ? "On Track" : d.health==="at-risk" ? "At Risk" : "Blocked"}`;
-  document.getElementById("hUpdated").textContent = `Updated ${d.generatedAt}`;
-  document.getElementById("footL").textContent    = `QB Marketing · H2 2026 · Week of ${d.weekOf}`;
-}
-
-/* ============================================================
-   RENDER: PROGRAM HEALTH (Tab 0)
-============================================================ */
-function renderHealth() {
-  const s = DATA.summary;
-  const overallPct = Math.round(s.epicsDone / s.epicsTotal * 100);
-
-  document.getElementById("p0").innerHTML = `
-    <!-- KPI ROW -->
-    <div class="metrics-row">
-      <div class="metric-card">
-        <div class="metric-number">${s.initiatives}</div>
-        <div class="metric-sub">Strategic Initiatives</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-number">${s.programs}</div>
-        <div class="metric-sub">Linked Programs</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-number">${s.epicsDone}<span style="font-size:18px;color:var(--text-3);font-weight:500">/${s.epicsTotal}</span></div>
-        <div class="metric-sub">Epics Complete</div>
-        <div class="metric-delta">${overallPct}% overall</div>
-      </div>
-      <div class="metric-card featured">
-        <div class="metric-number">${s.weeklyCompleted}</div>
-        <div class="metric-sub">Completed This Week</div>
-      </div>
-    </div>
-
-    <!-- INITIATIVES -->
-    <div class="section-head">
-      <div>
-        <div class="section-title">H2 2026 Strategic Initiatives</div>
-        <div class="section-desc">Aly's H2 goals — each linked to all relevant quarterly programs via "Relates to"</div>
-      </div>
-    </div>
-
-    <div class="init-grid">
-      ${DATA.initiatives.map(i => `
-        <div class="init-card ${i.status}">
-          <div class="init-top">
-            <div>
-              <div class="init-title">
-                <a href="${JIRA}${i.key}" target="_blank">${i.title}</a>
-              </div>
-              <div class="init-key">${i.key} · ${i.programs} program${i.programs!==1?"s":""} linked</div>
-            </div>
-            ${badge(i.status)}
-          </div>
-          <div class="init-meta">
-            <div class="meta-pill">👤 ${i.owner}</div>
-            <div class="meta-pill">📋 ${i.total} epics</div>
-          </div>
-          ${prog(i.pct, i.status)}
-          <div class="epic-row">
-            <div class="epic-chip"><span class="epic-dot" style="background:var(--green)"></span>${i.done} done</div>
-            <div class="epic-chip"><span class="epic-dot" style="background:var(--accent)"></span>${i.flight} in flight</div>
-            ${i.blocked > 0 ? `<div class="epic-chip"><span class="epic-dot" style="background:var(--red)"></span>${i.blocked} blocked</div>` : ""}
-          </div>
-          ${i.note ? `<div class="init-note">${i.note}</div>` : ""}
-        </div>
-      `).join("")}
-    </div>
-
-    <!-- QUARTERS -->
-    <div class="section-head">
-      <div>
-        <div class="section-title">Quarter Health</div>
-        <div class="section-desc">Program completion across Q2 · Q3 · Q4 2026</div>
-      </div>
-    </div>
-
-    <div class="q-grid">
-      ${DATA.quarters.map(q => `
-        <div class="q-card">
-          <div class="q-top">
-            <div class="q-name">${q.name} 2026</div>
-            <div class="phase-chip phase-${q.phase}">${
-              q.phase==="active"   ? "● Active"   :
-              q.phase==="planning" ? "◆ Planning" : "○ Early"
-            }</div>
-          </div>
-          ${prog(q.pct, q.phase==="active" ? "on-track" : "on-track")}
-          <div class="q-stats">
-            <div class="q-stat">
-              <div class="q-stat-num" style="color:var(--green)">${q.done}</div>
-              <div class="q-stat-label">Done</div>
-            </div>
-            <div class="q-stat">
-              <div class="q-stat-num" style="color:var(--accent)">${q.flight}</div>
-              <div class="q-stat-label">In Flight</div>
-            </div>
-            <div class="q-stat">
-              <div class="q-stat-num" style="color:${q.blocked>0?"var(--red)":"var(--text-3)"}">${q.blocked}</div>
-              <div class="q-stat-label">Blocked</div>
-            </div>
-          </div>
-        </div>
-      `).join("")}
-    </div>
-
-    <!-- SPOTLIGHT -->
-    <div class="section-head">
-      <div>
-        <div class="section-title">Spotlight</div>
-        <div class="section-desc">Week of ${DATA.weekOf}</div>
-      </div>
-    </div>
-
-    <div class="spotlight-grid">
-      <div class="spot-card">
-        <div class="spot-head" style="color:var(--green)">🏆 Wins This Week</div>
-        <ul class="spot-list">
-          ${DATA.spotlight.wins.map(w=>`
-            <li class="spot-item"><span class="spot-icon">✓</span>${w}</li>
-          `).join("")}
-        </ul>
-      </div>
-      <div class="spot-card">
-        <div class="spot-head" style="color:var(--accent)">📅 Coming Up</div>
-        <ul class="spot-list">
-          ${DATA.spotlight.upcoming.map(u=>`
-            <li class="spot-item"><span class="spot-icon">→</span>${u}</li>
-          `).join("")}
-        </ul>
-      </div>
-      <div class="spot-card">
-        <div class="spot-head" style="color:var(--amber)">⚠️ Watch List</div>
-        <ul class="spot-list">
-          ${DATA.spotlight.watchlist.map(w=>`
-            <li class="spot-item"><span class="spot-icon">!</span>${w}</li>
-          `).join("")}
-        </ul>
-      </div>
-    </div>
-  `;
-}
-
-/* ============================================================
-   RENDER: OUTPUT TRACKER (Tab 1)
-============================================================ */
-function renderOutput() {
-  const channels = DATA.output;
-  const totalDone   = channels.reduce((s,c)=>s+c.done,   0);
-  const totalTarget = channels.reduce((s,c)=>s+c.target, 0);
-  const overallPct  = Math.round(totalDone / totalTarget * 100);
-
-  const BU_MAX = channels.reduce((acc, c) => ({
-    FF:   Math.max(acc.FF,   c.FF),
-    Pave: Math.max(acc.Pave, c.Pave),
-    Core: Math.max(acc.Core, c.Core)
-  }), {FF:0,Pave:0,Core:0});
-  const BU_SCALE = 90; /* px for 100% */
-
-  document.getElementById("p1").innerHTML = `
-    <div class="metrics-row">
-      <div class="metric-card">
-        <div class="metric-number">${totalDone}</div>
-        <div class="metric-sub">Total Published (YTD Q2)</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-number">${overallPct}%</div>
-        <div class="metric-sub">Of Quarter Target</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-number">${channels.length}</div>
-        <div class="metric-sub">Active Channels</div>
-      </div>
-      <div class="metric-card featured">
-        <div class="metric-number">${totalTarget - totalDone}</div>
-        <div class="metric-sub">Remaining to Target</div>
-      </div>
-    </div>
-
-    <div class="section-head">
-      <div>
-        <div class="section-title">Output by Channel</div>
-        <div class="section-desc">Tasks in Done status vs. Q2 target — pulled from Jira</div>
-      </div>
-    </div>
-
-    <div class="ch-table">
-      <div class="ch-thead">
-        <div>Channel</div>
-        <div>Progress</div>
-        <div style="text-align:right">Done</div>
-        <div style="text-align:right">Target</div>
-        <div style="text-align:right">%</div>
-      </div>
-      ${channels.map(c => {
-        const pct = Math.round(c.done / c.target * 100);
-        const color = pct >= 80 ? "var(--green)" : pct >= 50 ? "var(--accent)" : "var(--amber)";
-        return `
-          <div class="ch-row">
-            <div class="ch-name"><span class="ch-icon">${c.icon}</span>${c.name}</div>
-            <div>
-              <div class="ch-bar-track">
-                <div class="ch-bar-fill" style="width:${pct}%;background:${color}"></div>
-              </div>
-            </div>
-            <div class="ch-num">${c.done}</div>
-            <div class="ch-total">${c.target}</div>
-            <div class="ch-pct" style="color:${color}">${pct}%</div>
+  const initCards = inits.map(ini=>{
+    const delt = ini.delta>0
+      ? `<span class="sp-pdelta-up">↑ +${ini.delta}%</span>`
+      : ini.delta<0 ? `<span class="sp-pdelta-dn">↓ ${ini.delta}%</span>`
+      : `<span class="sp-pdelta-flat">→</span>`;
+    const goals = (ini.goals||[]).map((g,gi)=>`
+      <div class="sp-goal">
+        <div class="sp-gnum" style="background:${ini.color}">${gi+1}</div>
+        <span>${g}</span>
+      </div>`).join('');
+    const p1s = ini.p1progs&&ini.p1progs.length ? `
+      <div class="sp-p1s">
+        <div class="sp-p1-lbl"><span style="width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block"></span>P1 Priority Programs</div>
+        ${ini.p1progs.slice(0,3).map(p=>{
+          const[dotCol]=STATUS_DOT[p.status]||["var(--g300)",""];
+          return `<div class="sp-p1-item">
+            <span style="width:7px;height:7px;border-radius:50%;background:${dotCol};flex-shrink:0;margin-top:2px"></span>
+            <a href="${JIRA}${p.key}" target="_blank" class="sp-p1-key">${p.key}</a>
+            <span>${p.title}</span>
           </div>`;
-      }).join("")}
-    </div>
+        }).join('')}
+        ${ini.p1progs.length>3?`<div class="sp-p1-more">+${ini.p1progs.length-3} more · <a href="${JIRA}${ini.key}" target="_blank">view all in Jira</a></div>`:''}
+      </div>` : '';
+    return `
+    <div class="sp-card" style="border-top-color:${ini.color}">
+      <div class="sp-head">
+        <div class="sp-top-row">
+          <a href="${JIRA}${ini.key}" target="_blank" class="sp-key-link">${ini.key}</a>
+          ${badge(ini.status)}
+        </div>
+        <div class="sp-title">${ini.title}</div>
+        ${ini.sub?`<div class="sp-sub">${ini.sub}</div>`:''}
+        <div class="sp-owner${ini.owner?'':' vacant'}">${ini.owner?`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg> ${ini.owner}`:'Owner role in hiring'}</div>
+      </div>
+      <div class="sp-progress">
+        <div class="sp-prow">
+          <span class="sp-pct" style="color:${ini.color}">${ini.pct}%</span>
+          ${delt}
+          <span class="sp-items-count">${ini.done} / ${ini.total} tasks done</span>
+        </div>
+        <div class="sp-bar"><div class="sp-fill" style="width:${ini.pct}%;background:${ini.color}"></div></div>
+        <div class="sp-bar-lbl">Jira tasks + epics marked Done · updated weekly</div>
+      </div>
+      <div class="sp-goals">
+        <div class="sp-goals-lbl">H2 2026 Strategic Goals</div>
+        ${goals}
+      </div>
+      ${p1s}
+      ${ini.note?`<div class="sp-note"><span>⚠</span><span>${ini.note}</span></div>`:''}
+      <div class="sp-foot">
+        <div class="sp-fstat"><div class="sp-fsn" style="color:var(--green)">${ini.done}</div><span class="sp-fsl">Done</span></div>
+        <div class="sp-fstat"><div class="sp-fsn" style="color:var(--blue)">${ini.flight||'—'}</div><span class="sp-fsl">Active</span></div>
+        <div class="sp-fstat"><div class="sp-fsn" style="color:${ini.blocked>0?'var(--red)':'var(--g300)'}">${ini.blocked>0?ini.blocked:'—'}</div><span class="sp-fsl">Blocked</span></div>
+        <div class="sp-fstat"><div class="sp-fsn" style="color:var(--g600)">${ini.total}</div><span class="sp-fsl">Total</span></div>
+      </div>
+    </div>`;
+  }).join('');
 
-    <div class="section-head">
-      <div>
-        <div class="section-title">Output by BU</div>
-        <div class="section-desc">FastField · Pave · Core breakdown per channel</div>
+  document.getElementById('brief').innerHTML=`
+    <div class="kpi-strip">
+      <div class="kpi-cell">
+        <div class="kpi-n" style="color:var(--green)">${DATA.shipped.length}</div>
+        <div class="kpi-l">Shipped Q2</div>
+        <div class="kpi-sub">↑ +8 this week</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-n" style="color:var(--blue)">${totalFlight}</div>
+        <div class="kpi-l">In Flight</div>
+        <div class="kpi-sub">across 9 programs</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-n" style="color:${totalBlocked>0?'var(--red)':'var(--green)'}">${totalBlocked}</div>
+        <div class="kpi-l">Blocked</div>
+        <div class="kpi-sub">${totalBlocked>0?'needs resolution':'all clear'}</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-n" style="color:var(--navy)">${onTrack}/${inits.length}</div>
+        <div class="kpi-l">On Track</div>
+        <div class="kpi-sub">strategic projects</div>
+      </div>
+      <div class="kpi-cell">
+        <div class="kpi-n" style="color:var(--orange)">${DAYS_TO_H2}</div>
+        <div class="kpi-l">Days to H2</div>
+        <div class="kpi-sub">H2 starts Jul 1</div>
       </div>
     </div>
 
-    <div class="bu-table">
-      <div class="bu-table-head">
-        <div class="section-title" style="font-size:13px">Channel × BU</div>
-        <div class="bu-legend">
-          <div class="bu-leg-item"><div class="bu-leg-dot" style="background:var(--ff)"></div>FastField</div>
-          <div class="bu-leg-item"><div class="bu-leg-dot" style="background:var(--pave)"></div>Pave</div>
-          <div class="bu-leg-item"><div class="bu-leg-dot" style="background:var(--core)"></div>Core</div>
-        </div>
+    <div class="tl-card">
+      <!-- Row 1: Q2 -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:11px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px">Q2 Progress</span>
+        <span style="font-size:12px;font-weight:700;color:var(--g600)">Week ${DATA.weekInQ2}/${DATA.weeksInQ2} · closes Jun 30</span>
       </div>
-      ${channels.map(c => `
-        <div class="bu-row">
-          <div class="bu-col-label"><span>${c.icon}</span>${c.name}</div>
-          ${["FF","Pave","Core"].map((bu,bi) => {
-            const val = c[bu];
-            const maxV = BU_MAX[bu] || 1;
-            const w = Math.round((val / maxV) * BU_SCALE);
-            const col = bi===0?"var(--ff)":bi===1?"var(--pave)":"var(--core)";
-            return `<div class="bu-bar-wrap">
-              <div class="bu-bar-item">
-                <div class="bu-mini-bar" style="width:${Math.max(w,4)}px;background:${col}"></div>
-                <div class="bu-mini-label" style="color:${col};font-weight:600">${val}</div>
-              </div>
-            </div>`;
-          }).join("")}
-        </div>
-      `).join("")}
+      <div style="position:relative;height:10px;background:var(--g100);border-radius:5px;overflow:visible;margin-bottom:5px">
+        <div style="position:absolute;left:0;height:100%;width:${Q2_PCT}%;background:linear-gradient(90deg,var(--green),#22c55e);border-radius:5px"></div>
+        <div style="position:absolute;left:${Q2_PCT}%;top:-5px;width:20px;height:20px;background:var(--orange);border:3px solid #fff;border-radius:50%;transform:translateX(-50%);box-shadow:0 0 0 3px rgba(255,104,32,.2);z-index:2" title="Today: Jun 17"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--g400);font-weight:600;margin-bottom:18px">
+        <span>Apr 1</span>
+        <span style="color:var(--green);font-weight:800">${Q2_PCT}% complete</span>
+        <span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;background:var(--orange);border-radius:50%;display:inline-block"></span>Jun 17 — Today</span>
+        <span>Jun 30</span>
+      </div>
+
+      <!-- Divider -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div style="flex:1;height:1px;background:var(--g200)"></div>
+        <span style="font-size:10px;font-weight:800;color:var(--orange);background:rgba(255,104,32,.1);padding:3px 12px;border-radius:20px;white-space:nowrap">H2 starts in ${DAYS_TO_H2} days — Jul 1</span>
+        <div style="flex:1;height:1px;background:var(--g200)"></div>
+      </div>
+
+      <!-- Row 2: H2 -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:11px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px">H2 2026</span>
+        <span style="font-size:12px;font-weight:700;color:var(--g400)">Jul 1 – Dec 31 · not started</span>
+      </div>
+      <div style="position:relative;height:10px;background:var(--g100);border-radius:5px;overflow:hidden;margin-bottom:5px">
+        <div style="position:absolute;left:0;height:100%;width:50%;background:var(--blue);opacity:.22;border-radius:5px 0 0 5px"></div>
+        <div style="position:absolute;left:50%;height:100%;width:50%;background:var(--purple);opacity:.18;border-radius:0 5px 5px 0"></div>
+      </div>
+      <div style="display:flex;font-size:10px;color:var(--g400);font-weight:600;margin-top:4px">
+        <div style="flex:1;text-align:center">Q3 (Jul–Sep)</div>
+        <div style="flex:1;text-align:center">Q4 (Oct–Dec)</div>
+      </div>
     </div>
-  `;
+
+    <div class="sec-hd">
+      <h2>H2 2026 Strategic Projects</h2>
+      <p>${jl('MKT-12568','MKT-12568')}–${jl('MKT-12574','12574')} · priorities set Jun 17</p>
+    </div>
+    <div class="sp-grid">${initCards}</div>`;
 }
 
-/* ============================================================
-   RENDER: ROADMAP (Tab 2)
-============================================================ */
-function renderRoadmap() {
-  const qColors = { "q2-col":"rgba(37,99,235,.03)", "q3-col":"rgba(5,150,105,.03)", "q4-col":"rgba(234,88,12,.03)" };
+/* ══════════════════════════════════════════════════════
+   TAB 2 — PROGRAMS
+══════════════════════════════════════════════════════ */
+function renderPrograms(){
+  const spBtns = ['All',...DATA.initiatives.map(i=>i.key)].map(k=>{
+    const ini = DATA.initiatives.find(i=>i.key===k);
+    const lbl = ini ? ini.title.split('—')[0].trim().replace('Corporate Communications','Corp Comms').replace('Marketing Systems & AI','Systems & AI').replace('Program Management','PM') : 'All';
+    return `<button class="pf-btn${ofSP===k?' on':''}" onclick="setProgFilter('sp','${k}')">${lbl}</button>`;
+  }).join('');
+  const prioBtns = ['All','P1','P2','P3'].map(p=>`<button class="pf-btn${ofPrio===p?' on':''}" onclick="setProgFilter('prio','${p}')">${p==='All'?'All Priorities':p}</button>`).join('');
 
-  function cellCls(i) {
-    return i===NOW_IDX ? "now-col" : Q_CLASS[i];
-  }
+  const spKeys = DATA.initiatives.map(i=>i.key).filter(k=>ofSP==='All'||k===ofSP);
+  const groups = spKeys.map(spKey=>{
+    const ini = DATA.initiatives.find(i=>i.key===spKey);
+    const progs = DATA.programs.filter(p=>p.sp===spKey&&(ofPrio==='All'||p.priority===ofPrio));
+    if(!progs.length) return '';
+    const rows = progs.map(p=>{
+      const [dotCol]=STATUS_DOT[p.status]||["var(--g300)",""];
+      return `<tr class="prog-row" onclick="window.open('${JIRA}${p.key}','_blank')">
+        <td class="prog-title-cell" style="border-left-color:${ini.color}">
+          <a href="${JIRA}${p.key}" target="_blank" onclick="event.stopPropagation()">${p.title}</a>
+          <span class="prog-key-sub">${p.key}</span>
+        </td>
+        <td>${prioBadge(p.priority)}</td>
+        <td><span class="status-pill"><span class="sdot" style="background:${dotCol}"></span>${(STATUS_DOT[p.status]||["","Unknown"])[1]}</span></td>
+        <td style="font-size:12px;color:var(--g600)">${p.owner||'<em style="color:var(--g400)">Unassigned</em>'}</td>
+      </tr>`;
+    }).join('');
+    return `
+    <div class="prog-sp-group" style="border-top-color:${ini.color}">
+      <div class="prog-sp-hd">
+        <a href="${JIRA}${ini.key}" target="_blank" class="prog-sp-key">${ini.key}</a>
+        <span class="prog-sp-title">${ini.title}</span>
+        <span class="prog-sp-sub">— ${ini.sub||''}</span>
+        <span style="margin-left:auto">${badge(ini.status)}</span>
+      </div>
+      <table class="prog-table">
+        <thead><tr>
+          <th class="prog-th">Program / Epic</th>
+          <th class="prog-th">Priority</th>
+          <th class="prog-th">Status</th>
+          <th class="prog-th">Owner</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }).join('');
 
-  let html = `
-    <div class="section-head" style="margin-top:0">
-      <div>
-        <div class="section-title">Program Roadmap — April → December 2026</div>
-        <div class="section-desc">All programs across Q2 · Q3 · Q4, grouped by BU · <span style="font-weight:700;color:var(--accent)">◀ = current month</span></div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
-        ${Object.entries(TYPE_COLOR).map(([t,c])=>`
-          <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2)">
-            <div style="width:20px;height:7px;border-radius:3px;background:${c}"></div>
-            ${t.charAt(0).toUpperCase()+t.slice(1)}
-          </div>`).join("")}
-      </div>
+  document.getElementById('programs').innerHTML=`
+    <div class="sec-hd">
+      <h2>Programs</h2>
+      <p>Epics by Strategic Project · click any row to open in Jira</p>
     </div>
+    <div class="prog-filters">
+      <span class="prog-filter-lbl">Project:</span>${spBtns}
+    </div>
+    <div class="prog-filters" style="margin-top:-10px">
+      <span class="prog-filter-lbl">Priority:</span>${prioBtns}
+    </div>
+    ${groups||`<div style="padding:40px;text-align:center;color:var(--g400)">No programs match the current filter</div>`}`;
+}
 
-    <div class="roadmap-outer">
-      <div class="roadmap-inner">
+function setProgFilter(w,v){
+  if(w==='sp')ofSP=v; else ofPrio=v;
+  document.getElementById('programs').innerHTML='';
+  renderPrograms();
+}
 
-        <!-- Quarter label row -->
-        <div class="rm-q-row">
-          <div class="rm-q-spacer"></div>
-          <div class="rm-q-cell" style="color:var(--accent)">Q2 2026</div>
-          <div class="rm-q-cell" style="color:var(--green)">Q3 2026</div>
-          <div class="rm-q-cell" style="color:var(--core)">Q4 2026</div>
-        </div>
+/* ══════════════════════════════════════════════════════
+   TAB 3 — DELIVERABLES
+══════════════════════════════════════════════════════ */
+function renderDeliverables(){
+  const buOpts=['All','FastField','Pave','Core (QB)','Cross-BU'];
+  const lblOpts=['All','FF-MKT','Pave-MKT','QB-Core-MKT','CrossBU-MKT'];
+  const items = DATA.shipped.filter(i=>
+    (ofBU==='All'||i.bu===ofBU) &&
+    (ofCh==='All'||i.ch===ofCh) &&
+    (ofLbl==='All'||i.label===ofLbl));
 
-        <!-- Month header row -->
-        <div class="rm-head-row">
-          <div class="rm-label-cell">Program</div>
-          ${MONTHS.map((m,i)=>`
-            <div class="rm-month ${cellCls(i)}">${m}${i===NOW_IDX?" ◀":""}</div>
-          `).join("")}
-        </div>
-  `;
+  window._chNames = DATA.channels.map(c=>c.ch);
+  const chCards = DATA.channels.map((ch,ci)=>{
+    const col=ch.color||'#0066D6', isActive=ofCh===ch.ch;
+    return `<div class="dch-card${isActive?' dch-active':''}" style="${isActive?`border-color:${col};background:${col}12`:''}" onclick="pickCh(${ci})">
+      <span class="dch-chdot" style="background:${col}"></span>
+      <span class="dch-ch-name" style="${isActive?`color:${col}`:''}">${ch.ch}</span>
+      <span class="dch-vsep"></span>
+      <span class="dch-num" style="color:${col}">${ch.done}</span>
+      <span class="dch-inf">${ch.flight} active</span>
+      ${ch.blocked>0?`<span class="dch-blk-badge">⚠ ${ch.blocked}</span>`:''}
+    </div>`;
+  }).join('');
 
-  DATA.roadmap.forEach(group => {
-    const col = BU_COLOR[group.key];
-    html += `
-      <!-- BU header -->
-      <div class="rm-bu-row">
-        <div class="rm-bu-label" style="color:${col}">
-          <div style="width:10px;height:10px;border-radius:2px;background:${col};flex-shrink:0"></div>
-          ${group.bu}
-        </div>
-        ${MONTHS.map((_,i)=>`<div class="rm-bu-cell ${cellCls(i)}"></div>`).join("")}
-      </div>`;
+  const buBtns = buOpts.map(b=>`<button class="fb${ofBU===b?' on':''}" onclick="setOF('bu','${b}')">${b}</button>`).join('');
+  const lblBtns = lblOpts.map(l=>`<button class="lbl-chip${ofLbl===l?' on':''}" onclick="setOF('lbl','${l}')">${l}</button>`).join('');
+  const clears=[];
+  if(ofCh!=='All') clears.push(`<button class="del-clear" onclick="setOF('ch','All')">✕ ${ofCh}</button>`);
+  if(ofLbl!=='All') clears.push(`<button class="del-clear" onclick="setOF('lbl','All')">✕ ${ofLbl}</button>`);
 
-    group.rows.forEach(row => {
-      html += `<div class="rm-prog-row">
-        <div class="rm-prog-label" title="${row.label}">${row.label}</div>`;
+  const rows = items.length ? items.map(i=>{
+    const col=CH_COLORS[i.ch]||'#94A3B8';
+    return `<tr class="del-row" onclick="window.open('${JIRA}${i.key}','_blank')">
+      <td class="del-ttl" style="border-left-color:${col}">
+        <a href="${JIRA}${i.key}" target="_blank" onclick="event.stopPropagation()">${i.title}</a>
+        <span class="del-key">${i.key}</span>
+      </td>
+      <td>${typeTag(i.type)}</td>
+      <td><span class="del-ch-pill" style="background:${col}18;color:${col}"><span class="del-dot" style="background:${col}"></span>${i.ch}</span></td>
+      <td>${buTag(i.bu)}</td>
+      <td>${labelChip(i.label)}</td>
+      <td class="del-date">${i.doneDate||'—'}</td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="6" class="del-empty">No items match the current filter</td></tr>`;
 
-      let i = 0;
-      while (i < 9) {
-        const cls = cellCls(i);
-        if (i === row.s) {
-          /* bar starts here — span to row.e */
-          const span = row.e - row.s + 1;
-          const barColor = TYPE_COLOR[row.type] || "#6B7280";
-          html += `<div class="rm-cell ${cls}" style="grid-column:span ${span}">
-            <div class="rm-bar" style="background:${barColor}">${span > 2 ? row.label : ""}</div>
-          </div>`;
-          i += span;
-        } else if (i < row.s || i > row.e) {
-          html += `<div class="rm-cell ${cls}"></div>`;
-          i++;
-        } else {
-          i++; /* inside span, skip */
-        }
-      }
+  document.getElementById('deliverables').innerHTML=`
+    <div class="sec-hd">
+      <h2>Deliverables</h2>
+      <p>${DATA.shipped.length} shipped Q2 2026 · click a channel to filter</p>
+    </div>
+    <div class="dch-grid">${chCards}</div>
+    <div class="del-toolbar">
+      <span class="fl">BU:</span>${buBtns}
+      ${clears.join('')}
+      <span class="del-count">${items.length} item${items.length!==1?'s':''}</span>
+    </div>
+    <div class="del-label-bar">
+      <span class="fl">Label:</span>${lblBtns}
+    </div>
+    <div class="del-table">
+      <div class="del-table-hd">
+        <h3>Shipped Q2 2026</h3>
+        <p>${items.length} items · click any row to open in Jira</p>
+      </div>
+      <table>
+        <thead><tr>
+          <th class="del-th">Deliverable</th>
+          <th class="del-th">Type</th>
+          <th class="del-th">Channel</th>
+          <th class="del-th">BU</th>
+          <th class="del-th">Label</th>
+          <th class="del-th">Done Date</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
 
-      html += `</div>`;
-    });
+function setOF(w,v){
+  if(w==='bu')ofBU=v; else if(w==='ch')ofCh=v; else if(w==='lbl')ofLbl=v;
+  document.getElementById('deliverables').innerHTML='';
+  renderDeliverables();
+}
+function pickCh(i){const n=window._chNames[i];setOF('ch',ofCh===n?'All':n);}
+
+/* ══════════════════════════════════════════════════════
+   TAB 4 — ANALYTICS
+══════════════════════════════════════════════════════ */
+function renderAnalytics(){
+  const inits=DATA.initiatives;
+  const totalDone=inits.reduce((s,i)=>s+i.done,0);
+  const totalItems=inits.reduce((s,i)=>s+i.total,0);
+  const q2Actual=Math.round(totalDone/totalItems*100);
+  const q2Expected=Math.round(DATA.weekInQ2/DATA.weeksInQ2*100);
+  const paceDiff=q2Actual-q2Expected;
+
+  // Chart 1: Initiative bars
+  const barH=22,gap=13,labelW=190,barW=290;
+  const svgH=inits.length*(barH+gap)+10;
+  const shortT=t=>t.replace(' — Next Gen','').replace('Corporate ','').replace('Marketing Systems','Systems').replace('Program Management','PM');
+  const bars1=inits.map((ini,i)=>{const y=i*(barH+gap);const bw=Math.round(ini.pct/100*barW);return `
+    <rect x="${labelW}" y="${y}" width="${barW}" height="${barH}" rx="5" fill="#F1F5F9"/>
+    <rect x="${labelW}" y="${y}" width="${bw||3}" height="${barH}" rx="5" fill="${ini.color}" opacity=".85"/>
+    <text x="${labelW-10}" y="${y+15}" text-anchor="end" font-size="11" fill="#475569" font-weight="600">${shortT(ini.title)}</text>
+    <text x="${labelW+bw+8}" y="${y+15}" font-size="12" font-weight="800" fill="${ini.color}">${ini.pct}%</text>`;
+  }).join('');
+
+  // Chart 2: Channel donut
+  const cc={};DATA.shipped.forEach(i=>{cc[i.ch]=(cc[i.ch]||0)+1;});
+  const ct=Object.values(cc).reduce((s,v)=>s+v,0);
+  const ce=Object.entries(cc).sort((a,b)=>b[1]-a[1]);
+  let cum=0;
+  const slices=ce.map(([ch,n])=>{
+    const pct=Math.round(n/ct*100),col=CH_COLORS[ch]||'#94A3B8';
+    const s=`<circle cx="18" cy="18" r="15.9155" fill="none" stroke="${col}" stroke-width="4.5" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="${100-cum+25}" style="transform:rotate(-90deg);transform-origin:50% 50%"/>`;
+    cum+=pct;return {s,ch,n,pct,col};
   });
+  const legend2=slices.map(s=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+    <div style="width:9px;height:9px;border-radius:50%;background:${s.col};flex-shrink:0"></div>
+    <span style="font-size:12px;color:var(--g700);flex:1">${s.ch}</span>
+    <span style="font-size:12px;font-weight:800">${s.n}</span>
+    <span style="font-size:10px;color:var(--g400);width:28px;text-align:right">${s.pct}%</span>
+  </div>`).join('');
+  const chart2=`<div style="display:flex;align-items:flex-start;gap:24px">
+    <svg width="140" height="140" viewBox="0 0 36 36" style="flex-shrink:0;filter:drop-shadow(0 4px 12px rgba(0,40,85,.1))">
+      <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#F1F5F9" stroke-width="4"/>
+      ${slices.map(s=>s.s).join('')}
+      <text x="18" y="16.5" text-anchor="middle" font-size="6" font-weight="900" fill="#002855">${ct}</text>
+      <text x="18" y="21" text-anchor="middle" font-size="3" fill="#94A3B8">shipped Q2</text>
+    </svg>
+    <div style="flex:1;padding-top:4px">${legend2}</div>
+  </div>`;
 
-  html += `</div></div>`; /* roadmap-inner, roadmap-outer */
-  document.getElementById("p2").innerHTML = html;
-}
+  // BU bars
+  const buData=[
+    {name:"FastField",done:17,flight:13,blocked:2,col:"#0066D6"},
+    {name:"Pave",done:26,flight:22,blocked:2,col:"#7C3AED"},
+    {name:"Core (QB)",done:24,flight:10,blocked:1,col:"#14A558"},
+    {name:"Cross-BU",done:12,flight:8,blocked:1,col:"#0891B2"},
+  ];
+  const buBars=buData.map(bu=>{
+    const tot=bu.done+bu.flight+bu.blocked;
+    const dP=Math.round(bu.done/tot*100),fP=Math.round(bu.flight/tot*100);
+    return `<div style="margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
+        <strong style="font-size:13px;color:var(--navy)">${bu.name}</strong>
+        <span style="font-size:11px;color:var(--g500)">${bu.done} done · ${bu.flight} active${bu.blocked>0?` · <span style="color:var(--red);font-weight:700">${bu.blocked} blocked</span>`:''}</span>
+      </div>
+      <div style="height:16px;border-radius:8px;overflow:hidden;display:flex;background:var(--g100)">
+        <div style="width:${dP}%;background:var(--green)"></div>
+        <div style="width:${fP}%;background:${bu.col};opacity:.7"></div>
+      </div>
+      <div style="text-align:right;margin-top:4px;font-size:11px;font-weight:700;color:${dP>=50?'var(--green)':'var(--g500)'}">${dP}% complete</div>
+    </div>`;
+  }).join('');
 
-/* ============================================================
-   RENDER: BY BU (Tab 3)
-============================================================ */
-function renderByBU() {
-  document.getElementById("p3").innerHTML = `
-    <div class="section-head" style="margin-top:0">
-      <div>
-        <div class="section-title">By Business Unit</div>
-        <div class="section-desc">Program health and output per BU — Q2 · Q3 · Q4 2026</div>
+  document.getElementById('analytics').innerHTML=`
+    <div class="sec-hd"><h2>Analytics</h2><p>Updated ${DATA.lastUpdated}</p></div>
+
+    <div class="an-card an-full" style="border-top:3px solid var(--green);margin-bottom:16px">
+      <div class="an-hd">H2 Jira Structure — Live</div>
+      <div class="an-sub">Hierarchy applied Jun 17 · 66 parent assignments · 77 cross-project links · priorities set across all 66 initiatives</div>
+      <div class="an-kpi-row">
+        <div class="an-kpi" style="border-top:3px solid var(--navy)">
+          <div class="an-kpi-n" style="color:var(--navy)">7</div>
+          <span class="an-kpi-l">Strategic Projects</span>
+          <div class="an-kpi-sub">${jl('MKT-12568','12568')}–${jl('MKT-12574','12574')}</div>
+        </div>
+        <div class="an-kpi" style="border-top:3px solid var(--blue)">
+          <div class="an-kpi-n" style="color:var(--blue)">66</div>
+          <span class="an-kpi-l">Parent Assignments</span>
+          <div class="an-kpi-sub">Initiatives → Strategic Projects</div>
+        </div>
+        <div class="an-kpi" style="border-top:3px solid var(--teal)">
+          <div class="an-kpi-n" style="color:var(--teal)">77</div>
+          <span class="an-kpi-l">Cross-Project Links</span>
+          <div class="an-kpi-sub">"Relates To" — shared initiatives</div>
+        </div>
       </div>
     </div>
 
-    <div class="bu-cards">
-      ${DATA.byBU.map(bu => `
-        <div class="bu-card" style="border-top-color:var(--${bu.id})">
-          <div class="bu-card-head">
-            <div>
-              <div class="bu-card-name" style="color:var(--${bu.id})">${bu.name}</div>
-              <div class="bu-card-full">${bu.full}</div>
+    <div class="an-card an-full" style="border-top:3px solid var(--orange);margin-bottom:16px">
+      <div class="an-hd">Q2 Velocity — Week ${DATA.weekInQ2} of ${DATA.weeksInQ2}</div>
+      <div class="an-sub">Expected vs actual completion pace</div>
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:28px;align-items:start">
+        <div>
+          <div style="margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
+              <span style="font-size:12px;font-weight:700;color:var(--g600)">Expected at week ${DATA.weekInQ2}</span>
+              <span style="font-size:16px;font-weight:900;color:var(--g500)">${q2Expected}%</span>
             </div>
-            ${badge(bu.health)}
+            <div style="height:13px;border-radius:7px;background:var(--g100);overflow:hidden"><div style="width:${q2Expected}%;height:100%;background:#CBD5E1;border-radius:7px"></div></div>
           </div>
-          <div class="bu-card-body">
-            <div class="bu-kpis">
-              <div class="bu-kpi">
-                <div class="bu-kpi-n" style="color:var(--${bu.id})">${bu.pct}%</div>
-                <div class="bu-kpi-l">Complete</div>
-              </div>
-              <div class="bu-kpi">
-                <div class="bu-kpi-n" style="color:var(--green)">${bu.done}</div>
-                <div class="bu-kpi-l">Done</div>
-              </div>
-              <div class="bu-kpi">
-                <div class="bu-kpi-n" style="color:var(--accent)">${bu.flight}</div>
-                <div class="bu-kpi-l">In Flight</div>
-              </div>
+          <div style="margin-bottom:20px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
+              <span style="font-size:12px;font-weight:700;color:var(--g600)">Actual completion</span>
+              <span style="font-size:16px;font-weight:900;color:${q2Actual>=q2Expected?'var(--green)':'var(--orange)'}">${q2Actual}%</span>
             </div>
-            ${prog(bu.pct, bu.health)}
-            <div class="bu-prog-list">
-              <div class="bu-prog-head">Programs</div>
-              ${bu.programs.map(p=>`
-                <div class="bu-prog-item">
-                  <div>
-                    <div class="bu-prog-name">${p.name}</div>
-                    <div class="bu-prog-quarters">${p.quarters}</div>
-                  </div>
-                  ${statusChip(p.status)}
-                </div>
-              `).join("")}
+            <div style="height:13px;border-radius:7px;background:var(--g100);overflow:hidden"><div style="width:${q2Actual}%;height:100%;background:${q2Actual>=q2Expected?'var(--green)':'var(--orange)'};border-radius:7px;transition:width .7s"></div></div>
+          </div>
+          <div style="background:${paceDiff>=0?'var(--green-lt)':'var(--amber-lt)'};border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:16px">
+            <span style="font-size:30px;font-weight:900;color:${paceDiff>=0?'var(--green)':'#92400E'};line-height:1">${paceDiff>=0?'+':''}${paceDiff}%</span>
+            <div>
+              <div style="font-size:14px;font-weight:800;color:${paceDiff>=0?'var(--green)':'#92400E'}">${paceDiff>=0?'Ahead of pace':'Behind pace'}</div>
+              <div style="font-size:11px;color:var(--g500);margin-top:3px">${DATA.weeksInQ2-DATA.weekInQ2} week left · Q3 starts Jul 1</div>
             </div>
           </div>
         </div>
-      `).join("")}
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="an-kpi" style="border-top:3px solid var(--green)"><div class="an-kpi-n" style="color:var(--green)">${totalDone}</div><span class="an-kpi-l">Done</span></div>
+          <div class="an-kpi" style="border-top:3px solid var(--navy)"><div class="an-kpi-n" style="color:var(--navy)">${totalItems}</div><span class="an-kpi-l">Total</span></div>
+          <div class="an-kpi" style="border-top:3px solid var(--purple)"><div class="an-kpi-n" style="color:var(--purple)">${Math.round(totalDone/DATA.weekInQ2)}<span style="font-size:13px">/wk</span></div><span class="an-kpi-l">Velocity</span></div>
+          <div class="an-kpi" style="border-top:3px solid var(--amber)"><div class="an-kpi-n" style="color:var(--amber)">${DATA.weeksInQ2-DATA.weekInQ2}</div><span class="an-kpi-l">Wks Left</span></div>
+        </div>
+      </div>
     </div>
-  `;
+
+    <div class="an-grid">
+      <div class="an-card" style="border-top:3px solid var(--navy)">
+        <div class="an-hd">Initiative Completion %</div>
+        <div class="an-sub">Progress across all 7 H2 Strategic Projects</div>
+        <div class="an-chart-area"><svg width="${labelW+barW+50}" height="${svgH}" xmlns="http://www.w3.org/2000/svg" font-family="Inter,system-ui,sans-serif">${bars1}</svg></div>
+      </div>
+      <div class="an-card" style="border-top:3px solid var(--blue)">
+        <div class="an-hd">Output by Channel</div>
+        <div class="an-sub">${ct} Q2 deliverables by channel</div>
+        ${chart2}
+      </div>
+      <div class="an-card" style="border-top:3px solid var(--purple)">
+        <div class="an-hd">BU Workload</div>
+        <div class="an-sub">Done · Active · Blocked by Business Unit</div>
+        ${buBars}
+        <div style="display:flex;gap:12px;margin-top:10px;font-size:11px">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--green);display:inline-block"></span>Done</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--blue);opacity:.7;display:inline-block"></span>Active</span>
+        </div>
+      </div>
+    </div>`;
 }
 
-/* ============================================================
-   INIT
-============================================================ */
-renderHeader();
-renderHealth();
-renderOutput();
-renderRoadmap();
-renderByBU();
+/* ══════════════════════════════════════════════════════
+   BOOT
+══════════════════════════════════════════════════════ */
+document.getElementById('upd-badge').textContent = DATA.lastUpdated;
+renderBriefing();
 </script>
 </body>
 </html>
