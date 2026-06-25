@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI in Marketing PM — QB Executive Update</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #002855;
+    --orange: #FF6820;
+    --light-navy: #003f7f;
+    --pale: #F4F7FB;
+    --mid: #D0DFF0;
+    --text: #1a1a2e;
+    --muted: #5a6a85;
+    --white: #ffffff;
+    --green: #1a8a4a;
+    --light-green: #e8f5ee;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #1a1a2e;
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  /* DECK WRAPPER */
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+  }
+  .slide.active { display: flex; }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(8px);
+    border-radius: 40px;
+    padding: 10px 20px;
+    z-index: 100;
+  }
+  .nav button {
+    background: none;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .nav button:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.6); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .slide-counter {
+    color: rgba(255,255,255,0.6);
+    font-size: 12px;
+    min-width: 55px;
+    text-align: center;
+  }
+  .dot-row { display: flex; gap: 6px; }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .dot.active { background: var(--orange); }
+
+  /* ──────────────────────────────
+     SLIDE 1 — TITLE
+  ────────────────────────────── */
+  .slide-title {
+    background: var(--navy);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide-title::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,104,32,0.15) 0%, transparent 70%);
+    top: -150px; right: -100px;
+  }
+  .slide-title::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,63,127,0.5) 0%, transparent 70%);
+    bottom: -100px; left: -80px;
+  }
+  .title-kicker {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+    position: relative; z-index: 1;
+  }
+  .title-h1 {
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    max-width: 820px;
+    position: relative; z-index: 1;
+    margin-bottom: 24px;
+  }
+  .title-h1 span { color: var(--orange); }
+  .title-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    max-width: 520px;
+    line-height: 1.6;
+    position: relative; z-index: 1;
+    margin-bottom: 40px;
+  }
+  .title-meta {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    position: relative; z-index: 1;
+    letter-spacing: 1px;
+  }
+
+  /* ──────────────────────────────
+     SLIDE 2 — CONTEXT
+  ────────────────────────────── */
+  .slide-context {
+    background: var(--pale);
+  }
+  .slide-header {
+    background: var(--navy);
+    padding: 32px 60px 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .slide-header h2 {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+  }
+  .slide-header h2 span { color: var(--orange); }
+  .slide-num {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 2px;
+  }
+  .slide-body {
+    flex: 1;
+    padding: 48px 60px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  /* CONTEXT STATS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    flex: 0 0 360px;
+  }
+  .stat-box {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px 20px;
+    border-top: 4px solid var(--orange);
+    box-shadow: 0 2px 12px rgba(0,40,85,0.08);
+  }
+  .stat-box .stat-num {
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-box .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .context-text {
+    flex: 1;
+  }
+  .context-text p {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .context-text p:last-child { margin-bottom: 0; }
+  .context-text strong { color: var(--navy); }
+  .callout {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 20px 22px;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 24px;
+  }
+  .callout span { color: var(--orange); font-weight: 700; }
+
+  /* ──────────────────────────────
+     SLIDE 3 — CHAPTER 1
+  ────────────────────────────── */
+  .slide-ch1 { background: var(--pale); }
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    flex: 1;
+  }
+  .col-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 12px rgba(0,40,85,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .col-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--mid);
+  }
+  .col-card .big-num {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .col-card .big-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: -6px;
+  }
+  .item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .item-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .item-list li::before {
+    content: '›';
+    color: var(--orange);
+    font-weight: 900;
+    font-size: 16px;
+    flex-shrink: 0;
+    line-height: 1.2;
+  }
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .tag-bu { background: #e8edf5; color: var(--navy); }
+  .tag-ch { background: #fff0e8; color: #c04400; }
+  .tag-q  { background: #e8f5ee; color: var(--green); }
+
+  /* ──────────────────────────────
+     SLIDE 4 — CHAPTER 2
+  ────────────────────────────── */
+  .slide-ch2 { background: var(--navy); }
+  .slide-ch2 .slide-header {
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .dash-body {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+  }
+  .dash-left { flex: 0 0 340px; display: flex; flex-direction: column; gap: 16px; }
+  .dash-right { flex: 1; }
+
+  .kpi-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .kpi-icon {
+    width: 42px; height: 42px;
+    background: var(--orange);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .kpi-card .kpi-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+  }
+  .kpi-card .kpi-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.35;
+    margin-top: 3px;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .feature-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .feature-dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .feature-list li .feat-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+  .feature-list li .feat-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .no-dev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,104,32,0.15);
+    border: 1px solid rgba(255,104,32,0.35);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  /* ──────────────────────────────
+     SLIDE 5 — CHAPTER 3
+  ────────────────────────────── */
+  .slide-ch3 { background: var(--pale); }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+  }
+  .auto-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 2px 12px rgba(0,40,85,0.08);
+  }
+  .auto-card h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .auto-card .sub-head {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--mid);
+  }
+  .rule-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #f0f4f8;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .rule-row:last-child { border-bottom: none; }
+  .rule-arrow {
+    color: var(--orange);
+    font-weight: 900;
+    font-size: 14px;
+  }
+  .rule-label {
+    background: #fff0e8;
+    color: #c04400;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: auto;
+  }
+
+  /* ──────────────────────────────
+     SLIDE 6 — IMPACT
+  ────────────────────────────── */
+  .slide-impact {
+    background: linear-gradient(135deg, var(--navy) 0%, #001830 100%);
+  }
+  .slide-impact .slide-header {
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .impact-body {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    gap: 32px;
+  }
+  .impact-left {
+    flex: 0 0 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .impact-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .impact-num-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .impact-num-card .i-num {
+    font-size: 44px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .impact-num-card .i-label {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.4;
+  }
+  .impact-num-card .i-label strong { color: var(--white); }
+  .compare-table {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    flex: 1;
+  }
+  .compare-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .compare-table th {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .compare-table td {
+    padding: 11px 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td.was { color: rgba(255,255,255,0.4); text-decoration: line-through; }
+  .compare-table td.now { color: #6ee4a0; font-weight: 700; }
+  .compare-table tr.total td { background: rgba(255,104,32,0.1); color: var(--white); font-weight: 700; }
+  .compare-table tr.total td.now { color: var(--orange); }
+
+  /* ──────────────────────────────
+     SLIDE 7 — WHAT'S NEXT
+  ────────────────────────────── */
+  .slide-next { background: var(--pale); }
+  .next-body {
+    flex: 1;
+    padding: 40px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-content: start;
+  }
+  .next-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,40,85,0.08);
+    border-left: 4px solid var(--orange);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .next-icon {
+    font-size: 24px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .next-card h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .next-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .closing-banner {
+    margin: 0 60px 40px;
+    background: var(--navy);
+    border-radius: 14px;
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .closing-banner p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    max-width: 680px;
+  }
+  .closing-banner p span { color: var(--orange); font-weight: 700; }
+
+  /* Responsive adjustments */
+  @media (max-width: 1100px) {
+    .title-h1 { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ══════════════════ SLIDE 1: TITLE ══════════════════ -->
+  <div class="slide slide-title active">
+    <div class="title-kicker">Marketing Program Management · Executive Update · June 2026</div>
+    <h1 class="title-h1">Scaling Marketing with <span>AI</span></h1>
+    <p class="title-sub">How one PM is running a 70-person marketing program — and building the infrastructure for it to run smarter</p>
+    <p class="title-meta">Luiza Rusinova · Marketing Program Manager · Quickbase</p>
+  </div>
+
+  <!-- ══════════════════ SLIDE 2: CONTEXT ══════════════════ -->
+  <div class="slide slide-context">
+    <div class="slide-header">
+      <h2>The challenge: <span>big program, small team</span></h2>
+      <span class="slide-num">02 / 07</span>
+    </div>
+    <div class="slide-body">
+      <div class="stat-grid">
+        <div class="stat-box">
+          <div class="stat-num">70</div>
+          <div class="stat-label">People in Quickbase<br>Marketing</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Program Managers<br>running everything</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">7</div>
+          <div class="stat-label">H2 strategic<br>priorities to track</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-label">BUs running<br>concurrently</div>
+        </div>
+      </div>
+      <div class="context-text">
+        <p>A 70-person marketing org operating across three business units, seven strategic priorities, and multiple active programs each quarter — with two PMs and no dedicated operations headcount.</p>
+        <p>The traditional answer is to hire more. Instead, I used AI to <strong>build the operating infrastructure</strong> that makes the whole program run — and then used that same infrastructure to <strong>report on it, automate it, and scale it.</strong></p>
+        <div class="callout">
+          Industry standard for this scale: <span>4–5 PMs + a dedicated marketing ops resource.</span><br>
+          We have 2. AI closes that gap.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ SLIDE 3: CHAPTER 1 ══════════════════ -->
+  <div class="slide slide-ch1">
+    <div class="slide-header">
+      <h2>Chapter 1: <span>The Operating System</span></h2>
+      <span class="slide-num">03 / 07</span>
+    </div>
+    <div class="slide-body" style="align-items: stretch;">
+      <div class="three-col">
+
+        <div class="col-card">
+          <h3>Jira Structure Built</h3>
+          <div class="big-num">217+</div>
+          <div class="big-label">issues structured &amp; tagged</div>
+          <ul class="item-list" style="margin-top: 12px;">
+            <li>Custom <strong>Strategic Project</strong> issue type (above Initiative) — created for 7 H2 priorities</li>
+            <li><strong>Marketing Initiative</strong> issue type — the layer above Epics</li>
+            <li>7 request types created: Creative, Web, Content, Social, Events, Community, 5 MOPs types</li>
+            <li>4 BU <strong>components</strong>: QB-Core-MKT · FF-MKT · Pave-MKT · CrossBU-MKT</li>
+            <li>16 issue types total across the MKT project</li>
+          </ul>
+        </div>
+
+        <div class="col-card">
+          <h3>Label Taxonomy</h3>
+          <div style="margin-top: 4px;">
+            <div style="font-size:11px; color: var(--muted); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">BU Labels</div>
+            <div class="tag-cloud">
+              <span class="tag tag-bu">QB-Core-MKT</span>
+              <span class="tag tag-bu">FF-MKT</span>
+              <span class="tag tag-bu">Pave-MKT</span>
+              <span class="tag tag-bu">CrossBU-MKT</span>
+            </div>
+          </div>
+          <div style="margin-top: 14px;">
+            <div style="font-size:11px; color: var(--muted); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">Channel Labels</div>
+            <div class="tag-cloud">
+              <span class="tag tag-ch">Email</span>
+              <span class="tag tag-ch">Web</span>
+              <span class="tag tag-ch">Creative</span>
+              <span class="tag tag-ch">Content</span>
+              <span class="tag tag-ch">Social</span>
+              <span class="tag tag-ch">Event</span>
+              <span class="tag tag-ch">Community</span>
+            </div>
+          </div>
+          <div style="margin-top: 14px;">
+            <div style="font-size:11px; color: var(--muted); font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px;">Quarter Labels</div>
+            <div class="tag-cloud">
+              <span class="tag tag-q">Q2-2026</span>
+              <span class="tag tag-q">Q3-2026</span>
+              <span class="tag tag-q">Q4-2026</span>
+            </div>
+          </div>
+          <ul class="item-list" style="margin-top: 12px;">
+            <li>Applied across 217 issues in bulk — in hours, not days</li>
+            <li>Every issue now filterable by BU, channel, and quarter</li>
+          </ul>
+        </div>
+
+        <div class="col-card">
+          <h3>Confluence: Source of Truth</h3>
+          <ul class="item-list">
+            <li><strong>Marketing Program Hub</strong> — rebuilt from scratch with structured TOC</li>
+            <li><strong>How We Work</strong> — 11-section guide: hierarchy, naming, RACI, briefs, request guides, board JQL, quarterly rhythm</li>
+            <li><strong>8 request guides</strong> for every work type (Creative, Web, Events, MOPs, etc.)</li>
+            <li><strong>Launch frameworks</strong> per BU (Core, FF, Pave)</li>
+            <li><strong>Space Home</strong> rebuilt — single entry point for the whole team</li>
+            <li>Q2 + Q3 initiative folders organized and linked</li>
+          </ul>
+          <div style="margin-top: 12px; padding: 12px; background: #e8f5ee; border-radius: 8px; font-size: 12px; color: var(--green); font-weight: 600;">
+            This Jira + Confluence structure is also the LLM knowledge base — the layer AI agents learn from.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ SLIDE 4: CHAPTER 2 ══════════════════ -->
+  <div class="slide slide-ch2">
+    <div class="slide-header">
+      <h2 style="color:white;">Chapter 2: <span>The Executive Dashboard</span></h2>
+      <span class="slide-num">04 / 07</span>
+    </div>
+    <div class="dash-body">
+      <div class="dash-left">
+        <div class="kpi-card">
+          <div class="kpi-icon">📦</div>
+          <div>
+            <div class="kpi-num">77</div>
+            <div class="kpi-label">Deliverables shipped<br>in Q2 2026</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">🚀</div>
+          <div>
+            <div class="kpi-num">47</div>
+            <div class="kpi-label">Deliverables currently<br>in flight</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">🎯</div>
+          <div>
+            <div class="kpi-num">7</div>
+            <div class="kpi-label">Strategic Projects tracked<br>with goals + progress</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon">📊</div>
+          <div>
+            <div class="kpi-num">11</div>
+            <div class="kpi-label">Channels tracked across<br>all BUs</div>
+          </div>
+        </div>
+        <div class="no-dev-badge">
+          ⚡ Zero developers. Zero budget. Built with Claude + GitHub.
+        </div>
+      </div>
+      <div class="dash-right">
+        <ul class="feature-list">
+          <li>
+            <div class="feature-dot"></div>
+            <div>
+              <div class="feat-title">Executive Briefing Tab</div>
+              <div class="feat-desc">All 7 H2 Strategic Projects with live progress bars, goals, status flags (on track / at risk), P1 priority programs — all live-linked to Jira issues</div>
+            </div>
+          </li>
+          <li>
+            <div class="feature-dot"></div>
+            <div>
+              <div class="feat-title">Deliverables Tab</div>
+              <div class="feat-desc">Full table of 77 shipped + 47 in-flight items, filterable by BU, channel, label, and owner — with direct Jira links on every row</div>
+            </div>
+          </li>
+          <li>
+            <div class="feature-dot"></div>
+            <div>
+              <div class="feat-title">Analytics Tab</div>
+              <div class="feat-desc">Workload breakdown by BU, channel, and team; H2 2026 timeline visualization; period toggle (Week / Month / Quarter / H2 / Year)</div>
+            </div>
+          </li>
+          <li>
+            <div class="feature-dot"></div>
+            <div>
+              <div class="feat-title">AI Insights Panel</div>
+              <div class="feat-desc">Dynamically generated risk flags, wins, and opportunity callouts — auto-calculated from the live dataset; no manual entry ever needed</div>
+            </div>
+          </li>
+          <li>
+            <div class="feature-dot"></div>
+            <div>
+              <div class="feat-title">Built from scratch — no developer required</div>
+              <div class="feat-desc">Full HTML / CSS / JavaScript web application. Normally: PM brief → developer sprint → 4–6 weeks + resource cost. Actual: 1 PM, Claude, GitHub, a few hours.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ SLIDE 5: CHAPTER 3 ══════════════════ -->
+  <div class="slide slide-ch3">
+    <div class="slide-header">
+      <h2>Chapter 3: <span>Intelligence &amp; Automation</span></h2>
+      <span class="slide-num">05 / 07</span>
+    </div>
+    <div class="slide-body" style="align-items: stretch;">
+      <div class="two-col">
+        <div class="auto-card">
+          <h3>Jira Automation Rules</h3>
+          <div class="sub-head">7 rules — new issues auto-labeled on creation, zero manual tagging</div>
+          <div class="rule-row"><span>All MOPs request types (5)</span><div class="rule-arrow">→</div><span class="rule-label">Email</span></div>
+          <div class="rule-row"><span>Web Page Request</span><div class="rule-arrow">→</div><span class="rule-label">Web</span></div>
+          <div class="rule-row"><span>Marketing Creative Request</span><div class="rule-arrow">→</div><span class="rule-label">Creative</span></div>
+          <div class="rule-row"><span>Content Request</span><div class="rule-arrow">→</div><span class="rule-label">Content</span></div>
+          <div class="rule-row"><span>Marketing Social Request</span><div class="rule-arrow">→</div><span class="rule-label">Social</span></div>
+          <div class="rule-row"><span>Events Request</span><div class="rule-arrow">→</div><span class="rule-label">Event</span></div>
+          <div class="rule-row"><span>Community &amp; Advocacy Request</span><div class="rule-arrow">→</div><span class="rule-label">Community</span></div>
+        </div>
+
+        <div class="auto-card">
+          <h3>AI Agents &amp; Knowledge Layer</h3>
+          <div class="sub-head">Jira + Confluence structured as a machine-readable knowledge base</div>
+          <ul class="item-list">
+            <li><strong>Rovo Marketing PM Agent</strong> — trained on the full Confluence knowledge base; answers program questions, status queries, and routing questions in natural language</li>
+            <li><strong>Structured data layer</strong> — every issue, label, component, and initiative follows consistent naming so AI agents can query across the entire program without ambiguity</li>
+            <li><strong>Claude as co-PM</strong> — used for Jira issue creation, Confluence writing, bulk updates, data analysis, dashboard builds, and automation design</li>
+            <li><strong>Extending to Content &amp; Creative PM</strong> — the same AI-augmented workflow is now being rolled out to Soumya (Content &amp; Creative PM) — one PM building the playbook for two</li>
+          </ul>
+        </div>
+
+        <div class="auto-card" style="grid-column: span 2; border-left: 4px solid var(--navy);">
+          <h3>The Bigger Picture: Jira + Confluence as an LLM</h3>
+          <div class="sub-head">This is not just project management — it is a structured knowledge base that AI agents can learn from and act on</div>
+          <ul class="item-list" style="column-count: 2; column-gap: 32px; display: block;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap: 0 32px;">
+              <ul class="item-list">
+                <li>Every initiative, epic, and task is named consistently — AI can parse it without ambiguity</li>
+                <li>Every deliverable is labeled by BU, channel, and quarter — AI can slice any dimension instantly</li>
+              </ul>
+              <ul class="item-list">
+                <li>Confluence is the documented "why" behind every structure decision — AI agents have context, not just data</li>
+                <li>Together, this replaces weeks of manual status gathering with a real-time, queryable program brain</li>
+              </ul>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ SLIDE 6: IMPACT ══════════════════ -->
+  <div class="slide slide-impact">
+    <div class="slide-header">
+      <h2 style="color:white;">The <span>impact</span> — since April 20, 2026</h2>
+      <span class="slide-num">06 / 07</span>
+    </div>
+    <div class="impact-body">
+      <div class="impact-left">
+        <div class="impact-num-card">
+          <div class="i-num">217+</div>
+          <div class="i-label">Jira issues <strong>structured, labeled, and organized</strong> across MKT — bulk work done in hours</div>
+        </div>
+        <div class="impact-num-card">
+          <div class="i-num">8–12 wks</div>
+          <div class="i-label"><strong>Estimated time saved</strong> vs. doing this manually (audit → taxonomy → bulk update → Confluence → dashboard)</div>
+        </div>
+        <div class="impact-num-card">
+          <div class="i-num">$0</div>
+          <div class="i-label"><strong>Additional headcount or vendor cost</strong> — everything built in-house using existing tools + AI</div>
+        </div>
+      </div>
+      <div class="impact-right">
+        <div class="compare-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Workstream</th>
+                <th>Traditional timeline</th>
+                <th>With AI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jira audit + taxonomy + 217 issues labeled</td>
+                <td class="was">6–8 weeks</td>
+                <td class="now">2–3 days</td>
+              </tr>
+              <tr>
+                <td>Confluence hub + 8 request guides + frameworks</td>
+                <td class="was">3–4 weeks</td>
+                <td class="now">1 week</td>
+              </tr>
+              <tr>
+                <td>Executive dashboard (dev + PM + build)</td>
+                <td class="was">4–6 weeks + dev resource</td>
+                <td class="now">A few hours</td>
+              </tr>
+              <tr>
+                <td>7 Jira automation rules</td>
+                <td class="was">2–3 days research + config</td>
+                <td class="now">~2 hours</td>
+              </tr>
+              <tr>
+                <td>7 Strategic Projects with full goals + descriptions</td>
+                <td class="was">Multiple stakeholder meetings + weeks</td>
+                <td class="now">Same session</td>
+              </tr>
+              <tr class="total">
+                <td><strong>Total</strong></td>
+                <td class="was">3–4 months + extra headcount</td>
+                <td class="now">~3 weeks, 1 PM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ SLIDE 7: WHAT'S NEXT ══════════════════ -->
+  <div class="slide slide-next">
+    <div class="slide-header">
+      <h2>What's <span>next</span></h2>
+      <span class="slide-num">07 / 07</span>
+    </div>
+    <div class="next-body">
+      <div class="next-card">
+        <div class="next-icon">🤖</div>
+        <div>
+          <h3>Conversational Program Reporting</h3>
+          <p>Rovo agents that answer "What's blocked this week?" or "What's FastField's Q3 status?" in seconds — pulling live from Jira without anyone having to write a status report.</p>
+        </div>
+      </div>
+      <div class="next-card">
+        <div class="next-icon">📝</div>
+        <div>
+          <h3>Automated Weekly Status Updates</h3>
+          <p>AI drafts the weekly program update from live Jira data. PM reviews, edits tone, and sends. Status reporting goes from 2 hours to 15 minutes.</p>
+        </div>
+      </div>
+      <div class="next-card">
+        <div class="next-icon">📈</div>
+        <div>
+          <h3>Dashboard Evolution: Q3 + Q4</h3>
+          <p>Extend the executive dashboard through Q3 and Q4 as the program evolves — adding new programs, adjusting targets, keeping the real-time view current all H2.</p>
+        </div>
+      </div>
+      <div class="next-card">
+        <div class="next-icon">🔄</div>
+        <div>
+          <h3>Scale to Content &amp; Creative PM</h3>
+          <p>Roll out the same AI-augmented operating model to Soumya (Content &amp; Creative PM) — automating intake, labeling, and status tracking for the creative program.</p>
+        </div>
+      </div>
+    </div>
+    <div class="closing-banner">
+      <p>This is not about replacing the PM role. It is about <span>reshaping what a PM can do</span> — less time on manual tracking and reporting, more time on strategy, stakeholder alignment, and program decisions that actually move the business forward.</p>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button id="prev" onclick="goTo(current - 1)" disabled>← Prev</button>
+  <div class="dot-row" id="dots"></div>
+  <span class="slide-counter" id="counter">1 / 7</span>
+  <button id="next" onclick="goTo(current + 1)">Next →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    if (n < 0 || n >= total) return;
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === total - 1;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+name: Update Marketing Dashboard
+
+on:
+  # Runs at 7am UTC Mon–Fri (3am ET — dashboard is fresh when the team arrives)
+  schedule:
+    - cron: '3 7 * * 1-5'
+
+  # Allows manual trigger from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to push the updated index.html
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: scripts
+        run: npm install
+
+      - name: Run dashboard update
+        working-directory: scripts
+        run: node update-dashboard.js
+        env:
+          JIRA_EMAIL:        ${{ secrets.JIRA_EMAIL }}
+          JIRA_TOKEN:        ${{ secrets.JIRA_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name  "Dashboard Bot"
+          git config --global user.email "dashboard-bot@quickbase.com"
+          git add marketing-report/index.html
+          git diff --staged --quiet \
+            && echo "No changes — dashboard already up to date." \
+            || (git commit -m "chore: auto-update capacity data $(date +%Y-%m-%d)" && git push)

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #1a1a1a; max-width: 900px; margin: 40px auto; padding: 0 40px; line-height: 1.5; }
+  h1 { font-size: 20pt; color: #1a2744; border-bottom: 2px solid #1a2744; padding-bottom: 8px; }
+  h2 { font-size: 14pt; color: #1a2744; margin-top: 28px; }
+  h3 { font-size: 12pt; color: #2d5fa6; margin-top: 20px; }
+  h4 { font-size: 11pt; color: #1a1a1a; margin-top: 16px; margin-bottom: 4px; }
+  p { margin: 6px 0 10px 0; }
+  ul { margin: 4px 0 10px 0; padding-left: 20px; }
+  li { margin-bottom: 4px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 20px 0; font-size: 10pt; }
+  th { background-color: #1a2744; color: white; padding: 8px 10px; text-align: left; }
+  td { border: 1px solid #ccc; padding: 7px 10px; vertical-align: top; }
+  tr:nth-child(even) td { background-color: #f4f6fb; }
+  .subtitle { font-size: 12pt; color: #555; margin-top: -10px; margin-bottom: 24px; }
+  .callout { background: #eef3fb; border-left: 4px solid #2d5fa6; padding: 10px 16px; margin: 16px 0; border-radius: 2px; }
+  .footer { font-size: 9pt; color: #888; border-top: 1px solid #ccc; margin-top: 40px; padding-top: 10px; }
+  .section-divider { border: none; border-top: 1px solid #ddd; margin: 28px 0; }
+</style>
+</head>
+<body>
+
+<h1>AI-Powered Program Management</h1>
+<p class="subtitle">How Luiza Rusinova is Utilizing AI to Run Marketing Programs at Quickbase &nbsp;|&nbsp; June 2026</p>
+
+<div class="callout">
+<strong>Summary:</strong> As Marketing Program Manager at Quickbase, I've built a suite of AI-powered tools and workflows that fundamentally change how marketing programs are planned, structured, and reported. What traditionally requires a team of 3–4 people (PM, Jira admin, web developer, marketing ops coordinator) I now run independently — faster, with more visibility, and with less manual overhead.
+</div>
+
+<hr class="section-divider">
+
+<h2>1. The AI Infrastructure I've Built</h2>
+
+<h3>A. Marketing PM Skill (Claude.ai)</h3>
+<p>A custom AI skill encoding the full Quickbase Marketing operating model — built and maintained by me as a living knowledge base.</p>
+<ul>
+  <li>Complete org structure (3 BUs, 8 teams, 25+ named team members, reporting lines)</li>
+  <li>The What/Why/Where/How framework for initiative ownership across PMM, DG, and channel teams</li>
+  <li>9-section master brief structure with per-section ownership rules and brief flow</li>
+  <li>Jira task creation rules, naming conventions, ADF format requirements</li>
+  <li>Confluence space structure (QBM space, page locations, hub architecture)</li>
+  <li>Tier definitions, brief templates, and launch process documentation</li>
+</ul>
+<p><strong>Impact:</strong> Institutional knowledge that would take a new PM 3–6 months to learn is now portable and immediately usable. Any work session starts at full context — no re-briefing required.</p>
+
+<h3>B. Claude Code + MCP (Model Context Protocol)</h3>
+<p>I built and connected a local MCP server that gives AI direct, authenticated access to my entire work stack via natural language:</p>
+<ul>
+  <li><strong>Jira (Atlassian MCP):</strong> Create issues, update descriptions, set labels, components, assignees, due dates, run JQL queries, manage workflows — all via conversation</li>
+  <li><strong>Microsoft 365 MCP:</strong> Search and read SharePoint files, Outlook emails, calendar — cross-platform coordination without switching tabs</li>
+  <li><strong>Confluence:</strong> Create and update pages programmatically, link briefs to Jira issues</li>
+</ul>
+<p><strong>Impact:</strong> Operations that required manual Jira navigation (create epic → set fields → add ADF description → link to parent → set component → set label → tag assignee) now happen in seconds via a single conversational instruction. Bulk operations across 20+ issues that would take hours are done in minutes.</p>
+
+<h3>C. GitHub Pages Executive Dashboard</h3>
+<p>A live marketing reporting dashboard built entirely with AI-generated code — no developer, no BI tool, no slide deck.</p>
+<ul>
+  <li>Multi-tab interface: Executive Briefing, Programs, Deliverables, Analytics</li>
+  <li>H2 timeline visualization (Q2 progress + upcoming milestones)</li>
+  <li>Quickbase brand styling (dark QB palette)</li>
+  <li>Deployed to GitHub Pages — live URL, shareable with Alys and the ELT instantly</li>
+</ul>
+<p><strong>Impact:</strong> Exec-grade reporting without a developer or BI license. Can be updated and redeployed in hours when the program state changes.</p>
+
+<hr class="section-divider">
+
+<h2>2. Program Work Completed with AI</h2>
+
+<h3>Jira Architecture — Built from Scratch</h3>
+<ul>
+  <li><strong>Issue type hierarchy:</strong> Strategic Project → Marketing Initiative → Epic → Task → Content Request — designed and implemented with correct hierarchyLevel and workflow assignments</li>
+  <li><strong>Components taxonomy:</strong> Per-BU components (Pave-MKT, QB-Core-MKT, CrossBU-MKT, FF-MKT, AWE-MKT) with enforcement guidance</li>
+  <li><strong>Labels taxonomy:</strong> BU labels + quarter labels (Q2-2026, Q3-2026, Q4-2026) + type labels (SEO, etc.)</li>
+  <li><strong>Custom fields per issue type:</strong> Researched correct fields, multiple-assignee limitations, and field availability per type</li>
+  <li><strong>Workflow configuration:</strong> Advised on and implemented "Any" incoming transitions for free status movement; identified and flagged workflow gaps</li>
+  <li><strong>Jira permissions:</strong> marketing-pm group enforcing that only Luiza can create Initiatives and Epics</li>
+</ul>
+
+<h3>H2 2026 Strategic Program Structure</h3>
+<ul>
+  <li><strong>7 Strategic Projects</strong> (MKT-12568–12574) created directly from CMO's H2 planning slides — mapped to owners, sub-goals, and cross-functional dependencies</li>
+  <li><strong>Q2/Q3/Q4 Marketing Initiatives</strong> created across all 3 BUs — 20+ initiatives with correct parents, labels, and components</li>
+  <li><strong>SEO initiative structure:</strong> 9 initiatives (3 BUs × 3 quarters) correctly structured and deduplicated</li>
+  <li><strong>Epic classification framework:</strong> Rules for child vs. linked relationships between epics and strategic projects — enables consistent reporting</li>
+</ul>
+
+<h3>Content Operations at Scale</h3>
+<ul>
+  <li><strong>Content request templates:</strong> Standardized ADF description structure (summary format, What's needed, SEO brief, phase & ownership, footer) — applied across 20+ issues</li>
+  <li><strong>Pave SEO comparison cluster:</strong> 4 tasks updated with SharePoint brief links, target keywords, content type, funnel stage, components, and labels</li>
+  <li><strong>Placeholder audit:</strong> Audited and cancelled empty issues across program</li>
+  <li><strong>Empower 26 Content Enablement:</strong> Epic MKT-12676 + 6 tasks created with correct assignees (Iliyan, Emma, Charlie), due dates, cross-BU classification, and ADF descriptions</li>
+</ul>
+
+<h3>Process & Documentation</h3>
+<ul>
+  <li><strong>Master brief system:</strong> 9-section structure codified with ownership per section, brief flow, and tier definitions (Tier 1 full briefs vs. Tier 2 lightweight activation notes)</li>
+  <li><strong>Confluence Marketing Hub:</strong> Structure built and maintained (QBM space, Q2 folder, brief templates hub, product launches vs. internal programs taxonomy)</li>
+  <li><strong>Jira + Confluence audit:</strong> Proactively identified structural misalignments (missing components/labels on Core and FF SEO initiatives)</li>
+  <li><strong>Events team structuring:</strong> Epics and initiatives built for Lindsey's events team aligned to H2 structure</li>
+  <li><strong>Slack thread & brief status tracking:</strong> Communication templates and status frameworks for cross-functional alignment</li>
+  <li><strong>Ways of working documentation:</strong> Marketing team process docs encoding the PM framework</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>3. Time & Resource Impact</h2>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Traditional Approach</th>
+    <th>With AI + MCP</th>
+    <th>Time Saved</th>
+  </tr>
+  <tr>
+    <td>Jira architecture setup (hierarchy, issue types, fields, components, labels, workflow)</td>
+    <td>Jira admin + PM: 3–4 weeks</td>
+    <td>2–3 days</td>
+    <td>~15 days</td>
+  </tr>
+  <tr>
+    <td>Create 7 Strategic Projects with descriptions + H2 goal mapping</td>
+    <td>PM manual entry: 8–10 hours</td>
+    <td>20 minutes</td>
+    <td>~9.5 hours</td>
+  </tr>
+  <tr>
+    <td>Create 20+ Marketing Initiatives with correct fields, labels, components</td>
+    <td>PM manual entry: 15–20 hours</td>
+    <td>1–2 hours</td>
+    <td>~18 hours</td>
+  </tr>
+  <tr>
+    <td>Build exec reporting dashboard</td>
+    <td>Web developer: 2–3 weeks</td>
+    <td>2 days</td>
+    <td>~13 days</td>
+  </tr>
+  <tr>
+    <td>Bulk update 20+ content request tasks with templates + brief links</td>
+    <td>PM manual entry: 4–6 hours</td>
+    <td>30 minutes</td>
+    <td>~5.5 hours</td>
+  </tr>
+  <tr>
+    <td>Epic classification framework + strategic project mapping</td>
+    <td>PM + strategy workshop: 1–2 weeks</td>
+    <td>2 hours</td>
+    <td>~8 days</td>
+  </tr>
+  <tr>
+    <td>Process documentation (briefs, ways of working, Jira rules, Confluence structure)</td>
+    <td>PM + ops consultant: 2–3 weeks</td>
+    <td>Encoded in skill</td>
+    <td>~15 days</td>
+  </tr>
+</table>
+
+<div class="callout">
+<strong>Estimated total time saved to date: 60–80+ hours of PM and admin work</strong><br>
+This does not include ongoing time saved per week from MCP-powered Jira operations (estimated 5–8 hours/week ongoing).
+</div>
+
+<h3>Headcount Equivalent</h3>
+<p>A traditional marketing program setup of this complexity and scale typically requires:</p>
+<ul>
+  <li>1 dedicated Jira / project administrator</li>
+  <li>1 web developer (exec reporting)</li>
+  <li>1 marketing ops coordinator (brief management, task creation, cross-functional tracking)</li>
+  <li>1 senior program manager</li>
+</ul>
+<p><strong>With AI: all four functions run by 1 person.</strong></p>
+
+<hr class="section-divider">
+
+<h2>4. Ongoing Capabilities</h2>
+
+<p>With this infrastructure in place, I can now:</p>
+<ul>
+  <li><strong>Spin up a full program structure in hours</strong> — from a brief or a slide deck to a fully-structured Jira hierarchy with correct fields, labels, components, and assignees</li>
+  <li><strong>Update Jira at scale via conversation</strong> — bulk creates and updates in seconds, no manual navigation</li>
+  <li><strong>Pull cross-platform context instantly</strong> — search SharePoint for a brief, read it, link it to the right Jira task, all without switching apps</li>
+  <li><strong>Ship exec reporting without a dev team</strong> — live dashboard updated and deployed independently</li>
+  <li><strong>Audit program structure proactively</strong> — identify missing components, labels, or structural gaps before they cause reporting issues</li>
+  <li><strong>Onboard new frameworks instantly</strong> — the PM skill encodes institutional knowledge; no knowledge transfer lag when priorities change</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2>5. What's Next</h2>
+<ul>
+  <li>Q3 Jira structure migration — move Q2 initiatives to Q3, update labels and parents</li>
+  <li>Add AI utilization section to the GitHub Pages exec dashboard</li>
+  <li>Automate brief-to-Jira pipeline — brief completed in Confluence → Jira tasks auto-created</li>
+  <li>Expand MCP coverage to Marketo/Salesforce for campaign ops visibility</li>
+</ul>
+
+<p class="footer">Luiza Rusinova &nbsp;|&nbsp; Marketing Program Manager, Quickbase &nbsp;|&nbsp; lrusinova@quickbase.com &nbsp;|&nbsp; June 2026</p>
+
+</body>
+</html>
