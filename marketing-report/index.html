@@ -1037,85 +1037,116 @@ function genInsight(ini){
    Rubric: XS=2h S=6h M=16h L=32h XL=80h · 40h/wk = 100%
 ───────────────────────────────────────────────────────── */
 const CAP_DATA = {
-  pulledAt:"Jun 24, 2026",
+  pulledAt:"Jun 25, 2026",
   note:"Effort AI-estimated · Active tasks only (excludes Published/Released/Done) · 40h/wk = 100%",
   channels:[
-    {ch:"Content & SEO",       items:37,unassigned:9,hours:226,load:"OVER",
-     people:["Shreya Patro","Javeria Husain","Niveditha K.","Nathan Wahl"],
-     note:"Fresh dual-project pull (MKT+WE) · Niveditha 15 items (13 in review) · Javeria 3 QB comparison pages in progress · Shreya 1 blog in progress · 9 unassigned Pave SEO content requests (Brief status — 5 comparisons + 4 use case pages) transferring from Soumya Ghosh to team"},
-    {ch:"Email & Lifecycle",   items:5, unassigned:3,hours:26, load:"LIGHT",
-     people:["Ayva Schiff","Karen Caufield","Emma Lynch","Coco Scura"],
-     note:"Ayva Schiff primary MOPs assignee (email sends + lifecycle) · Karen Caufield + Emma Lynch on systems/automation · 3 of 5 items in queue unassigned"},
-    {ch:"Creative & Design",   items:19,unassigned:4,hours:174,load:"OVER",
-     people:["Jasmin Mora","Jenny Liu"],
-     note:"Jasmin Mora 92h · Jenny Liu 82h — both over · 4 unassigned items not included · Joey Maganini is Creative/Content PM (coordination only, not IC design — excluded from creative headcount)"},
-    {ch:"Demand Gen",          items:40,unassigned:0,hours:234,load:"OVER",
-     people:["Steph McPhee","Charlie Kleiner"],
-     note:"McPhee 25 items 150h (AI4 Aug · Gartner Oct · Pave always-on) · Kleiner 15 items 84h (webinars · NCR Voyix · outreach · landing pages)"},
-    {ch:"Social Media",        items:3, unassigned:0,hours:25, load:"OK",
-     people:["Sarah Rich"],
-     note:"3 active items: FastField Forward June social (6h in progress) · LinkedIn series pre/launch/post (16h in progress) · AMA webinar post design (3h in review)"},
-    {ch:"PMM / Product",       items:19,unassigned:0,hours:160,load:"OVER",
-     people:["Michael Decker","Hira Saeed","Michelle Hendley"],
-     note:"3 PMMs (Core / FF / Pave) · Decker 8 items 56h (QB Extensions + Intelligence + Grid Reports launches) · Hendley 9 items 82h (60h on hold — Marketplace blocked on Product) · Saeed 2 items 22h"},
-    {ch:"Marketing Analytics", items:3, unassigned:0,hours:48, load:"HIGH",
-     people:["Lynn Tan","Mia Robinson"],
-     note:"Campaign & lifecycle analytics · Tihomir Radev moved to Web & Digital (web analytics)"},
-    {ch:"Events & Experiences",items:3, unassigned:0,hours:22, load:"OK",
-     people:["Susana Gutierrez"],
-     note:null},
-    {ch:"Community",           items:2, unassigned:0,hours:48, load:"HIGH",
-     people:["Ben Simon","Maria Peralta"],
-     note:"RTB tasks + Community Migration initiative likely not tagged in current pull — re-query under Community label + migration epic for full picture"},
-    {ch:"PR & Comms",          items:1, unassigned:0,hours:6,  load:"LIGHT",
-     people:["Tory Waldron"],
-     note:null},
-    {ch:"Web & Digital",       items:56,unassigned:0,hours:728,load:"OVER",
-     people:["M. Young-Ward","N. Topozliyska","V. Georgiev","I. Bogdanov","B. Vasilev","T. Radev","M. Boostrom"],
-     note:"Topozliyska 198h (A/B testing) · Young-Ward 134h WE + 98h MKT · Boostrom +7 new feed automation stories today"},
-    {ch:"UX & Design",         items:1, unassigned:0,hours:6,  load:"LIGHT",
-     people:["Kristina Boyanova"],
-     note:"Website Navigation V1 (Intake · MKT-10883) · QB vs Smartsheet UX cancelled (parent tasks cancelled Jun 24)"},
+    {
+      ch:"Content & SEO",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Email & Lifecycle",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Creative & Design",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Demand Gen",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Social Media",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"PMM / Product",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Marketing Analytics",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Events & Experiences",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Community",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"PR & Comms",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Web & Digital",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"UX & Design",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    },
+    {
+      ch:"Program Management",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[]
+    }
   ],
-  mkt:[
-    {name:"Young-Ward, Michael", tasks:5, hours:98, load:"OVER",crossTeam:"WE",crossHours:134},
-    {name:"Radev, Tihomir",      tasks:2, hours:48, load:"OVER",crossTeam:"WE",crossHours:96},
-    {name:"Decker, Michael",     tasks:8, hours:56, load:"OVER"},
-    {name:"Hendley, Michelle",   tasks:9, hours:82, load:"OVER"},
-    {name:"Kleiner, Charlie",    tasks:15,hours:84, load:"OVER"},
-    {name:"Lynch, Emma",         tasks:3, hours:38, load:"HIGH"},
-    {name:"Peralta, Maria",      tasks:1, hours:32, load:"HIGH"},
-    {name:"Tan, Lynn",           tasks:2, hours:32, load:"HIGH"},
-    {name:"Gutierrez, Susana",   tasks:3, hours:22, load:"OK"},
-    {name:"Rich, Sarah",         tasks:3, hours:25, load:"OK"},
-    {name:"Saeed, Hira",         tasks:2, hours:22, load:"OK"},
-    {name:"Husain, Javeria",     tasks:6, hours:24, load:"OK"},
-    {name:"Simon, Ben",          tasks:1, hours:16, load:"OK"},
-    {name:"Bogdanov, Iliyan",    tasks:1, hours:16, load:"OK", crossTeam:"WE",crossHours:108},
-    {name:"Wahl, Nathan",         tasks:6, hours:20, load:"OK"},
-    {name:"Patro, Shreya",       tasks:1, hours:6,  load:"LIGHT"},
-    {name:"Robinson, Mia",       tasks:1, hours:16, load:"OK"},
-    {name:"Schiff, Ayva",        tasks:2, hours:8,  load:"LIGHT"},
-    {name:"Caufield, Karen",     tasks:1, hours:6,  load:"LIGHT"},
-    {name:"Kumaravel, Niveditha",tasks:15,hours:32, load:"HIGH"},
-    {name:"Sarkar, Anamika",     tasks:1, hours:6,  load:"LIGHT"},
-    {name:"Scura, Coco-Marie",   tasks:1, hours:6,  load:"LIGHT"},
-    {name:"Waldron, Tory",       tasks:1, hours:6,  load:"LIGHT"},
-    {name:"Mora, Jasmin",        tasks:5, hours:92, load:"OVER"},
-    {name:"Liu, Jenny",          tasks:5, hours:82, load:"OVER"},
-    {name:"McPhee, Stephanie",   tasks:25,hours:150,load:"OVER"},
-    {name:"Maganini, Joey",      tasks:4, hours:24, load:"OK"},
-  ],
-  we:[
-    {name:"Young-Ward, Michael", tasks:12,hours:134,load:"OVER",crossTeam:"MKT",crossHours:98},
-    {name:"Topozliyska, Nikol",  tasks:10,hours:198,load:"OVER"},
-    {name:"Bogdanov, Iliyan",    tasks:7, hours:108,load:"OVER",crossTeam:"MKT",crossHours:16},
-    {name:"Boostrom, Max",       tasks:9, hours:124,load:"OVER"},
-    {name:"Georgiev, Vasil",     tasks:8, hours:98, load:"OVER"},
-    {name:"Radev, Tihomir",      tasks:5, hours:96, load:"OVER",crossTeam:"MKT",crossHours:48},
-    {name:"Vasilev, Borislav",   tasks:5, hours:60, load:"OVER"},
-    {name:"Boyanova, Kristina",  tasks:1, hours:6,  load:"LIGHT"},
-  ]
+  mkt:[],
+  we:[]
 };
 
 /* ══════════════════════════════════════════════════════
