@@ -57,7 +57,7 @@ async function jiraSearch(jql) {
   const issues = [];
   let start = 0;
   while (true) {
-    const url = `/rest/api/3/search?jql=${encodeURIComponent(jql)}&startAt=${start}&maxResults=100&fields=summary,status,issuetype,subtasks`;
+    const url = `/rest/api/3/search/jql?jql=${encodeURIComponent(jql)}&startAt=${start}&maxResults=100&fields=summary,status,issuetype,subtasks`;
     const data = await jiraFetch(url);
     issues.push(...data.issues);
     if (issues.length >= data.total || data.issues.length === 0) break;
