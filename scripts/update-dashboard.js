@@ -470,6 +470,11 @@ async function main() {
     console.log(`   DATA.shipped updated → ${shippedItems.length} items`);
   }
 
+  // Inject API key into chat widget (CI only — key stays in GitHub Secrets, not source)
+  if (process.env.ANTHROPIC_API_KEY) {
+    html = html.replace('YOUR_ANTHROPIC_API_KEY_HERE', process.env.ANTHROPIC_API_KEY);
+  }
+
   fs.writeFileSync(HTML_PATH, html, 'utf8');
 
   console.log(`\n✓  index.html updated`);
