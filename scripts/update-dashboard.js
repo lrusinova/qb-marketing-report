@@ -120,6 +120,64 @@ Return ONLY valid JSON — no markdown, no explanation: [{"key":"MKT-123","h":16
   return results;
 }
 
+// ── Recently shipped items ───────────────────────────────────────────────────
+// Maps each person's CAP_DATA channel to the display channel used in DATA.shipped.
+const CHANNEL_TO_SHIPPED_CH = {
+  'Content & SEO':        'SEO / AEO',
+  'Email & Lifecycle':    'Email & Lifecycle',
+  'Creative & Design':    'Creative & Design',
+  'Demand Gen':           'Webinars & Events',
+  'Social Media':         'Social Media',
+  'PMM / Product':        'Launches & GTM',
+  'Marketing Analytics':  'Systems & AI',
+  'Events & Experiences': 'Webinars & Events',
+  'Community':            'Community',
+  'PR & Comms':           'PR & Exec Comms',
+  'Web & Digital':        'Web / Digital',
+  'UX & Design':          'Web / Digital',
+  'Program Management':   'Systems & AI',
+};
+
+// Maps a Jira label to the bu/label fields in shipped entries.
+function parseBuFromLabels(labels = []) {
+  if (labels.some(l => /^Pave-MKT$/i.test(l))) return { bu: 'Pave', label: 'Pave-MKT' };
+  if (labels.some(l => /^FF-MKT$/i.test(l)))   return { bu: 'FastField', label: 'FF-MKT' };
+  if (labels.some(l => /QB-Core-MKT/i.test(l))) return { bu: 'Core (QB)', label: 'QB-Core-MKT' };
+  if (labels.some(l => /CrossBU-MKT/i.test(l))) return { bu: 'Cross-BU', label: 'CrossBU-MKT' };
+  if (labels.some(l => /^WE-/i.test(l)))        return { bu: 'Web', label: 'WE' };
+  return { bu: 'Cross-BU', label: 'CrossBU-MKT' };
+}
+
+async function fetchRecentlyShipped(team) {
+  // Build assignee index: displayName → channel
+  const personChannel = {};
+  for (const p of team) personChannel[p.displayName] = p.channel;
+
+  const jql = `project in (MKT, WE) AND status CHANGED TO ("Done","Published","Released","Live","Posted") AFTER -30d AND issuetype not in (Epic,"Marketing Initiative","Sub-task") ORDER BY updated DESC`;
+  const url  = `/rest/api/3/search/jql?jql=${encodeURIComponent(jql)}&startAt=0&maxResults=100&fields=summary,assignee,issuetype,labels,resolutiondate,status`;
+  const data = await jiraFetch(url);
+
+  return data.issues.map(i => {
+    const assigneeDisplay = i.fields.assignee?.displayName || '(unassigned)';
+    const ch   = CHANNEL_TO_SHIPPED_CH[personChannel[assigneeDisplay]] || 'Content';
+    const { bu, label } = parseBuFromLabels(i.fields.labels || []);
+    const rawDate = i.fields.resolutiondate || i.fields.updated;
+    const doneDate = rawDate
+      ? new Date(rawDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      : fmtDate(new Date());
+    return {
+      key:      i.key,
+      title:    i.fields.summary,
+      ch,
+      bu,
+      label,
+      owner:    assigneeDisplay,
+      type:     i.fields.issuetype?.name || 'Task',
+      doneDate,
+    };
+  });
+}
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 const LOAD_RANK = { OVER: 3, HIGH: 2, OK: 1, LIGHT: 0 };
 
@@ -264,9 +322,22 @@ async function main() {
   }
   console.log(`\n  Load totals: OVER ${ov}  HIGH ${hi}  OK ${ok}  LIGHT ${lt}`);
 
+  // ── 4b. Fetch recently shipped items ─────────────────────────────────
+  let shippedItems = [];
+  try {
+    process.stdout.write('\n  Fetching recently shipped items (last 30d)… ');
+    shippedItems = await fetchRecentlyShipped(TEAM);
+    console.log(`${shippedItems.length} items found`);
+  } catch (err) {
+    console.warn(`  ⚠  shipped fetch failed (${err.message}) — shipped list unchanged`);
+  }
+
   if (DRY_RUN) {
     console.log('\n[DRY RUN] HISTORY entry that would be added:');
     console.log(JSON.stringify(histEntry, null, 2));
+    if (shippedItems.length) {
+      console.log(`\n[DRY RUN] ${shippedItems.length} shipped items would replace DATA.shipped`);
+    }
     console.log('\n[DRY RUN] No changes written.\n');
     return;
   }
@@ -282,7 +353,7 @@ async function main() {
 
   // Append new entry to HISTORY array
   html = html.replace(
-    /(const HISTORY=\[)([\s\S]*?)(\n\];)/,
+    /(const HISTORY\s*=\s*\[)([\s\S]*?)(\n\];)/,
     (_, open, content, close) => {
       const trimmed = content.trimEnd();
       const sep = trimmed.endsWith(',') ? '' : ',';
@@ -290,13 +361,19 @@ async function main() {
     }
   );
 
-  // Update DATA.lastUpdated
-  html = html.replace(/lastUpdated:"[^"]*"/, `lastUpdated:"${fmtDate(today)}"`);
+  // Replace the shipped array if we got results
+  if (shippedItems.length) {
+    html = html.replace(
+      /shipped:\[[\s\S]*?\n  \],/,
+      `shipped:${jsLit(shippedItems, 1)},`
+    );
+    console.log(`   DATA.shipped updated → ${shippedItems.length} items`);
+  }
 
   fs.writeFileSync(HTML_PATH, html, 'utf8');
 
   console.log(`\n✓  index.html updated`);
-  console.log(`   CAP_DATA refreshed · HISTORY entry added · lastUpdated → ${fmtDate(today)}\n`);
+  console.log(`   CAP_DATA refreshed · HISTORY entry added · pulledAt → ${fmtDate(today)}\n`);
 }
 
 main().catch(err => {

@@ -4,44 +4,44 @@
 
 const TEAM = [
   // ── Content & SEO ───────────────────────────────────────────────────
-  { displayName: 'Patro, Shreya',           jiraName: 'Shreya Patro',           channel: 'Content & SEO',        project: 'mkt' },
-  { displayName: 'Husain, Javeria',         jiraName: 'Javeria Husain',         channel: 'Content & SEO',        project: 'mkt' },
-  { displayName: 'Krishnamurthy, Niveditha',jiraName: 'Niveditha Krishnamurthy',channel: 'Content & SEO',        project: 'mkt' },
-  { displayName: 'Wahl, Nathan',            jiraName: 'Nathan Wahl',            channel: 'Content & SEO',        project: 'mkt' },
+  { displayName: 'Patro, Shreya',           jiraName: 'Patro, Shreya',           channel: 'Content & SEO',        project: 'mkt' },
+  { displayName: 'Husain, Javeria',         jiraName: 'Husain, Javeria',         channel: 'Content & SEO',        project: 'mkt' },
+  { displayName: 'Krishnamurthy, Niveditha',jiraName: 'Krishnamurthy, Niveditha',channel: 'Content & SEO',        project: 'mkt' },
+  { displayName: 'Wahl, Nathan',            jiraName: 'Wahl, Nathan',            channel: 'Content & SEO',        project: 'mkt' },
 
   // ── Email & Lifecycle ────────────────────────────────────────────────
-  { displayName: 'Schiff, Ayva',            jiraName: 'Ayva Schiff',            channel: 'Email & Lifecycle',    project: 'mkt' },
-  { displayName: 'Caufield, Karen',         jiraName: 'Karen Caufield',         channel: 'Email & Lifecycle',    project: 'mkt' },
-  { displayName: 'Lynch, Emma',             jiraName: 'Emma Lynch',             channel: 'Email & Lifecycle',    project: 'mkt' },
-  { displayName: 'Scura, Coco',             jiraName: 'Coco Scura',             channel: 'Email & Lifecycle',    project: 'mkt' },
+  { displayName: 'Schiff, Ayva',            jiraName: 'Schiff, Ayva',            channel: 'Email & Lifecycle',    project: 'mkt' },
+  { displayName: 'Caufield, Karen',         jiraName: 'Caufield, Karen',         channel: 'Email & Lifecycle',    project: 'mkt' },
+  { displayName: 'Lynch, Emma',             jiraName: 'Lynch, Emma',             channel: 'Email & Lifecycle',    project: 'mkt' },
+  { displayName: 'Scura, Coco',             jiraName: 'Scura, Coco',             channel: 'Email & Lifecycle',    project: 'mkt' },
 
   // ── Creative & Design ────────────────────────────────────────────────
-  { displayName: 'Mora, Jasmin',            jiraName: 'Jasmin Mora',            channel: 'Creative & Design',    project: 'mkt' },
-  { displayName: 'Liu, Jenny',              jiraName: 'Jenny Liu',              channel: 'Creative & Design',    project: 'mkt' },
+  { displayName: 'Mora, Jasmin',            jiraName: 'Mora, Jasmin',            channel: 'Creative & Design',    project: 'mkt' },
+  { displayName: 'Liu, Jenny',              jiraName: 'Liu, Jenny',              channel: 'Creative & Design',    project: 'mkt' },
 
   // ── Demand Gen ──────────────────────────────────────────────────────
-  { displayName: 'McPhee, Stephanie',       jiraName: 'Stephanie McPhee',       channel: 'Demand Gen',           project: 'mkt' },
-  { displayName: 'Kleiner, Charlie',        jiraName: 'Charlie Kleiner',        channel: 'Demand Gen',           project: 'mkt' },
+  { displayName: 'McPhee, Stephanie',       jiraName: 'McPhee, Stephanie',       channel: 'Demand Gen',           project: 'mkt' },
+  { displayName: 'Kleiner, Charlie',        jiraName: 'Kleiner, Charlie',        channel: 'Demand Gen',           project: 'mkt' },
 
   // ── Social Media ─────────────────────────────────────────────────────
-  { displayName: 'Rich, Sarah',             jiraName: 'Sarah Rich',             channel: 'Social Media',         project: 'mkt' },
+  { displayName: 'Rich, Sarah',             jiraName: 'Rich, Sarah',             channel: 'Social Media',         project: 'mkt' },
 
   // ── PMM / Product ────────────────────────────────────────────────────
-  { displayName: 'Decker, Michael',         jiraName: 'Michael Decker',         channel: 'PMM / Product',        project: 'mkt' },
-  { displayName: 'Saeed, Hira',             jiraName: 'Hira Saeed',             channel: 'PMM / Product',        project: 'mkt' },
-  { displayName: 'Hendley, Michelle',       jiraName: 'Michelle Hendley',       channel: 'PMM / Product',        project: 'mkt' },
+  { displayName: 'Decker, Michael',         jiraName: 'Decker, Michael',         channel: 'PMM / Product',        project: 'mkt' },
+  { displayName: 'Saeed, Hira',             jiraName: 'Saeed, Hira',             channel: 'PMM / Product',        project: 'mkt' },
+  { displayName: 'Hendley, Michelle',       jiraName: 'Hendley, Michelle',       channel: 'PMM / Product',        project: 'mkt' },
 
   // ── Web & Digital (WE project) ───────────────────────────────────────
-  { displayName: 'Young-Ward, Michael',     jiraName: 'Michael Young-Ward',     channel: 'Web & Digital',        project: 'we' },
-  { displayName: 'Radev, Tihomir',          jiraName: 'Tihomir Radev',          channel: 'Web & Digital',        project: 'we' },
-  { displayName: 'Bogdanov, Iliyan',        jiraName: 'Iliyan Bogdanov',        channel: 'Web & Digital',        project: 'we' },
+  { displayName: 'Young-Ward, Michael',     jiraName: 'Young-Ward, Michael',     channel: 'Web & Digital',        project: 'we' },
+  { displayName: 'Radev, Tihomir',          jiraName: 'Radev, Tihomir',          channel: 'Web & Digital',        project: 'we' },
+  { displayName: 'Bogdanov, Iliyan',        jiraName: 'Bogdanov, Iliyan',        channel: 'Web & Digital',        project: 'we' },
 
   // ── UX & Design (WE project) ─────────────────────────────────────────
-  { displayName: 'Boyanova, Kristina',      jiraName: 'Kristina Boyanova',      channel: 'UX & Design',          project: 'we' },
+  { displayName: 'Boyanova, Kristina',      jiraName: 'Boyanova, Kristina',      channel: 'UX & Design',          project: 'we' },
 
   // ── Program Management ───────────────────────────────────────────────
-  { displayName: 'Maganini, Joey',          jiraName: 'Joey Maganini',          channel: 'Program Management',   project: 'mkt' },
-  { displayName: 'Rusinova, Luiza',         jiraName: 'Luiza Rusinova',         channel: 'Program Management',   project: 'mkt' },
+  { displayName: 'Maganini, Joey',          jiraName: 'Maganini, Joey',          channel: 'Program Management',   project: 'mkt' },
+  { displayName: 'Rusinova, Luiza',         jiraName: 'Rusinova, Luiza',         channel: 'Program Management',   project: 'mkt' },
 
   // ── TODO: Add remaining channels ────────────────────────────────────
   // Marketing Analytics, Events & Experiences, Community, PR & Comms

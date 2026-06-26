@@ -1037,116 +1037,49 @@ function genInsight(ini){
    Rubric: XS=2h S=6h M=16h L=32h XL=80h · 40h/wk = 100%
 ───────────────────────────────────────────────────────── */
 const CAP_DATA = {
-  pulledAt:"Jun 25, 2026",
+  pulledAt:"Jun 26, 2026",
   note:"Effort AI-estimated · Active tasks only (excludes Published/Released/Done) · 40h/wk = 100%",
   channels:[
-    {
-      ch:"Content & SEO",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Email & Lifecycle",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Creative & Design",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Demand Gen",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Social Media",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"PMM / Product",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Marketing Analytics",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Events & Experiences",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Community",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"PR & Comms",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Web & Digital",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"UX & Design",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    },
-    {
-      ch:"Program Management",
-      items:0,
-      unassigned:0,
-      hours:0,
-      load:"LIGHT",
-      people:[]
-    }
+    {ch:"Content & SEO",        items:11, unassigned:0, hours:176, load:"OVER",  people:["Patro, Shreya","Husain, Javeria","Krishnamurthy, Niveditha","Wahl, Nathan"]},
+    {ch:"Email & Lifecycle",    items:28, unassigned:0, hours:228, load:"OVER",  people:["Schiff, Ayva","Caufield, Karen","Lynch, Emma","Scura, Coco"]},
+    {ch:"Creative & Design",    items:25, unassigned:0, hours:360, load:"OVER",  people:["Mora, Jasmin","Liu, Jenny"]},
+    {ch:"Demand Gen",           items:63, unassigned:0, hours:468, load:"OVER",  people:["McPhee, Stephanie","Kleiner, Charlie"]},
+    {ch:"Social Media",         items:2,  unassigned:0, hours:12,  load:"LIGHT", people:["Rich, Sarah"]},
+    {ch:"PMM / Product",        items:54, unassigned:0, hours:620, load:"OVER",  people:["Decker, Michael","Saeed, Hira","Hendley, Michelle"]},
+    {ch:"Marketing Analytics",  items:0,  unassigned:0, hours:0,   load:"LIGHT", people:[]},
+    {ch:"Events & Experiences", items:0,  unassigned:0, hours:0,   load:"LIGHT", people:[]},
+    {ch:"Community",            items:0,  unassigned:0, hours:0,   load:"LIGHT", people:[]},
+    {ch:"PR & Comms",           items:0,  unassigned:0, hours:0,   load:"LIGHT", people:[]},
+    {ch:"Web & Digital",        items:79, unassigned:0, hours:768, load:"OVER",  people:["Young-Ward, Michael","Radev, Tihomir","Bogdanov, Iliyan"]},
+    {ch:"UX & Design",          items:3,  unassigned:0, hours:48,  load:"HIGH",  people:["Boyanova, Kristina"]},
+    {ch:"Program Management",   items:61, unassigned:0, hours:380, load:"OVER",  people:["Maganini, Joey","Rusinova, Luiza"]},
   ],
-  mkt:[],
-  we:[]
+  mkt:[
+    {name:"Rusinova, Luiza",          tasks:61, hours:380, load:"OVER"},
+    {name:"Saeed, Hira",              tasks:35, hours:350, load:"OVER"},
+    {name:"McPhee, Stephanie",        tasks:43, hours:300, load:"OVER"},
+    {name:"Mora, Jasmin",             tasks:13, hours:200, load:"OVER"},
+    {name:"Kleiner, Charlie",         tasks:20, hours:168, load:"OVER"},
+    {name:"Liu, Jenny",               tasks:12, hours:160, load:"OVER"},
+    {name:"Hendley, Michelle",        tasks:11, hours:150, load:"OVER"},
+    {name:"Lynch, Emma",              tasks:15, hours:126, load:"OVER"},
+    {name:"Decker, Michael",          tasks:8,  hours:120, load:"OVER"},
+    {name:"Schiff, Ayva",             tasks:12, hours:96,  load:"OVER"},
+    {name:"Wahl, Nathan",             tasks:6,  hours:96,  load:"OVER"},
+    {name:"Husain, Javeria",          tasks:4,  hours:64,  load:"OVER"},
+    {name:"Patro, Shreya",            tasks:1,  hours:16,  load:"OK"},
+    {name:"Rich, Sarah",              tasks:2,  hours:12,  load:"LIGHT"},
+    {name:"Caufield, Karen",          tasks:1,  hours:6,   load:"LIGHT"},
+    {name:"Krishnamurthy, Niveditha", tasks:0,  hours:0,   load:"LIGHT"},
+    {name:"Scura, Coco",              tasks:0,  hours:0,   load:"LIGHT"},
+    {name:"Maganini, Joey",           tasks:0,  hours:0,   load:"LIGHT"},
+  ],
+  we:[
+    {name:"Young-Ward, Michael", tasks:56, hours:480, load:"OVER"},
+    {name:"Radev, Tihomir",      tasks:10, hours:160, load:"OVER"},
+    {name:"Bogdanov, Iliyan",    tasks:13, hours:128, load:"OVER"},
+    {name:"Boyanova, Kristina",  tasks:3,  hours:48,  load:"HIGH"},
+  ],
 };
 
 /* ══════════════════════════════════════════════════════
@@ -1184,6 +1117,25 @@ const HISTORY = [
       ["PR & Comms",            6,"LIGHT"],
       ["Web & Digital",       728,"OVER"],
       ["UX & Design",           6,"LIGHT"],
+    ]
+  }
+  ,{
+    d:"2026-06-26", w:"Jun 26",
+    ov:8, hi:1, ok:0, lt:4,
+    ch:[
+      ["Content & SEO",       176,"OVER"],
+      ["Email & Lifecycle",   228,"OVER"],
+      ["Creative & Design",   360,"OVER"],
+      ["Demand Gen",          468,"OVER"],
+      ["Social Media",         12,"LIGHT"],
+      ["PMM / Product",       620,"OVER"],
+      ["Marketing Analytics",   0,"LIGHT"],
+      ["Events & Experiences",  0,"LIGHT"],
+      ["Community",             0,"LIGHT"],
+      ["PR & Comms",            0,"LIGHT"],
+      ["Web & Digital",       768,"OVER"],
+      ["UX & Design",          48,"HIGH"],
+      ["Program Management",  380,"OVER"],
     ]
   }
   /* ── APPEND NEXT WEEK HERE ──────────────────────────
