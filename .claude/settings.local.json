@@ -70,7 +70,25 @@
       "mcp__claude_ai_Atlassian__addCommentToJiraIssue",
       "mcp__claude_ai_Slack__slack_search_channels",
       "PowerShell(node --version)",
-      "PowerShell(npm --version)"
+      "PowerShell(npm --version)",
+      "Bash(cd \"C:/Users/lrusinova/OneDrive - QuickBase/Documents/Project Management MCP\" && rm -rf .git/rebase-merge && git status)",
+      "Bash(git pull *)",
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git commit -m 'Merge remote-tracking branch: keep manual Jun 26 capacity refresh over bot zeros *)",
+      "Bash(git push *)",
+      "Bash(git commit -m 'chore: update DATA.shipped with 93 recently completed items \\(Jun 22-26\\) *)",
+      "Bash(git commit -m 'feat: add Refresh button to header + no-cache meta tags *)",
+      "Bash(git commit -m 'fix: stop refresh spinner after page load, clean URL after reload *)",
+      "Bash(gh run *)",
+      "PowerShell(gh run list --repo lrusinova/qb-marketing-report --limit 5 2>&1)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\lrusinova\\OneDrive - QuickBase\\Documents\\Project Management MCP\\.git\\rebase-merge"
     ]
   }
 }
