@@ -5,10 +5,11 @@
 //   1. Queries Jira (MKT + WE projects) for each person's active tasks
 //   2. Calls Claude Haiku to estimate effort hours per task (XS=2h…XL=80h)
 //   3. Rebuilds CAP_DATA, adds a HISTORY snapshot, updates lastUpdated in index.html
-//   4. In CI (GitHub Actions) the workflow then commits + pushes the change
+//   4. Fetches live task counts per strategic goal → writes strategic-data.json
+//   5. In CI (GitHub Actions) the workflow then commits + pushes the changes
 //
 // Usage:
-//   node update-dashboard.js            # live run — writes to index.html
+//   node update-dashboard.js            # live run — writes to index.html + strategic-data.json
 //   node update-dashboard.js --dry-run  # preview only — no file changes
 //
 // Required env vars (set in .env locally, or GitHub Secrets in CI):
@@ -21,14 +22,26 @@ const https  = require('https');
 const fs     = require('fs');
 const path   = require('path');
 
-const DRY_RUN  = process.argv.includes('--dry-run');
+const DRY_RUN   = process.argv.includes('--dry-run');
 const HTML_PATH = path.resolve(__dirname, '..', 'marketing-report', 'index.html');
+const JSON_PATH = path.resolve(__dirname, '..', 'marketing-report', 'strategic-data.json');
 
 // ── Done-equivalent statuses (excluded from active counts) ──────────────────
 const DONE_STATUSES = new Set([
   'Done', 'Published', 'Live', 'Posted', 'Cancelled',
   'Closed', 'Design Done', 'Released', 'Archived',
 ]);
+
+// ── H2 2026 Strategic Goals ──────────────────────────────────────────────────
+const STRATEGIC_GOALS = [
+  { key: 'MKT-12568', name: 'Growth — AWE (FastField + Pave)', owner: 'Gar Smyth'               },
+  { key: 'MKT-12569', name: 'Core BU Marketing',               owner: 'TBH (role in hiring)'    },
+  { key: 'MKT-12570', name: 'Integrated Marketing',             owner: 'Mirissa Kampf'           },
+  { key: 'MKT-12571', name: 'Digital',                          owner: 'Carlos Cortez de Barros' },
+  { key: 'MKT-12572', name: 'Corporate Communications',         owner: 'Tory Waldron'            },
+  { key: 'MKT-12573', name: 'Marketing Systems & AI',           owner: 'Lynn Tan'                },
+  { key: 'MKT-12574', name: 'Program Management',               owner: 'Luiza Rusinova'          },
+];
 
 // ── Jira REST API ────────────────────────────────────────────────────────────
 const JIRA_AUTH = Buffer.from(
@@ -121,7 +134,6 @@ Return ONLY valid JSON — no markdown, no explanation: [{"key":"MKT-123","h":16
 }
 
 // ── Recently shipped items ───────────────────────────────────────────────────
-// Maps each person's CAP_DATA channel to the display channel used in DATA.shipped.
 const CHANNEL_TO_SHIPPED_CH = {
   'Content & SEO':        'SEO / AEO',
   'Email & Lifecycle':    'Email & Lifecycle',
@@ -138,7 +150,6 @@ const CHANNEL_TO_SHIPPED_CH = {
   'Program Management':   'Systems & AI',
 };
 
-// Maps a Jira label to the bu/label fields in shipped entries.
 function parseBuFromLabels(labels = []) {
   if (labels.some(l => /^Pave-MKT$/i.test(l))) return { bu: 'Pave', label: 'Pave-MKT' };
   if (labels.some(l => /^FF-MKT$/i.test(l)))   return { bu: 'FastField', label: 'FF-MKT' };
@@ -149,7 +160,6 @@ function parseBuFromLabels(labels = []) {
 }
 
 async function fetchRecentlyShipped(team) {
-  // Build assignee index: displayName → channel
   const personChannel = {};
   for (const p of team) personChannel[p.displayName] = p.channel;
 
@@ -178,6 +188,86 @@ async function fetchRecentlyShipped(team) {
   });
 }
 
+// ── Strategic Goal Data ──────────────────────────────────────────────────────
+// Fetches task counts per strategic goal by traversing the Jira hierarchy:
+// Strategic Project → Marketing Initiative → Epic → Task
+async function fetchStrategicGoalData(today) {
+  const goals = [];
+
+  for (const goal of STRATEGIC_GOALS) {
+    process.stdout.write(`  ${goal.name.padEnd(44)} `);
+    try {
+      // Level 1: Marketing Initiatives under this strategic goal
+      const miIssues = await jiraSearch(
+        `project = MKT AND issuetype = "Marketing Initiative" AND parent = ${goal.key}`
+      );
+      const miKeys = miIssues.map(i => i.key);
+
+      // Level 2: Epics under those initiatives
+      let epicIssues = [];
+      if (miKeys.length) {
+        epicIssues = await jiraSearch(
+          `project in (MKT, WE) AND issuetype = Epic AND parent in (${miKeys.join(',')})`
+        );
+      }
+      const epicKeys = epicIssues.map(i => i.key);
+
+      // Level 3: Tasks under those epics (batch 50 keys at a time to avoid JQL limits)
+      let taskIssues = [];
+      for (let i = 0; i < epicKeys.length; i += 50) {
+        const batch = epicKeys.slice(i, i + 50);
+        const batchIssues = await jiraSearch(
+          `project in (MKT, WE) AND parent in (${batch.join(',')}) AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project")`
+        );
+        taskIssues.push(...batchIssues);
+      }
+
+      // Aggregate task statuses
+      const byStatus = {};
+      for (const t of taskIssues) {
+        const s = t.fields.status?.name || 'Unknown';
+        byStatus[s] = (byStatus[s] || 0) + 1;
+      }
+
+      const doneCount   = Object.entries(byStatus)
+        .filter(([s]) => DONE_STATUSES.has(s))
+        .reduce((sum, [, n]) => sum + n, 0);
+      const activeCount = taskIssues.length - doneCount;
+
+      goals.push({
+        key:              goal.key,
+        name:             goal.name,
+        owner:            goal.owner,
+        totalInitiatives: miIssues.length,
+        totalEpics:       epicIssues.length,
+        totalTasks:       taskIssues.length,
+        activeTasks:      activeCount,
+        doneTasks:        doneCount,
+        completionPct:    taskIssues.length
+          ? Math.round((doneCount / taskIssues.length) * 100)
+          : 0,
+        byStatus,
+        epics: epicIssues.map(e => ({
+          key:     e.key,
+          summary: e.fields.summary,
+          status:  e.fields.status?.name || 'Unknown',
+        })),
+      });
+
+      console.log(`${miIssues.length} initiatives  ${epicIssues.length} epics  ${taskIssues.length} tasks  (${activeCount} active)`);
+    } catch (err) {
+      console.warn(`ERROR — ${err.message}`);
+      goals.push({ key: goal.key, name: goal.name, owner: goal.owner, error: err.message });
+    }
+  }
+
+  return {
+    pulledAt:       fmtDate(today),
+    note:           'Live from Jira MKT + WE — counts exclude Done/Published/Released/etc.',
+    strategicGoals: goals,
+  };
+}
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 const LOAD_RANK = { OVER: 3, HIGH: 2, OK: 1, LIGHT: 0 };
 
@@ -195,7 +285,6 @@ function fmtShort(d) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-// Serialize as JS object literal (no quotes on keys, matches existing code style)
 function jsLit(val, depth = 0) {
   const pad = '  '.repeat(depth);
   if (val === null || val === undefined) return 'null';
@@ -235,9 +324,7 @@ async function main() {
       const jql = `project in (MKT, WE) AND assignee = "${person.jiraName}" AND status not in ("Done","Published","Live","Posted","Cancelled","Closed","Design Done","Released","Archived") ORDER BY priority ASC`;
       const issues = await jiraSearch(jql);
 
-      // Dedup: if a parent task and all its children share this assignee,
-      // the parent is counted as coordination overhead (S=6h), not re-estimated.
-      const childKeys  = new Set(issues.flatMap(i => (i.fields.subtasks || []).map(s => s.key)));
+      const childKeys    = new Set(issues.flatMap(i => (i.fields.subtasks || []).map(s => s.key)));
       const coordParents = issues.filter(i => childKeys.has(i.key));
       const toEstimate   = issues.filter(i => !childKeys.has(i.key)).map(i => ({
         key:     i.key,
@@ -332,6 +419,22 @@ async function main() {
     console.warn(`  ⚠  shipped fetch failed (${err.message}) — shipped list unchanged`);
   }
 
+  // ── 5. Fetch and write strategic goal data ────────────────────────────
+  console.log('\n── Strategic Goal Data ──────────────────────────────────────────');
+  let strategicData = null;
+  try {
+    strategicData = await fetchStrategicGoalData(today);
+    if (!DRY_RUN) {
+      fs.writeFileSync(JSON_PATH, JSON.stringify(strategicData, null, 2), 'utf8');
+      console.log(`\n✓  strategic-data.json updated (${strategicData.strategicGoals.length} goals)`);
+    } else {
+      console.log('\n[DRY RUN] strategic-data.json would be written — sample:');
+      console.log(JSON.stringify(strategicData.strategicGoals[0], null, 2));
+    }
+  } catch (err) {
+    console.warn(`  ⚠  Strategic data fetch failed (${err.message})`);
+  }
+
   if (DRY_RUN) {
     console.log('\n[DRY RUN] HISTORY entry that would be added:');
     console.log(JSON.stringify(histEntry, null, 2));
@@ -342,16 +445,14 @@ async function main() {
     return;
   }
 
-  // ── 5. Write to index.html ────────────────────────────────────────────
+  // ── 6. Write to index.html ────────────────────────────────────────────
   let html = fs.readFileSync(HTML_PATH, 'utf8');
 
-  // Replace the entire CAP_DATA block
   html = html.replace(
     /const CAP_DATA = \{[\s\S]*?\n\};/,
     `const CAP_DATA = ${jsLit(newCapData)};`
   );
 
-  // Append new entry to HISTORY array
   html = html.replace(
     /(const HISTORY\s*=\s*\[)([\s\S]*?)(\n\];)/,
     (_, open, content, close) => {
@@ -361,7 +462,6 @@ async function main() {
     }
   );
 
-  // Replace the shipped array if we got results
   if (shippedItems.length) {
     html = html.replace(
       /shipped:\[[\s\S]*?\n  \],/,

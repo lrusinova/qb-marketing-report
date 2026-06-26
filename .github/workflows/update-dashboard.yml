@@ -12,7 +12,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # needed to push the updated index.html
+      contents: write   # needed to push updated files
 
     steps:
       - name: Checkout
@@ -39,7 +39,7 @@ jobs:
         run: |
           git config --global user.name  "Dashboard Bot"
           git config --global user.email "dashboard-bot@quickbase.com"
-          git add marketing-report/index.html
+          git add marketing-report/index.html marketing-report/strategic-data.json
           git diff --staged --quiet \
             && echo "No changes — dashboard already up to date." \
             || (git commit -m "chore: auto-update capacity data $(date +%Y-%m-%d)" && git push)
