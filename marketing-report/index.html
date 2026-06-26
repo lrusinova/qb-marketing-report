@@ -570,21 +570,25 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
   <div class="hdr-r">
     <div class="hbadge"><div class="live-dot"></div>Live</div>
     <div class="hbadge teal" id="upd-badge"></div>
-    <button class="hbadge" id="refresh-btn" onclick="window.location.href=window.location.pathname+'?v='+Date.now()" title="Reload dashboard with latest data" style="cursor:pointer;border:none;background:rgba(255,255,255,0.12);color:inherit;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:6px;">
+    <button class="hbadge" id="refresh-btn" onclick="doRefresh()" title="Reload dashboard with latest data" style="cursor:pointer;border:none;background:rgba(255,255,255,0.12);color:inherit;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:6px;">
       <svg id="refresh-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       Refresh
     </button>
   </div>
 </header>
 <script>
-// Spin the icon while the page is loading after a refresh click
-(function(){
-  var p=new URLSearchParams(window.location.search);
-  if(p.has('v')){
-    var ic=document.getElementById('refresh-icon');
-    if(ic) ic.style.animation='spin 1s linear infinite';
-  }
-})();
+function doRefresh(){
+  var ic=document.getElementById('refresh-icon');
+  if(ic) ic.style.animation='spin 0.7s linear infinite';
+  window.location.href=window.location.pathname+'?v='+Date.now();
+}
+// Clean up spinner and URL once page has fully loaded
+window.addEventListener('load',function(){
+  var ic=document.getElementById('refresh-icon');
+  if(ic) ic.style.animation='';
+  // Remove ?v= from URL bar without reloading
+  if(window.location.search) history.replaceState(null,'',window.location.pathname);
+});
 </script>
 
 <nav class="tbar">
