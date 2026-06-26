@@ -39,13 +39,16 @@ const TEAM = [
   // ── UX & Design (WE project) ─────────────────────────────────────────
   { displayName: 'Boyanova, Kristina',      jiraName: 'Boyanova, Kristina',      channel: 'UX & Design',          project: 'we' },
 
-  // ── Program Management ───────────────────────────────────────────────
-  { displayName: 'Maganini, Joey',          jiraName: 'Maganini, Joey',          channel: 'Program Management',   project: 'mkt' },
-  { displayName: 'Rusinova, Luiza',         jiraName: 'Rusinova, Luiza',         channel: 'Program Management',   project: 'mkt' },
+  // ── PR & Comms ──────────────────────────────────────────────────────
+  { displayName: 'Waldron, Tory',           jiraName: 'Waldron, Tory',           channel: 'PR & Comms',           project: 'mkt' },
+  { displayName: 'Bolton, Isabella',        jiraName: 'Bolton, Isabella',        channel: 'PR & Comms',           project: 'mkt' },
+  { displayName: 'Horgan, Colin',           jiraName: 'Horgan, Colin',           channel: 'PR & Comms',           project: 'mkt' },
+
+  // ── Community ───────────────────────────────────────────────────────
+  { displayName: 'Simon, Ben',              jiraName: 'Simon, Ben',              channel: 'Community',            project: 'mkt' },
 
   // ── TODO: Add remaining channels ────────────────────────────────────
-  // Marketing Analytics, Events & Experiences, Community, PR & Comms
-  // { displayName: 'Waldron, Tory', jiraName: 'Tory Waldron', channel: 'PR & Comms', project: 'mkt' },
+  // Marketing Analytics, Events & Experiences
 ];
 
 // Channel order matches the dashboard display order.
@@ -63,7 +66,6 @@ const CHANNELS = [
   { name: 'PR & Comms'           },
   { name: 'Web & Digital'        },
   { name: 'UX & Design'          },
-  { name: 'Program Management'   },
 ];
 
 module.exports = { TEAM, CHANNELS };
