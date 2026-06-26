@@ -1195,10 +1195,8 @@ const CAP_DATA = {
     {ch:"PR & Comms",           items:0,  unassigned:0, hours:0,   load:"LIGHT", people:[]},
     {ch:"Web & Digital",        items:79, unassigned:0, hours:768, load:"OVER",  people:["Young-Ward, Michael","Radev, Tihomir","Bogdanov, Iliyan"]},
     {ch:"UX & Design",          items:3,  unassigned:0, hours:48,  load:"HIGH",  people:["Boyanova, Kristina"]},
-    {ch:"Program Management",   items:61, unassigned:0, hours:380, load:"OVER",  people:["Maganini, Joey","Rusinova, Luiza"]},
   ],
   mkt:[
-    {name:"Rusinova, Luiza",          tasks:61, hours:380, load:"OVER"},
     {name:"Saeed, Hira",              tasks:35, hours:350, load:"OVER"},
     {name:"McPhee, Stephanie",        tasks:43, hours:300, load:"OVER"},
     {name:"Mora, Jasmin",             tasks:13, hours:200, load:"OVER"},
@@ -1215,7 +1213,6 @@ const CAP_DATA = {
     {name:"Caufield, Karen",          tasks:1,  hours:6,   load:"LIGHT"},
     {name:"Krishnamurthy, Niveditha", tasks:0,  hours:0,   load:"LIGHT"},
     {name:"Scura, Coco",              tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Maganini, Joey",           tasks:0,  hours:0,   load:"LIGHT"},
   ],
   we:[
     {name:"Young-Ward, Michael", tasks:56, hours:480, load:"OVER"},
@@ -1278,7 +1275,6 @@ const HISTORY = [
       ["PR & Comms",            0,"LIGHT"],
       ["Web & Digital",       768,"OVER"],
       ["UX & Design",          48,"HIGH"],
-      ["Program Management",  380,"OVER"],
     ]
   }
   /* ── APPEND NEXT WEEK HERE ──────────────────────────
@@ -1551,7 +1547,7 @@ function renderBriefing(){
   const _allOk  =_dedup([...CAP_DATA.mkt.filter(p=>p.load==='OK'),...CAP_DATA.we.filter(p=>p.load==='OK')]);
   const _allLight=_dedup([...CAP_DATA.mkt.filter(p=>p.load==='LIGHT'),...CAP_DATA.we.filter(p=>p.load==='LIGHT')]);
   const _overDisp=_allOver.slice(0,3).map(p=>_pSn(p.name)).join(', ')+(_allOver.length>3?` +${_allOver.length-3}`:'');
-  const _cSh={'Content & SEO':'Content','Email & Lifecycle':'Email','Creative & Design':'Creative','Demand Gen':'DG','Social Media':'Social','PMM / Product':'PMM','Marketing Analytics':'Analytics','Events & Experiences':'Events','Community':'Community','PR & Comms':'PR & Comms','Web & Digital':'Web','UX & Design':'UX','Program Management':'Prog. Mgmt'};
+  const _cSh={'Content & SEO':'Content','Email & Lifecycle':'Email','Creative & Design':'Creative','Demand Gen':'DG','Social Media':'Social','PMM / Product':'PMM','Marketing Analytics':'Analytics','Events & Experiences':'Events','Community':'Community','PR & Comms':'PR & Comms','Web & Digital':'Web','UX & Design':'UX'};
   const _cCl=l=>l==='OVER'?{bg:'rgba(229,57,53,.1)',bc:'rgba(229,57,53,.28)',dot:'var(--red)'}:l==='HIGH'?{bg:'rgba(245,158,11,.1)',bc:'rgba(245,158,11,.28)',dot:'var(--amber)'}:l==='GAP'?{bg:'var(--g100)',bc:'var(--g200)',dot:'var(--g400)'}:{bg:'rgba(20,165,88,.08)',bc:'rgba(20,165,88,.28)',dot:'var(--green)'};
   const capStripHtml='<div class="tl-strip" style="flex-direction:column;align-items:flex-start;gap:9px;padding:14px 20px">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;width:100%">'
