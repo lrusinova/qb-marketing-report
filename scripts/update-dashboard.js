@@ -147,7 +147,6 @@ const CHANNEL_TO_SHIPPED_CH = {
   'PR & Comms':           'PR & Exec Comms',
   'Web & Digital':        'Web / Digital',
   'UX & Design':          'Web / Digital',
-  'Program Management':   'Systems & AI',
 };
 
 function parseBuFromLabels(labels = []) {
