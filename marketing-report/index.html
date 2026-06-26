@@ -4,6 +4,9 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="robots" content="noindex,nofollow"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
 <title>QB Marketing — Executive Dashboard H2 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -41,6 +44,7 @@ button{font-family:inherit;cursor:pointer}
 .hbadge.teal{background:rgba(0,166,143,.1);border-color:rgba(0,166,143,.3);color:var(--qb-teal);font-weight:700}
 .live-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ── TABS ───────────────────────────────────────────── */
 .tbar{background:#fff;border-bottom:2px solid var(--g100);display:flex;padding:0 22px;position:sticky;top:60px;z-index:99;box-shadow:0 2px 10px rgba(10,50,30,.07)}
@@ -566,8 +570,22 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
   <div class="hdr-r">
     <div class="hbadge"><div class="live-dot"></div>Live</div>
     <div class="hbadge teal" id="upd-badge"></div>
+    <button class="hbadge" id="refresh-btn" onclick="window.location.href=window.location.pathname+'?v='+Date.now()" title="Reload dashboard with latest data" style="cursor:pointer;border:none;background:rgba(255,255,255,0.12);color:inherit;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:6px;">
+      <svg id="refresh-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      Refresh
+    </button>
   </div>
 </header>
+<script>
+// Spin the icon while the page is loading after a refresh click
+(function(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.has('v')){
+    var ic=document.getElementById('refresh-icon');
+    if(ic) ic.style.animation='spin 1s linear infinite';
+  }
+})();
+</script>
 
 <nav class="tbar">
   <button class="tbtn on" onclick="go('brief',this)">
