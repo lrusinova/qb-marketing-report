@@ -39,7 +39,7 @@ jobs:
         run: |
           git config --global user.name  "Dashboard Bot"
           git config --global user.email "dashboard-bot@quickbase.com"
-          git add marketing-report/index.html marketing-report/strategic-data.json
+          git add index.html marketing-report/index.html marketing-report/strategic-data.json marketing-report/deliverables-review.json
           git diff --staged --quiet \
             && echo "No changes — dashboard already up to date." \
-            || (git commit -m "chore: auto-update capacity data $(date +%Y-%m-%d)" && git push)
+            || (git commit -m "chore: auto-update dashboard $(date +%Y-%m-%d) — capacity + Q2 deliverables" && git push)
