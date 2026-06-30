@@ -278,59 +278,6 @@ async function fetchIssueComments(issueKey) {
   } catch { return ''; }
 }
 
-// Claude classification for items that survived all text-based tiers
-async function classifyAmbiguousWithClaude(items) {
-  if (!items.length || !process.env.ANTHROPIC_API_KEY) return [];
-
-  let Anthropic;
-  try { Anthropic = require('@anthropic-ai/sdk'); }
-  catch { return []; }
-
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  const results = [];
-  const CHUNK = 20;
-
-  const VALID_CHANNELS = Object.keys(CHANNEL_TO_SHIPPED_CH);
-  const VALID_BUS = ['QB-Core', 'Pave', 'FastField', 'Cross-BU'];
-
-  for (let i = 0; i < items.length; i += CHUNK) {
-    const chunk = items.slice(i, i + CHUNK);
-    const list  = chunk.map((item, idx) => {
-      const context = [item.summary, item.issuetype, item.context].filter(Boolean).join(' | ');
-      return `${idx + 1}. KEY:${item.key}  ${context}`;
-    }).join('\n');
-
-    try {
-      const msg = await client.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1024,
-        messages: [{
-          role: 'user',
-          content: `Categorize these Quickbase marketing Jira tasks for a dashboard.
-
-Valid channels: ${VALID_CHANNELS.join(', ')}
-Valid BUs: ${VALID_BUS.join(', ')}
-
-Use null for channel or bu only if truly impossible to determine.
-
-Tasks:
-${list}
-
-Return ONLY valid JSON matching input order — no markdown:
-[{"key":"MKT-123","channel":"Email & Lifecycle","bu":"QB-Core"},...]`
-        }]
-      });
-      const text   = msg.content[0].text.trim().replace(/^```json?\n?|```$/g, '');
-      const parsed = JSON.parse(text);
-      results.push(...parsed);
-    } catch (e) {
-      console.warn(`  ⚠  Claude classification batch failed: ${e.message}`);
-      for (const item of chunk) results.push({ key: item.key, channel: null, bu: null });
-    }
-  }
-  return results;
-}
-
 // ── Full Q2 shipped items fetch with deep categorization ─────────────────────
 async function fetchAllQ2Shipped(team, q2Start, q2End) {
   const personChannel = {};
@@ -354,14 +301,16 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
   }
   console.log(` ${issues.length} raw`);
 
-  // Drop current cleanup statuses (item completed but then cancelled/archived)
+  // Drop items that ended up cancelled/archived after completion
   const genuine = issues.filter(i => !CLEANUP_STATUSES.has(i.fields.status?.name));
   console.log(`  ${genuine.length} genuine (${issues.length - genuine.length} cancelled/archived excluded)`);
 
   const categorized  = [];
   const needComments = [];
 
-  // ── Pass 1: labels + summary keywords + assignee + description ──────────
+  // ── Pass 1: assignee / issuetype / keywords / description ───────────────
+  // Categorize immediately if channel is known; BU defaults to 'Unknown' when
+  // no label or keyword match (99% of task-level issues have no BU label).
   for (const issue of genuine) {
     const summary   = issue.fields.summary || '';
     const labels    = issue.fields.labels || [];
@@ -377,98 +326,79 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
     const buResult = detectBU(labels, allText);
     const channel  = detectChannel(assignee, issuetype, summary, allText, personChannel);
 
-    if (buResult && channel) {
+    if (channel) {
       categorized.push({
         key: issue.key, title: summary,
-        ch: CHANNEL_TO_SHIPPED_CH[channel] || channel,
-        bu: buResult.bu, label: buResult.label,
+        ch:    CHANNEL_TO_SHIPPED_CH[channel] || channel,
+        bu:    buResult ? buResult.bu : 'Unknown',
+        label: buResult ? buResult.label : '',
         owner: assignee || 'Unassigned',
         type: detectType(issuetype, summary), doneDate,
       });
     } else {
+      // Channel still unknown — try comments in Pass 2
       needComments.push({
         key: issue.key, summary, labels, assignee, issuetype, descText, doneDate,
-        knownBU: buResult, knownChannel: channel,
+        knownBU: buResult,
       });
     }
   }
+  console.log(`  Pass 1: ${categorized.length} categorized · ${needComments.length} need comment check`);
 
-  console.log(`  Pass 1: ${categorized.length} done · ${needComments.length} need comments`);
+  // ── Pass 2: parallel comment fetch — only for channel-unknown items ──────
+  // Cap at 200 to avoid unbounded API calls; batch 15 at a time.
+  const COMMENT_CAP = 200;
+  const toCheck  = needComments.slice(0, COMMENT_CAP);
+  const overflow = needComments.slice(COMMENT_CAP);
+  const needsReview = [];
 
-  // ── Pass 2: fetch comments for still-uncategorized items ─────────────────
-  const stillAmbiguous = [];
-  if (needComments.length > 0) {
-    process.stdout.write(`  Fetching comments (${needComments.length} items) `);
-    for (const item of needComments) {
-      process.stdout.write('.');
-      const commentText = await fetchIssueComments(item.key);
-      const allText = `${item.summary} ${item.descText} ${commentText}`;
-
-      const buResult = item.knownBU  || detectBU(item.labels, allText);
-      const channel  = item.knownChannel || detectChannel(item.assignee, item.issuetype, item.summary, allText, personChannel);
-
-      if (buResult && channel) {
-        categorized.push({
-          key: item.key, title: item.summary,
-          ch: CHANNEL_TO_SHIPPED_CH[channel] || channel,
-          bu: buResult.bu, label: buResult.label,
-          owner: item.assignee || 'Unassigned',
-          type: detectType(item.issuetype, item.summary), doneDate: item.doneDate,
-        });
-      } else {
-        stillAmbiguous.push({
-          ...item, commentText,
-          // carry forward whatever we know
-          knownBU: buResult, knownChannel: channel,
-        });
+  if (toCheck.length > 0) {
+    process.stdout.write(`  Fetching comments for ${toCheck.length} items `);
+    const BATCH_SIZE = 15;
+    for (let i = 0; i < toCheck.length; i += BATCH_SIZE) {
+      const batch        = toCheck.slice(i, i + BATCH_SIZE);
+      const commentTexts = await Promise.all(batch.map(item => fetchIssueComments(item.key)));
+      for (let j = 0; j < batch.length; j++) {
+        const item        = batch[j];
+        const commentText = commentTexts[j];
+        const allText     = `${item.summary} ${item.descText} ${commentText}`;
+        const buResult    = item.knownBU || detectBU(item.labels, allText);
+        const channel     = detectChannel(item.assignee, item.issuetype, item.summary, allText, personChannel);
+        if (channel) {
+          categorized.push({
+            key: item.key, title: item.summary,
+            ch:    CHANNEL_TO_SHIPPED_CH[channel] || channel,
+            bu:    buResult ? buResult.bu : 'Unknown',
+            label: buResult ? buResult.label : '',
+            owner: item.assignee || 'Unassigned',
+            type:  detectType(item.issuetype, item.summary), doneDate: item.doneDate,
+          });
+        } else {
+          needsReview.push({
+            key: item.key, title: item.summary, type: item.issuetype,
+            assignee: item.assignee || '(unassigned)',
+            partialBU: buResult?.bu || null, partialChannel: null,
+            note: 'Could not determine channel from labels, summary, description, or comments',
+          });
+        }
       }
+      process.stdout.write('.');
     }
     console.log('');
-    console.log(`  Pass 2: +${needComments.length - stillAmbiguous.length} · ${stillAmbiguous.length} still ambiguous`);
+    console.log(`  Pass 2: +${toCheck.length - needsReview.length} categorized · ${needsReview.length} flagged`);
   }
 
-  // ── Pass 3: Claude classification for remaining ambiguous items ───────────
-  const needsReview = [];
-  if (stillAmbiguous.length > 0) {
-    console.log(`  Pass 3: Claude classifying ${stillAmbiguous.length} ambiguous items…`);
-    const claudeInput = stillAmbiguous.map(item => ({
-      key:      item.key,
-      summary:  item.summary,
-      issuetype: item.issuetype,
-      context:  `${item.descText} ${item.commentText || ''}`.slice(0, 300).trim(),
-    }));
-    const claudeResults = await classifyAmbiguousWithClaude(claudeInput);
-    const claudeMap = Object.fromEntries(claudeResults.map(r => [r.key, r]));
-
-    for (const item of stillAmbiguous) {
-      const cr           = claudeMap[item.key] || {};
-      const finalBU      = item.knownBU      || (cr.bu      ? { bu: cr.bu, label: '' } : null);
-      const finalChannel = item.knownChannel || cr.channel  || null;
-
-      if (finalBU && finalChannel) {
-        categorized.push({
-          key: item.key, title: item.summary,
-          ch: CHANNEL_TO_SHIPPED_CH[finalChannel] || finalChannel,
-          bu: finalBU.bu, label: finalBU.label || '',
-          owner: item.assignee || 'Unassigned',
-          type: detectType(item.issuetype, item.summary), doneDate: item.doneDate,
-        });
-      } else {
-        // Exhausted all signals — flag for manual review
-        needsReview.push({
-          key:      item.key,
-          title:    item.summary,
-          type:     item.issuetype,
-          assignee: item.assignee || '(unassigned)',
-          partialBU:      finalBU?.bu      || null,
-          partialChannel: finalChannel     || null,
-          note: 'Could not determine ' +
-            [!finalBU && 'BU', !finalChannel && 'channel'].filter(Boolean).join(' or ') +
-            ' from labels, summary, description, comments, or Claude',
-        });
-      }
-    }
-    console.log(`  Pass 3: +${stillAmbiguous.length - needsReview.length} classified · ${needsReview.length} flagged for review`);
+  // Items beyond the cap → flag for manual review
+  for (const item of overflow) {
+    needsReview.push({
+      key: item.key, title: item.summary, type: item.issuetype,
+      assignee: item.assignee || '(unassigned)',
+      partialBU: item.knownBU?.bu || null, partialChannel: null,
+      note: 'Skipped: comment cap (200) reached — assign channel via Jira label or assignee',
+    });
+  }
+  if (overflow.length > 0) {
+    console.log(`  ${overflow.length} items exceeded comment cap → flagged for review`);
   }
 
   // Sort newest first
