@@ -45,7 +45,7 @@ const TEAM = [
   { displayName: 'Horgan, Colin',           jiraName: 'Horgan, Colin',           channel: 'PR & Comms',           project: 'mkt' },
 
   // ── Community ───────────────────────────────────────────────────────
-  { displayName: 'Simon, Ben',              jiraName: 'Simon, Ben',              channel: 'Community',            project: 'mkt' },
+  { displayName: 'Simon, Ben',              jiraName: 'Simon , Ben',             channel: 'Community',            project: 'mkt' },
 
   // ── TODO: Add remaining channels ────────────────────────────────────
   // Marketing Analytics, Events & Experiences
