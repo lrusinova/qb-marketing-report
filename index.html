@@ -1183,56 +1183,56 @@ function genInsight(ini){
 /* ══════════════════════════════════════════════════════
    TAB 1 — EXECUTIVE BRIEFING
 ══════════════════════════════════════════════════════ */
-/* ── CAPACITY DATA (Jira pull Jun 24 2026) ─────────────
+/* ── CAPACITY DATA (Jira pull Jul 1 2026) ─────────────
    Effort AI-estimated from task titles + descriptions.
    Active = In Progress / In Review / Planning / To Do.
    Excludes Published / Released / Design Done / Done.
    Rubric: XS=2h S=6h M=16h L=32h XL=80h · 40h/wk = 100%
 ───────────────────────────────────────────────────────── */
 const CAP_DATA = {
-  pulledAt:"Jun 30, 2026",
+  pulledAt:"Jul 1, 2026",
   note:"Effort AI-estimated · Active tasks only (excludes Published/Released/Done) · 40h/wk = 100%",
   channels:[
-    {ch:"Content & SEO",        items:11, unassigned:0, hours:116,  load:"OVER",  people:["Patro, Shreya","Husain, Javeria","Krishnamurthy, Niveditha","Wahl, Nathan"]},
-    {ch:"Email & Lifecycle",    items:25, unassigned:0, hours:164,  load:"OVER",  people:["Schiff, Ayva","Caufield, Karen","Lynch, Emma","Scura, Coco"]},
-    {ch:"Creative & Design",    items:22, unassigned:0, hours:478,  load:"OVER",  people:["Mora, Jasmin","Liu, Jenny"]},
-    {ch:"Demand Gen",           items:66, unassigned:0, hours:658,  load:"OVER",  people:["McPhee, Stephanie","Kleiner, Charlie"]},
-    {ch:"Social Media",         items:6,  unassigned:0, hours:38,   load:"HIGH",  people:["Rich, Sarah"]},
-    {ch:"PMM / Product",        items:55, unassigned:0, hours:396,  load:"OVER",  people:["Decker, Michael","Saeed, Hira","Hendley, Michelle"]},
+    {ch:"Content & SEO",        items:18, unassigned:0, hours:336,  load:"OVER",  people:["Patro, Shreya","Husain, Javeria","Krishnamurthy, Niveditha","Wahl, Nathan"]},
+    {ch:"Email & Lifecycle",    items:25, unassigned:0, hours:240,  load:"OVER",  people:["Schiff, Ayva","Caufield, Karen","Lynch, Emma","Scura, Coco"]},
+    {ch:"Creative & Design",    items:21, unassigned:0, hours:504,  load:"OVER",  people:["Mora, Jasmin","Liu, Jenny"]},
+    {ch:"Demand Gen",           items:58, unassigned:0, hours:1020, load:"OVER",  people:["McPhee, Stephanie","Kleiner, Charlie"]},
+    {ch:"Social Media",         items:6,  unassigned:0, hours:66,   load:"OVER",  people:["Rich, Sarah"]},
+    {ch:"PMM / Product",        items:36, unassigned:0, hours:716,  load:"OVER",  people:["Decker, Michael","Saeed, Hira","Hendley, Michelle"]},
     {ch:"Marketing Analytics",  items:0,  unassigned:0, hours:0,    load:"LIGHT", people:[]},
     {ch:"Events & Experiences", items:0,  unassigned:0, hours:0,    load:"LIGHT", people:[]},
-    {ch:"Community",            items:8,  unassigned:0, hours:120,  load:"OVER",  people:["Simon, Ben"]},
-    {ch:"PR & Comms",           items:21, unassigned:0, hours:182,  load:"OVER",  people:["Waldron, Tory","Bolton, Isabella","Horgan, Colin"]},
-    {ch:"Web & Digital",        items:82, unassigned:0, hours:1374, load:"OVER",  people:["Young-Ward, Michael","Radev, Tihomir","Bogdanov, Iliyan"]},
-    {ch:"UX & Design",          items:5,  unassigned:0, hours:80,   load:"OVER",  people:["Boyanova, Kristina"]},
+    {ch:"Community",            items:8,  unassigned:0, hours:194,  load:"OVER",  people:["Simon , Ben"]},
+    {ch:"PR & Comms",           items:22, unassigned:0, hours:172,  load:"OVER",  people:["Waldron, Tory","Bolton, Isabella","Horgan, Colin"]},
+    {ch:"Web & Digital",        items:83, unassigned:0, hours:1594, load:"OVER",  people:["Young-Ward, Michael","Radev, Tihomir","Bogdanov, Iliyan"]},
+    {ch:"UX & Design",          items:10, unassigned:0, hours:150,  load:"OVER",  people:["Boyanova, Kristina"]},
   ],
   mkt:[
-    {name:"McPhee, Stephanie",        tasks:47, hours:404, load:"OVER"},
-    {name:"Saeed, Hira",              tasks:28, hours:188, load:"OVER"},
-    {name:"Mora, Jasmin",             tasks:10, hours:220, load:"OVER"},
-    {name:"Liu, Jenny",               tasks:12, hours:258, load:"OVER"},
-    {name:"Kleiner, Charlie",         tasks:19, hours:254, load:"OVER"},
-    {name:"Hendley, Michelle",        tasks:20, hours:126, load:"OVER"},
-    {name:"Lynch, Emma",              tasks:15, hours:118, load:"OVER"},
-    {name:"Waldron, Tory",            tasks:19, hours:148, load:"OVER"},
-    {name:"Decker, Michael",          tasks:7,  hours:82,  load:"OVER"},
-    {name:"Wahl, Nathan",             tasks:7,  hours:82,  load:"OVER"},
-    {name:"Simon, Ben",               tasks:8,  hours:120, load:"OVER"},
-    {name:"Schiff, Ayva",             tasks:10, hours:46,  load:"OVER"},
-    {name:"Rich, Sarah",              tasks:6,  hours:38,  load:"HIGH"},
-    {name:"Husain, Javeria",          tasks:4,  hours:34,  load:"HIGH"},
-    {name:"Bolton, Isabella",         tasks:2,  hours:34,  load:"HIGH"},
-    {name:"Patro, Shreya",            tasks:0,  hours:0,   load:"LIGHT"},
+    {name:"McPhee, Stephanie",        tasks:39, hours:620, load:"OVER"},
+    {name:"Kleiner, Charlie",         tasks:19, hours:400, load:"OVER"},
+    {name:"Decker, Michael",          tasks:8,  hours:358, load:"OVER"},
+    {name:"Liu, Jenny",               tasks:10, hours:290, load:"OVER"},
+    {name:"Hendley, Michelle",        tasks:21, hours:284, load:"OVER"},
+    {name:"Wahl, Nathan",             tasks:13, hours:256, load:"OVER"},
+    {name:"Mora, Jasmin",             tasks:11, hours:214, load:"OVER"},
+    {name:"Simon , Ben",              tasks:8,  hours:194, load:"OVER"},
+    {name:"Lynch, Emma",              tasks:15, hours:158, load:"OVER"},
+    {name:"Waldron, Tory",            tasks:20, hours:134, load:"OVER"},
+    {name:"Schiff, Ayva",             tasks:10, hours:82,  load:"OVER"},
+    {name:"Saeed, Hira",              tasks:7,  hours:74,  load:"OVER"},
+    {name:"Rich, Sarah",              tasks:6,  hours:66,  load:"OVER"},
+    {name:"Husain, Javeria",          tasks:4,  hours:64,  load:"OVER"},
+    {name:"Bolton, Isabella",         tasks:2,  hours:38,  load:"HIGH"},
+    {name:"Patro, Shreya",            tasks:1,  hours:16,  load:"OK"},
     {name:"Horgan, Colin",            tasks:0,  hours:0,   load:"LIGHT"},
     {name:"Caufield, Karen",          tasks:0,  hours:0,   load:"LIGHT"},
     {name:"Krishnamurthy, Niveditha", tasks:0,  hours:0,   load:"LIGHT"},
     {name:"Scura, Coco",              tasks:0,  hours:0,   load:"LIGHT"},
   ],
   we:[
-    {name:"Young-Ward, Michael", tasks:59, hours:954, load:"OVER"},
-    {name:"Bogdanov, Iliyan",    tasks:13, hours:256, load:"OVER"},
-    {name:"Radev, Tihomir",      tasks:10, hours:164, load:"OVER"},
-    {name:"Boyanova, Kristina",  tasks:5,  hours:80,  load:"OVER"},
+    {name:"Young-Ward, Michael", tasks:61, hours:1174, load:"OVER"},
+    {name:"Radev, Tihomir",      tasks:10, hours:220,  load:"OVER"},
+    {name:"Bogdanov, Iliyan",    tasks:12, hours:200,  load:"OVER"},
+    {name:"Boyanova, Kristina",  tasks:10, hours:150,  load:"OVER"},
   ],
 };
 
@@ -1307,6 +1307,24 @@ const HISTORY = [
       ["PR & Comms",           182,"OVER"],
       ["Web & Digital",       1374,"OVER"],
       ["UX & Design",           80,"OVER"],
+    ]
+  }
+  ,{
+    d:"2026-07-01", w:"Jul 1",
+    ov:18, hi:1, ok:1, lt:4,
+    ch:[
+      ["Content & SEO",        336,"OVER"],
+      ["Email & Lifecycle",    240,"OVER"],
+      ["Creative & Design",    504,"OVER"],
+      ["Demand Gen",          1020,"OVER"],
+      ["Social Media",          66,"OVER"],
+      ["PMM / Product",        716,"OVER"],
+      ["Marketing Analytics",    0,"LIGHT"],
+      ["Events & Experiences",   0,"LIGHT"],
+      ["Community",            194,"OVER"],
+      ["PR & Comms",           172,"OVER"],
+      ["Web & Digital",       1594,"OVER"],
+      ["UX & Design",          150,"OVER"],
     ]
   }
   /* ── APPEND NEXT WEEK HERE ──────────────────────────
