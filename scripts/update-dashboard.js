@@ -520,8 +520,14 @@ async function main() {
   const today    = new Date();
   const todayStr = today.toISOString().split('T')[0];
   const yr       = today.getFullYear();
-  const q2Start  = `${yr}-04-01`;
-  const q2End    = `${yr}-07-01`;
+  // Auto-detect current quarter — no manual date changes needed when Q changes
+  const qNum        = Math.floor(today.getMonth() / 3) + 1; // 1-4
+  const qStartMo    = Math.floor(today.getMonth() / 3) * 3;
+  const qStart      = `${yr}-${String(qStartMo + 1).padStart(2, '0')}-01`;
+  const qEndMo      = qStartMo + 3;
+  const qEnd        = qEndMo > 11 ? `${yr + 1}-01-01` : `${yr}-${String(qEndMo + 1).padStart(2, '0')}-01`;
+  const qLabel      = `Q${qNum}`;
+  const qClosedKey  = `q${qNum}closed`;
 
   console.log(`\nQB Marketing Dashboard Update — ${fmtDate(today)}${DRY_RUN ? '  [DRY RUN]' : ''}\n`);
 
@@ -630,8 +636,8 @@ async function main() {
   let needsReview  = [];
   let q2Total      = 0;
   try {
-    console.log('\n── Q2 Deliverables ──────────────────────────────────────────────');
-    const result = await fetchAllQ2Shipped(TEAM, q2Start, q2End);
+    console.log(`\n── ${qLabel} Deliverables ─────────────────────────────────────────`);
+    const result = await fetchAllQ2Shipped(TEAM, qStart, qEnd);
     shippedItems = result.shipped;
     needsReview  = result.needsReview;
     q2Total      = result.total;
@@ -696,15 +702,15 @@ async function main() {
 
   if (shippedItems.length) {
     html = html.replace(
-      /shipped:\[[\s\S]*?\n  \],/,
+      /shipped:\[[\s\S]*?\n  \],|shipped:\[\],/,
       `shipped:${jsLit(shippedItems, 1)},`
     );
-    // Auto-update q2closed with live Jira count
+    // Auto-update q{N}closed with live Jira count
     html = html.replace(
-      /q2closed:\s*\d+,/,
-      `q2closed: ${q2Total},`
+      new RegExp(`${qClosedKey}:\\s*\\d+,`),
+      `${qClosedKey}: ${q2Total},`
     );
-    console.log(`   DATA.shipped → ${shippedItems.length} items · q2closed → ${q2Total}`);
+    console.log(`   DATA.shipped → ${shippedItems.length} items · ${qClosedKey} → ${q2Total}`);
   }
 
   if (process.env.ANTHROPIC_API_KEY) {

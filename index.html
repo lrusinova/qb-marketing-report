@@ -662,10 +662,14 @@ function togglePwVis(){
 
 // ── Auto-updating date calculations ─────────────────────
 const _n=new Date(),_q2s=new Date(_n.getFullYear(),3,1),_q2e=new Date(_n.getFullYear(),5,30,23,59),_h2s=new Date(_n.getFullYear(),6,1);
-const Q2_PCT=Math.min(100,Math.max(0,Math.round((_n-_q2s)/(_q2e-_q2s)*100)));
-const DAYS_TO_H2=Math.max(0,Math.ceil((_h2s-_n)/864e5));
-const _daysToQ2End=Math.max(0,Math.ceil((_q2e-_n)/864e5));
-const _weekInQ2=Math.min(13,Math.max(1,Math.ceil((_n-_q2s)/6048e5)));
+const Q2_PCT=100; // Q2 complete
+const DAYS_TO_H2=0;
+const _weekInQ2=13;
+// Q3 2026 (Jul – Sep)
+const _q3s=new Date(_n.getFullYear(),6,1),_q3e=new Date(_n.getFullYear(),8,30,23,59);
+const Q3_PCT=Math.min(100,Math.max(0,Math.round((_n-_q3s)/(_q3e-_q3s)*100)));
+const _weekInQ3=Math.min(13,Math.max(1,Math.ceil((_n-_q3s)/6048e5)));
+const _daysToQ3End=Math.max(0,Math.ceil((_q3e-_n)/864e5));
 const _todayFmt=_n.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 const _lastUpd=_n.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 // Year-position percentages for the full-year timeline bar
@@ -677,8 +681,10 @@ const _q4Pct=Math.round((new Date(_n.getFullYear(),9,1)-_yrS)/_yrMs*100);  // ~7
 
 const DATA = {
   lastUpdated: _lastUpd,
-  weekInQ2: _weekInQ2, weeksInQ2: 13,
+  weekInQ2: 13, weeksInQ2: 13,
+  weekInQ3: _weekInQ3, weeksInQ3: 13,
   q2closed: 1734,
+  q3closed: 0,
 
   initiatives:[
     {key:"MKT-12568",title:"Growth — AWE",sub:"FastField + Pave",
@@ -892,7 +898,7 @@ const DATA = {
     {ch:"Systems & AI",     done:6, flight:2, blocked:0,color:"#002855"},
   ],
 
-  shipped:[
+  q2deliverables:[
     {key:"MKT-12777",title:"[Pave] C&W — Persona & pain point validation",ch:"PMM / Product",bu:"Pave",label:"Pave-MKT",owner:"Hendley, Michelle",type:"Task",doneDate:"Jun 30, 2026"},
     {key:"MKT-12776",title:"[Pave] C&W — Messaging & positioning",ch:"PMM / Product",bu:"Pave",label:"Pave-MKT",owner:"Hendley, Michelle",type:"Task",doneDate:"Jun 30, 2026"},
     {key:"MKT-12775",title:"[Pave] C&W — Launch brief drafted",ch:"PMM / Product",bu:"Pave",label:"Pave-MKT",owner:"Hendley, Michelle",type:"Task",doneDate:"Jun 30, 2026"},
@@ -1074,6 +1080,7 @@ const DATA = {
     {key:"MKT-11893",title:"Build target account list & waterfall logic – PiperX",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Caufield, Karen",type:"MarTech",doneDate:"Jun 11, 2026"},
     {key:"MKT-11891",title:"Review & refresh PDFs, snippets, inbox for PiperX",ch:"Systems & AI",bu:"Cross-BU",label:"CrossBU-MKT",owner:"Lynch, Emma",type:"MarTech",doneDate:"Jun 11, 2026"},
   ],
+  shipped:[],
 };
 
 /* ══════════════════════════════════════════════════════
@@ -1126,7 +1133,7 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
 /* ══════════════════════════════════════════════════════
    TAB
 ══════════════════════════════════════════════════════ */
-let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All';
+let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', delQtr='Q3';
 
 function go(id,btn){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
@@ -1155,29 +1162,23 @@ function toggleP1Overflow(btn, count) {
    AI INSIGHT HELPER
 ══════════════════════════════════════════════════════ */
 function genInsight(ini){
-  if(DAYS_TO_H2<=30 && ini.status!=='off-track' && ini.status!=='at-risk'){
-    const ip=(ini.p1progs||[]).filter(p=>p.status==='in-progress').length;
-    const msg=ip>0?`${ip} program${ip>1?'s':''} in flight ahead of H2 start`:'planning active, on track for H2 launch';
-    return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↑</span><span>H2 in <strong>${DAYS_TO_H2}d</strong> — ${msg}.</span></div>`;
-  }
   const blkCnt=(ini.p1progs||[]).filter(p=>p.status==='blocked').length;
-  const behind=Q2_PCT-ini.pct;
-  const projPct=Q2_PCT>0?Math.min(100,Math.round(ini.pct/Q2_PCT*100)):ini.pct;
+  const behind=Q3_PCT-ini.pct;
+  const projPct=Q3_PCT>0?Math.min(100,Math.round(ini.pct/Q3_PCT*100)):ini.pct;
   const projDone=Math.round(ini.total*projPct/100);
   const willSlip=Math.max(0,ini.total-projDone);
   if(ini.status==='off-track'){
     const blkStr=blkCnt>0?` ${blkCnt} program${blkCnt>1?'s':''} blocked.`:'';
-    return `<div class="sp-insight sp-insight-risk"><span class="sp-i-icon">⚠</span><span>${behind}pts behind pace.${blkStr} At current velocity: ${projDone} of ${ini.total} tasks close by Q2 — <strong>${willSlip} tasks will carry to H2.</strong></span></div>`;
+    return `<div class="sp-insight sp-insight-risk"><span class="sp-i-icon">⚠</span><span>${Math.abs(behind)}pts behind Q3 pace.${blkStr} At current velocity: ${projDone} of ${ini.total} tasks close by Q3 — <strong>${willSlip} tasks may carry to Q4.</strong></span></div>`;
   }
   if(ini.status==='at-risk'){
     const blkStr=blkCnt>0?`${blkCnt} program${blkCnt>1?'s':''} blocked · `:'';
-    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>${blkStr}At current velocity: ${projDone} of ${ini.total} tasks close by Q2 — <strong>${willSlip} task${willSlip===1?'':'s'} may carry to H2.</strong></span></div>`;
+    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>${blkStr}Projecting ${projDone} of ${ini.total} tasks by Q3 end — <strong>${willSlip} task${willSlip===1?'':'s'} may carry to Q4.</strong></span></div>`;
   }
-  if(willSlip>8)
-    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>On track by status, but projecting ${projDone}/${ini.total} tasks closed — <strong>${willSlip} tasks may carry to H2.</strong> Accelerate into Q2 close.</span></div>`;
-  if(ini.pct>=Q2_PCT+5)
-    return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↑</span><span>Ahead of pace — on track to close ${projDone} of ${ini.total} Q2 tasks${willSlip>0?'; '+willSlip+' tasks may carry to H2':' with scope to spare'}.</span></div>`;
-  return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↗</span><span>On pace to close ~${projDone} of ${ini.total} Q2 tasks by Jun 30${willSlip>0?' · '+willSlip+' may carry to H2':''}.</span></div>`;
+  const ip=(ini.p1progs||[]).filter(p=>p.status==='in-progress').length;
+  if(ip>0)
+    return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↑</span><span>${ip} program${ip>1?'s':''} actively in execution — on track for Q3.</span></div>`;
+  return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↗</span><span>Q3 underway — planning active across ${ini.total} tasks through Sep 30.</span></div>`;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1361,7 +1362,7 @@ function renderBriefing(){
   const _h2Active = inits.filter(i=>(i.p1progs||[]).some(p=>['in-progress','planning'].includes(p.status))).length;
   const _riskItems = inits.filter(i=>i.status==='at-risk'||i.status==='off-track');
 
-  const _bs1 = `Heading into H2 in <strong>${DAYS_TO_H2} day${DAYS_TO_H2===1?'':'s'}</strong>, ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} H2 goal areas are on track with <strong>${_inFlight} programs</strong> actively in execution across the portfolio.`;
+  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track with <strong>${_inFlight} programs</strong> actively in execution across Q3.`;
   const _bs2 = _activeSps.length
     ? `The most active goal areas are ${_activeSps.map(x=>`<strong>${_sn(x.ini)}</strong>`).join(', ')} — together running <strong>${_activeSps.reduce((s,x)=>s+x.n,0)} programs</strong> in parallel.`
     : '';
@@ -1369,7 +1370,7 @@ function renderBriefing(){
   if(_riskItems.length) _bs3parts.push(`${_riskItems.map(i=>`<strong>${_sn(i)}</strong>`).join(', ')} require${_riskItems.length===1?'s':''} attention`);
   if(_blocked>0) _bs3parts.push(`<strong>${_blocked}</strong> program${_blocked>1?'s':''} blocked`);
   const _bs3 = _bs3parts.length ? `Watch: ${_bs3parts.join(' · ')}.` : '';
-  const _bs4 = `<strong>${DATA.q2closed}</strong> tasks and deliverables closed in Q2 (Apr – Jun) — ${_h2Active} of 7 goal areas already have H2 work underway.`;
+  const _bs4 = `<strong>${DATA.q2closed}</strong> tasks delivered in Q2 (Apr – Jun) — ${_h2Active} of 7 goal areas are actively executing in Q3.`;
 
   const cmoBriefHtml = `
   <div class="cmo-brief">
@@ -1401,8 +1402,8 @@ function renderBriefing(){
         <div class="cmo-kpi-l">Avg. goal completion<br><span style="font-size:9px;color:var(--g400);font-weight:500">task completion · 7 goal areas</span></div>
       </div>
       <div class="cmo-kpi-cell">
-        <div class="cmo-kpi-n" style="color:var(--orange)">${DAYS_TO_H2}</div>
-        <div class="cmo-kpi-l">Days to H2</div>
+        <div class="cmo-kpi-n">${_weekInQ3}<span style="font-size:13px;font-weight:600;color:var(--g400)">/13</span></div>
+        <div class="cmo-kpi-l">Q3 week<br><span style="font-size:9px;color:var(--g400);font-weight:500">Jul – Sep 2026</span></div>
       </div>
     </div>
   </div>`;
@@ -1410,11 +1411,11 @@ function renderBriefing(){
   // ── Needs-attention items ────────────────────────────
   const attItems = [];
   atRiskInits.forEach(ini=>{
-    const proj=Q2_PCT>0?Math.round(ini.pct/Q2_PCT*100):ini.pct;
+    const proj=Q3_PCT>0?Math.round(ini.pct/Q3_PCT*100):ini.pct;
     const slip=Math.max(0,ini.total-Math.round(ini.total*proj/100));
     const blkStr=ini.blocked>0?` · ${ini.blocked} blocked`:'';
     const nm=ini.title.split('—').pop().trim();
-    attItems.push({dot:'var(--red)',key:ini.key,msg:`<span class="attn-nm">${nm}</span>${blkStr} · ~${slip} tasks may carry to H2`});
+    attItems.push({dot:'var(--red)',key:ini.key,msg:`<span class="attn-nm">${nm}</span>${blkStr} · ~${slip} tasks may carry to Q4`});
   });
   inits.filter(i=>i.blocked>0&&i.status==='on-track').forEach(ini=>{
     const nm=ini.title.split('—').pop().trim();
@@ -1459,26 +1460,16 @@ function renderBriefing(){
   const tl2Insight = (()=>{
     if(atRiskInits.length>0){
       const worst=atRiskInits.reduce((a,b)=>a.pct<b.pct?a:b);
-      const proj=Q2_PCT>0?Math.round(worst.pct/Q2_PCT*100):worst.pct;
+      const proj=Q3_PCT>0?Math.min(100,Math.round(worst.pct/Q3_PCT*100)):worst.pct;
       const slip=Math.max(0,worst.total-Math.round(worst.total*proj/100));
       const wname=worst.title.split('—').pop().trim();
       const blk=worst.blocked>0?` ${worst.blocked} programs blocked.`:'';
       const others=atRiskInits.length>1?` ${atRiskInits.length} initiatives at risk total.`:'';
-      return {cls:'is-risk',icon:'⚠',txt:`<strong>${wname}</strong> is the critical risk — ${worst.pct}% of tasks complete with ${_daysToQ2End} day${_daysToQ2End===1?'':'s'} remaining.${blk} At current pace, ~${slip} tasks will carry into H2.${others}`};
-    }
-    if(DAYS_TO_H2 > 30){
-      const behindInits=inits.filter(i=>i.pct<Q2_PCT-12);
-      if(behindInits.length>0){
-        const bnames=behindInits.map(i=>i.title.split('—').pop().trim()).join(', ');
-        return {cls:'is-warn',icon:'⚡',txt:`<strong>${bnames}</strong> running behind pace with ${_daysToQ2End} day${_daysToQ2End===1?'':'s'} to Q2 close. ${onTrack}/7 on track — accelerate into final sprint.`};
-      }
+      return {cls:'is-risk',icon:'⚠',txt:`<strong>${wname}</strong> is the critical Q3 risk — ${worst.pct}% of tasks complete with ${_daysToQ3End} day${_daysToQ3End===1?'':'s'} remaining in Q3.${blk}${slip>0?` At current pace, ~${slip} tasks will carry into Q4.`:''}${others}`};
     }
     const totalDoneAll=inits.reduce((s,i)=>s+i.done,0),totalAll=inits.reduce((s,i)=>s+i.total,0);
-    if(DAYS_TO_H2<=30){
-      const earlyProg=inits.filter(i=>i.pct>0).length;
-      return {cls:'is-ok',icon:'↑',txt:`H2 launches in <strong>${DAYS_TO_H2} day${DAYS_TO_H2===1?'':'s'}</strong> — ${earlyProg}/7 goal areas have early work underway. ${totalDoneAll} tasks complete ahead of H2 start.`};
-    }
-    return {cls:'is-ok',icon:'↑',txt:`Strong Q2 execution — <strong>${totalDoneAll} of ${totalAll} tasks closed</strong> across 7 initiatives. ${aheadCount} initiative${aheadCount===1?'':'s'} ahead of pace. ${DAYS_TO_H2} day${DAYS_TO_H2===1?'':'s'} to H2 launch.`};
+    const ipCount=(DATA.programs||[]).filter(p=>p.status==='in-progress').length;
+    return {cls:'is-ok',icon:'↑',txt:`Q3 execution underway — <strong>${ipCount} programs in flight</strong> across 7 goal areas. ${totalDoneAll} of ${totalAll} tasks complete coming out of Q2.`};
   })();
 
   const initCards = inits.map(ini=>{
@@ -1622,7 +1613,7 @@ function renderBriefing(){
     <div class="tl2">
       <div class="tl2-hd">
         <span class="tl2-hdtitle">Quickbase Marketing · FY 2026 Execution</span>
-        <span class="tl2-today-badge">Week ${DATA.weekInQ2} of ${DATA.weeksInQ2} · ${_todayFmt}</span>
+        <span class="tl2-today-badge">Q3 Week ${_weekInQ3} · ${_todayFmt}</span>
       </div>
 
 
@@ -1801,10 +1792,14 @@ function renderDeliverables(){
   (DATA.channels||[]).forEach(c=>{chColMap[c.ch]=c.color;});
   const BU_COLS={'FastField':'#0066D6','Pave':'#7C3AED','Core (QB)':'#14A558','Cross-BU':'#0891B2'};
 
-  const items=DATA.shipped.filter(i=>
+  const _delSrc=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
+  const items=_delSrc.filter(i=>
     (ofBU==='All'||i.bu===ofBU)&&
     (ofCh==='All'||i.ch===ofCh)&&
     inPeriod(i.doneDate,ofPeriod));
+
+  // Quarter toggle
+  const qtrTabs=`<div class="del3-period" style="margin-bottom:4px"><button class="del3-tab${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026 <span style="opacity:.6;font-size:10.5px">Jul–Sep · live</span></button><button class="del3-tab${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026 <span style="opacity:.6;font-size:10.5px">Apr–Jun · archive</span></button></div>`;
 
   // Period — segmented tabs
   const PERIODS=[{k:'All',lbl:'All Time'},{k:'Quarter',lbl:'This Quarter'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
@@ -1863,17 +1858,19 @@ function renderDeliverables(){
   }).join('');
 
   document.getElementById('deliverables').innerHTML=`
-    <div class="sec-hd"><h2>Deliverables</h2><p>${DATA.shipped.length} items shipped Q2 2026 · click any row to open in Jira</p></div>
+    <div class="sec-hd"><h2>Deliverables</h2><p>${_delSrc.length} items shipped ${delQtr} 2026 · click any row to open in Jira</p></div>
+    ${qtrTabs}
     ${periodTabs}
     <div class="del3-filters">${chPills}${buPills}</div>
     <div class="del3-search-wrap">
       <span class="del3-search-icon">⌕</span>
       <input type="text" class="del3-search" placeholder="Search by title…" oninput="filterDelSearch(this.value)">
     </div>
-    <div class="del3-summary">Showing <strong>${items.length}</strong> of ${DATA.shipped.length} deliverables</div>
+    <div class="del3-summary">Showing <strong>${items.length}</strong> of ${_delSrc.length} deliverables</div>
     ${items.length?`<div class="del3-feed" id="del3-feed">${feedHtml}</div>`:`<div style="padding:48px;text-align:center;color:var(--g400);background:#fff;border-radius:14px;border:1px solid var(--g200)">No items match the selected filters</div>`}`;
 }
 
+function setDelQtr(q){delQtr=q;ofBU='All';ofCh='All';ofPeriod='All';document.getElementById('deliverables').innerHTML='';renderDeliverables();}
 function setOF(w,v){
   if(w==='bu')ofBU=v; else if(w==='ch')ofCh=v; else if(w==='lbl')ofLbl=v; else if(w==='period')ofPeriod=v;
   document.getElementById('deliverables').innerHTML='';
@@ -1900,7 +1897,7 @@ function renderAnalytics(){
   const totalDone=inits.reduce((s,i)=>s+i.done,0);
   const totalItems=inits.reduce((s,i)=>s+i.total,0);
   const q2Actual=Math.round(totalDone/totalItems*100);
-  const q2Expected=Math.round(DATA.weekInQ2/DATA.weeksInQ2*100);
+  const q2Expected=100; // Q2 complete — show final vs target
   const paceDiff=q2Actual-q2Expected;
 
   // Chart 1: Initiative bars
