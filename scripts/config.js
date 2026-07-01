@@ -18,6 +18,8 @@ const TEAM = [
   // ── Creative & Design ────────────────────────────────────────────────
   { displayName: 'Mora, Jasmin',            jiraName: 'Mora, Jasmin',            channel: 'Creative & Design',    project: 'mkt' },
   { displayName: 'Liu, Jenny',              jiraName: 'Liu, Jenny',              channel: 'Creative & Design',    project: 'mkt' },
+  { displayName: 'Ghosh, Soumya',           jiraName: 'Ghosh, Soumya',           channel: 'Creative & Design',    project: 'mkt' },
+  { displayName: 'Gajadhar, Rudy',          jiraName: 'Gajadhar, Rudy',          channel: 'Creative & Design',    project: 'mkt' },
 
   // ── Demand Gen ──────────────────────────────────────────────────────
   { displayName: 'McPhee, Stephanie',       jiraName: 'McPhee, Stephanie',       channel: 'Demand Gen',           project: 'mkt' },
@@ -30,11 +32,14 @@ const TEAM = [
   { displayName: 'Decker, Michael',         jiraName: 'Decker, Michael',         channel: 'PMM / Product',        project: 'mkt' },
   { displayName: 'Saeed, Hira',             jiraName: 'Saeed, Hira',             channel: 'PMM / Product',        project: 'mkt' },
   { displayName: 'Hendley, Michelle',       jiraName: 'Hendley, Michelle',       channel: 'PMM / Product',        project: 'mkt' },
+  { displayName: 'McCawley, Alissa',        jiraName: 'McCawley, Alissa',        channel: 'PMM / Product',        project: 'mkt' },
 
   // ── Web & Digital (WE project) ───────────────────────────────────────
   { displayName: 'Young-Ward, Michael',     jiraName: 'Young-Ward, Michael',     channel: 'Web & Digital',        project: 'we' },
   { displayName: 'Radev, Tihomir',          jiraName: 'Radev, Tihomir',          channel: 'Web & Digital',        project: 'we' },
   { displayName: 'Bogdanov, Iliyan',        jiraName: 'Bogdanov, Iliyan',        channel: 'Web & Digital',        project: 'we' },
+  { displayName: 'Georgiev, Vasil',         jiraName: 'Georgiev, Vasil',         channel: 'Web & Digital',        project: 'we' },
+  { displayName: 'Boostrom, Max',           jiraName: 'Boostrom , Max',          channel: 'Web & Digital',        project: 'we' },
 
   // ── UX & Design (WE project) ─────────────────────────────────────────
   { displayName: 'Boyanova, Kristina',      jiraName: 'Boyanova, Kristina',      channel: 'UX & Design',          project: 'we' },
@@ -47,8 +52,14 @@ const TEAM = [
   // ── Community ───────────────────────────────────────────────────────
   { displayName: 'Simon, Ben',              jiraName: 'Simon , Ben',             channel: 'Community',            project: 'mkt' },
 
-  // ── TODO: Add remaining channels ────────────────────────────────────
-  // Marketing Analytics, Events & Experiences
+  // ── Content & SEO (additional) ──────────────────────────────────────
+  { displayName: 'Mondal, Sanchita',        jiraName: 'Mondal, Sanchita',        channel: 'Content & SEO',        project: 'mkt' },
+
+  // ── Events & Experiences ────────────────────────────────────────────
+  { displayName: 'Gutierrez, Susana',       jiraName: 'Gutierrez, Susana',       channel: 'Events & Experiences', project: 'mkt' },
+
+  // ── Marketing Analytics ──────────────────────────────────────────────
+  { displayName: 'Grabmeier, Joe',          jiraName: 'Grabmeier, Joe',          channel: 'Marketing Analytics',  project: 'mkt' },
 ];
 
 // Channel order matches the dashboard display order.
