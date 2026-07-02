@@ -10048,8 +10048,11 @@ function renderDeliverables(){
     return true;
   };
 
+  // Channel color map — keyed by config.js channel names used in deliverables data
+  const CH_COLOR_MAP={'Content & SEO':'#0066D6','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777','Demand Gen':'#F59E0B','Social Media':'#0891B2','PMM / Product':'#7C3AED','Marketing Analytics':'#059669','Events & Experiences':'#E53935','Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6','UX & Design':'#EC4899'};
+  const _chFallback=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];
+  let _chFbIdx=0;
   const chColMap={};
-  (DATA.channels||[]).forEach(c=>{chColMap[c.ch]=c.color;});
   const BU_COLS={'FastField':'#0066D6','Pave':'#7C3AED','Core (QB)':'#14A558','Cross-BU':'#0891B2'};
 
   const _delSrc=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
@@ -10058,6 +10061,12 @@ function renderDeliverables(){
     (ofCh==='All'||i.ch===ofCh)&&
     inPeriod(i.doneDate,ofPeriod));
 
+  // Build channel counts dynamically from actual data (filtered by BU+period, not by ch)
+  const _chCounts={};
+  _delSrc.filter(i=>(ofBU==='All'||i.bu===ofBU)&&inPeriod(i.doneDate,ofPeriod))
+    .forEach(i=>{if(i.ch){_chCounts[i.ch]=(_chCounts[i.ch]||0)+1;if(!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];}});
+  const _dynChs=Object.entries(_chCounts).sort((a,b)=>b[1]-a[1]);
+
   // Quarter toggle
   const qtrTabs=`<div class="del3-period" style="margin-bottom:4px"><button class="del3-tab${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026 <span style="opacity:.6;font-size:10.5px">Jul–Sep · live</span></button><button class="del3-tab${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026 <span style="opacity:.6;font-size:10.5px">Apr–Jun · archive</span></button></div>`;
 
@@ -10065,12 +10074,12 @@ function renderDeliverables(){
   const PERIODS=[{k:'All',lbl:'All Time'},{k:'Quarter',lbl:'This Quarter'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
   const periodTabs=`<div class="del3-period">${PERIODS.map(p=>`<button class="del3-tab${ofPeriod===p.k?' on':''}" onclick="setOF('period','${p.k}')">${p.lbl}</button>`).join('')}</div>`;
 
-  // Channel pills — each in its own color
+  // Channel pills — built from actual deliverables data, counts reflect current BU+period filters
   const chPills=`<div class="del3-filter-row">
     <span class="del3-filter-lbl">Channel</span>
     <div class="del3-pills">
       <button class="del3-pill" style="${ofCh==='All'?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('ch','All')">All</button>
-      ${DATA.channels.map(ch=>{const on=ofCh===ch.ch;return`<button class="del3-pill" style="${on?`background:${ch.color};color:#fff;border-color:${ch.color}`:`color:${ch.color};border-color:${ch.color}55;background:${ch.color}0a`}" onclick="setOF('ch','${on?'All':ch.ch}')"><span style="width:6px;height:6px;border-radius:50%;background:${on?'rgba(255,255,255,.75)':ch.color};display:inline-block;flex-shrink:0"></span>${ch.ch}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${ch.done}</span></button>`;}).join('')}
+      ${_dynChs.map(([ch,cnt])=>{const on=ofCh===ch;const col=chColMap[ch]||'#94a3b8';return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${col};border-color:${col}55;background:${col}0a`}" onclick="setOF('ch','${on?'All':ch}')"><span style="width:6px;height:6px;border-radius:50%;background:${on?'rgba(255,255,255,.75)':col};display:inline-block;flex-shrink:0"></span>${ch}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
     </div>
   </div>`;
 
