@@ -15,7 +15,7 @@ const TEAM = [
   { displayName: 'Schiff, Ayva',            jiraName: 'Schiff, Ayva',            channel: 'Email & Lifecycle',    project: 'mkt' },
   { displayName: 'Caufield, Karen',         jiraName: 'Caufield, Karen',         channel: 'Email & Lifecycle',    project: 'mkt' },
   { displayName: 'Lynch, Emma',             jiraName: 'Lynch, Emma',             channel: 'Email & Lifecycle',    project: 'mkt' },
-  { displayName: 'Scura, Coco',             jiraName: 'Scura, Coco',             channel: 'Email & Lifecycle',    project: 'mkt' },
+  { displayName: 'Scura, Coco',             jiraName: 'Scura, Coco-Marie',       channel: 'Email & Lifecycle',    project: 'mkt' },
 
   // ── Creative & Design ────────────────────────────────────────────────
   { displayName: 'Mora, Jasmin',            jiraName: 'Mora, Jasmin',            channel: 'Creative & Design',    project: 'mkt' },
@@ -45,11 +45,11 @@ const TEAM = [
   // ── Events & Experiences ────────────────────────────────────────────
   { displayName: 'Gutierrez, Susana',       jiraName: 'Gutierrez, Susana',       channel: 'Events & Experiences', project: 'mkt' },
   { displayName: 'Klein, Lilly',            jiraName: 'Klein, Lilly',            channel: 'Events & Experiences', project: 'mkt' },
-  { displayName: 'Hightower, Bridgette',    jiraName: 'Hightower, Bridgette',    channel: 'Events & Experiences', project: 'mkt' },
+  { displayName: 'Hightower, Bridgette',    jiraName: 'Hightower , Bridgette',   channel: 'Events & Experiences', project: 'mkt' },
 
   // ── Community ───────────────────────────────────────────────────────
   { displayName: 'Simon, Ben',              jiraName: 'Simon , Ben',             channel: 'Community',            project: 'mkt' },
-  { displayName: 'Englert, Caroline',       jiraName: 'Englert, Caroline',       channel: 'Community',            project: 'mkt' },
+  { displayName: 'Englert, Caroline',       jiraName: 'Englert , Caroline',      channel: 'Community',            project: 'mkt' },
 
   // ── PR & Comms ──────────────────────────────────────────────────────
   { displayName: 'Waldron, Tory',           jiraName: 'Waldron, Tory',           channel: 'PR & Comms',           project: 'mkt' },
