@@ -10135,14 +10135,30 @@ function renderDeliverables(){
     return true;
   };
 
-  // Channel color map — keyed by config.js channel names used in deliverables data
-  const CH_COLOR_MAP={'Content & SEO':'#0066D6','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777','Demand Gen':'#F59E0B','Social Media':'#0891B2','PMM / Product':'#7C3AED','Marketing Analytics':'#059669','Events & Experiences':'#E53935','Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6','UX & Design':'#EC4899'};
+  // Channel color map — "Content & SEO" is split into "Content" and "SEO" at render time
+  const CH_COLOR_MAP={'Content':'#0066D6','SEO':'#0891B2','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777','Demand Gen':'#F59E0B','Social Media':'#9333EA','PMM / Product':'#7C3AED','Marketing Analytics':'#059669','Events & Experiences':'#E53935','Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6','UX & Design':'#EC4899'};
   const _chFallback=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];
   let _chFbIdx=0;
   const chColMap={};
   const BU_COLS={'FastField':'#0066D6','Pave':'#7C3AED','Core (QB)':'#14A558','Cross-BU':'#0891B2'};
 
-  const _delSrc=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
+  // Split "Content & SEO" into two channels based on title keywords
+  const _isSeo=t=>{if(!t)return false;const s=t.toLowerCase();
+    return s.endsWith('glossary')||/^(the )?best\b/.test(s)||s.includes(' vs ')||
+           /\buse case page/i.test(s)||/\bcomparison page/i.test(s)||/^top\b/.test(s)||
+           s.includes('seo')||s.includes('aeo')||s.includes('entity cluster');};
+  // Infer BU from title prefix for items tagged "Unknown"
+  const _inferBU=i=>{if(i.bu&&i.bu!=='Unknown')return i.bu;
+    const t=i.title||'';
+    if(/^\[Pave\]/i.test(t)||/\bpaveathon\b/i.test(t))return 'Pave';
+    if(/^\[FF\]/i.test(t)||/\bfastfield\b/i.test(t))return 'FastField';
+    if(/^\[Core\]/i.test(t))return 'Core (QB)';
+    if(/^\[Cross-BU\]/i.test(t))return 'Cross-BU';
+    return 'Unknown';};
+  const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
+  const _delSrc=_raw.map(i=>({...i,
+    ch:i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch,
+    bu:_inferBU(i)}));
   const items=_delSrc.filter(i=>
     (ofBU==='All'||i.bu===ofBU)&&
     (ofCh==='All'||i.ch===ofCh)&&
@@ -10170,11 +10186,12 @@ function renderDeliverables(){
     </div>
   </div>`;
 
-  // BU pills — each in its own color
+  // BU pills — counts computed from inferred BU values
+  const _buCounts={};_delSrc.filter(i=>inPeriod(i.doneDate,ofPeriod)&&(ofCh==='All'||i.ch===ofCh)).forEach(i=>{_buCounts[i.bu]=(_buCounts[i.bu]||0)+1;});
   const buPills=`<div class="del3-filter-row">
     <span class="del3-filter-lbl">BU</span>
     <div class="del3-pills">
-      ${['All','FastField','Pave','Core (QB)','Cross-BU'].map(b=>{const col=BU_COLS[b]||'var(--navy)';const on=ofBU===b;return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${b==='All'?'var(--g600)':col};border-color:${b==='All'?'var(--g200)':col+'55'};background:${b==='All'?'#fff':col+'0a'}`}" onclick="setOF('bu','${b}')">${b==='All'?'All BUs':b}</button>`;}).join('')}
+      ${['All','FastField','Pave','Core (QB)','Cross-BU'].map(b=>{const col=BU_COLS[b]||'var(--navy)';const on=ofBU===b;const cnt=b==='All'?_delSrc.filter(i=>inPeriod(i.doneDate,ofPeriod)&&(ofCh==='All'||i.ch===ofCh)).length:(_buCounts[b]||0);return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${b==='All'?'var(--g600)':col};border-color:${b==='All'?'var(--g200)':col+'55'};background:${b==='All'?'#fff':col+'0a'}`}" onclick="setOF('bu','${b}')">${b==='All'?'All BUs':b}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
     </div>
   </div>`;
 
