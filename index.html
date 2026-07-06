@@ -336,7 +336,8 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-card.collapsed .sp-chevron{transform:rotate(-90deg)}
 .sp-card-body{overflow:hidden;max-height:2000px;transition:max-height .28s ease-out}
 .sp-card.collapsed .sp-card-body{max-height:0}
-.sp-card.collapsed:hover{transform:none}
+.sp-card.collapsed{align-self:start}
+.sp-card.collapsed:hover{transform:translateY(-2px)}
 .sp-card-hdr::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.15) 0%,transparent 65%);pointer-events:none}
 .sp-card-hdr::after{content:'';position:absolute;top:-24px;right:-16px;width:110px;height:110px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none}
 .sp-card-hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;position:relative;z-index:1}
@@ -538,10 +539,10 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
     <div class="pw-box-inner">
       <div class="pw-logo">
         <svg class="pw-logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="0"  y="0"  width="23" height="23" rx="1.5" fill="#ffffff"/>
-          <rect x="26" y="0"  width="14" height="14" rx="1.5" fill="#2C9382"/>
-          <rect x="26" y="17" width="14" height="14" rx="1.5" fill="#F23E30"/>
-          <rect x="4"  y="26" width="14" height="14" rx="1.5" fill="#ffffff"/>
+          <rect x="0"  y="0"  width="18" height="18" rx="1.5" fill="#ffffff"/>
+          <rect x="22" y="0"  width="18" height="18" rx="1.5" fill="#2C9382"/>
+          <rect x="0"  y="22" width="18" height="18" rx="1.5" fill="#2C9382"/>
+          <rect x="22" y="22" width="18" height="18" rx="1.5" fill="#F23E30"/>
         </svg>
         <div class="pw-logo-divider"></div>
         <span class="pw-logo-text">Quickbase<br>Marketing</span>
@@ -575,10 +576,10 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 <header class="hdr">
   <div class="qb-mark">
     <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0"  y="0"  width="23" height="23" rx="1.5" fill="#10503C"/>
-      <rect x="26" y="0"  width="14" height="14" rx="1.5" fill="#2C9382"/>
-      <rect x="26" y="17" width="14" height="14" rx="1.5" fill="#F23E30"/>
-      <rect x="4"  y="26" width="14" height="14" rx="1.5" fill="#2C9382"/>
+      <rect x="0"  y="0"  width="18" height="18" rx="1.5" fill="#10503C"/>
+      <rect x="22" y="0"  width="18" height="18" rx="1.5" fill="#2C9382"/>
+      <rect x="0"  y="22" width="18" height="18" rx="1.5" fill="#2C9382"/>
+      <rect x="22" y="22" width="18" height="18" rx="1.5" fill="#F23E30"/>
     </svg>
   </div>
   <div class="hdr-t">
@@ -9477,7 +9478,7 @@ function badgeLight(s){
   return `<span class="badge-lt${extra}">${lbl[s]||s}</span>`;
 }
 function typeTag(t){return `<span class="tag ${TYPE_CLS[t]||'t-n'}">${t}</span>`;}
-function buTag(bu){const col=BU_COLORS[bu]||"#64748B";return `<span class="tag" style="background:${col}22;color:${col}">${bu}</span>`;}
+function buTag(bu){if(!bu||bu==='Unknown')return '';const cls=bu==='FastField'?'ff':bu==='Pave'?'pave':bu==='Core (QB)'||bu==='Core'?'core':bu==='Cross-BU'?'cross':null;const lbl=bu==='FastField'?'FF':bu==='Core (QB)'?'Core':bu;return cls?`<span class="sp-bu-tag sp-bu-${cls}">${lbl}</span>`:`<span class="sp-bu-tag" style="background:var(--g100);color:var(--g400);border:1px solid var(--g200)">${lbl}</span>`;}
 function labelChip(lbl){const col=LABEL_COLORS[lbl]||"#64748B";return `<span class="del-lbl" style="background:${col}15;color:${col}">${lbl}</span>`;}
 function statusPill(s){const[col,txt]=STATUS_DOT[s]||["var(--g300)","Unknown"];return `<span class="status-pill"><span class="sdot" style="background:${col}"></span>${txt}</span>`;}
 function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}">${p}</span>`;}
@@ -10197,7 +10198,7 @@ function renderDeliverables(){
   const _chFallback=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];
   let _chFbIdx=0;
   const chColMap={};
-  const BU_COLS={'FastField':'#0066D6','Pave':'#7C3AED','Core (QB)':'#14A558','Cross-BU':'#0891B2'};
+  const BU_COLS={'FastField':'#D97706','Pave':'#2C9382','Core (QB)':'#10503C','Cross-BU':'#6d28d9'};
 
   // Split "Content & SEO" into two channels based on title keywords
   const _isSeo=t=>{if(!t)return false;const s=t.toLowerCase();
@@ -10314,7 +10315,7 @@ function renderDeliverables(){
     <div class="sec-hd"><h2>Deliverables</h2><p>${_delSrc.length} items shipped ${delQtr} 2026 · click any row to open in Jira</p></div>
     ${qtrTabs}
     ${periodTabs}
-    <div class="del3-filters">${chPills}${buPills}${lblPills}</div>
+    <div class="del3-filters">${buPills}${chPills}${lblPills}</div>
     <div style="display:flex;gap:8px;margin-bottom:8px">
       <div class="del3-search-wrap" style="flex:1">
         <span class="del3-search-icon">⌕</span>
