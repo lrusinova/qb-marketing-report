@@ -10320,11 +10320,16 @@ function renderDeliverables(){
     (ofLbl==='All'||(i.label||'').trim()===ofLbl)&&
     inPeriod(i.doneDate,ofPeriod));
 
-  // Build channel counts dynamically from actual data (filtered by BU+period, not by ch)
-  const _chCounts={};
+  // Build full channel list from the complete dataset (no filters) so options never disappear
+  // chColMap is populated from all channels upfront; counts reflect current BU+period filters
+  _delSrc.forEach(i=>{if(i.ch&&!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];});
+  const _chCountsFiltered={};
   _delSrc.filter(i=>(ofBU==='All'||i.bu===ofBU)&&inPeriod(i.doneDate,ofPeriod))
-    .forEach(i=>{if(i.ch){_chCounts[i.ch]=(_chCounts[i.ch]||0)+1;if(!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];}});
-  const _dynChs=Object.entries(_chCounts).sort((a,b)=>b[1]-a[1]);
+    .forEach(i=>{if(i.ch)_chCountsFiltered[i.ch]=(_chCountsFiltered[i.ch]||0)+1;});
+  // All channels from full dataset, ordered by total count across full dataset
+  const _chTotalCounts={};
+  _delSrc.forEach(i=>{if(i.ch)_chTotalCounts[i.ch]=(_chTotalCounts[i.ch]||0)+1;});
+  const _dynChs=Object.entries(_chTotalCounts).sort((a,b)=>b[1]-a[1]);
 
   // Quarter toggle
   const qtrTabs=`<div class="del3-period" style="margin-bottom:4px"><button class="del3-tab${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026 <span style="opacity:.6;font-size:10.5px">Jul–Sep · live</span></button><button class="del3-tab${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026 <span style="opacity:.6;font-size:10.5px">Apr–Jun · archive</span></button></div>`;
@@ -10338,7 +10343,7 @@ function renderDeliverables(){
     <span class="del3-filter-lbl">Channel</span>
     <div class="del3-pills">
       <button class="del3-pill" style="${ofCh==='All'?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('ch','All')">All</button>
-      ${_dynChs.map(([ch,cnt])=>{const on=ofCh===ch;const col=chColMap[ch]||'#94a3b8';return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${col};border-color:${col}55;background:${col}0a`}" onclick="setOF('ch','${on?'All':ch}')"><span style="width:6px;height:6px;border-radius:50%;background:${on?'rgba(255,255,255,.75)':col};display:inline-block;flex-shrink:0"></span>${ch}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
+      ${_dynChs.map(([ch])=>{const on=ofCh===ch;const col=chColMap[ch]||'#94a3b8';const cnt=_chCountsFiltered[ch]||0;return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${col};border-color:${col}55;background:${col}0a`}" onclick="setOF('ch','${on?'All':ch}')"><span style="width:6px;height:6px;border-radius:50%;background:${on?'rgba(255,255,255,.75)':col};display:inline-block;flex-shrink:0"></span>${ch}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
     </div>
   </div>`;
 
@@ -10351,16 +10356,19 @@ function renderDeliverables(){
     </div>
   </div>`;
 
-  // Label pills — built dynamically from actual data, top labels by count
-  const _lblCounts={};
+  // Label pills — full label list from complete dataset so options never disappear;
+  // counts reflect current BU+channel+period filters
+  const _lblTotalCounts={};
+  _delSrc.forEach(i=>{const l=(i.label||'').trim();if(l)_lblTotalCounts[l]=(_lblTotalCounts[l]||0)+1;});
+  const _lblCountsFiltered={};
   _delSrc.filter(i=>(ofBU==='All'||i.bu===ofBU)&&(ofCh==='All'||i.ch===ofCh)&&inPeriod(i.doneDate,ofPeriod))
-    .forEach(i=>{const l=(i.label||'').trim();if(l)_lblCounts[l]=(_lblCounts[l]||0)+1;});
-  const _topLabels=Object.entries(_lblCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    .forEach(i=>{const l=(i.label||'').trim();if(l)_lblCountsFiltered[l]=(_lblCountsFiltered[l]||0)+1;});
+  const _topLabels=Object.entries(_lblTotalCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
   const lblPills=_topLabels.length?`<div class="del3-filter-row">
     <span class="del3-filter-lbl">Label</span>
     <div class="del3-pills">
       <button class="del3-pill" style="${ofLbl==='All'?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('lbl','All')">All</button>
-      ${_topLabels.map(([lbl,cnt])=>{const on=ofLbl===lbl;return`<button class="del3-pill" style="${on?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('lbl','${on?'All':lbl.replace(/'/g,"\\'")}')">${lbl}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
+      ${_topLabels.map(([lbl])=>{const on=ofLbl===lbl;const cnt=_lblCountsFiltered[lbl]||0;return`<button class="del3-pill" style="${on?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('lbl','${on?'All':lbl.replace(/'/g,"\\'")}')">${lbl}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
     </div>
   </div>`:'';
 
