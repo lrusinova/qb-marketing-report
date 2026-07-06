@@ -9959,12 +9959,8 @@ function renderBriefing(){
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
-        <div class="sp-card-counts">
-          <span>${ini.done} done</span><span class="sp-cnt-sep">·</span><span>${ini.flight} active</span>${ini.blocked>0?`<span class="sp-cnt-sep">·</span><span class="sp-cnt-blk">${ini.blocked} blocked</span>`:''}
-        </div>
       </div>
       <div class="sp-card-body">
-        ${ini.execSummary?`<div class="sp-exec">${ini.execSummary}</div>`:''}
         ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:#2C9382">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
         <div class="sp-progs">
           <div class="sp-progs-hd">
