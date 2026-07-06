@@ -83,7 +83,7 @@ button{font-family:inherit;cursor:pointer}
 .sec-hd p{font-size:12px;color:var(--g500);font-weight:500}
 
 /* ── SP CARDS ───────────────────────────────────────── */
-.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px;align-items:start}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px;align-items:stretch}
 .sp-card{background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,40,85,.08),0 8px 28px rgba(0,40,85,.1);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .22s,transform .22s}
 .sp-card:hover{box-shadow:0 6px 20px rgba(0,40,85,.16),0 20px 50px rgba(0,40,85,.12);transform:translateY(-3px)}
 .sp-head{padding:15px 17px 12px}
@@ -349,7 +349,7 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-goal2:last-child{margin-bottom:0}
 .sp-gnum2{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7.5px;font-weight:900;color:#fff;margin-top:1.5px;opacity:.8}
 /* ── P1 PROGRAMS section (primary card body) ─────────── */
-.sp-progs{padding:14px 18px 14px;background:#fff}
+.sp-progs{padding:14px 18px 14px;background:#fff;flex:1}
 .sp-progs-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .sp-progs-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g400)}
 .sp-progs-count{font-size:9px;font-weight:600;color:var(--g300)}
@@ -718,7 +718,7 @@ const DATA = {
        {key:"MKT-12850",title:"[FF] Web — Platform Pages & Nav Build-out — Q3",status:"planning"},
        {key:"MKT-11797",title:"[Pave] Marketplace & App Gallery",status:"on-hold"},
      ]},
-    {key:"MKT-12569",title:"Core BU Marketing",sub:"Quickbase Classic",
+    {key:"MKT-12569",title:"Core BU Marketing",sub:"QuickBase Core",
      owner:"",status:"on-track",pct:55,done:20,flight:12,blocked:1,total:36,color:"#14A558",delta:+2,note:"Sr Director of Core Marketing role in hiring — risk to Q3 program ownership.",
      outcome:"Protected and growing Core revenue while Pave scales.",
      execSummary:"Grid Reports launched Q2. QB Extensions and Intelligence Package in flight. Webinar program active — June events wrapping up, two July webinars in planning. Sr. Director of Core Marketing role open — Q3 ownership at risk.",
@@ -732,7 +732,7 @@ const DATA = {
        {key:"MKT-12494",title:"[Core] Webinar — Tropicana Road Show (Jul 9)",status:"planning"},
        {key:"MKT-12598",title:"[Core] Webinar — Feature Focus: Summer Recap (Jul 16)",status:"planning"},
      ]},
-    {key:"MKT-12570",title:"Integrated Marketing",sub:"Brand · Content · Community · Partners · Events",
+    {key:"MKT-12570",title:"Integrated Marketing",sub:"Brand · Creative · Content · Community · Partners · Events",
      owner:"Mirissa Kampf",status:"on-track",pct:32,done:4,flight:7,blocked:0,total:14,color:"#F23E30",delta:0,note:"Key Opinion Partners & Power Videos programs pending Jira issues.",
      outcome:"A unified brand. A unified story. A unified + integrated marketing engine.",
      execSummary:"Brand architecture (Andy) + identity expression (Jenny) both in flight — connecting QB, FF, Pave into one visual identity. Community migrating Khoros→Gainsight. Creative Studio selection underway. AI4 conference Aug 4–6 active.",
