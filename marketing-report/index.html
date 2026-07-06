@@ -331,7 +331,12 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 @media(max-width:1200px){.an-grid{grid-template-columns:1fr}.an-full{grid-column:1}}
 
 /* ── CARD COLORED HEADER (compact) ───────────────────── */
-.sp-card-hdr{padding:13px 18px 11px;position:relative;overflow:hidden}
+.sp-card-hdr{padding:13px 18px 11px;position:relative;overflow:hidden;cursor:pointer;user-select:none}
+.sp-chevron{font-size:13px;color:rgba(255,255,255,.55);transition:transform .25s;display:inline-block;line-height:1;margin-left:6px;flex-shrink:0}
+.sp-card.collapsed .sp-chevron{transform:rotate(-90deg)}
+.sp-card-body{overflow:hidden;max-height:2000px;transition:max-height .28s ease-out}
+.sp-card.collapsed .sp-card-body{max-height:0}
+.sp-card.collapsed:hover{transform:none}
 .sp-card-hdr::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.15) 0%,transparent 65%);pointer-events:none}
 .sp-card-hdr::after{content:'';position:absolute;top:-24px;right:-16px;width:110px;height:110px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none}
 .sp-card-hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;position:relative;z-index:1}
@@ -9496,6 +9501,10 @@ function go(id,btn){
 /* ══════════════════════════════════════════════════════
    P1 OVERFLOW TOGGLE
 ══════════════════════════════════════════════════════ */
+function toggleCard(hdr) {
+  hdr.closest('.sp-card').classList.toggle('collapsed');
+}
+
 function toggleP1Overflow(btn, count) {
   const container = btn.closest('.sp-progs');
   const overflow = container.querySelectorAll('.sp-p1-overflow');
@@ -9942,21 +9951,24 @@ function renderBriefing(){
 
     return `
     <div class="sp-card">
-      <div class="sp-card-hdr" style="background:linear-gradient(135deg,#10503C 0%,#2C9382 100%)">
+      <div class="sp-card-hdr" style="background:linear-gradient(135deg,#10503C 0%,#2C9382 100%)" onclick="toggleCard(this)">
         <div class="sp-card-hdr-row">
-          <a href="${JIRA}${ini.key}" target="_blank" class="sp-card-key-lnk">${ini.key}</a>
+          <a href="${JIRA}${ini.key}" target="_blank" class="sp-card-key-lnk" onclick="event.stopPropagation()">${ini.key}</a>
           ${badgeLight(ini.status)}
+          <span class="sp-chevron">▾</span>
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
       </div>
-      ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:#2C9382">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
-      <div class="sp-progs">
-        <div class="sp-progs-hd">
-          <span class="sp-progs-lbl">P1 Programs</span>
-          <span class="sp-progs-count">${allP1.length} total</span>
+      <div class="sp-card-body">
+        ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:#2C9382">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
+        <div class="sp-progs">
+          <div class="sp-progs-hd">
+            <span class="sp-progs-lbl">P1 Programs</span>
+            <span class="sp-progs-count">${allP1.length} total</span>
+          </div>
+          ${progsHtml}
         </div>
-        ${progsHtml}
       </div>
     </div>`;
   }).join('');
