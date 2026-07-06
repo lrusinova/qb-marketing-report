@@ -360,10 +360,10 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-progs-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g400)}
 .sp-progs-count{font-size:9px;font-weight:600;color:var(--g300)}
 /* ── HEADER PROGRESS BAR (inside colored header) ─────── */
-.sp-card-progrow{display:flex;align-items:center;gap:10px;margin-top:11px;position:relative;z-index:1}
-.sp-card-progbar{flex:1;height:4px;background:rgba(255,255,255,.22);border-radius:2px;overflow:hidden}
-.sp-card-progfill{height:100%;background:rgba(255,255,255,.85);border-radius:2px}
-.sp-card-progpct{font-size:11.5px;font-weight:900;color:rgba(255,255,255,.97);white-space:nowrap;display:flex;align-items:center;gap:3px;flex-shrink:0}
+.sp-card-counts{display:flex;align-items:center;gap:6px;margin-top:9px;position:relative;z-index:1;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.72)}
+.sp-card-counts .sp-cnt-sep{opacity:.4}
+.sp-card-counts .sp-cnt-blk{color:#fca5a5;font-weight:800}
+.sp-exec{padding:11px 18px 10px;font-size:11.5px;color:var(--g600);line-height:1.55;border-bottom:1px solid var(--g100);background:#fafcff;font-style:italic}
 .sp-card-progsub{font-size:8px;font-weight:600;color:rgba(255,255,255,.5);margin-left:1px}
 .sp-pct-hdr-up{color:rgba(134,239,172,.92);font-size:9.5px;font-weight:800}
 .sp-pct-hdr-dn{color:rgba(252,165,165,.92);font-size:9.5px;font-weight:800}
@@ -9959,12 +9959,12 @@ function renderBriefing(){
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
-        <div class="sp-card-progrow">
-          <div class="sp-card-progbar"><div class="sp-card-progfill" style="width:${ini.pct}%"></div></div>
-          <span class="sp-card-progpct">${ini.pct}%${deltaHdrHtml}</span>
+        <div class="sp-card-counts">
+          <span>${ini.done} done</span><span class="sp-cnt-sep">·</span><span>${ini.flight} active</span>${ini.blocked>0?`<span class="sp-cnt-sep">·</span><span class="sp-cnt-blk">${ini.blocked} blocked</span>`:''}
         </div>
       </div>
       <div class="sp-card-body">
+        ${ini.execSummary?`<div class="sp-exec">${ini.execSummary}</div>`:''}
         ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:#2C9382">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
         <div class="sp-progs">
           <div class="sp-progs-hd">
