@@ -486,8 +486,10 @@ async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
   const cutoffStr = cutoff.toISOString().split('T')[0];
   const result    = {};
 
-  // Normalise BU names so they match the HTML scope.bus values
   const normBU = bu => bu === 'QB-Core' ? 'Core (QB)' : bu;
+
+  // Maps scope BU name → Jira label used to tag that BU's tasks
+  const BU_LABEL_FILTER = { 'FastField': 'FF-MKT', 'Pave': 'Pave-MKT', 'Core (QB)': 'QB-Core-MKT' };
 
   for (const goal of goals) {
     if (!goal.scopeType) {
@@ -496,77 +498,56 @@ async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
     }
     process.stdout.write(`  ${goal.name.padEnd(44)} `);
     try {
-      // Level 1: Marketing Initiatives under this goal
-      const miIssues = await jiraSearch(
-        `project = MKT AND issuetype = "Marketing Initiative" AND parent = ${goal.key}`
-      );
-      const miKeys = miIssues.map(i => i.key);
-      if (!miKeys.length) {
-        result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
-        console.log('no MIs');
-        continue;
-      }
+      let jql;
 
-      // Level 2: Epics under those MIs
-      const epicIssues = await jiraSearch(
-        `project in (MKT, WE) AND issuetype = Epic AND parent in (${miKeys.join(',')})`,
-        'summary,status,issuetype'
-      );
-      const epicKeys = epicIssues.map(i => i.key);
-
-      // Build epicKey → BU map from epic title prefixes
-      const epicToBU = {};
-      epicIssues.forEach(e => {
-        const m = (e.fields.summary || '').match(/^\[([^\]]+)\]/);
-        if (m) {
-          const b = m[1].toUpperCase();
-          epicToBU[e.key] = normBU(
-            b === 'FF' ? 'FastField' : b === 'PAVE' ? 'Pave' :
-            b === 'CORE' || b === 'QB-CORE' ? 'Core (QB)' :
-            b === 'CROSS-BU' ? 'Cross-BU' : m[1]
-          );
+      if (goal.scopeType === 'bu') {
+        // BU-scoped: query by BU labels (FF-MKT, Pave-MKT, QB-Core-MKT)
+        const labelFilter = goal.scopeValues
+          .map(bu => BU_LABEL_FILTER[bu]).filter(Boolean)
+          .map(l => `"${l}"`).join(',');
+        if (!labelFilter) {
+          result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
+          console.log('no BU labels configured');
+          continue;
         }
-      });
-
-      if (!epicKeys.length) {
-        result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
-        console.log('no epics');
-        continue;
+        jql = `project in (MKT, WE) AND statusCategory = Done AND updated >= "${cutoffStr}" AND labels in (${labelFilter}) ORDER BY updated DESC`;
+      } else {
+        // Channel-scoped: query by assignees who work in the scope channels
+        const assignees = Object.entries(personChannel)
+          .filter(([, ch]) => goal.scopeValues.includes(ch))
+          .map(([name]) => `"${name}"`);
+        if (!assignees.length) {
+          result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
+          console.log('no assignees in scope channels');
+          continue;
+        }
+        jql = `project in (MKT, WE) AND statusCategory = Done AND updated >= "${cutoffStr}" AND assignee in (${assignees.join(',')}) ORDER BY updated DESC`;
       }
 
-      // Level 3: Done tasks in last 30 days under those epics
-      const recentDone = [];
-      for (let i = 0; i < epicKeys.length; i += 50) {
-        const batch = epicKeys.slice(i, i + 50);
-        const jql   = `project in (MKT, WE) AND "Epic Link" in (${batch.join(',')}) AND statusCategory = Done AND updated >= "${cutoffStr}" ORDER BY updated DESC`;
-        const batch2 = await jiraSearch(jql, 'summary,assignee,issuetype,labels,customfield_10014,parent');
-        recentDone.push(...batch2);
-      }
+      const recentDone = await jiraSearch(jql, 'summary,assignee,issuetype,labels,status');
 
-      // Group issues by BU or channel
+      // Group by BU or channel
       const groups = {};
       for (const issue of recentDone) {
-        const summary   = issue.fields.summary || '';
-        const assignee  = issue.fields.assignee?.displayName || '';
-        const labels    = issue.fields.labels || [];
-        const issuetype = issue.fields.issuetype?.name || 'Task';
-        const epicKey2  = issue.fields.customfield_10014 || issue.fields.parent?.key || '';
+        const summary  = issue.fields.summary || '';
+        const assignee = issue.fields.assignee?.displayName || '';
+        const labels   = issue.fields.labels || [];
 
         let groupKey = 'Other';
         if (goal.scopeType === 'bu') {
-          groupKey = epicToBU[epicKey2] || normBU((() => {
-            const buResult = detectBU(labels, summary);
-            if (buResult) return buResult.bu;
-            const m2 = summary.match(/^\[([^\]]+)\]/);
-            if (!m2) return 'Other';
-            const b2 = m2[1].toUpperCase();
-            return b2 === 'FF' ? 'FastField' : b2 === 'PAVE' ? 'Pave' :
-                   b2 === 'CORE' ? 'Core (QB)' : b2 === 'CROSS-BU' ? 'Cross-BU' : m2[1];
-          })());
+          const buResult = detectBU(labels, summary);
+          groupKey = buResult ? normBU(buResult.bu) : (() => {
+            const m = summary.match(/^\[([^\]]+)\]/);
+            if (!m) return 'Other';
+            const b = m[1].toUpperCase();
+            return b === 'FF' ? 'FastField' : b === 'PAVE' ? 'Pave' :
+                   b === 'CORE' ? 'Core (QB)' : b === 'CROSS-BU' ? 'Cross-BU' : m[1];
+          })();
+          // Clamp to declared scope
+          if (!goal.scopeValues.includes(groupKey)) groupKey = 'Other';
         } else {
-          groupKey = personChannel[assignee]
-            || detectChannel(assignee, issuetype, summary, summary, personChannel)
-            || 'Other';
+          groupKey = personChannel[assignee] || 'Other';
+          if (!goal.scopeValues.includes(groupKey)) groupKey = 'Other';
         }
 
         if (!groups[groupKey]) groups[groupKey] = { count: 0, titles: [] };
@@ -578,7 +559,8 @@ async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
       }
 
       result[goal.key] = { pulledAt: fmtDate(today), total: recentDone.length, groups };
-      console.log(`${recentDone.length} tasks done · ${Object.keys(groups).length} groups`);
+      const nonOther = Object.keys(groups).filter(k => k !== 'Other').length;
+      console.log(`${recentDone.length} tasks done · ${nonOther} group(s)`);
     } catch (err) {
       console.warn(`ERROR — ${err.message}`);
       result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {}, error: err.message };
