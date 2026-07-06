@@ -367,17 +367,24 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-hdot:hover{transform:scale(1.6)}
 .sp-hdot-ip{background:var(--green)}
 .sp-hdot-blk{background:var(--red)}
-.sp-hdot-pl{background:var(--g300)}
+.sp-hdot-pl{background:var(--blue);opacity:.5}
 .sp-health-sep{width:1px;height:10px;background:var(--g200);flex-shrink:0;margin:0 2px}
 /* named program rows */
 .sp-active-item{display:flex;align-items:center;gap:8px;margin-bottom:7px;font-size:12px;color:var(--g600);line-height:1.4;padding-left:8px;border-left:2px solid var(--g200)}
 .sp-active-item.bl{border-left-color:var(--red)}
 .sp-active-item.ip{border-left-color:var(--green)}
+.sp-active-item.pl{border-left-color:var(--blue);opacity:.8}
 .sp-prog-link{color:var(--g700);font-weight:600;text-decoration:none}
 .sp-prog-link:hover{color:var(--blue);text-decoration:underline}
 .sp-prog-blk{color:var(--red)!important;font-weight:600!important}
-.sp-prog-dim{color:var(--g400)!important}
+.sp-prog-dim{color:rgba(0,102,214,.65)!important}
 .sp-blk-chip{font-size:8.5px;font-weight:800;letter-spacing:.3px;color:var(--red);background:rgba(229,57,53,.1);border-radius:4px;padding:1px 6px;flex-shrink:0;margin-left:auto;white-space:nowrap}
+.sp-chip{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;flex-shrink:0;margin-left:8px;letter-spacing:.25px;text-transform:uppercase;white-space:nowrap}
+.sp-chip-ip{background:rgba(20,165,88,.12);color:#16a34a}
+.sp-chip-pl{background:rgba(0,102,214,.1);color:#0066D6}
+.sp-chip-blk{background:rgba(220,38,38,.12);color:#dc2626}
+.sp-chip-dn{background:var(--g100);color:var(--g400)}
+.sp-chip-hold{background:rgba(245,158,11,.12);color:#d97706}
 .sp-active-empty{font-size:11px;color:var(--g400);font-style:italic}
 .sp-plan-more{font-size:10.5px;color:var(--g400);margin-top:4px;padding-left:12px}
 .sp-more-btn{background:none;border:none;cursor:pointer;font-size:10.5px;color:var(--blue);font-weight:600;margin-top:5px;padding:0;display:block;text-align:left}
@@ -508,6 +515,7 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .pw-hint{font-size:11.5px;color:#94a3b8;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px}
 .pw-error{font-size:12px;color:#dc2626;margin-top:6px;min-height:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px}
 .pw-footer{font-size:11px;color:#94a3b8;margin-top:24px;padding-top:20px;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;gap:6px}
+
 </style>
 </head>
 <body>
@@ -693,31 +701,30 @@ const DATA = {
      execSummary:"AI Builder trial and Paveathon campaign driving Pave ICP sign-ups for Field & Business Ops. Three FF AI launches complete. June launch (Spreadsheet Import) in flight.",
      goals:["Pave ICP focus — sign-ups, activation & pipeline concentrated on Field & Business Ops","Critical FF & Pave launches — Tier 1 & 2 moments converted into adoption and pipeline","Ramp content & social engine — YouTube, LinkedIn and builder-native formats at scale"],
      p1progs:[
-       {key:"MKT-11852",title:"June Launches — Spreadsheet Import & Direct Edit",status:"in-progress"},
-       {key:"MKT-11797",title:"Marketplace & App Gallery",status:"on-hold"},
-       {key:"MKT-11823",title:"AI Builder Trial Experience",status:"in-progress"},
-       {key:"MKT-11621",title:"Paveathon Campaign",status:"in-progress"},
-       {key:"WE-810",title:"New Pave Solutions/Industry Pages",status:"in-progress"},
-       {key:"MKT-12115",title:"[Pave SEO] Vibe Coding — Entity Cluster",status:"planning"},
-       {key:"MKT-12116",title:"[Pave SEO] AI App Builder — Entity Cluster",status:"planning"},
-       {key:"MKT-12117",title:"[Pave SEO] Comparisons — Entity Cluster",status:"in-progress"},
-       {key:"MKT-12118",title:"[Pave SEO] Industry Verticals & Use Cases",status:"planning"},
-       {key:"MKT-12119",title:"[Pave SEO] Enterprise & Governance — Entity Cluster",status:"planning"},
-       {key:"MKT-12120",title:"[Pave SEO] QB Page Optimizations — Agency",status:"planning"},
+       {key:"MKT-12740",title:"[Pave] Connectors, Workflows & Custom Agents Launch — Soft Aug · Hard Sep",status:"planning"},
+       {key:"MKT-11823",title:"[FF] AI Builder Trial Experience",status:"in-progress"},
+       {key:"WE-810",title:"[Pave] New Solutions & Industry Pages",status:"in-progress"},
+       {key:"MKT-12117",title:"[Pave] SEO — Competitor Comparison Pages",status:"in-progress"},
+       {key:"MKT-12118",title:"[Pave] SEO — Industry & Use Case Pages",status:"in-progress"},
+       {key:"MKT-12452",title:"[Pave] Post-Paveathon Content & GTM Activation — Q3",status:"planning"},
+       {key:"MKT-12115",title:"[Pave] SEO — Vibe Coding & No-Code Content",status:"planning"},
+       {key:"MKT-12116",title:"[Pave] SEO — AI App Builder Pages",status:"planning"},
+       {key:"MKT-12119",title:"[Pave] SEO — Enterprise & Governance Content",status:"planning"},
+       {key:"MKT-11797",title:"[Pave] Marketplace & App Gallery",status:"on-hold"},
      ]},
     {key:"MKT-12569",title:"Core BU Marketing",sub:"Quickbase Classic",
      owner:"",status:"on-track",pct:55,done:20,flight:12,blocked:1,total:36,color:"#14A558",delta:+2,note:"Sr Director of Core Marketing role in hiring — risk to Q3 program ownership.",
      outcome:"Protected and growing Core revenue while Pave scales.",
-     execSummary:"Three GTM launches in flight: Grid Reports, QB Extensions, QB Intelligence Package. Webinar program active. Sr. Director of Core Marketing role open — Q3 ownership at risk.",
+     execSummary:"Grid Reports launched Q2. QB Extensions and Intelligence Package in flight. Webinar program active — June events wrapping up, two July webinars in planning. Sr. Director of Core Marketing role open — Q3 ownership at risk.",
      goals:["Customer expansion & cross-sell — upsell campaigns into Core base, UserGems, Empower experiences","Core new-logo demand — GTM launches, SEO content, CRO improvements, partner activation","Retention & at-risk plays — coordinated save/win-back motions with CX for at-risk accounts"],
      p1progs:[
-       {key:"MKT-11666",title:"Grid Reports Launch",status:"in-progress"},
-       {key:"MKT-11667",title:"QB Extensions Launch",status:"in-progress"},
-       {key:"MKT-11668",title:"QB Intelligence Package Launch",status:"in-progress"},
-       {key:"MKT-12106",title:"Webinar — NCR Voyix Road Show (Jun 16 · AI Intelligence)",status:"in-progress"},
-       {key:"MKT-12186",title:"Webinar — QB Extensions: Leveraging Workflows (Jun 17)",status:"in-progress"},
-       {key:"MKT-12494",title:"Webinar — Tropicana Road Show (Jul 9 · AI Intelligence)",status:"planning"},
-       {key:"MKT-12598",title:"Webinar — Feature Focus: Summer Recap (Jul 16)",status:"planning"},
+       {key:"MKT-12825",title:"[Core] Auto-Schedule Launch — Solvice · Beta Jul · GA Sep",status:"planning",priority:"P1"},
+       {key:"MKT-11667",title:"[Core] QB Extensions Launch — 3 new features",status:"in-progress"},
+       {key:"MKT-11668",title:"[Core] QB Intelligence Package Launch",status:"in-progress"},
+       {key:"MKT-12106",title:"[Core] Webinar — NCR Voyix Road Show (Jul 7)",status:"in-progress"},
+       {key:"MKT-12186",title:"[Core] Webinar — QB Extensions: Leveraging Workflows",status:"in-progress"},
+       {key:"MKT-12494",title:"[Core] Webinar — Tropicana Road Show (Jul 9)",status:"planning"},
+       {key:"MKT-12598",title:"[Core] Webinar — Feature Focus: Summer Recap (Jul 16)",status:"planning"},
      ]},
     {key:"MKT-12570",title:"Integrated Marketing",sub:"Brand · Content · Community · Partners · Events",
      owner:"Mirissa Kampf",status:"on-track",pct:32,done:4,flight:7,blocked:0,total:14,color:"#F23E30",delta:0,note:"Key Opinion Partners & Power Videos programs pending Jira issues.",
@@ -725,68 +732,74 @@ const DATA = {
      execSummary:"Brand architecture (Andy) + identity expression (Jenny) both in flight — connecting QB, FF, Pave into one visual identity. Community migrating Khoros→Gainsight. Creative Studio selection underway. AI4 conference Aug 4–6 active.",
      goals:["Brand refresh — architecture, narrative & visual overhaul connecting Quickbase, FastField and Pave into one unified identity","Content + Studio + Community + Partners — scalable engine across search, AEO, owned channels and strategic partners","Integrated planning + experiences — Empower, Pro, SKO, Qrew, launches and events that bring the brand to life"],
      p1progs:[
-       {key:"MKT-12613",title:"Brand + Web Refresh (Q2–Q4)",status:"in-progress",goal:1},
-       {key:"MKT-12615",title:"Brand Identity & Expression",status:"in-progress",goal:1},
-       {key:"MKT-12614",title:"Portfolio Architecture & Narrative",status:"in-progress",goal:1},
-       {key:"MKT-12470",title:"Community Platform Migration",status:"in-progress",goal:2},
-       {key:"MKT-12690",title:"Creative Studio Selection — H2 2026",status:"in-progress",goal:2},
-       {key:"MKT-12469",title:"Pave Community Launch — H2",status:"planning",goal:2},
-       {key:"MKT-12471",title:"FF Community Launch — H2",status:"planning",goal:2},
-       {key:"MKT-12386",title:"AI4 Tradeshow — Aug 4–6, Las Vegas",status:"in-progress",goal:3},
-       {key:"MKT-12684",title:"Gartner IT Symposium — Oct 19–22, Orlando",status:"planning",goal:3},
-       {key:"",title:"Key Opinion Partners — H2 kickoff TBD",status:"planning",goal:2},
-       {key:"",title:"Power Videos Initiative — H2 kickoff TBD",status:"planning",goal:2},
+       {key:"MKT-12613",title:"[Cross-BU] Brand + Web Refresh (Q2–Q4)",status:"in-progress",goal:1},
+       {key:"MKT-12615",title:"[Cross-BU] Brand Identity & Expression",status:"in-progress",goal:1},
+       {key:"MKT-12614",title:"[Cross-BU] Portfolio Architecture & Narrative",status:"in-progress",goal:1},
+       {key:"MKT-12470",title:"[Cross-BU] Community Platform Migration",status:"in-progress",goal:2},
+       {key:"MKT-12690",title:"[Cross-BU] Creative Studio Selection — H2",status:"in-progress",goal:2},
+       {key:"MKT-12386",title:"[Cross-BU] AI4 Tradeshow — Aug 4–6, Las Vegas",status:"in-progress",goal:3},
+       {key:"MKT-12822",title:"[Pave] G2 — Always-On Review Activation — Q3",status:"planning",goal:2},
+       {key:"MKT-12820",title:"[FF] G2 — Always-On Review Activation — Q3",status:"planning",goal:2},
+       {key:"MKT-12469",title:"[Pave] Community Launch — H2",status:"planning",goal:2},
+       {key:"MKT-12471",title:"[FF] Community Launch — H2",status:"planning",goal:2},
+       {key:"MKT-12684",title:"[Cross-BU] Gartner IT Symposium — Oct 19–22, Orlando",status:"planning",goal:3},
+       {key:"",title:"[Cross-BU] Key Opinion Partners — H2",status:"planning",goal:2},
+       {key:"",title:"[Cross-BU] Power Videos — H2",status:"planning",goal:2},
      ]},
     {key:"MKT-12571",title:"Digital",sub:"Web · SEO · CRO · Paid Media",
      owner:"Carlos Cortez de Barros",status:"on-track",pct:48,done:5,flight:5,blocked:0,total:11,color:"#7C3AED",delta:+1,
      note:"Web: Content Hub live for Pave/FF/QB (Michael). Pave ICP conversion tracking via Google Ads & GA4 in flight (Tihomir). FeedMe SSE plugin upgrade in progress (Borislav). FF website migration active (Michael). WE-787 Transitional Improvements (Brand + Web Refresh) active — 14 pages in pipeline (Andy/Michael).",
      outcome:"A website and search presence that convert ICP demand efficiently.",
-     execSummary:"Content Hub live for all three BUs. Pave ICP conversion tracking wired into Google Ads & GA4. Three-stage website refresh in flight. FF website migration active. SEO programs running across all three products.",
+     execSummary:"Content Hub live for all three BUs. Pave ICP conversion tracking wired into Google Ads & GA4. Web team executing across 3 BUs in Q3: Pave new Solutions/Industry pages (due Jul 29), FF Platform Pages & Nav build-out, Core web updates — all feeding the brand refresh (14 transitional pages in flight). SEO programs running across Core, FF, and Pave.",
      goals:["Website refresh + CRO — 3-stage (audit → copy → experience) with conversion optimization across key pages","Pave TOFU with ICP focus — top-of-funnel demand for Pave ICP buyers, conversion tracking wired into paid channels","SEO across QB Core · FF · Pave — one unified strategy so products don't compete for the same demand"],
      p1progs:[
-       {key:"MKT-11822",title:"FF Website Migration — Marketing Readiness",status:"in-progress"},
-       {key:"WE-632",title:"Content Hub — Pave · FF · QB Blogs",status:"done"},
-       {key:"WE-710",title:"Pave ICP Conversion Tracking (Google Ads & GA4)",status:"in-progress"},
-       {key:"WE-699",title:"FeedMe Plugin — SSE Streaming & Persistent State",status:"in-progress"},
-       {key:"WE-782",title:"Announcement Banner Refresh — QB & Pave",status:"in-progress"},
-       {key:"MKT-12529",title:"Web Roadmap — Q3 2026",status:"planning"},
-       {key:"MKT-12530",title:"Web Roadmap — Q4 2026",status:"planning"},
-       {key:"MKT-12115",title:"[Pave SEO] Vibe Coding — Entity Cluster",status:"planning"},
-       {key:"MKT-12116",title:"[Pave SEO] AI App Builder — Entity Cluster",status:"planning"},
-       {key:"MKT-12117",title:"[Pave SEO] Comparisons — Entity Cluster",status:"in-progress"},
-       {key:"MKT-12118",title:"[Pave SEO] Industry Verticals & Use Cases",status:"planning"},
-       {key:"MKT-12119",title:"[Pave SEO] Enterprise & Governance — Entity Cluster",status:"planning"},
-       {key:"MKT-12120",title:"[Pave SEO] QB Page Optimizations — Agency",status:"planning"},
-       {key:"MKT-12590",title:"Core SEO Content Program — Q2",status:"in-progress"},
-       {key:"MKT-12593",title:"FF SEO Content Program — Q2",status:"intake"},
-       {key:"WE-787",title:"Transitional Improvements — Brand + Web Refresh (14 pages)",status:"in-progress"},
-       {key:"WE-810",title:"New Pave Solutions/Industry Pages",status:"in-progress"},
+       {key:"WE-787",title:"[Cross-BU] Transitional Improvements — Brand Refresh (14 pages)",status:"in-progress"},
+       {key:"WE-782",title:"[Cross-BU] Announcement Banner Refresh",status:"in-progress"},
+       {key:"WE-810",title:"[Pave] New Solutions & Industry Pages",status:"in-progress"},
+       {key:"WE-845",title:"[Pave] Navigation Update — new Solutions pages structure",status:"in-progress"},
+       {key:"WE-849",title:"[Pave] Pricing Page A/B Test — 3 vs 4 option",status:"in-progress"},
+       {key:"WE-615",title:"[Cross-BU] A/B Testing Capability — CRO infrastructure",status:"in-progress"},
+       {key:"WE-835",title:"[Cross-BU] Navigation Research — competitor analysis & QB opportunities",status:"in-progress"},
+       {key:"MKT-12594",title:"[FF] SEO Content Program — Q3 2026",status:"in-progress"},
+       {key:"MKT-12117",title:"[Pave] SEO — Competitor Comparison Pages",status:"in-progress"},
+       {key:"MKT-12118",title:"[Pave] SEO — Industry & Use Case Pages",status:"in-progress"},
+       {key:"WE-710",title:"[Pave] ICP Conversion Tracking — Google Ads & GA4",status:"in-progress"},
+       {key:"WE-791",title:"[Cross-BU] Navigation Cleanup — reduce items, improve usability",status:"planning"},
+       {key:"MKT-12850",title:"[FF] Web — Platform Pages & Nav Build-out — Q3",status:"planning"},
+       {key:"MKT-12856",title:"[FF] SEO — Use Cases & Nav Pages — Q3",status:"planning"},
+       {key:"MKT-12115",title:"[Pave] SEO — Vibe Coding & No-Code Content",status:"planning"},
+       {key:"MKT-12116",title:"[Pave] SEO — AI App Builder Pages",status:"planning"},
+       {key:"MKT-12119",title:"[Pave] SEO — Enterprise & Governance Content",status:"planning"},
+       {key:"MKT-12591",title:"[Core] SEO Content Program — Q3 2026",status:"planning"},
+       {key:"MKT-11822",title:"[FF] Website Migration — Marketing Readiness",status:"done"},
+       {key:"WE-632",title:"[Cross-BU] Content Hub — Pave · FF · QB Blogs",status:"done"},
+       {key:"WE-699",title:"[Cross-BU] FeedMe Plugin — SSE Streaming",status:"done"},
      ]},
     {key:"MKT-12572",title:"Corporate Communications",sub:"PR · Social · ELT Comms",
-     owner:"Tory Waldron",status:"on-track",pct:64,done:180,flight:99,blocked:1,total:279,color:"#0891B2",delta:+3,note:"ELT social live — weekly sends for Kim/Marcus/Kelly (MKT-12355); PR agency RFP active (Isabella); Social platform demos w/ SLT & CMO in progress (DSMN8 vs Sociabble); Gray Work Survey PR blocked",
+     owner:"Tory Waldron",status:"on-track",pct:64,done:180,flight:99,blocked:1,total:279,color:"#0891B2",delta:+3,note:"ELT social live — weekly sends for Kim/Marcus/Kelly (MKT-12362); PR agency selection active (Isabella, MKT-12687); Social platform eval in progress (DSMN8 vs Sociabble, MKT-12688); Gray Work Survey PR blocked",
      outcome:"Build PR and social agency support this summer to drive faster Pave momentum and stronger share of voice this fall.",
      execSummary:"ELT social sends live for Kim, Marcus, Kelly weekly. PR agency RFP active (Isabella). Social platform eval in progress (DSMN8 vs Sociabble). One program blocked: Gray Work Survey PR.",
      goals:["Uplift media relations — higher-DA publications, GEO + SEO best practices, LLM licensing signal, new PR agency","Brand narrative — authentic exec + customer storytelling: bylines, speaker training, earned speaking, customer videos","PLG motion — employee advocacy program + short-form organic social video across LinkedIn, YouTube, Instagram"],
      p1progs:[
-       {key:"MKT-12353",title:"PR & Media Relations — Q2",status:"in-progress"},
-       {key:"MKT-12355",title:"Executive Social & ELT — Q2 (Kim/Marcus/Kelly)",status:"in-progress"},
-       {key:"MKT-12354",title:"Organic Social — Q2",status:"in-progress"},
-       {key:"MKT-12357",title:"Strategy & Planning — Q2 (agency hunts, advocacy eval)",status:"in-progress"},
-       {key:"MKT-12687",title:"PR Agency Selection — H2 2026",status:"in-progress"},
-       {key:"MKT-12688",title:"Social Platform Eval — H2 2026 (DSMN8 vs Sociabble)",status:"in-progress"},
+       {key:"MKT-12360",title:"[Cross-BU] PR & Media Relations — Q3",status:"in-progress"},
+       {key:"MKT-12362",title:"[Cross-BU] Executive Social — ELT Q3 (Kim/Marcus/Kelly)",status:"in-progress"},
+       {key:"MKT-12361",title:"[Cross-BU] Organic Social — Q3",status:"in-progress"},
+       {key:"MKT-12364",title:"[Cross-BU] Comms Strategy & Planning — Q3",status:"in-progress"},
+       {key:"MKT-12687",title:"[Cross-BU] PR Agency Selection — H2",status:"in-progress"},
+       {key:"MKT-12688",title:"[Cross-BU] Social Platform Eval — H2 (DSMN8 vs Sociabble)",status:"in-progress"},
      ]},
     {key:"MKT-12573",title:"Marketing Systems & AI",sub:"Ops · Automation · AI Growth",
      owner:"Lynn Tan",status:"on-track",pct:44,done:3,flight:2,blocked:0,total:6,color:"#059669",delta:+1,note:"PiperX launched June 3 (voice/video AI on QB website). Empower '26 AI content library live — GPT + Letter AI, surfaces ELT/session content to Sales & CX. FF trial nurture fully automated in Intercom. UserGems migration in progress.",
      outcome:"A faster, AI-powered marketing engine that does more with the same team.",
-     execSummary:"PiperX live on QB website since June 3 (voice/video AI). Empower AI content library live — GPT + Letter AI surfaces session content to Sales & CX. FF trial nurture automated end-to-end in Intercom. UserGems migration in progress.",
+     execSummary:"Q3 active: UserGems migration validating parity vs. Vector (Sep renewal decision) · Empower '26 AI content library live (GPT + Letter AI, team rollout Jul 15) · FF Intercom trial nurture fully live — 7.7K YTD trials, ~450/wk, AE round-robin automated · Qualified campaign build for QB→Pave re-engagement in planning · Marketo Core New nurture template refresh in planning.",
      goals:["Own all marketing systems — single-team ownership of the martech stack, backbone for every campaign and pipeline motion","GTM engineering — AI-led automation to improve how marketing and GTM operations run across all teams","Lifecycle & campaign automation — demand, CRM and lifecycle programs automated end-to-end across Core, FF and Pave"],
      p1progs:[
-       {key:"MKT-11888",title:"Qualified PiperX — launched June 3",status:"in-progress"},
-       {key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",status:"in-progress"},
-       {key:"MKT-12676",title:"Empower '26 AI Content Library (GPT + Letter AI)",status:"in-progress"},
-       {key:"MKT-12095",title:"At-Risk QB Customer Outreach",status:"in-progress"},
-       {key:"MKT-12263",title:"Intel Pack Activation Campaign",status:"planning"},
-       {key:"MKT-12634",title:"Vector → UserGems Migration",status:"in-progress"},
+       {key:"MKT-12634",title:"[Cross-BU] UserGems Migration — replacing Vector (Sep renewal gate)",status:"in-progress"},
+       {key:"MKT-12531",title:"[FF] Intercom Trial Nurture — 7.7K trials · ~450/wk · AE RR live",status:"in-progress"},
+       {key:"MKT-12676",title:"[Cross-BU] Empower AI Content Library — GPT + Letter AI (Jul 15 rollout)",status:"in-progress"},
+       {key:"MKT-12802",title:"[Cross-BU] Qualified — QB→Pave Re-engagement & G2 Review Campaigns",status:"planning"},
+       {key:"MKT-12803",title:"[Core] UserGems ABM — New & Expand (MasTec, AT&T, ENT)",status:"planning"},
+       {key:"MKT-12804",title:"[Core] Marketo Nurture Refresh — Core New template",status:"planning"},
      ]},
     {key:"MKT-12574",title:"Program Management",sub:"Delivery · Rhythm · Visibility",
      owner:"Luiza Rusinova",status:"on-track",pct:75,done:5,flight:3,blocked:0,total:8,color:"#10503C",delta:+2,note:"RACI hub + 7 team pages live in Confluence; validating with each team lead. Exec dashboard active.",
@@ -794,93 +807,92 @@ const DATA = {
      execSummary:"RACI hub + 7 team Confluence pages live and in validation. Jira structure standardized across all programs. Executive reporting dashboard active. This briefing.",
      goals:["Marketing operating system — standard briefs, request guides, RACIs and Jira structure so every team knows how work flows","Cross-team program coordination — multi-team initiatives (website refresh, launches) kept on track and visible","Delivery rhythm & visibility — planning calendar and status reporting so leadership sees progress without chasing it"],
      p1progs:[
-       {key:"MKT-12078",title:"Jira & Confluence Program Structure — Q2",status:"in-progress"},
-       {key:"MKT-12691",title:"Marketing RACI & SLA Framework — H2 2026",status:"in-progress"},
-       {key:"MKT-12692",title:"Marketing Executive Reporting Dashboard — H2 2026",status:"in-progress"},
+       {key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",status:"planning"},
+       {key:"MKT-12436",title:"[Cross-BU] Internal Programs — Q3 2026",status:"planning"},
      ]},
   ],
 
   programs:[
     // MKT-12568 AWE — G1: Pave ICP · G2: FF & Pave launches · G3: Content & social engine
-    {sp:"MKT-12568",key:"MKT-11852",title:"June Launches — Spreadsheet Import & Direct Edit",owner:"McPhee, Stephanie",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12568",key:"MKT-11797",title:"Marketplace & App Gallery",owner:"Hendley, Michelle",status:"on-hold",priority:"P1",goal:2},
     {sp:"MKT-12568",key:"MKT-11823",title:"AI Builder Trial Experience",owner:"Saeed, Hira",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"MKT-11621",title:"Paveathon Campaign",owner:"Nickols, Meaghan",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"in-progress",priority:"P2",goal:1},
+    {sp:"MKT-12568",key:"WE-810",title:"New Pave Solutions/Industry Pages",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1,due:"2026-07-29"},
+    {sp:"MKT-12568",key:"MKT-12117",title:"Pave SEO — Competitor Comparison Pages",owner:"South, Tom",status:"in-progress",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-12118",title:"Pave SEO — Industry Vertical & Use Case Pages",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-12115",title:"Pave SEO — Vibe Coding & No-Code Builder Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-12116",title:"Pave SEO — AI App Builder Pages",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-12119",title:"Pave SEO — Enterprise & Governance Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-12120",title:"Pave SEO — Agency-Focused QB Page Optimizations",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-11797",title:"Marketplace & App Gallery",owner:"Hendley, Michelle",status:"on-hold",priority:"P1",goal:2},
+    {sp:"MKT-12568",key:"MKT-11852",title:"June Launches — Spreadsheet Import & Direct Edit",owner:"McPhee, Stephanie",status:"done",priority:"P1",goal:2},
+    {sp:"MKT-12568",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"done",priority:"P2",goal:1},
     {sp:"MKT-12568",key:"MKT-11521",title:"FF AI Photo Insights — Launch T2",owner:"Saeed, Hira",status:"done",priority:"P1",goal:2},
     {sp:"MKT-12568",key:"MKT-11522",title:"FF AI Label Scanner — Launch T2",owner:"Saeed, Hira",status:"done",priority:"P1",goal:2},
     {sp:"MKT-12568",key:"MKT-11523",title:"FF Asset & Team Tracker — Launch T1",owner:"Saeed, Hira",status:"done",priority:"P2",goal:2},
     {sp:"MKT-12568",key:"MKT-11658",title:"Pave Persona Pages Campaign",owner:"Young-Ward, Michael",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"WE-810",title:"New Pave Solutions/Industry Pages",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"MKT-12115",title:"[Pave SEO] Vibe Coding — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12116",title:"[Pave SEO] AI App Builder — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12117",title:"[Pave SEO] Comparisons — Entity Cluster",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12118",title:"[Pave SEO] Industry Verticals & Use Cases",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12119",title:"[Pave SEO] Enterprise & Governance — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12120",title:"[Pave SEO] QB Page Optimizations — Agency",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12568",key:"MKT-11621",title:"Paveathon Campaign",owner:"Nickols, Meaghan",status:"done",priority:"P1",goal:1},
     // MKT-12569 Core BU — G1: Customer expansion & cross-sell · G2: New-logo demand · G3: Retention & at-risk
-    {sp:"MKT-12569",key:"MKT-11666",title:"Grid Reports — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1",goal:2},
     {sp:"MKT-12569",key:"MKT-11667",title:"QB Extensions — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1",goal:2},
     {sp:"MKT-12569",key:"MKT-11668",title:"QB Intelligence Package — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12569",key:"MKT-12106",title:"Webinar — NCR Voyix Road Show (Jun 16 · AI Intelligence)",owner:"Kleiner, Charlie",status:"in-progress",priority:"P1",goal:2},
+    {sp:"MKT-12569",key:"MKT-12106",title:"Webinar — NCR Voyix Road Show (Jul 7 · AI Intelligence)",owner:"Kleiner, Charlie",status:"in-progress",priority:"P1",goal:2,due:"2026-07-07"},
     {sp:"MKT-12569",key:"MKT-12186",title:"Webinar — QB Extensions: Leveraging Workflows (Jun 17)",owner:"Lynch, Emma",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12569",key:"MKT-12494",title:"Webinar — Tropicana Road Show (Jul 9 · AI Intelligence)",owner:"Kleiner, Charlie",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12569",key:"MKT-12598",title:"Webinar — Feature Focus: Summer Recap (Jul 16)",owner:"Lynch, Emma",status:"planning",priority:"P1",goal:2},
+    {sp:"MKT-12569",key:"MKT-12494",title:"Webinar — Tropicana Road Show (Jul 9 · AI Intelligence)",owner:"Kleiner, Charlie",status:"planning",priority:"P1",goal:2,due:"2026-07-09"},
+    {sp:"MKT-12569",key:"MKT-12598",title:"Webinar — Feature Focus: Summer Recap (Jul 16)",owner:"Lynch, Emma",status:"planning",priority:"P1",goal:2,due:"2026-07-16"},
+    {sp:"MKT-12569",key:"MKT-11666",title:"Grid Reports — Go-to-Market Launch",owner:"Decker, Michael",status:"done",priority:"P1",goal:2},
     // MKT-12570 Integrated Marketing — G1: Brand refresh · G2: Content+Community+Partners · G3: Experiences+Events
     {sp:"MKT-12570",key:"MKT-12613",title:"Brand + Web Refresh — Q2–Q4 2026",owner:"Kampf, Mirissa",status:"in-progress",priority:"P1",goal:1},
     {sp:"MKT-12570",key:"MKT-12615",title:"Brand Identity & Expression",owner:"Liu, Jenny",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12570",key:"MKT-12614",title:"Portfolio Architecture & Narrative",owner:"McGuire, Andy",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12570",key:"MKT-12470",title:"Community Platform Migration — Khoros to Gainsight",owner:"Simon, Ben",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12115",title:"[Pave SEO] Vibe Coding — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12116",title:"[Pave SEO] AI App Builder — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12117",title:"[Pave SEO] Comparisons — Entity Cluster",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12118",title:"[Pave SEO] Industry Verticals & Use Cases",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12119",title:"[Pave SEO] Enterprise & Governance",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12120",title:"[Pave SEO] QB Page Optimizations — Agency",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
+    {sp:"MKT-12570",key:"MKT-12614",title:"Portfolio Architecture & Narrative",owner:"McGuire, Andy",status:"planning",priority:"P1",goal:1},
+    {sp:"MKT-12570",key:"MKT-12470",title:"Community Platform Migration — Khoros to Gainsight",owner:"Simon, Ben",status:"in-progress",priority:"P1",goal:2,due:"2026-10-30"},
+    {sp:"MKT-12570",key:"MKT-12115",title:"Pave SEO — Vibe Coding & No-Code Builder Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
+    {sp:"MKT-12570",key:"MKT-12116",title:"Pave SEO — AI App Builder Pages",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
+    {sp:"MKT-12570",key:"MKT-12117",title:"Pave SEO — Competitor Comparison Pages",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:2},
+    {sp:"MKT-12570",key:"MKT-12118",title:"Pave SEO — Industry Vertical & Use Case Pages",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:2},
+    {sp:"MKT-12570",key:"MKT-12119",title:"Pave SEO — Enterprise & Governance Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
+    {sp:"MKT-12570",key:"MKT-12120",title:"Pave SEO — Agency-Focused QB Page Optimizations",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:2},
     {sp:"MKT-12570",key:"MKT-12469",title:"Pave Community Launch — H2 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",goal:2},
     {sp:"MKT-12570",key:"MKT-12471",title:"FF Community Launch — H2 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",goal:2},
     {sp:"MKT-12570",key:"MKT-12690",title:"Creative Studio Selection — H2 2026",owner:"Liu, Jenny",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12525",title:"Community Q2 RTB — Ongoing Engagement",owner:"Simon, Ben",status:"in-progress",priority:"P3",goal:2},
+    {sp:"MKT-12570",key:"MKT-12525",title:"Community Q2 RTB — Ongoing Engagement",owner:"Simon, Ben",status:"in-progress",priority:"P3",goal:2,due:"2026-06-30"},
     {sp:"MKT-12570",key:"MKT-12386",title:"AI4 Tradeshow — Aug 4–6, Las Vegas",owner:"Speidel, Lindsey",status:"in-progress",priority:"P2",goal:3},
     {sp:"MKT-12570",key:"MKT-12684",title:"Gartner IT Symposium — Oct 19–22, Orlando",owner:"Gutierrez, Susana",status:"planning",priority:"P2",goal:3},
     // MKT-12571 Digital
     // MKT-12571 Digital — Goal 1: Website refresh+CRO · Goal 2: Pave ICP · Goal 3: SEO
-    {sp:"MKT-12571",key:"MKT-11822",title:"FF Website Migration — Marketing Readiness & Go-Live",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1},
+    {sp:"MKT-12571",key:"MKT-11822",title:"FF Website Migration — Marketing Readiness & Go-Live",owner:"Young-Ward, Michael",status:"done",priority:"P1",goal:1},
     {sp:"MKT-12571",key:"WE-632",title:"Content Hub — Pave · FF · QB Blogs",owner:"Young-Ward, Michael",status:"done",priority:"P1",goal:1},
     {sp:"MKT-12571",key:"WE-710",title:"Pave ICP Conversion Tracking (Google Ads & GA4)",owner:"Radev, Tihomir",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12571",key:"WE-699",title:"FeedMe Plugin — SSE Streaming & Persistent State",owner:"Vasilev, Borislav",status:"in-progress",priority:"P1",goal:1},
     {sp:"MKT-12571",key:"WE-782",title:"Announcement Banner Refresh — QB & Pave",owner:"Young-Ward, Michael",status:"in-progress",priority:"P2",goal:1},
-    {sp:"MKT-12571",key:"MKT-12529",title:"Web Roadmap — Q3 2026",owner:"Young-Ward, Michael",status:"planning",priority:"P1",goal:1},
-    {sp:"MKT-12571",key:"MKT-12530",title:"Web Roadmap — Q4 2026",owner:"Young-Ward, Michael",status:"planning",priority:"P2",goal:1},
-    {sp:"MKT-12571",key:"MKT-12115",title:"[Pave SEO] Vibe Coding — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12116",title:"[Pave SEO] AI App Builder — Entity Cluster",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12117",title:"[Pave SEO] Comparisons — Entity Cluster",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12118",title:"[Pave SEO] Industry Verticals & Use Cases",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12119",title:"[Pave SEO] Enterprise & Governance",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12120",title:"[Pave SEO] QB Page Optimizations — Agency",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12590",title:"Core SEO Content Program — Q2 2026",owner:"South, Tom",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12593",title:"FF SEO Content Program — Q2 2026",owner:"South, Tom",status:"intake",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12529",title:"Web Roadmap — Q3 2026",owner:"Young-Ward, Michael",status:"planning",priority:"P1",goal:1,due:"2026-09-30"},
+    {sp:"MKT-12571",key:"MKT-12530",title:"Web Roadmap — Q4 2026",owner:"Young-Ward, Michael",status:"planning",priority:"P2",goal:1,due:"2026-12-31"},
+    {sp:"MKT-12571",key:"WE-699",title:"FeedMe Plugin — SSE Streaming & Persistent State",owner:"Vasilev, Borislav",status:"done",priority:"P1",goal:1},
+    {sp:"MKT-12571",key:"MKT-12115",title:"Pave SEO — Vibe Coding & No-Code Builder Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12116",title:"Pave SEO — AI App Builder Pages",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12117",title:"Pave SEO — Competitor Comparison Pages",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12118",title:"Pave SEO — Industry Vertical & Use Case Pages",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12119",title:"Pave SEO — Enterprise & Governance Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12120",title:"Pave SEO — Agency-Focused QB Page Optimizations",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12590",title:"Core SEO Content Program — Q3 2026",owner:"South, Tom",status:"in-progress",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12593",title:"FF SEO Content Program — Q3 2026",owner:"South, Tom",status:"planning",priority:"P1",goal:3},
     {sp:"MKT-12571",key:"WE-810",title:"New Pave Solutions/Industry Pages",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12571",key:"WE-787",title:"Transitional Improvements — Brand + Web Refresh (14 pages)",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1},
+    {sp:"MKT-12571",key:"WE-787",title:"[Cross-BU] Transitional Improvements — Brand + Web Refresh — Q3 2026",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1},
     // MKT-12572 Corp Comms — G1: Media relations & PR · G2: Exec & customer storytelling · G3: PLG social & advocacy
-    {sp:"MKT-12572",key:"MKT-12353",title:"PR & Media Relations — Q2 2026",owner:"Bolton, Isabella",status:"in-progress",priority:"P1",goal:1},
     {sp:"MKT-12572",key:"MKT-12687",title:"PR Agency Selection — H2 2026",owner:"Bolton, Isabella",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12572",key:"MKT-12357",title:"Strategy & Planning — Q2 2026 (agency hunts, advocacy eval)",owner:"Waldron, Tory",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12572",key:"MKT-12355",title:"Executive Social & ELT — Q2 2026 (Kim/Marcus/Kelly)",owner:"Horgan, Colin",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12572",key:"MKT-12354",title:"Organic Social — Q2 2026",owner:"Rich, Sarah",status:"in-progress",priority:"P2",goal:3},
     {sp:"MKT-12572",key:"MKT-12688",title:"Social Platform Eval — H2 2026 (DSMN8 vs Sociabble)",owner:"Waldron, Tory",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12572",key:"MKT-12356",title:"Reporting & Internal — Q2 2026",owner:"",status:"intake",priority:"P3"},
+    {sp:"MKT-12572",key:"MKT-12360",title:"PR & Media Relations — Q3 2026",owner:"Bolton, Isabella",status:"planning",priority:"P1",goal:1},
+    {sp:"MKT-12572",key:"MKT-12364",title:"Strategy & Planning — Q3 2026 (agency onboarding, advocacy eval)",owner:"Waldron, Tory",status:"planning",priority:"P1",goal:1},
+    {sp:"MKT-12572",key:"MKT-12362",title:"Executive Social & ELT — Q3 2026 (Kim/Marcus/Kelly)",owner:"Horgan, Colin",status:"planning",priority:"P1",goal:2},
+    {sp:"MKT-12572",key:"MKT-12361",title:"Organic Social — Q3 2026",owner:"Rich, Sarah",status:"planning",priority:"P2",goal:3},
+    {sp:"MKT-12572",key:"MKT-12363",title:"Reporting & Internal — Q3 2026",owner:"Waldron, Tory",status:"planning",priority:"P3"},
     // MKT-12573 Systems & AI — G1: Own all martech · G2: GTM engineering + AI improvement · G3: Lifecycle & campaign automation
     {sp:"MKT-12573",key:"MKT-12634",title:"Vector to UserGems Migration",owner:"Tan, Lynn",status:"in-progress",priority:"P3",goal:1},
-    {sp:"MKT-12573",key:"MKT-11888",title:"Qualified PiperX — launched June 3",owner:"Tan, Lynn",status:"in-progress",priority:"P1",goal:2},
     {sp:"MKT-12573",key:"MKT-12676",title:"Empower '26 AI Content Library (GPT + Letter AI)",owner:"Tan, Lynn",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12573",key:"MKT-12263",title:"Intel Pack Activation Campaign",owner:"Tan, Lynn",status:"planning",priority:"P2",goal:2},
     {sp:"MKT-12573",key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",owner:"Tan, Lynn",status:"in-progress",priority:"P2",goal:3},
-    {sp:"MKT-12573",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"in-progress",priority:"P2",goal:3},
+    {sp:"MKT-12573",key:"MKT-11888",title:"Qualified PiperX — launched June 3",owner:"Tan, Lynn",status:"done",priority:"P1",goal:2},
+    {sp:"MKT-12573",key:"MKT-12263",title:"Intel Pack Activation Campaign",owner:"Tan, Lynn",status:"done",priority:"P2",goal:2},
+    {sp:"MKT-12573",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"done",priority:"P2",goal:3},
     // MKT-12574 Program Mgmt — G1: Marketing operating system · G2: Cross-team coordination · G3: Delivery rhythm & visibility
-    {sp:"MKT-12574",key:"MKT-12078",title:"Jira & Confluence Program Structure — Q2 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12574",key:"MKT-12691",title:"Marketing RACI & SLA Framework — H2 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12574",key:"MKT-12692",title:"Marketing Executive Reporting Dashboard — H2 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",goal:3},
+    {sp:"MKT-12574",key:"MKT-12078",title:"Jira & Confluence Program Structure — H2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",goal:1},
+    {sp:"MKT-12574",key:"MKT-12691",title:"Marketing RACI & SLA Framework — H2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",goal:1},
+    {sp:"MKT-12574",key:"MKT-12692",title:"Marketing Executive Reporting Dashboard — H2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",goal:3},
   ],
 
   channels:[
@@ -9390,7 +9402,26 @@ const DATA = {
       doneDate:"Apr 1, 2026"
     }
   ],
-  shipped:[],
+  shipped:[
+    {key:"MKT-12811",title:"ABM Play: MasTec (ENT/Strat — UserGems)",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Robinson, Mia",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12812",title:"ABM Play: AT&T (ENT/Strat — UserGems)",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Robinson, Mia",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-11542",title:"FF Digital & Paid Media — LinkedIn, Meta, Retargeting",ch:"Demand Gen",bu:"FastField",label:"",owner:"Martins, Raul",type:"Task",doneDate:"Jul 1 2026"},
+    {key:"MKT-11841",title:"FF Post-Migration Web Evolution — Nav, IA & Content Strategy",ch:"Web & Digital",bu:"FastField",label:"",owner:"Young-Ward, Michael",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12739",title:"[Design] Comparison Pages — Page Template",ch:"Creative & Design",bu:"Pave",label:"",owner:"Boyanova, Kristina",type:"Task",doneDate:"Jul 1 2026"},
+    {key:"MKT-11864",title:"The Neuron Product-Led YouTube Podcast",ch:"PR & Comms",bu:"Pave",label:"",owner:"Koutsoukos, Elena",type:"Task",doneDate:"Jul 1 2026"},
+    {key:"MKT-12408",title:"Secure Speaker — AI4 2026",ch:"Events & Experiences",bu:"Cross-BU",label:"",owner:"McPhee, Stephanie",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-9806",title:"P2: Empower Registration Benchmarks",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 1 2026"},
+    {key:"MKT-12101",title:"Weekly Performance Monitoring — At-Risk QB Campaign (Wrap)",ch:"Email & Lifecycle",bu:"Pave",label:"",owner:"Tan, Lynn",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-11176",title:"Best Compliance Management Software (SEO)",ch:"Content & SEO",bu:"Core (QB)",label:"",owner:"Mondal, Sanchita",type:"Task",doneDate:"Jul 1 2026"},
+    {key:"MKT-12377",title:"LinkedIn Post — Import a Spreadsheet (Pave Feature)",ch:"Social Media",bu:"Pave",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12378",title:"LinkedIn Post — Pave-a-thon (Sage Hiller Demo)",ch:"Social Media",bu:"Pave",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12379",title:"LinkedIn Post — Pave-a-thon (Skye Ellis Demo)",ch:"Social Media",bu:"Pave",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12372",title:"Executive Byline — AWS Pave Blog (Feedback to AWS)",ch:"PR & Comms",bu:"Pave",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12370",title:"Executive Byline — For Construction Pros (Foundations)",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12371",title:"Executive Byline — Unite.AI (Small Language Models)",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12373",title:"Executive Byline — Future of 'No Collar' Work",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+    {key:"MKT-12380",title:"Reporting — May Analytics Recap + Empower Coverage Summary",ch:"Marketing Analytics",bu:"Cross-BU",label:"",owner:"unassigned",type:"Task",doneDate:"Jul 2 2026"},
+  ],
 };
 
 /* ══════════════════════════════════════════════════════
@@ -9699,7 +9730,8 @@ function renderBriefing(){
   const avgPct       = Math.round(inits.reduce((s,i)=>s+i.pct,0)/inits.length);
 
   // ── CMO Brief narrative ──────────────────────────────
-  const _inFlight = (DATA.programs||[]).filter(p=>p.status==='in-progress').length;
+  const _p1Running = new Set(inits.flatMap(i=>(i.p1progs||[]).filter(p=>p.status==='in-progress').map(p=>p.key).filter(Boolean))).size;
+  const _inFlight = _p1Running;
   const _blocked  = (DATA.programs||[]).filter(p=>p.status==='blocked').length;
   const _spShort={'Growth — AWE':'Growth/AWE','Core BU Marketing':'Core BU','Integrated Marketing':'Integrated Marketing','Digital':'Digital','Corporate Communications':'Corp. Communications','Marketing Systems & AI':'Systems & AI','Program Management':'Prog. Mgmt'};
   const _sn = i => _spShort[i.title] || (i.title.includes(' — ') ? i.title.split(' — ')[1] : i.title.split(' ').slice(0,2).join(' '));
@@ -9709,15 +9741,16 @@ function renderBriefing(){
   const _h2Active = inits.filter(i=>(i.p1progs||[]).some(p=>['in-progress','planning'].includes(p.status))).length;
   const _riskItems = inits.filter(i=>i.status==='at-risk'||i.status==='off-track');
 
-  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track with <strong>${_inFlight} programs</strong> actively in execution across Q3.`;
+  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track. We're in <strong>Q3 week ${_weekInQ3} of 13</strong> with <strong>${_p1Running} P1 programs</strong> in active execution.`;
   const _bs2 = _activeSps.length
-    ? `The most active goal areas are ${_activeSps.map(x=>`<strong>${_sn(x.ini)}</strong>`).join(', ')} — together running <strong>${_activeSps.reduce((s,x)=>s+x.n,0)} programs</strong> in parallel.`
+    ? `The most active areas are ${_activeSps.map(x=>`<strong>${_sn(x.ini)}</strong>`).join(', ')} — together running <strong>${_activeSps.reduce((s,x)=>s+x.n,0)} programs</strong> in parallel.`
     : '';
   const _bs3parts = [];
   if(_riskItems.length) _bs3parts.push(`${_riskItems.map(i=>`<strong>${_sn(i)}</strong>`).join(', ')} require${_riskItems.length===1?'s':''} attention`);
   if(_blocked>0) _bs3parts.push(`<strong>${_blocked}</strong> program${_blocked>1?'s':''} blocked`);
-  const _bs3 = _bs3parts.length ? `Watch: ${_bs3parts.join(' · ')}.` : '';
-  const _bs4 = `<strong>${DATA.q2closed}</strong> tasks delivered in Q2 (Apr – Jun) — ${_h2Active} of 7 goal areas are actively executing in Q3.`;
+  const _bs3 = _bs3parts.length ? `Watch: ${_bs3parts.join(' · ')}.` : (_riskItems.length===0&&_blocked===0?'All programs clear — no blockers or at-risk items flagged.':'');
+  const _q2Dels=DATA.q2deliverables?DATA.q2deliverables.length:0;
+  const _bs4 = `Q2 shipped <strong>${_q2Dels.toLocaleString()}</strong> deliverables (Apr – Jun). ${_h2Active} of 7 goal areas actively executing in Q3.`;
 
   const cmoBriefHtml = `
   <div class="cmo-brief">
@@ -9734,19 +9767,19 @@ function renderBriefing(){
         <div class="cmo-kpi-l">Goal areas on track</div>
       </div>
       <div class="cmo-kpi-cell">
-        <div class="cmo-kpi-n">${_inFlight}</div>
-        <div class="cmo-kpi-l">Programs in flight</div>
+        <div class="cmo-kpi-n">${_p1Running}</div>
+        <div class="cmo-kpi-l">P1 programs executing<br><span style="font-size:9px;color:var(--g400);font-weight:500">in-progress · unique</span></div>
       </div>
       ${_blocked>0
         ?`<div class="cmo-kpi-cell warn"><div class="cmo-kpi-n">${_blocked}</div><div class="cmo-kpi-l">Blocked</div></div>`
         :`<div class="cmo-kpi-cell ok"><div class="cmo-kpi-n" style="font-size:18px">✓</div><div class="cmo-kpi-l">None blocked</div></div>`}
       <div class="cmo-kpi-cell">
-        <div class="cmo-kpi-n">${DATA.q2closed}</div>
-        <div class="cmo-kpi-l">Q2 tasks closed<br><span style="font-size:9px;color:var(--g400);font-weight:500">Apr – Jun 2026</span></div>
+        <div class="cmo-kpi-n">${_q2Dels.toLocaleString()}</div>
+        <div class="cmo-kpi-l">Q2 deliverables shipped<br><span style="font-size:9px;color:var(--g400);font-weight:500">Apr – Jun 2026</span></div>
       </div>
-      <div class="cmo-kpi-cell">
-        <div class="cmo-kpi-n">${avgPct}<span style="font-size:13px;font-weight:600">%</span></div>
-        <div class="cmo-kpi-l">Avg. goal completion<br><span style="font-size:9px;color:var(--g400);font-weight:500">task completion · 7 goal areas</span></div>
+      <div class="cmo-kpi-cell warn">
+        <div class="cmo-kpi-n">${CAP_DATA.channels.filter(c=>c.load==='OVER').length}<span style="font-size:13px;font-weight:600;color:var(--g400)">/${CAP_DATA.channels.length}</span></div>
+        <div class="cmo-kpi-l">Channels over capacity<br><span style="font-size:9px;color:var(--g400);font-weight:500">teams · ${CAP_DATA.pulledAt}</span></div>
       </div>
       <div class="cmo-kpi-cell">
         <div class="cmo-kpi-n">${_weekInQ3}<span style="font-size:13px;font-weight:600;color:var(--g400)">/13</span></div>
@@ -9787,17 +9820,24 @@ function renderBriefing(){
 
   // ── Recent wins ──────────────────────────────────────
   const BU_WIN={'Core (QB)':'var(--green)','Pave':'var(--blue)','FastField':'var(--orange)','Cross-BU':'var(--purple)'};
+  const _q2Wins=(DATA.q2deliverables||[]).slice(0,6);
+  const _winsItems=DATA.shipped.length>0?DATA.shipped.slice(0,8):_q2Wins;
+  const _winsIsQ2Fallback=DATA.shipped.length===0&&_q2Wins.length>0;
   const winsHtml=`
   <div class="wins">
-    <span class="wins-lbl"><span>Recently shipped</span><a href="#" onclick="event.preventDefault();go('deliverables',document.querySelector('.tbtn[onclick*=deliverables]'))">View all ${DATA.shipped.length} →</a></span>
+    <span class="wins-lbl">
+      <span>${_winsIsQ2Fallback?'Q2 Highlights':'Recently shipped'}</span>
+      <a href="#" onclick="event.preventDefault();go('deliverables',document.querySelector('.tbtn[onclick*=deliverables]'))">${_winsIsQ2Fallback?`View Q2 archive (${_q2Wins.length}+) →`:`View all ${DATA.shipped.length} →`}</a>
+    </span>
+    ${_winsIsQ2Fallback?`<div style="font-size:11px;color:var(--g500);padding:0 0 8px 2px;font-style:italic">Q3 items will appear here as they ship · ${_q2Dels.toLocaleString()} deliverables shipped in Q2</div>`:''}
     <div class="wins-scroll">
-      ${DATA.shipped.slice(0,8).map(s=>{
+      ${_winsItems.map(s=>{
         const c=BU_WIN[s.bu]||'var(--g400)';
         const own=s.owner&&s.owner!=='(unassigned)'?s.owner.split(',')[0]:'';
         return `<a href="${JIRA}${s.key}" target="_blank" class="win-card">
           <div class="win-type" style="color:${c}">${s.type}</div>
           <div class="win-title">${s.title}</div>
-          <div class="win-meta"><span>${s.doneDate.replace(', 2026','')}</span>${own?`<span>${own}</span>`:''}</div>
+          <div class="win-meta"><span>${(s.doneDate||'').replace(', 2026','')}</span>${own?`<span>${own}</span>`:''}</div>
         </a>`;
       }).join('')}
     </div>
@@ -9833,19 +9873,20 @@ function renderBriefing(){
       ...allP1.filter(p=>p.status==='in-progress'),
       ...allP1.filter(p=>p.status==='planning'||p.status==='intake'),
     ];
-    const SHOW_INIT = 3;
+    const SHOW_INIT = 5;
     const moreCount = Math.max(0, sortedP1.length - SHOW_INIT);
 
     const progsHtml = sortedP1.length ? sortedP1.map((p, idx)=>{
-      const bl=p.status==='blocked', ip=p.status==='in-progress';
+      const bl=p.status==='blocked', ip=p.status==='in-progress', dn=p.status==='done', hold=p.status==='on-hold';
       const lnkCls = bl?' sp-prog-blk' : (!ip?' sp-prog-dim':'');
       const titleEl = p.key
         ? `<a href="${JIRA}${p.key}" target="_blank" class="sp-prog-link${lnkCls}">${p.title}</a>`
         : `<span class="${lnkCls.trim()}">${p.title}</span>`;
-      const rowCls = bl?' bl':ip?' ip':'';
+      const rowCls = bl?' bl':ip?' ip':hold?' pl':dn?' pl':' pl';
+      const chip = bl?'<span class="sp-chip sp-chip-blk">blocked</span>':ip?'<span class="sp-chip sp-chip-ip">active</span>':dn?'<span class="sp-chip sp-chip-dn">done</span>':hold?'<span class="sp-chip sp-chip-hold">hold</span>':'<span class="sp-chip sp-chip-pl">planning</span>';
       const overflowCls = idx >= SHOW_INIT ? ' sp-p1-overflow' : '';
       return `<div class="sp-active-item${rowCls}${overflowCls}">
-        ${titleEl}${bl?'<span class="sp-blk-chip">blocked</span>':''}
+        ${titleEl}${chip}
       </div>`;
     }).join('') + (moreCount>0?`<button class="sp-more-btn" onclick="toggleP1Overflow(this,${moreCount})">+ ${moreCount} more →</button>`:'')
     : '<div class="sp-active-empty">No P1 programs yet</div>';
@@ -9899,10 +9940,6 @@ function renderBriefing(){
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
-        <div class="sp-card-progrow">
-          <div class="sp-card-progbar"><div class="sp-card-progfill" style="width:${ini.pct}%"></div></div>
-          <span class="sp-card-progpct">${ini.pct}%<span class="sp-card-progsub">${ini.done}/${ini.total} tasks · Q2 + H2</span>${deltaHdrHtml}</span>
-        </div>
       </div>
       ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:${ini.color}">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
       <div class="sp-progs">
@@ -9921,11 +9958,9 @@ function renderBriefing(){
 
   // Full-year timeline bar gradient
   const _barGrad=`linear-gradient(90deg,
-    #94a3b8 0%,#94a3b8 ${_q2Pct}%,
-    #22c55e ${_q2Pct}%,#16a34a ${_yearPct}%,
-    rgba(20,165,88,.22) ${_yearPct}%,rgba(20,165,88,.22) ${_q3Pct}%,
-    rgba(0,102,214,.18) ${_q3Pct}%,rgba(0,102,214,.18) ${_q4Pct}%,
-    rgba(124,58,237,.13) ${_q4Pct}%,rgba(124,58,237,.13) 100%)`;
+    #94a3b8 0%,#94a3b8 ${_q3Pct}%,
+    #22c55e ${_q3Pct}%,#16a34a ${_q4Pct}%,
+    #cbd5e1 ${_q4Pct}%,#cbd5e1 100%)`;
 
   // ── Team Load strip (from CAP_DATA) ─────────────────
   const _pSn=n=>{const p=n.split(', ');return p.length>1?p[1].trim().split(' ')[0]+' '+p[0]:n;};
@@ -10014,7 +10049,10 @@ function renderPrograms(){
     if(!progs.length) return '';
     const inFlight=progs.filter(p=>p.status==='in-progress').length;
     const blocked=progs.filter(p=>p.status==='blocked').length;
-    const rows = progs.map(p=>{
+    const _SORT_ORDER={blocked:0,'in-progress':1,planning:2,intake:2,'on-hold':3,done:4};
+    const sortedProgs=[...progs].sort((a,b)=>(_SORT_ORDER[a.status]??5)-(_SORT_ORDER[b.status]??5));
+    const _fmtDue=d=>{if(!d)return '';const dt=new Date(d+'T12:00:00');const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][dt.getMonth()];const now=new Date();const isPast=dt<now&&dt.toDateString()!==now.toDateString();return `<span style="font-size:11px;${isPast?'color:var(--red);font-weight:600':'color:var(--g500)'}">${mo} ${dt.getDate()}${isPast?' ⚠':''}</span>`;};
+    const rows = sortedProgs.map(p=>{
       const [dotCol]=STATUS_DOT[p.status]||["var(--g300)",""];
       const ownerFmt=p.owner?(p.owner.includes(', ')?p.owner.split(', ').reverse().join(' '):p.owner):null;
       const goalChip=p.goal?`<span class="prog-goal-chip" style="background:${ini.color}22;color:${ini.color};border:1px solid ${ini.color}55" title="Goal ${p.goal}: ${(ini.goals||[])[p.goal-1]||''}">G${p.goal}</span>`:'';
@@ -10025,6 +10063,7 @@ function renderPrograms(){
         </td>
         <td>${prioBadge(p.priority)}</td>
         <td><span class="status-pill"><span class="sdot" style="background:${dotCol}"></span>${(STATUS_DOT[p.status]||["","Unknown"])[1]}</span></td>
+        <td>${_fmtDue(p.due||'')}</td>
         <td style="font-size:11.5px;color:var(--g600)">${ownerFmt||'<em style="color:var(--g400)">Unassigned</em>'}</td>
       </tr>`;
     }).join('');
@@ -10046,9 +10085,10 @@ function renderPrograms(){
       <div class="prog-table-wrap">
         <table class="prog-table">
           <thead><tr>
-            <th class="prog-th" style="width:52%">Program / Epic</th>
-            <th class="prog-th" style="width:8%">Priority</th>
-            <th class="prog-th" style="width:15%">Status</th>
+            <th class="prog-th" style="width:46%">Program / Epic</th>
+            <th class="prog-th" style="width:7%">Priority</th>
+            <th class="prog-th" style="width:13%">Status</th>
+            <th class="prog-th" style="width:8%">Due</th>
             <th class="prog-th">Owner</th>
           </tr></thead>
           <tbody>${rows}</tbody>
@@ -10163,6 +10203,7 @@ function renderDeliverables(){
   const items=_delSrc.filter(i=>
     (ofBU==='All'||i.bu===ofBU)&&
     (ofCh==='All'||i.ch===ofCh)&&
+    (ofLbl==='All'||(i.label||'').trim()===ofLbl)&&
     inPeriod(i.doneDate,ofPeriod));
 
   // Build channel counts dynamically from actual data (filtered by BU+period, not by ch)
@@ -10188,13 +10229,26 @@ function renderDeliverables(){
   </div>`;
 
   // BU pills — counts computed from inferred BU values
-  const _buCounts={};_delSrc.filter(i=>inPeriod(i.doneDate,ofPeriod)&&(ofCh==='All'||i.ch===ofCh)).forEach(i=>{_buCounts[i.bu]=(_buCounts[i.bu]||0)+1;});
+  const _buCounts={};_delSrc.filter(i=>inPeriod(i.doneDate,ofPeriod)&&(ofCh==='All'||i.ch===ofCh)&&(ofLbl==='All'||(i.label||'').trim()===ofLbl)).forEach(i=>{_buCounts[i.bu]=(_buCounts[i.bu]||0)+1;});
   const buPills=`<div class="del3-filter-row">
     <span class="del3-filter-lbl">BU</span>
     <div class="del3-pills">
-      ${['All','FastField','Pave','Core (QB)','Cross-BU'].map(b=>{const col=BU_COLS[b]||'var(--navy)';const on=ofBU===b;const cnt=b==='All'?_delSrc.filter(i=>inPeriod(i.doneDate,ofPeriod)&&(ofCh==='All'||i.ch===ofCh)).length:(_buCounts[b]||0);return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${b==='All'?'var(--g600)':col};border-color:${b==='All'?'var(--g200)':col+'55'};background:${b==='All'?'#fff':col+'0a'}`}" onclick="setOF('bu','${b}')">${b==='All'?'All BUs':b}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
+      ${['All','FastField','Pave','Core (QB)','Cross-BU'].map(b=>{const col=BU_COLS[b]||'var(--navy)';const on=ofBU===b;const cnt=b==='All'?_delSrc.filter(i=>inPeriod(i.doneDate,ofPeriod)&&(ofCh==='All'||i.ch===ofCh)&&(ofLbl==='All'||(i.label||'').trim()===ofLbl)).length:(_buCounts[b]||0);return`<button class="del3-pill" style="${on?`background:${col};color:#fff;border-color:${col}`:`color:${b==='All'?'var(--g600)':col};border-color:${b==='All'?'var(--g200)':col+'55'};background:${b==='All'?'#fff':col+'0a'}`}" onclick="setOF('bu','${b}')">${b==='All'?'All BUs':b}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
     </div>
   </div>`;
+
+  // Label pills — built dynamically from actual data, top labels by count
+  const _lblCounts={};
+  _delSrc.filter(i=>(ofBU==='All'||i.bu===ofBU)&&(ofCh==='All'||i.ch===ofCh)&&inPeriod(i.doneDate,ofPeriod))
+    .forEach(i=>{const l=(i.label||'').trim();if(l)_lblCounts[l]=(_lblCounts[l]||0)+1;});
+  const _topLabels=Object.entries(_lblCounts).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const lblPills=_topLabels.length?`<div class="del3-filter-row">
+    <span class="del3-filter-lbl">Label</span>
+    <div class="del3-pills">
+      <button class="del3-pill" style="${ofLbl==='All'?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('lbl','All')">All</button>
+      ${_topLabels.map(([lbl,cnt])=>{const on=ofLbl===lbl;return`<button class="del3-pill" style="${on?'background:var(--navy);color:#fff;border-color:var(--navy)':'color:var(--g600);border-color:var(--g200);background:#fff'}" onclick="setOF('lbl','${on?'All':lbl.replace(/'/g,"\\'")}')">${lbl}<span style="opacity:.65;font-size:10.5px;margin-left:2px">${cnt}</span></button>`;}).join('')}
+    </div>
+  </div>`:'';
 
   // Avatar helpers
   const _avPalette=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935','#D97706','#6366F1'];
@@ -10231,37 +10285,56 @@ function renderDeliverables(){
     return`<div class="del3-group"><div class="del3-group-hd"><span class="del3-group-day">${dayName}</span><span class="del3-group-date">${dateShort}</span><span class="del3-group-cnt">${group.length} item${group.length>1?'s':''}</span></div>${rows}</div>`;
   }).join('');
 
+  const _anyFilter=ofBU!=='All'||ofCh!=='All'||ofLbl!=='All'||ofPeriod!=='All';
+  const _emptyState=delQtr==='Q3'&&_delSrc.length===0
+    ?`<div style="padding:52px 32px;text-align:center;background:#fff;border-radius:14px;border:1px solid var(--g200)">
+        <div style="font-size:28px;margin-bottom:12px">🚀</div>
+        <div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px">Q3 is just getting started</div>
+        <div style="font-size:13px;color:var(--g500);max-width:340px;margin:0 auto">Items completed Jul – Sep 2026 will appear here as they ship. Check back soon.</div>
+      </div>`
+    :`<div style="padding:48px;text-align:center;color:var(--g400);background:#fff;border-radius:14px;border:1px solid var(--g200)">${_anyFilter?'No items match the selected filters — <a href="#" onclick="event.preventDefault();ofBU=ofCh=ofLbl=\\\'All\\\';ofPeriod=\\\'All\\\';renderDeliverables()" style="color:var(--blue)">clear filters</a>':'No deliverables found'}</div>`;
   document.getElementById('deliverables').innerHTML=`
     <div class="sec-hd"><h2>Deliverables</h2><p>${_delSrc.length} items shipped ${delQtr} 2026 · click any row to open in Jira</p></div>
     ${qtrTabs}
     ${periodTabs}
-    <div class="del3-filters">${chPills}${buPills}</div>
-    <div class="del3-search-wrap">
-      <span class="del3-search-icon">⌕</span>
-      <input type="text" class="del3-search" placeholder="Search by title…" oninput="filterDelSearch(this.value)">
+    <div class="del3-filters">${chPills}${buPills}${lblPills}</div>
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <div class="del3-search-wrap" style="flex:1">
+        <span class="del3-search-icon">⌕</span>
+        <input id="del-title-input" type="text" class="del3-search" placeholder="Search by title…" oninput="applyDelFilters()">
+      </div>
+      <div class="del3-search-wrap" style="flex:1">
+        <span class="del3-search-icon" style="font-size:11px">👤</span>
+        <input id="del-owner-input" type="text" class="del3-search" placeholder="Filter by owner…" oninput="applyDelFilters()">
+      </div>
     </div>
-    <div class="del3-summary">Showing <strong>${items.length}</strong> of ${_delSrc.length} deliverables</div>
-    ${items.length?`<div class="del3-feed" id="del3-feed">${feedHtml}</div>`:`<div style="padding:48px;text-align:center;color:var(--g400);background:#fff;border-radius:14px;border:1px solid var(--g200)">No items match the selected filters</div>`}`;
+    <div class="del3-summary">Showing <strong>${items.length}</strong> of ${_delSrc.length} deliverables${_anyFilter?` &nbsp;<a href="#" onclick="event.preventDefault();ofBU=ofCh=ofLbl='All';ofPeriod='All';renderDeliverables()" style="font-size:11.5px;color:var(--blue);font-weight:600">Clear filters ×</a>`:''}
+    </div>
+    ${items.length?`<div class="del3-feed" id="del3-feed">${feedHtml}</div>`:_emptyState}`;
 }
 
-function setDelQtr(q){delQtr=q;ofBU='All';ofCh='All';ofPeriod='All';document.getElementById('deliverables').innerHTML='';renderDeliverables();}
+function setDelQtr(q){delQtr=q;ofBU='All';ofCh='All';ofLbl='All';ofPeriod='All';document.getElementById('deliverables').innerHTML='';renderDeliverables();}
 function setOF(w,v){
   if(w==='bu')ofBU=v; else if(w==='ch')ofCh=v; else if(w==='lbl')ofLbl=v; else if(w==='period')ofPeriod=v;
   document.getElementById('deliverables').innerHTML='';
   renderDeliverables();
 }
 function pickCh(i){const n=window._chNames[i];setOF('ch',ofCh===n?'All':n);}
-function filterDelSearch(term){
-  const t=term.toLowerCase().trim();
+function applyDelFilters(){
+  const titleTerm=((document.getElementById('del-title-input')||{}).value||'').toLowerCase().trim();
+  const ownerTerm=((document.getElementById('del-owner-input')||{}).value||'').toLowerCase().trim();
   document.querySelectorAll('#del3-feed .del3-row').forEach(r=>{
-    const txt=r.querySelector('.del3-ttl').textContent.toLowerCase();
-    r.style.display=(!t||txt.includes(t))?'':'none';
+    const txt=(r.querySelector('.del3-ttl')||{}).textContent?.toLowerCase()||'';
+    const own=(r.querySelector('.del3-owner-name')||{}).textContent?.toLowerCase()||'';
+    const ok=(!titleTerm||txt.includes(titleTerm))&&(!ownerTerm||own.includes(ownerTerm));
+    r.style.display=ok?'':'none';
   });
   document.querySelectorAll('#del3-feed .del3-group').forEach(g=>{
     const any=[...g.querySelectorAll('.del3-row')].some(r=>r.style.display!=='none');
     g.style.display=any?'':'none';
   });
 }
+function filterDelSearch(term){applyDelFilters();}
 
 /* ══════════════════════════════════════════════════════
    TAB 4 — ANALYTICS
@@ -10435,18 +10508,18 @@ function renderAnalytics(){
     +'</div>'
     +'</div>'
     +'<div style="margin-top:14px;background:rgba(242,62,48,.06);border:1px solid rgba(242,62,48,.16);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--g700);line-height:1.65">'
-    +'<strong style="color:var(--red)">&#9888; Cross-team critical:</strong> <strong>Nikol Topozliyska</strong> 10 WE tasks (~198h) &mdash; A/B testing + CSS architecture. <strong>Max Boostrom</strong> 9 tasks (~124h) after 7 new feed automation stories added today. <strong>Michael Young-Ward</strong> 12 WE + 5 MKT tasks (~232h combined). <strong>Tihomir Radev</strong> spans both teams (~144h combined). Recommend capacity review before assigning new work.'
+    +'<strong style="color:var(--red)">&#9888; Capacity alert:</strong> <strong>Michael Young-Ward</strong> 61 active tasks (~828h) &mdash; primary WE developer across all 3 BU web streams; highest load on team by a wide margin. <strong>Soumya Ghosh</strong> 31 tasks (~378h). <strong>Stephanie McPhee</strong> 25 tasks (~266h). <strong>Nikol Topozliyska</strong> 16 tasks (~242h). 11 of 12 channels over capacity &mdash; recommend a prioritization review before assigning new work.'
     +'</div>'
     +'<div class="cap-insights-row">'
     +'<div class="cap-ins" style="border-top:3px solid var(--red)">'
     +'<div class="cap-ins-icon">&#128293;</div>'
     +'<div class="cap-ins-title">Act now</div>'
-    +'<div class="cap-ins-body">Web &amp; Digital: 56 tasks, 728h (18.2 person-weeks). Topozliyska 198h + Boostrom added 7 new stories today. Community RTB + migration still likely under-counted &mdash; re-query needed.</div>'
+    +'<div class="cap-ins-body">Web &amp; Digital: 122 tasks, 1,696h across the WE team. Michael Young-Ward carries 828h alone &mdash; primary dev for Pave Solutions pages (Jul 29), FF web build-out, and brand refresh. Immediate scope review needed before any new WE assignments.</div>'
     +'</div>'
     +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
     +'<div class="cap-ins-icon">&#128336;</div>'
-    +'<div class="cap-ins-title">H2 risk</div>'
-    +'<div class="cap-ins-body">Content &amp; SEO (174h), Prog. Mgmt (186h), and Analytics (96h) all enter H2 over capacity. Review and deprioritize before Q3 kicks off Jul 1.</div>'
+    +'<div class="cap-ins-title">Q3 risk</div>'
+    +'<div class="cap-ins-body">11 of 12 channels are over capacity entering Q3. Highest: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics is the only healthy channel (32h, 1 person). Deprioritize lower-impact Q3 work now to prevent burnout mid-quarter.</div>'
     +'</div>'
     +'<div class="cap-ins" style="border-top:3px solid var(--green)">'
     +'<div class="cap-ins-icon">&#9989;</div>'
@@ -10550,309 +10623,6 @@ function renderAnalytics(){
 document.getElementById('upd-badge').textContent = DATA.lastUpdated;
 renderBriefing();
 </script>
-<!-- â”€â”€ AI Chat Widget â€” paste this block just before </body> â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
-<style>
-  #chat-fab {
-    position: fixed; bottom: 28px; right: 28px;
-    width: 56px; height: 56px; border-radius: 50%;
-    background: #10503C; color: #fff; border: none; cursor: pointer;
-    box-shadow: 0 4px 16px rgba(16,80,60,.35);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 9998; transition: transform .15s, box-shadow .15s;
-  }
-  #chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(16,80,60,.45); }
-
-  #chat-panel {
-    position: fixed; bottom: 96px; right: 28px;
-    width: 380px; height: 520px; background: #fff;
-    border-radius: 16px; box-shadow: 0 8px 40px rgba(15,23,42,.18);
-    display: flex; flex-direction: column; z-index: 9999; overflow: hidden;
-    transform: scale(.92) translateY(16px); opacity: 0; pointer-events: none;
-    transition: transform .2s cubic-bezier(.34,1.56,.64,1), opacity .18s;
-  }
-  #chat-panel.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
-
-  #chat-header {
-    background: #10503C; color: #fff; padding: 14px 16px;
-    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
-  }
-  #chat-header-icon {
-    width: 34px; height: 34px; background: rgba(255,255,255,.15);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  #chat-header-text { flex: 1; }
-  #chat-header-text strong { display: block; font-size: 13.5px; font-weight: 700; }
-  #chat-header-text span { font-size: 11px; opacity: .72; }
-  #chat-close {
-    background: none; border: none; color: #fff; cursor: pointer;
-    opacity: .75; padding: 4px 6px; border-radius: 6px; font-size: 15px; line-height: 1;
-  }
-  #chat-close:hover { opacity: 1; background: rgba(255,255,255,.15); }
-
-  #chat-messages {
-    flex: 1; overflow-y: auto; padding: 16px;
-    display: flex; flex-direction: column; gap: 12px;
-    font-size: 13.5px; line-height: 1.55;
-  }
-  .chat-msg { max-width: 90%; display: flex; flex-direction: column; }
-  .chat-msg.user { align-self: flex-end; align-items: flex-end; }
-  .chat-msg.assistant { align-self: flex-start; }
-  .chat-bubble {
-    padding: 9px 13px; border-radius: 12px;
-    white-space: pre-wrap; word-break: break-word;
-  }
-  .chat-msg.user .chat-bubble {
-    background: #2C9382; color: #fff; border-bottom-right-radius: 4px;
-  }
-  .chat-msg.assistant .chat-bubble {
-    background: #F1F5F9; color: #1E293B; border-bottom-left-radius: 4px;
-  }
-  .chat-typing .chat-bubble { display: flex; gap: 5px; align-items: center; }
-  .chat-dot {
-    width: 7px; height: 7px; background: #94A3B8;
-    border-radius: 50%; animation: chatBounce 1.2s infinite;
-  }
-  .chat-dot:nth-child(2) { animation-delay: .2s; }
-  .chat-dot:nth-child(3) { animation-delay: .4s; }
-  @keyframes chatBounce {
-    0%,80%,100% { transform: translateY(0); opacity: .45; }
-    40%          { transform: translateY(-6px); opacity: 1; }
-  }
-
-  #chat-footer {
-    border-top: 1px solid #E2E8F0; padding: 12px;
-    display: flex; gap: 8px; flex-shrink: 0; align-items: flex-end;
-  }
-  #chat-input {
-    flex: 1; border: 1.5px solid #CBD5E1; border-radius: 10px;
-    padding: 9px 12px; font-family: 'Inter', system-ui, sans-serif;
-    font-size: 13px; outline: none; resize: none; line-height: 1.4;
-    max-height: 100px; overflow-y: auto; transition: border-color .15s;
-  }
-  #chat-input:focus { border-color: #2C9382; }
-  #chat-send {
-    background: #10503C; color: #fff; border: none; border-radius: 10px;
-    width: 38px; height: 38px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; transition: background .15s;
-  }
-  #chat-send:hover:not(:disabled) { background: #2C9382; }
-  #chat-send:disabled { opacity: .38; cursor: default; }
-
-  #chat-data-status {
-    font-size: 11px; color: #64748B; padding: 4px 16px 0;
-    flex-shrink: 0; text-align: right;
-  }
-  #chat-error {
-    font-size: 11.5px; color: #E53935; padding: 0 16px 8px;
-    display: none; flex-shrink: 0;
-  }
-</style>
-
-<!-- Floating button -->
-<button id="chat-fab" title="Ask about H2 goals" aria-label="Open AI assistant">
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-  </svg>
-</button>
-
-<!-- Chat panel -->
-<div id="chat-panel" role="dialog" aria-label="Marketing AI Assistant">
-  <div id="chat-header">
-    <div id="chat-header-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-      </svg>
-    </div>
-    <div id="chat-header-text">
-      <strong>H2 Goals Assistant</strong>
-      <span>Live from Jira &middot; QB Marketing</span>
-    </div>
-    <button id=”chat-close” aria-label=”Close”>&#x2715;</button>
-  </div>
-
-  <div id=”chat-messages”>
-    <div class=”chat-msg assistant”>
-      <div class=”chat-bubble”>Hi! Ask me about any of the 7 H2 strategic goals &mdash; status, task counts, who owns what, or how we're tracking overall.</div>
-    </div>
-  </div>
-
-  <div id="chat-data-status"></div>
-  <div id="chat-error"></div>
-
-  <div id="chat-footer">
-    <textarea id="chat-input" rows="1" placeholder="e.g. How is Brand Refresh tracking?" aria-label="Your question"></textarea>
-    <button id="chat-send" aria-label="Send message">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-      </svg>
-    </button>
-  </div>
-</div>
-
-<script>
-(function () {
-  // â”€â”€ CONFIG â€” replace with your key â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  const ANTHROPIC_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
-  const MODEL         = 'claude-haiku-4-5-20251001';
-  const DATA_URL      = './strategic-data.json';
-  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-
-  let strategicData = null;
-  let busy          = false;
-  const turns       = []; // conversation history {role, content}
-
-  const fab      = document.getElementById('chat-fab');
-  const panel    = document.getElementById('chat-panel');
-  const closeBtn = document.getElementById('chat-close');
-  const msgList  = document.getElementById('chat-messages');
-  const inputEl  = document.getElementById('chat-input');
-  const sendBtn  = document.getElementById('chat-send');
-  const statusEl = document.getElementById('chat-data-status');
-  const errorEl  = document.getElementById('chat-error');
-
-  // â”€â”€ Panel open/close â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  fab.addEventListener('click', () => {
-    const opening = !panel.classList.contains('open');
-    panel.classList.toggle('open');
-    if (opening) {
-      inputEl.focus();
-      if (!strategicData) loadData();
-    }
-  });
-  closeBtn.addEventListener('click', () => panel.classList.remove('open'));
-
-  // â”€â”€ Load strategic-data.json â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  async function loadData() {
-    statusEl.textContent = 'Loading live dataâ€¦';
-    try {
-      const res = await fetch(DATA_URL + '?t=' + Date.now()); // bust cache
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      strategicData = await res.json();
-      statusEl.textContent = `Data: ${strategicData.pulledAt}`;
-    } catch (e) {
-      statusEl.textContent = 'Could not load live data â€” answers may be limited';
-      console.warn('Chat widget: strategic-data.json not found â€”', e.message);
-    }
-  }
-
-  // â”€â”€ System prompt â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function buildSystem() {
-    const base = `You are a concise marketing program health assistant for QuickBase's CMO and senior leadership team. Answer questions about H2 2026 marketing strategic goals using the Jira data below. Be direct, use plain language, no jargon. If numbers suggest risk, flag it. Keep answers under 120 words unless detail is needed. Never make up data â€” if something is missing, say so.`;
-
-    if (!strategicData) return base;
-
-    const lines = strategicData.strategicGoals.map(g => {
-      if (g.error) return `â€¢ ${g.name}: data unavailable`;
-      const epics = (g.epics || []).slice(0, 6)
-        .map(e => `    â€“ ${e.summary} [${e.status}]`).join('\n');
-      return `â€¢ ${g.name} (${g.key}) â€” Owner: ${g.owner}
-  ${g.totalTasks} tasks total Â· ${g.activeTasks} active Â· ${g.doneTasks} done Â· ${g.completionPct}% complete
-  Epics:\n${epics || '    (none tracked)'}`;
-    }).join('\n\n');
-
-    return `${base}\n\nLIVE JIRA DATA (pulled ${strategicData.pulledAt}):\n\n${lines}`;
-  }
-
-  // â”€â”€ Message rendering â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  function addBubble(role, text) {
-    const wrap   = document.createElement('div');
-    wrap.className = `chat-msg ${role}`;
-    const bubble = document.createElement('div');
-    bubble.className = 'chat-bubble';
-    bubble.textContent = text;
-    wrap.appendChild(bubble);
-    msgList.appendChild(wrap);
-    msgList.scrollTop = msgList.scrollHeight;
-    return wrap;
-  }
-
-  function addTyping() {
-    const wrap = document.createElement('div');
-    wrap.className = 'chat-msg assistant chat-typing';
-    wrap.innerHTML = '<div class="chat-bubble"><span class="chat-dot"></span><span class="chat-dot"></span><span class="chat-dot"></span></div>';
-    msgList.appendChild(wrap);
-    msgList.scrollTop = msgList.scrollHeight;
-    return wrap;
-  }
-
-  function showError(msg) {
-    errorEl.textContent = msg;
-    errorEl.style.display = 'block';
-    setTimeout(() => { errorEl.style.display = 'none'; }, 6000);
-  }
-
-  // â”€â”€ Send â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  async function send() {
-    const text = inputEl.value.trim();
-    if (!text || busy) return;
-
-    busy = true;
-    sendBtn.disabled = true;
-    inputEl.value = '';
-    inputEl.style.height = 'auto';
-
-    addBubble('user', text);
-    turns.push({ role: 'user', content: text });
-
-    const typing = addTyping();
-
-    try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': ANTHROPIC_KEY,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-allow-cors': 'true',
-        },
-        body: JSON.stringify({
-          model: MODEL,
-          max_tokens: 512,
-          system: buildSystem(),
-          messages: turns,
-        }),
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error?.message || `API error ${res.status}`);
-      }
-
-      const data  = await res.json();
-      const reply = data.content?.[0]?.text || '(no response)';
-
-      typing.remove();
-      addBubble('assistant', reply);
-      turns.push({ role: 'assistant', content: reply });
-
-      // Keep last 10 turns to avoid token bloat
-      if (turns.length > 20) turns.splice(0, 2);
-
-    } catch (e) {
-      typing.remove();
-      turns.pop();
-      showError('Could not get a response â€” ' + e.message);
-    } finally {
-      busy = false;
-      sendBtn.disabled = false;
-      inputEl.focus();
-    }
-  }
-
-  // â”€â”€ Input: auto-resize + Enter to send â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-  inputEl.addEventListener('input', () => {
-    inputEl.style.height = 'auto';
-    inputEl.style.height = Math.min(inputEl.scrollHeight, 100) + 'px';
-  });
-  inputEl.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
-  });
-  sendBtn.addEventListener('click', send);
-})();
-</script>
-<!-- â”€â”€ End AI Chat Widget â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 
 </body>
 </html>
