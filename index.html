@@ -332,7 +332,7 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 
 /* ── CARD COLORED HEADER (compact) ───────────────────── */
 .sp-card-hdr{padding:13px 18px 11px;position:relative;overflow:hidden;cursor:pointer;user-select:none}
-.sp-chevron{font-size:13px;color:rgba(255,255,255,.55);transition:transform .25s;display:inline-block;line-height:1;margin-left:6px;flex-shrink:0}
+.sp-chevron{font-size:13px;color:rgba(255,255,255,.92);transition:transform .25s;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(255,255,255,.18);border-radius:6px;flex-shrink:0}
 .sp-card.collapsed .sp-chevron{transform:rotate(-90deg)}
 .sp-card-body{overflow:hidden;max-height:2000px;transition:max-height .28s ease-out}
 .sp-card.collapsed .sp-card-body{max-height:0}
@@ -9955,8 +9955,7 @@ function renderBriefing(){
       <div class="sp-card-hdr" style="background:linear-gradient(135deg,#10503C 0%,#2C9382 100%)" onclick="toggleCard(this)">
         <div class="sp-card-hdr-row">
           <a href="${JIRA}${ini.key}" target="_blank" class="sp-card-key-lnk" onclick="event.stopPropagation()">${ini.key}</a>
-          ${badgeLight(ini.status)}
-          <span class="sp-chevron">▾</span>
+          <span style="display:flex;align-items:center;gap:7px">${badgeLight(ini.status)}<span class="sp-chevron">▾</span></span>
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
