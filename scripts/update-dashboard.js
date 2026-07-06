@@ -44,13 +44,13 @@ const CLEANUP_STATUSES = new Set(['Cancelled', 'Archived', 'Closed']);
 
 // ── H2 2026 Strategic Goals ──────────────────────────────────────────────────
 const STRATEGIC_GOALS = [
-  { key: 'MKT-12568', name: 'Growth — AWE (FastField + Pave)', owner: 'Gar Smyth'               },
-  { key: 'MKT-12569', name: 'Core BU Marketing',               owner: 'TBH (role in hiring)'    },
-  { key: 'MKT-12570', name: 'Integrated Marketing',             owner: 'Mirissa Kampf'           },
-  { key: 'MKT-12571', name: 'Digital',                          owner: 'Carlos Cortez de Barros' },
-  { key: 'MKT-12572', name: 'Corporate Communications',         owner: 'Tory Waldron'            },
-  { key: 'MKT-12573', name: 'Marketing Systems & AI',           owner: 'Lynn Tan'                },
-  { key: 'MKT-12574', name: 'Program Management',               owner: 'Luiza Rusinova'          },
+  { key:'MKT-12568', name:'Agentic Workflow Evolution (AWE)',  owner:'Gar Smyth',               scopeType:'bu', scopeValues:['FastField','Pave']                                                         },
+  { key:'MKT-12569', name:'Core BU Marketing',                 owner:'TBH (role in hiring)',     scopeType:'bu', scopeValues:['Core (QB)']                                                               },
+  { key:'MKT-12570', name:'Integrated Marketing',              owner:'Mirissa Kampf',            scopeType:'ch', scopeValues:['Creative & Design','Content & SEO','Community','Events & Experiences']     },
+  { key:'MKT-12571', name:'Digital',                           owner:'Carlos Cortez de Barros',  scopeType:'ch', scopeValues:['Web & Digital','Content & SEO']                                            },
+  { key:'MKT-12572', name:'Corporate Communications',          owner:'Tory Waldron',             scopeType:'ch', scopeValues:['PR & Comms','Social Media']                                                },
+  { key:'MKT-12573', name:'Marketing Systems & AI',            owner:'Lynn Tan',                 scopeType:'ch', scopeValues:['Email & Lifecycle','Marketing Analytics']                                  },
+  { key:'MKT-12574', name:'Program Management',                owner:'Luiza Rusinova',           scopeType:null, scopeValues:[]                                                                           },
 ];
 
 // ── Jira REST API ────────────────────────────────────────────────────────────
@@ -480,6 +480,113 @@ async function fetchStrategicGoalData(today) {
   };
 }
 
+// ── Recent Done tasks per initiative (last 30 days) ──────────────────────────
+async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
+  const cutoff    = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+  const cutoffStr = cutoff.toISOString().split('T')[0];
+  const result    = {};
+
+  // Normalise BU names so they match the HTML scope.bus values
+  const normBU = bu => bu === 'QB-Core' ? 'Core (QB)' : bu;
+
+  for (const goal of goals) {
+    if (!goal.scopeType) {
+      result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
+      continue;
+    }
+    process.stdout.write(`  ${goal.name.padEnd(44)} `);
+    try {
+      // Level 1: Marketing Initiatives under this goal
+      const miIssues = await jiraSearch(
+        `project = MKT AND issuetype = "Marketing Initiative" AND parent = ${goal.key}`
+      );
+      const miKeys = miIssues.map(i => i.key);
+      if (!miKeys.length) {
+        result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
+        console.log('no MIs');
+        continue;
+      }
+
+      // Level 2: Epics under those MIs
+      const epicIssues = await jiraSearch(
+        `project in (MKT, WE) AND issuetype = Epic AND parent in (${miKeys.join(',')})`,
+        'summary,status,issuetype'
+      );
+      const epicKeys = epicIssues.map(i => i.key);
+
+      // Build epicKey → BU map from epic title prefixes
+      const epicToBU = {};
+      epicIssues.forEach(e => {
+        const m = (e.fields.summary || '').match(/^\[([^\]]+)\]/);
+        if (m) {
+          const b = m[1].toUpperCase();
+          epicToBU[e.key] = normBU(
+            b === 'FF' ? 'FastField' : b === 'PAVE' ? 'Pave' :
+            b === 'CORE' || b === 'QB-CORE' ? 'Core (QB)' :
+            b === 'CROSS-BU' ? 'Cross-BU' : m[1]
+          );
+        }
+      });
+
+      if (!epicKeys.length) {
+        result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {} };
+        console.log('no epics');
+        continue;
+      }
+
+      // Level 3: Done tasks in last 30 days under those epics
+      const recentDone = [];
+      for (let i = 0; i < epicKeys.length; i += 50) {
+        const batch = epicKeys.slice(i, i + 50);
+        const jql   = `project in (MKT, WE) AND "Epic Link" in (${batch.join(',')}) AND statusCategory = Done AND updated >= "${cutoffStr}" ORDER BY updated DESC`;
+        const batch2 = await jiraSearch(jql, 'summary,assignee,issuetype,labels,customfield_10014,parent');
+        recentDone.push(...batch2);
+      }
+
+      // Group issues by BU or channel
+      const groups = {};
+      for (const issue of recentDone) {
+        const summary   = issue.fields.summary || '';
+        const assignee  = issue.fields.assignee?.displayName || '';
+        const labels    = issue.fields.labels || [];
+        const issuetype = issue.fields.issuetype?.name || 'Task';
+        const epicKey2  = issue.fields.customfield_10014 || issue.fields.parent?.key || '';
+
+        let groupKey = 'Other';
+        if (goal.scopeType === 'bu') {
+          groupKey = epicToBU[epicKey2] || normBU((() => {
+            const buResult = detectBU(labels, summary);
+            if (buResult) return buResult.bu;
+            const m2 = summary.match(/^\[([^\]]+)\]/);
+            if (!m2) return 'Other';
+            const b2 = m2[1].toUpperCase();
+            return b2 === 'FF' ? 'FastField' : b2 === 'PAVE' ? 'Pave' :
+                   b2 === 'CORE' ? 'Core (QB)' : b2 === 'CROSS-BU' ? 'Cross-BU' : m2[1];
+          })());
+        } else {
+          groupKey = personChannel[assignee]
+            || detectChannel(assignee, issuetype, summary, summary, personChannel)
+            || 'Other';
+        }
+
+        if (!groups[groupKey]) groups[groupKey] = { count: 0, titles: [] };
+        groups[groupKey].count++;
+        if (groups[groupKey].titles.length < 3) {
+          const clean = summary.replace(/^\[[^\]]+\]\s*/, '').replace(/^[Pp]\d+:\s*/, '').substring(0, 70);
+          groups[groupKey].titles.push(clean);
+        }
+      }
+
+      result[goal.key] = { pulledAt: fmtDate(today), total: recentDone.length, groups };
+      console.log(`${recentDone.length} tasks done · ${Object.keys(groups).length} groups`);
+    } catch (err) {
+      console.warn(`ERROR — ${err.message}`);
+      result[goal.key] = { pulledAt: fmtDate(today), total: 0, groups: {}, error: err.message };
+    }
+  }
+  return result;
+}
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 const LOAD_RANK = { OVER: 3, HIGH: 2, OK: 1, LIGHT: 0 };
 
@@ -660,6 +767,17 @@ async function main() {
     console.warn(`  ⚠  Strategic data fetch failed (${err.message})`);
   }
 
+  // ── 5b. Fetch recent tasks per initiative (last 30 days) ──────────────
+  console.log('\n── Recent Tasks per Initiative (last 30 days) ───────────────────');
+  let recentTasksData = {};
+  try {
+    const personChannel = {};
+    for (const p of TEAM) personChannel[p.displayName] = p.channel;
+    recentTasksData = await fetchRecentTasksPerInitiative(STRATEGIC_GOALS, today, personChannel);
+  } catch (err) {
+    console.warn(`  ⚠  Recent tasks fetch failed (${err.message})`);
+  }
+
   if (DRY_RUN) {
     console.log('\n[DRY RUN] HISTORY entry that would be added:');
     console.log(JSON.stringify(histEntry, null, 2));
@@ -711,6 +829,15 @@ async function main() {
       `${qClosedKey}: ${q2Total},`
     );
     console.log(`   DATA.shipped → ${shippedItems.length} items · ${qClosedKey} → ${q2Total}`);
+  }
+
+  // Inject RECENT_TASKS
+  if (Object.keys(recentTasksData).length) {
+    html = html.replace(
+      /\/\* BEGIN:RECENT_TASKS \*\/[\s\S]*?\/\* END:RECENT_TASKS \*\//,
+      `/* BEGIN:RECENT_TASKS */\nconst RECENT_TASKS = ${jsLit(recentTasksData)};\n/* END:RECENT_TASKS */`
+    );
+    console.log(`   RECENT_TASKS → ${Object.keys(recentTasksData).length} initiatives`);
   }
 
   if (process.env.ANTHROPIC_API_KEY) {
