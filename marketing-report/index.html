@@ -86,10 +86,21 @@ button{font-family:inherit;cursor:pointer}
 .sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px;align-items:stretch}
 .sp-card{background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,40,85,.08),0 8px 28px rgba(0,40,85,.1);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .22s,transform .22s}
 .sp-card:hover{box-shadow:0 6px 20px rgba(0,40,85,.16),0 20px 50px rgba(0,40,85,.12);transform:translateY(-3px)}
-.sp-copy-btn{width:100%;padding:9px 18px;border:none;border-top:1px solid var(--g100);background:transparent;font-size:11px;font-weight:600;color:var(--g400);cursor:pointer;transition:all .15s;text-align:left;letter-spacing:.1px;border-radius:0 0 16px 16px}
-.sp-copy-btn:hover{background:var(--g50);color:var(--navy)}
+.sp-copy-btn{width:100%;padding:9px 18px;border:none;border-top:1px solid var(--g100);background:transparent;font-size:11px;font-weight:600;color:var(--g400);cursor:pointer;transition:all .15s;text-align:left;letter-spacing:.1px;border-radius:0 0 16px 16px;display:flex;align-items:center;gap:6px}
+.sp-copy-btn:hover:not(:disabled){background:var(--g50);color:var(--navy)}
+.sp-copy-btn:disabled{opacity:.55;cursor:wait}
 #copy-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:#0F172A;color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:all .22s;pointer-events:none;z-index:9000}
 #copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#jira-key-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:8000;display:none;align-items:center;justify-content:center}
+#jira-key-modal{background:#fff;border-radius:16px;padding:28px 32px;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px}
+.jira-key-ttl{font-size:15px;font-weight:700;color:var(--navy)}
+.jira-key-sub{font-size:12px;color:var(--g400);line-height:1.5}
+.jira-key-sub a{color:#2C9382}
+#jira-key-overlay input{border:1px solid var(--g200);border-radius:8px;padding:9px 12px;font-size:13px;outline:none;width:100%;box-sizing:border-box}
+#jira-key-overlay input:focus{border-color:#2C9382}
+.jira-key-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
+.jira-key-save{background:#10503C;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer}
+.jira-key-cancel{background:var(--g100);color:var(--g500);border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer}
 .sp-head{padding:15px 17px 12px}
 .sp-top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
 .sp-key-link{font-size:10px;font-family:'SF Mono','Fira Code',monospace;background:var(--g100);color:var(--g500);border-radius:6px;padding:2px 8px;font-weight:700;letter-spacing:.3px;text-decoration:none}
@@ -9513,89 +9524,138 @@ function go(id,btn){
 /* ══════════════════════════════════════════════════════
    P1 OVERFLOW TOGGLE
 ══════════════════════════════════════════════════════ */
-function copyCardUpdate(iniKey) {
-  const ini = DATA.initiatives.find(i => i.key === iniKey);
-  if (!ini || !ini.scope) return;
-  const scope = ini.scope;
-  const now = new Date();
-  const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const CH_LABEL = {
-    'Content & SEO':'content','Content':'content','SEO':'SEO content',
-    'Creative & Design':'creative','Email & Lifecycle':'email',
-    'Social Media':'social','PMM / Product':'launches',
-    'Events & Experiences':'events','PR & Comms':'PR & comms',
-    'Web & Digital':'web','Demand Gen':'demand gen',
-    'Marketing Analytics':'analytics','Community':'community'
-  };
-  const BU_LABEL = {'FastField':'FastField','Pave':'Pave','Core (QB)':'Quickbase Core','Cross-BU':'Cross-BU'};
-  const inferBU = i => {
-    if (i.bu && i.bu !== 'Unknown') return i.bu;
-    const t = i.title || '';
-    if (/^\[Pave\]/i.test(t)||/\bpaveathon\b/i.test(t)) return 'Pave';
-    if (/^\[FF\]/i.test(t)||/\bfastfield\b/i.test(t)) return 'FastField';
-    if (/^\[Core\]/i.test(t)) return 'Core (QB)';
-    if (/^\[Cross-BU\]/i.test(t)) return 'Cross-BU';
-    return i.bu || 'Unknown';
-  };
-  const normCh = i => {
-    if (i.ch !== 'Content & SEO') return i.ch;
-    const t = (i.title||'').toLowerCase();
-    return (t.includes('seo')||t.includes('aeo')||/\bcomparison\b/.test(t)||/\bvs\.?\s/.test(t)) ? 'SEO' : 'Content';
-  };
-  const parseD = s => { if (!s) return null; const d = new Date(s); return isNaN(d) ? null : d; };
-  const allDels = [...(DATA.q2deliverables||[]),...(DATA.shipped||[])];
-  let recent = allDels
-    .filter(i => { const d = parseD(i.doneDate); return d && d >= cutoff && d <= now; })
-    .map(i => ({...i, bu: inferBU(i), normCh: normCh(i)}));
-  if (scope.bus && scope.bus.length) {
-    recent = recent.filter(i => scope.bus.includes(i.bu));
-  } else if (scope.chs && scope.chs.length) {
-    recent = recent.filter(i => scope.chs.includes(i.ch));
-  } else {
-    recent = [];
-  }
-  let shippedText = '';
-  if (!recent.length) {
-    shippedText = '\n• Nothing captured in Jira yet';
-  } else if (scope.bus) {
-    const byBU = {};
-    recent.forEach(i => {
-      if (!byBU[i.bu]) byBU[i.bu] = {};
-      const ch = CH_LABEL[i.normCh] || i.normCh || 'other';
-      byBU[i.bu][ch] = (byBU[i.bu][ch] || 0) + 1;
+const JIRA_BASE = 'https://quickbase.atlassian.net';
+const JIRA_CREDS_KEY = 'qb_jira_api_creds';
+const TEAM_CH_MAP = {
+  'Patro, Shreya':'Content & SEO','Husain, Javeria':'Content & SEO',
+  'Krishnamurthy, Niveditha':'Content & SEO','Wahl, Nathan':'Content & SEO',
+  'Mondal, Sanchita':'Content & SEO','Roeser, Carter':'Content & SEO',
+  'South, Tom':'Content & SEO','Saari, Tim':'Content & SEO',
+  'Schiff, Ayva':'Email & Lifecycle','Caufield, Karen':'Email & Lifecycle',
+  'Lynch, Emma':'Email & Lifecycle','Scura, Coco-Marie':'Email & Lifecycle',
+  'Mora, Jasmin':'Creative & Design','Liu, Jenny':'Creative & Design',
+  'Ghosh, Soumya':'Creative & Design','Gajadhar, Rudy':'Creative & Design',
+  'Alvarez, Luis':'Creative & Design','Maganini , Joey':'Creative & Design',
+  'McPhee, Stephanie':'Demand Gen','Kleiner, Charlie':'Demand Gen',
+  'Rich, Sarah':'Social Media',
+  'Decker, Michael':'PMM / Product','Saeed, Hira':'PMM / Product',
+  'Hendley, Michelle':'PMM / Product','McCawley, Alissa':'PMM / Product',
+  'Martinez, Evan':'PMM / Product',
+  'Grabmeier, Joe':'Marketing Analytics',
+  'Gutierrez, Susana':'Events & Experiences','Klein, Lilly':'Events & Experiences',
+  'Hightower , Bridgette':'Events & Experiences',
+  'Simon , Ben':'Community','Englert , Caroline':'Community',
+  'Waldron, Tory':'PR & Comms','Bolton, Isabella':'PR & Comms','Horgan, Colin':'PR & Comms',
+  'Young-Ward, Michael':'Web & Digital','Radev, Tihomir':'Web & Digital',
+  'Bogdanov, Iliyan':'Web & Digital','Georgiev, Vasil':'Web & Digital',
+  'Boostrom , Max':'Web & Digital','Cortez de Barros, Carlos':'Web & Digital',
+  'Topozliyska, Nikol':'Web & Digital','Vasilev, Borislav':'Web & Digital',
+  'Boyanova, Kristina':'UX & Design'
+};
+
+function getJiraCreds(){try{return JSON.parse(localStorage.getItem(JIRA_CREDS_KEY)||'null');}catch{return null;}}
+
+let _jiraCredCallback=null;
+
+function showJiraKeyOverlay(cb){
+  _jiraCredCallback=cb||null;
+  const c=getJiraCreds();
+  document.getElementById('jira-email-input').value=(c&&c.email)||'lrusinova@quickbase.com';
+  document.getElementById('jira-token-input').value='';
+  document.getElementById('jira-key-overlay').style.display='flex';
+}
+
+function showToast(msg){
+  const t=document.getElementById('copy-toast');
+  if(!t)return;
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+async function getStatusUpdate(iniKey,btn){
+  const ini=DATA.initiatives.find(i=>i.key===iniKey);
+  if(!ini)return;
+  let creds=getJiraCreds();
+  if(!creds){showJiraKeyOverlay(()=>getStatusUpdate(iniKey,btn));return;}
+  const origLabel=btn?btn.innerHTML:null;
+  if(btn){btn.innerHTML='⏳ Fetching...';btn.disabled=true;}
+  try{
+    const p1Keys=(ini.p1progs||[]).map(p=>p.key).filter(Boolean);
+    if(!p1Keys.length){showToast('No P1 programs to query');return;}
+    const now=new Date();
+    const cutoff=new Date(now.getTime()-30*24*60*60*1000);
+    const pad=n=>String(n).padStart(2,'0');
+    const cutoffStr=`${cutoff.getFullYear()}-${pad(cutoff.getMonth()+1)}-${pad(cutoff.getDate())}`;
+    const jql=`project in (MKT, WE) AND "Epic Link" in (${p1Keys.join(',')}) AND statusCategory = Done AND updated >= "${cutoffStr}" ORDER BY updated DESC`;
+    const headers={'Authorization':'Basic '+btoa(creds.email+':'+creds.token),'Accept':'application/json'};
+    const url=`${JIRA_BASE}/rest/api/3/search?jql=${encodeURIComponent(jql)}&fields=summary,assignee,issuetype,status,customfield_10014,parent&maxResults=100`;
+    const resp=await fetch(url,{headers});
+    if(resp.status===401){
+      localStorage.removeItem(JIRA_CREDS_KEY);
+      showJiraKeyOverlay(()=>getStatusUpdate(iniKey,btn));
+      return;
+    }
+    if(!resp.ok)throw new Error('Jira API error '+resp.status);
+    const data=await resp.json();
+    const issues=data.issues||[];
+    const scope=ini.scope||{};
+    const epicToBU={};
+    (ini.p1progs||[]).forEach(p=>{
+      const m=(p.title||'').match(/^\[([^\]]+)\]/);
+      if(m){const b=m[1].toUpperCase();epicToBU[p.key]=b==='FF'?'FastField':b==='PAVE'?'Pave':b==='CORE'?'Core (QB)':b==='CROSS-BU'?'Cross-BU':m[1];}
     });
-    scope.bus.forEach(bu => {
-      if (!byBU[bu]) return;
-      const parts = Object.entries(byBU[bu]).map(([ch,n]) => `${n} ${ch}`).join(' · ');
-      shippedText += `\n• *${BU_LABEL[bu]||bu}:* ${parts}`;
+    const BU_LABEL={'FastField':'FastField','Pave':'Pave','Core (QB)':'Quickbase Core','Cross-BU':'Cross-BU'};
+    const CH_LABEL={'Content & SEO':'Content','Creative & Design':'Creative','Email & Lifecycle':'Email','Events & Experiences':'Events','PMM / Product':'Product launches','Web & Digital':'Web','PR & Comms':'PR & Comms','Social Media':'Social','Community':'Community','Marketing Analytics':'Analytics','Demand Gen':'Demand Gen','UX & Design':'UX'};
+    const groups={};
+    issues.forEach(issue=>{
+      const summary=(issue.fields.summary||'');
+      const assigneeDisplay=(issue.fields.assignee&&issue.fields.assignee.displayName)||'';
+      const epicKey=(issue.fields.customfield_10014)||((issue.fields.parent&&issue.fields.parent.key)||'');
+      let groupKey='Other';
+      if(scope.bus){
+        groupKey=epicToBU[epicKey]||(()=>{const m=summary.match(/^\[([^\]]+)\]/);if(!m)return'Other';const b=m[1].toUpperCase();return b==='FF'?'FastField':b==='PAVE'?'Pave':b==='CORE'?'Core (QB)':b==='CROSS-BU'?'Cross-BU':m[1];})();
+      }else{
+        groupKey=TEAM_CH_MAP[assigneeDisplay]||'Other';
+      }
+      if(!groups[groupKey])groups[groupKey]={count:0,titles:[]};
+      groups[groupKey].count++;
+      if(groups[groupKey].titles.length<3){
+        const clean=summary.replace(/^\[[^\]]+\]\s*/,'').replace(/^[Pp]\d+:\s*/,'').substring(0,70);
+        groups[groupKey].titles.push(clean);
+      }
     });
-  } else {
-    const byCh = {};
-    recent.forEach(i => { const ch = CH_LABEL[i.normCh]||i.normCh||'other'; byCh[ch]=(byCh[ch]||0)+1; });
-    Object.entries(byCh).sort((a,b)=>b[1]-a[1]).forEach(([ch,n]) => {
-      shippedText += `\n• *${ch.charAt(0).toUpperCase()+ch.slice(1)}:* ${n} item${n>1?'s':''}`;
-    });
+    const statusEmoji={'on-track':'🟢','at-risk':'🟡','off-track':'🔴'}[ini.status]||'⚪';
+    const statusLabel={'on-track':'On Track','at-risk':'At Risk','off-track':'Off Track'}[ini.status]||ini.status;
+    const total=issues.length;
+    let msg=`*${ini.title}* — ${statusEmoji} ${statusLabel}`;
+    if(ini.owner)msg+=`\nOwner: ${ini.owner}`;
+    if(total===0){
+      msg+=`\n\n*Shipped (last 30 days):*\n• Nothing marked Done in Jira yet`;
+    }else{
+      msg+=`\n\n*Shipped (last 30 days)* — ${total} task${total!==1?'s':''} done`;
+      const orderedKeys=[...(scope.bus||scope.chs||[]),...Object.keys(groups).filter(k=>!(scope.bus||scope.chs||[]).includes(k)&&k!=='Other')];
+      if(groups['Other'])orderedKeys.push('Other');
+      orderedKeys.forEach(key=>{
+        const g=groups[key];if(!g)return;
+        const displayKey=BU_LABEL[key]||CH_LABEL[key]||key;
+        msg+=`\n• *${displayKey}:* ${g.count} task${g.count!==1?'s':''}`;
+        g.titles.forEach(t=>{msg+=`\n  – ${t}`;});
+      });
+      if(total===100)msg+=`\n_(showing first 100 — may be more)_`;
+    }
+    const cleanT=t=>t.replace(/^\[[^\]]+\]\s*/,'');
+    const active=(ini.p1progs||[]).filter(p=>p.status==='in-progress');
+    const blocked=(ini.p1progs||[]).filter(p=>p.status==='blocked');
+    if(active.length){msg+=`\n\n*In flight:*`;active.forEach(p=>{msg+=`\n• ${cleanT(p.title)}`;});}
+    if(blocked.length){msg+=`\n\n*🚧 Blocked (${blocked.length}):*`;blocked.forEach(p=>{msg+=`\n• ${cleanT(p.title)}`;});}
+    await navigator.clipboard.writeText(msg);
+    showToast('✓ Copied to clipboard');
+  }catch(e){
+    showToast('✗ '+e.message);
+  }finally{
+    if(btn){btn.innerHTML=origLabel||'⚡ Get status update';btn.disabled=false;}
   }
-  const cleanT = t => t.replace(/^\[[^\]]+\]\s*/,'');
-  const active = (ini.p1progs||[]).filter(p => p.status === 'in-progress');
-  const blocked = (ini.p1progs||[]).filter(p => p.status === 'blocked');
-  const statusEmoji = {'on-track':'🟢','at-risk':'🟡','off-track':'🔴'}[ini.status]||'⚪';
-  const statusLabel = {'on-track':'On Track','at-risk':'At Risk','off-track':'Off Track'}[ini.status]||ini.status;
-  let msg = `*${ini.title}* — ${statusEmoji} ${statusLabel}`;
-  if (ini.owner) msg += `\nOwner: ${ini.owner}`;
-  msg += `\n\n*Shipped (last 30 days):*${shippedText}`;
-  if (active.length) {
-    msg += `\n\n*In flight:*`;
-    active.forEach(p => { msg += `\n• ${cleanT(p.title)}`; });
-  }
-  if (blocked.length) {
-    msg += `\n\n*🚧 Blocked (${blocked.length}):*`;
-    blocked.forEach(p => { msg += `\n• ${cleanT(p.title)}`; });
-  }
-  navigator.clipboard.writeText(msg).then(() => {
-    const t = document.getElementById('copy-toast');
-    if (t) { t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); }
-  }).catch(() => { prompt('Copy this update:', msg); });
 }
 
 function toggleCard(hdr) {
@@ -10047,7 +10107,7 @@ function renderBriefing(){
     })() : '';
 
     return `
-    <div class="sp-card">
+    <div class="sp-card" data-key="${ini.key}">
       <div class="sp-card-hdr" style="background:linear-gradient(135deg,#10503C 0%,#2C9382 100%)" onclick="toggleCard(this)">
         <div class="sp-card-hdr-row">
           <a href="${JIRA}${ini.key}" target="_blank" class="sp-card-key-lnk" onclick="event.stopPropagation()">${ini.key}</a>
@@ -10065,7 +10125,7 @@ function renderBriefing(){
           </div>
           ${progsHtml}
         </div>
-      ${ini.scope&&((ini.scope.bus&&ini.scope.bus.length)||(ini.scope.chs&&ini.scope.chs.length))?`<button class="sp-copy-btn" onclick="event.stopPropagation();copyCardUpdate('${ini.key}')">📋 Copy Slack update</button>`:''}
+      ${ini.scope&&((ini.scope.bus&&ini.scope.bus.length)||(ini.scope.chs&&ini.scope.chs.length))?`<button class="sp-copy-btn" onclick="event.stopPropagation();getStatusUpdate('${ini.key}',this)">⚡ Get status update</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -10746,6 +10806,32 @@ document.getElementById('upd-badge').textContent = DATA.lastUpdated;
 renderBriefing();
 </script>
 
+<div id="jira-key-overlay">
+  <div id="jira-key-modal">
+    <div class="jira-key-ttl">Jira API Token</div>
+    <div class="jira-key-sub">Enter your Atlassian email and API token to pull live Jira data.<br><a href="https://id.atlassian.com/manage-api-tokens" target="_blank">Generate a token ↗</a></div>
+    <input id="jira-email-input" type="email" placeholder="you@quickbase.com">
+    <input id="jira-token-input" type="password" placeholder="Paste API token here...">
+    <div class="jira-key-btns">
+      <button class="jira-key-cancel" id="jira-key-cancel">Cancel</button>
+      <button class="jira-key-save" id="jira-key-save">Save &amp; fetch</button>
+    </div>
+  </div>
+</div>
+<script>
+document.getElementById('jira-key-save').addEventListener('click',function(){
+  const email=document.getElementById('jira-email-input').value.trim();
+  const token=document.getElementById('jira-token-input').value.trim();
+  if(!email||!token)return;
+  localStorage.setItem(JIRA_CREDS_KEY,JSON.stringify({email,token}));
+  document.getElementById('jira-key-overlay').style.display='none';
+  if(_jiraCredCallback){const fn=_jiraCredCallback;_jiraCredCallback=null;fn();}
+});
+document.getElementById('jira-key-cancel').addEventListener('click',function(){
+  document.getElementById('jira-key-overlay').style.display='none';
+  _jiraCredCallback=null;
+});
+</script>
 <div id="copy-toast">✓ Copied to clipboard</div>
 </body>
 </html>
