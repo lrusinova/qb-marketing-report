@@ -83,7 +83,7 @@ button{font-family:inherit;cursor:pointer}
 .sec-hd p{font-size:12px;color:var(--g500);font-weight:500}
 
 /* ── SP CARDS ───────────────────────────────────────── */
-.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px;align-items:start}
+.sp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px;align-items:stretch}
 .sp-card{background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,40,85,.08),0 8px 28px rgba(0,40,85,.1);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .22s,transform .22s}
 .sp-card:hover{box-shadow:0 6px 20px rgba(0,40,85,.16),0 20px 50px rgba(0,40,85,.12);transform:translateY(-3px)}
 .sp-head{padding:15px 17px 12px}
@@ -385,6 +385,11 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-chip-blk{background:rgba(220,38,38,.12);color:#dc2626}
 .sp-chip-dn{background:var(--g100);color:var(--g400)}
 .sp-chip-hold{background:rgba(245,158,11,.12);color:#d97706}
+.sp-bu-tag{display:inline-flex;align-items:center;border-radius:4px;padding:1px 6px;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;flex-shrink:0;white-space:nowrap}
+.sp-bu-pave{background:rgba(44,147,130,.13);color:#1a7a6c;border:1px solid rgba(44,147,130,.28)}
+.sp-bu-core{background:rgba(16,80,60,.1);color:#10503C;border:1px solid rgba(16,80,60,.25)}
+.sp-bu-ff{background:rgba(245,158,11,.13);color:#92400E;border:1px solid rgba(245,158,11,.32)}
+.sp-bu-cross{background:rgba(124,58,237,.1);color:#6d28d9;border:1px solid rgba(124,58,237,.25)}
 .sp-active-empty{font-size:11px;color:var(--g400);font-style:italic}
 .sp-plan-more{font-size:10.5px;color:var(--g400);margin-top:4px;padding-left:12px}
 .sp-more-btn{background:none;border:none;cursor:pointer;font-size:10.5px;color:var(--blue);font-weight:600;margin-top:5px;padding:0;display:block;text-align:left}
@@ -565,10 +570,10 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 <header class="hdr">
   <div class="qb-mark">
     <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0"  y="0"  width="23" height="23" rx="1.5" fill="#363432"/>
+      <rect x="0"  y="0"  width="23" height="23" rx="1.5" fill="#10503C"/>
       <rect x="26" y="0"  width="14" height="14" rx="1.5" fill="#2C9382"/>
       <rect x="26" y="17" width="14" height="14" rx="1.5" fill="#F23E30"/>
-      <rect x="4"  y="26" width="14" height="14" rx="1.5" fill="#363432"/>
+      <rect x="4"  y="26" width="14" height="14" rx="1.5" fill="#2C9382"/>
     </svg>
   </div>
   <div class="hdr-t">
@@ -710,6 +715,7 @@ const DATA = {
        {key:"MKT-12115",title:"[Pave] SEO — Vibe Coding & No-Code Content",status:"planning"},
        {key:"MKT-12116",title:"[Pave] SEO — AI App Builder Pages",status:"planning"},
        {key:"MKT-12119",title:"[Pave] SEO — Enterprise & Governance Content",status:"planning"},
+       {key:"MKT-12850",title:"[FF] Web — Platform Pages & Nav Build-out — Q3",status:"planning"},
        {key:"MKT-11797",title:"[Pave] Marketplace & App Gallery",status:"on-hold"},
      ]},
     {key:"MKT-12569",title:"Core BU Marketing",sub:"Quickbase Classic",
@@ -748,7 +754,7 @@ const DATA = {
      ]},
     {key:"MKT-12571",title:"Digital",sub:"Web · SEO · CRO · Paid Media",
      owner:"Carlos Cortez de Barros",status:"on-track",pct:48,done:5,flight:5,blocked:0,total:11,color:"#7C3AED",delta:+1,
-     note:"Web: Content Hub live for Pave/FF/QB (Michael). Pave ICP conversion tracking via Google Ads & GA4 in flight (Tihomir). FeedMe SSE plugin upgrade in progress (Borislav). FF website migration active (Michael). WE-787 Transitional Improvements (Brand + Web Refresh) active — 14 pages in pipeline (Andy/Michael).",
+     note:"",
      outcome:"A website and search presence that convert ICP demand efficiently.",
      execSummary:"Content Hub live for all three BUs. Pave ICP conversion tracking wired into Google Ads & GA4. Web team executing across 3 BUs in Q3: Pave new Solutions/Industry pages (due Jul 29), FF Platform Pages & Nav build-out, Core web updates — all feeding the brand refresh (14 transitional pages in flight). SEO programs running across Core, FF, and Pave.",
      goals:["Website refresh + CRO — 3-stage (audit → copy → experience) with conversion optimization across key pages","Pave TOFU with ICP focus — top-of-funnel demand for Pave ICP buyers, conversion tracking wired into paid channels","SEO across QB Core · FF · Pave — one unified strategy so products don't compete for the same demand"],
@@ -9868,10 +9874,12 @@ function renderBriefing(){
 
     // P1 programs: blocked first → active → planning, all shown with expand toggle
     const allP1 = (ini.p1progs||[]);
+    const _buR=t=>{const m=t.match(/^\[([^\]]+)\]/);if(!m)return 99;const b=m[1].toLowerCase();return b==='core'||b==='qb-core'?0:b==='ff'?1:b==='pave'?2:b==='cross-bu'?3:99;};
+    const _sb=arr=>[...arr].sort((a,b)=>_buR(a.title)-_buR(b.title));
     const sortedP1 = [
-      ...allP1.filter(p=>p.status==='blocked'),
-      ...allP1.filter(p=>p.status==='in-progress'),
-      ...allP1.filter(p=>p.status==='planning'||p.status==='intake'),
+      ..._sb(allP1.filter(p=>p.status==='blocked')),
+      ..._sb(allP1.filter(p=>p.status==='in-progress')),
+      ..._sb(allP1.filter(p=>p.status==='planning'||p.status==='intake')),
     ];
     const SHOW_INIT = 5;
     const moreCount = Math.max(0, sortedP1.length - SHOW_INIT);
@@ -9879,9 +9887,14 @@ function renderBriefing(){
     const progsHtml = sortedP1.length ? sortedP1.map((p, idx)=>{
       const bl=p.status==='blocked', ip=p.status==='in-progress', dn=p.status==='done', hold=p.status==='on-hold';
       const lnkCls = bl?' sp-prog-blk' : (!ip?' sp-prog-dim':'');
+      const _bm = p.title.match(/^\[([^\]]+)\]\s*/);
+      const _bl = _bm ? _bm[1] : null;
+      const _bk = _bl ? (_bl.toLowerCase()==='pave'?'pave':_bl.toLowerCase()==='core'||_bl.toLowerCase()==='qb-core'?'core':_bl.toLowerCase()==='ff'?'ff':_bl.toLowerCase()==='cross-bu'?'cross':null) : null;
+      const buHtml = _bk ? `<span class="sp-bu-tag sp-bu-${_bk}">${_bl}</span>` : '';
+      const cleanTitle = _bm ? p.title.slice(_bm[0].length) : p.title;
       const titleEl = p.key
-        ? `<a href="${JIRA}${p.key}" target="_blank" class="sp-prog-link${lnkCls}">${p.title}</a>`
-        : `<span class="${lnkCls.trim()}">${p.title}</span>`;
+        ? `${buHtml}<a href="${JIRA}${p.key}" target="_blank" class="sp-prog-link${lnkCls}">${cleanTitle}</a>`
+        : `${buHtml}<span class="${lnkCls.trim()}">${cleanTitle}</span>`;
       const rowCls = bl?' bl':ip?' ip':hold?' pl':dn?' pl':' pl';
       const chip = bl?'<span class="sp-chip sp-chip-blk">blocked</span>':ip?'<span class="sp-chip sp-chip-ip">active</span>':dn?'<span class="sp-chip sp-chip-dn">done</span>':hold?'<span class="sp-chip sp-chip-hold">hold</span>':'<span class="sp-chip sp-chip-pl">planning</span>';
       const overflowCls = idx >= SHOW_INIT ? ' sp-p1-overflow' : '';
@@ -9904,12 +9917,8 @@ function renderBriefing(){
     const _p2ip=_p2.filter(p=>p.status==='in-progress').length;
     const _p2bl=_p2.filter(p=>p.status==='blocked').length;
     const p2Html=_p2.length?(()=>{
-      const dots=_p2.slice(0,12).map(p=>{
-        const cls=p.status==='blocked'?'sp-hdot-blk':p.status==='in-progress'?'sp-hdot-ip':'sp-hdot-pl';
-        return `<span class="sp-hdot ${cls}" style="width:6px;height:6px" title="${p.title}"></span>`;
-      }).join('');
       const blkStr=_p2bl>0?` · <span style="color:var(--red)">${_p2bl} blocked</span>`:'';
-      return `<div class="sp-p2-row"><span class="sp-p2-tag">P2</span><div class="sp-p2-dots">${dots}</div><span class="sp-p2-sum">${_p2.length} prog · ${_p2ip} active${blkStr}</span></div>`;
+      return `<div class="sp-p2-row"><span class="sp-p2-tag">P2</span><span class="sp-p2-sum">${_p2.length} programs · ${_p2ip} active${blkStr}</span></div>`;
     })():'';
 
     // Data-derived AI insight
@@ -9933,7 +9942,7 @@ function renderBriefing(){
 
     return `
     <div class="sp-card">
-      <div class="sp-card-hdr" style="background:${ini.color}">
+      <div class="sp-card-hdr" style="background:linear-gradient(135deg,#10503C 0%,#2C9382 100%)">
         <div class="sp-card-hdr-row">
           <a href="${JIRA}${ini.key}" target="_blank" class="sp-card-key-lnk">${ini.key}</a>
           ${badgeLight(ini.status)}
@@ -9941,18 +9950,16 @@ function renderBriefing(){
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
       </div>
-      ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:${ini.color}">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
+      ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:#2C9382">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
       <div class="sp-progs">
         <div class="sp-progs-hd">
           <span class="sp-progs-lbl">P1 Programs</span>
           <span class="sp-progs-count">${allP1.length} total</span>
         </div>
         ${progsHtml}
-        ${p2Html}
       </div>
-      ${insightHtml}
+      ${p2Html}
       ${ini.note?`<div class="sp-note"><span>📌</span><span><strong>PM Note:</strong> ${ini.note}</span></div>`:''}
-      ${goalProgSection}
     </div>`;
   }).join('');
 
