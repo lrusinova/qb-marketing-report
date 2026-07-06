@@ -204,7 +204,7 @@ button{font-family:inherit;cursor:pointer}
 .del3-tab{padding:7px 18px;border-radius:9px;font-size:12px;font-weight:700;border:none;cursor:pointer;color:var(--g500);background:transparent;transition:all .18s;white-space:nowrap}
 .del3-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 6px rgba(0,0,0,.14)}
 .del3-tab:hover:not(.on){color:var(--navy);background:rgba(255,255,255,.5)}
-.del3-filters{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.del3-filters{display:flex;flex-direction:column;gap:10px;margin-bottom:0;position:sticky;top:60px;z-index:50;background:var(--bg);padding:10px 0 12px;border-bottom:1px solid var(--g200)}
 .del3-filter-row{display:flex;align-items:flex-start;gap:10px}
 .del3-filter-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g400);padding-top:8px;min-width:54px;flex-shrink:0}
 .del3-pills{display:flex;flex-wrap:wrap;gap:5px}
@@ -9959,6 +9959,10 @@ function renderBriefing(){
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
         ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
+        <div class="sp-card-progrow">
+          <div class="sp-card-progbar"><div class="sp-card-progfill" style="width:${ini.pct}%"></div></div>
+          <span class="sp-card-progpct">${ini.pct}%${deltaHdrHtml}</span>
+        </div>
       </div>
       <div class="sp-card-body">
         ${(ini.goals||[]).length?`<div class="sp-goals2"><span class="sp-goals2-lbl">Goal Pillars</span>${(ini.goals||[]).map((g,gi)=>`<div class="sp-goal2"><div class="sp-gnum2" style="background:#2C9382">${gi+1}</div><span>${g}</span></div>`).join('')}</div>`:''}
