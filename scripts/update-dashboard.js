@@ -599,7 +599,10 @@ function jsLit(val, depth = 0) {
   }
   const entries = Object.entries(val)
     .filter(([, v]) => v !== undefined)
-    .map(([k, v]) => `${pad}  ${k}:${jsLit(v, depth + 1)}`);
+    .map(([k, v]) => {
+      const key = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : JSON.stringify(k);
+      return `${pad}  ${key}:${jsLit(v, depth + 1)}`;
+    });
   return `{\n${entries.join(',\n')}\n${pad}}`;
 }
 

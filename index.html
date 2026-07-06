@@ -646,7 +646,15 @@ window.addEventListener('load',function(){
 const JIRA = "https://quickbase.atlassian.net/browse/";
 const jl = (k,l) => `<a href="${JIRA}${k}" target="_blank" rel="noopener">${l||k}</a>`;
 /* BEGIN:RECENT_TASKS */
-const RECENT_TASKS = {};
+const RECENT_TASKS = {
+  "MKT-12568":{pulledAt:"Jul 7, 2026",total:0,groups:{}},
+  "MKT-12569":{pulledAt:"Jul 7, 2026",total:0,groups:{}},
+  "MKT-12570":{pulledAt:"Jul 7, 2026",total:0,groups:{}},
+  "MKT-12571":{pulledAt:"Jul 7, 2026",total:0,groups:{}},
+  "MKT-12572":{pulledAt:"Jul 7, 2026",total:0,groups:{}},
+  "MKT-12573":{pulledAt:"Jul 7, 2026",total:0,groups:{}},
+  "MKT-12574":{pulledAt:"Jul 7, 2026",total:0,groups:{}}
+};
 /* END:RECENT_TASKS */
 
 /* ── PASSWORD GATE LOGIC — remove this block + CSS + HTML div to disable ── */
@@ -9606,69 +9614,430 @@ function genInsight(ini){
    Rubric: XS=2h S=6h M=16h L=32h XL=80h · 40h/wk = 100%
 ───────────────────────────────────────────────────────── */
 const CAP_DATA = {
-  pulledAt:"Jul 3, 2026",
+  pulledAt:"Jul 7, 2026",
   note:"Effort AI-estimated · Active tasks only (excludes Published/Released/Done) · 40h/wk = 100%",
   channels:[
-    {ch:"Content & SEO",        items:27,  unassigned:0, hours:360,  load:"OVER",  people:["Patro, Shreya","Husain, Javeria","Krishnamurthy, Niveditha","Wahl, Nathan","Mondal, Sanchita","Roeser, Carter","South, Tom","Saari, Tim"]},
-    {ch:"Email & Lifecycle",    items:41,  unassigned:0, hours:364,  load:"OVER",  people:["Schiff, Ayva","Caufield, Karen","Lynch, Emma","Scura, Coco"]},
-    {ch:"Creative & Design",    items:58,  unassigned:0, hours:742,  load:"OVER",  people:["Mora, Jasmin","Liu, Jenny","Ghosh, Soumya","Gajadhar, Rudy","Alvarez, Luis","Maganini, Joey"]},
-    {ch:"Demand Gen",           items:42,  unassigned:0, hours:438,  load:"OVER",  people:["McPhee, Stephanie","Kleiner, Charlie"]},
-    {ch:"Social Media",         items:6,   unassigned:0, hours:72,   load:"OVER",  people:["Rich, Sarah"]},
-    {ch:"PMM / Product",        items:37,  unassigned:0, hours:300,  load:"OVER",  people:["Decker, Michael","Saeed, Hira","Hendley, Michelle","McCawley, Alissa","Martinez, Evan"]},
-    {ch:"Marketing Analytics",  items:2,   unassigned:0, hours:32,   load:"OK",    people:["Grabmeier, Joe"]},
-    {ch:"Events & Experiences", items:17,  unassigned:0, hours:232,  load:"OVER",  people:["Gutierrez, Susana","Klein, Lilly","Hightower, Bridgette"]},
-    {ch:"Community",            items:16,  unassigned:0, hours:184,  load:"OVER",  people:["Simon , Ben","Englert, Caroline"]},
-    {ch:"PR & Comms",           items:23,  unassigned:0, hours:116,  load:"OVER",  people:["Waldron, Tory","Bolton, Isabella","Horgan, Colin"]},
-    {ch:"Web & Digital",        items:122, unassigned:0, hours:1696, load:"OVER",  people:["Young-Ward, Michael","Radev, Tihomir","Bogdanov, Iliyan","Georgiev, Vasil","Boostrom, Max","Cortez de Barros, Carlos","Topozliyska, Nikol","Vasilev, Borislav"]},
-    {ch:"UX & Design",          items:9,   unassigned:0, hours:144,  load:"OVER",  people:["Boyanova, Kristina"]},
+    {
+      ch:"Content & SEO",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Patro, Shreya",
+        "Husain, Javeria",
+        "Krishnamurthy, Niveditha",
+        "Wahl, Nathan",
+        "Mondal, Sanchita",
+        "Roeser, Carter",
+        "South, Tom",
+        "Saari, Tim"
+      ]
+    },
+    {
+      ch:"Email & Lifecycle",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Schiff, Ayva",
+        "Caufield, Karen",
+        "Lynch, Emma",
+        "Scura, Coco"
+      ]
+    },
+    {
+      ch:"Creative & Design",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Mora, Jasmin",
+        "Liu, Jenny",
+        "Ghosh, Soumya",
+        "Gajadhar, Rudy",
+        "Alvarez, Luis",
+        "Maganini, Joey"
+      ]
+    },
+    {
+      ch:"Demand Gen",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "McPhee, Stephanie",
+        "Kleiner, Charlie"
+      ]
+    },
+    {
+      ch:"Social Media",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Rich, Sarah"
+      ]
+    },
+    {
+      ch:"PMM / Product",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Decker, Michael",
+        "Saeed, Hira",
+        "Hendley, Michelle",
+        "McCawley, Alissa",
+        "Martinez, Evan"
+      ]
+    },
+    {
+      ch:"Marketing Analytics",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Grabmeier, Joe"
+      ]
+    },
+    {
+      ch:"Events & Experiences",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Gutierrez, Susana",
+        "Klein, Lilly",
+        "Hightower, Bridgette"
+      ]
+    },
+    {
+      ch:"Community",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Simon, Ben",
+        "Englert, Caroline"
+      ]
+    },
+    {
+      ch:"PR & Comms",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Waldron, Tory",
+        "Bolton, Isabella",
+        "Horgan, Colin"
+      ]
+    },
+    {
+      ch:"Web & Digital",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Young-Ward, Michael",
+        "Radev, Tihomir",
+        "Bogdanov, Iliyan",
+        "Georgiev, Vasil",
+        "Boostrom, Max",
+        "Cortez de Barros, Carlos",
+        "Topozliyska, Nikol",
+        "Vasilev, Borislav"
+      ]
+    },
+    {
+      ch:"UX & Design",
+      items:0,
+      unassigned:0,
+      hours:0,
+      load:"LIGHT",
+      people:[
+        "Boyanova, Kristina"
+      ]
+    }
   ],
   mkt:[
-    {name:"Ghosh, Soumya",              tasks:31, hours:378, load:"OVER"},
-    {name:"McPhee, Stephanie",          tasks:25, hours:266, load:"OVER"},
-    {name:"Wahl, Nathan",               tasks:15, hours:240, load:"OVER"},
-    {name:"Gutierrez, Susana",          tasks:17, hours:232, load:"OVER"},
-    {name:"Mora, Jasmin",               tasks:11, hours:182, load:"OVER"},
-    {name:"Hendley, Michelle",          tasks:21, hours:176, load:"OVER"},
-    {name:"Simon , Ben",                tasks:10, hours:138, load:"OVER"},
-    {name:"Lynch, Emma",                tasks:19, hours:134, load:"OVER"},
-    {name:"Schiff, Ayva",               tasks:13, hours:116, load:"OVER"},
-    {name:"Waldron, Tory",              tasks:21, hours:104, load:"OVER"},
-    {name:"Liu, Jenny",                 tasks:10, hours:100, load:"OVER"},
-    {name:"Rich, Sarah",                tasks:6,  hours:72,  load:"OVER"},
-    {name:"Caufield, Karen",            tasks:4,  hours:64,  load:"OVER"},
-    {name:"Saeed, Hira",                tasks:7,  hours:58,  load:"OVER"},
-    {name:"Decker, Michael",            tasks:8,  hours:50,  load:"OVER"},
-    {name:"Scura, Coco",                tasks:5,  hours:50,  load:"OVER"},
-    {name:"Englert, Caroline",          tasks:6,  hours:46,  load:"OVER"},
-    {name:"Mondal, Sanchita",           tasks:2,  hours:32,  load:"OK"},
-    {name:"Grabmeier, Joe",             tasks:2,  hours:32,  load:"OK"},
-    {name:"Husain, Javeria",            tasks:4,  hours:22,  load:"OK"},
-    {name:"Patro, Shreya",              tasks:1,  hours:16,  load:"OK"},
-    {name:"McCawley, Alissa",           tasks:1,  hours:16,  load:"OK"},
-    {name:"Bolton, Isabella",           tasks:2,  hours:12,  load:"LIGHT"},
-    {name:"Alvarez, Luis",              tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Gajadhar, Rudy",             tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Hightower, Bridgette",       tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Horgan, Colin",              tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Klein, Lilly",               tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Krishnamurthy, Niveditha",   tasks:0,  hours:0,   load:"LIGHT"},
-    {name:"Roeser, Carter",             tasks:0,  hours:0,   load:"LIGHT"},
+    {
+      name:"Patro, Shreya",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Husain, Javeria",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Krishnamurthy, Niveditha",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Wahl, Nathan",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Mondal, Sanchita",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Roeser, Carter",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Schiff, Ayva",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Caufield, Karen",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Lynch, Emma",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Scura, Coco",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Mora, Jasmin",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Liu, Jenny",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Ghosh, Soumya",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Gajadhar, Rudy",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Alvarez, Luis",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"McPhee, Stephanie",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Kleiner, Charlie",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Rich, Sarah",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Decker, Michael",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Saeed, Hira",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Hendley, Michelle",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"McCawley, Alissa",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Grabmeier, Joe",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Gutierrez, Susana",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Klein, Lilly",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Hightower, Bridgette",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Simon, Ben",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Englert, Caroline",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Waldron, Tory",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Bolton, Isabella",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Horgan, Colin",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    }
   ],
   we:[
-    {name:"Young-Ward, Michael",        tasks:61, hours:828, load:"OVER"},
-    {name:"Topozliyska, Nikol",         tasks:16, hours:242, load:"OVER"},
-    {name:"Bogdanov, Iliyan",           tasks:12, hours:172, load:"OVER"},
-    {name:"Boostrom, Max",              tasks:10, hours:150, load:"OVER"},
-    {name:"Boyanova, Kristina",         tasks:9,  hours:144, load:"OVER"},
-    {name:"Radev, Tihomir",             tasks:10, hours:130, load:"OVER"},
-    {name:"Vasilev, Borislav",          tasks:6,  hours:86,  load:"OVER"},
-    {name:"Maganini, Joey",             tasks:6,  hours:82,  load:"OVER"},
-    {name:"Georgiev, Vasil",            tasks:5,  hours:66,  load:"OVER"},
-    {name:"South, Tom",                 tasks:3,  hours:28,  load:"OK"},
-    {name:"Saari, Tim",                 tasks:2,  hours:22,  load:"OK"},
-    {name:"Cortez de Barros, Carlos",   tasks:2,  hours:22,  load:"OK"},
-    {name:"Martinez, Evan",             tasks:0,  hours:0,   load:"LIGHT"},
-  ],
+    {
+      name:"Maganini, Joey",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Martinez, Evan",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Young-Ward, Michael",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Radev, Tihomir",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Bogdanov, Iliyan",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Georgiev, Vasil",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Boostrom, Max",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Cortez de Barros, Carlos",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Topozliyska, Nikol",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Vasilev, Borislav",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"South, Tom",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Saari, Tim",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    },
+    {
+      name:"Boyanova, Kristina",
+      tasks:0,
+      hours:0,
+      load:"LIGHT"
+    }
+  ]
 };
 
 /* ══════════════════════════════════════════════════════
@@ -9789,7 +10158,77 @@ const HISTORY = [
       ...
     ]
   }
-  ─────────────────────────────────────────────────── */
+  ─────────────────────────────────────────────────── */,
+  {
+  d:"2026-07-06",
+  w:"Jul 7",
+  ov:0,
+  hi:0,
+  ok:0,
+  lt:44,
+  ch:[
+    [
+      "Content & SEO",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Email & Lifecycle",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Creative & Design",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Demand Gen",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Social Media",
+      0,
+      "LIGHT"
+    ],
+    [
+      "PMM / Product",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Marketing Analytics",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Events & Experiences",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Community",
+      0,
+      "LIGHT"
+    ],
+    [
+      "PR & Comms",
+      0,
+      "LIGHT"
+    ],
+    [
+      "Web & Digital",
+      0,
+      "LIGHT"
+    ],
+    [
+      "UX & Design",
+      0,
+      "LIGHT"
+    ]
+  ]
+}
 ];
 
 function renderBriefing(){
