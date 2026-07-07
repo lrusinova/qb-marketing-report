@@ -6,13 +6,13 @@
       "key": "MKT-12568",
       "name": "Agentic Workflow Evolution (AWE)",
       "owner": "Gar Smyth",
-      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+      "error": "read ECONNRESET"
     },
     {
       "key": "MKT-12569",
       "name": "Core BU Marketing",
       "owner": "TBH (role in hiring)",
-      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+      "error": "read ECONNRESET"
     },
     {
       "key": "MKT-12570",

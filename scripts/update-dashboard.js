@@ -619,6 +619,143 @@ function jsLit(val, depth = 0) {
   return `{\n${entries.join(',\n')}\n${pad}}`;
 }
 
+// ── Shared helper: categorize a list of issues into deliverable objects ───────
+function categorizeIssues(issues, personChannel) {
+  const results = [];
+  for (const issue of issues) {
+    const summary   = issue.fields.summary || '';
+    const labels    = issue.fields.labels || [];
+    const assignee  = issue.fields.assignee?.displayName || null;
+    const issuetype = issue.fields.issuetype?.name || 'Task';
+    const descText  = extractTextFromADF(issue.fields.description);
+    const allText   = `${summary} ${descText}`;
+    const rawDate   = issue.fields.updated;
+    const updatedDate = rawDate
+      ? new Date(rawDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      : '';
+
+    const buResult = detectBU(labels, allText);
+    let channel    = detectChannel(assignee, issuetype, summary, allText, personChannel);
+    if (!channel && assignee && personChannel[assignee]) channel = personChannel[assignee];
+    if (!channel) channel = 'Program Management'; // fallback so no items are dropped
+
+    results.push({
+      key: issue.key, title: summary,
+      ch:    CHANNEL_TO_SHIPPED_CH[channel] || channel,
+      bu:    buResult ? buResult.bu : 'Unknown',
+      label: buResult ? buResult.label : '',
+      owner: assignee || 'Unassigned',
+      type:  detectType(issuetype, summary), updatedDate,
+    });
+  }
+  results.sort((a, b) => {
+    const da = a.updatedDate ? new Date(a.updatedDate) : 0;
+    const db = b.updatedDate ? new Date(b.updatedDate) : 0;
+    return db - da;
+  });
+  return results;
+}
+
+// ── Active (in-progress) deliverables ────────────────────────────────────────
+async function fetchActiveDeliverables(team, cutoff) {
+  const personChannel = {};
+  for (const p of team) personChannel[p.displayName] = p.channel;
+
+  const assignees = team.map(p => `"${p.jiraName}"`).join(',');
+  // Scope to items updated within the last 90 days to avoid ancient stale items
+  const jql = `project in (MKT, WE) AND statusCategory = "In Progress" AND assignee in (${assignees}) AND updated >= "${cutoff}" AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project") ORDER BY updated DESC`;
+  const fields = 'summary,assignee,issuetype,labels,description,updated';
+
+  const issues = [];
+  let start = 0;
+  const MAX_PAGES = 5; // cap at 500 items — most-recently-updated items are what matter
+  process.stdout.write('  Fetching in-progress items ');
+  while (issues.length < MAX_PAGES * 100) {
+    const url = `/rest/api/3/search/jql?jql=${encodeURIComponent(jql)}&startAt=${start}&maxResults=100&fields=${fields}`;
+    const data = await jiraFetch(url);
+    issues.push(...data.issues);
+    process.stdout.write('.');
+    if (data.isLast || data.issues.length === 0) break;
+    start += 100;
+  }
+  console.log(` ${issues.length} raw`);
+  const active = categorizeIssues(issues, personChannel);
+  console.log(`  ✓ Active deliverables: ${active.length} categorized`);
+  return active;
+}
+
+// ── Planning (To Do) deliverables ────────────────────────────────────────────
+async function fetchPlanningDeliverables(team, cutoff) {
+  const personChannel = {};
+  for (const p of team) personChannel[p.displayName] = p.channel;
+
+  const assignees = team.map(p => `"${p.jiraName}"`).join(',');
+  const jql = `project in (MKT, WE) AND statusCategory = "To Do" AND assignee in (${assignees}) AND updated >= "${cutoff}" AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project") ORDER BY updated DESC`;
+  const fields = 'summary,assignee,issuetype,labels,description,updated';
+
+  const issues = [];
+  let start = 0;
+  const MAX_PAGES = 5;
+  process.stdout.write('  Fetching planning items ');
+  while (issues.length < MAX_PAGES * 100) {
+    const url = `/rest/api/3/search/jql?jql=${encodeURIComponent(jql)}&startAt=${start}&maxResults=100&fields=${fields}`;
+    const data = await jiraFetch(url);
+    issues.push(...data.issues);
+    process.stdout.write('.');
+    if (data.isLast || data.issues.length === 0) break;
+    start += 100;
+  }
+  console.log(` ${issues.length} raw`);
+  const planning = categorizeIssues(issues, personChannel);
+  console.log(`  ✓ Planning deliverables: ${planning.length} categorized`);
+  return planning;
+}
+
+// ── Program status sync ───────────────────────────────────────────────────────
+// Extract p1progs keys from the current HTML, query their current Jira status,
+// and return a map of { "MKT-12740": "planning", "MKT-11823": "in-progress", ... }
+async function syncProgStatuses(html) {
+  const STATUS_MAP = {
+    'to do':         'planning',
+    'backlog':       'planning',
+    'planning':      'planning',
+    'open':          'planning',
+    'in progress':   'in-progress',
+    'in review':     'in-progress',
+    'in development':'in-progress',
+    'active':        'in-progress',
+    'blocked':       'blocked',
+    'on hold':       'blocked',
+    'done':          'done',
+    'published':     'done',
+    'live':          'done',
+    'posted':        'done',
+    'released':      'done',
+    'design done':   'done',
+  };
+
+  // Pull all p1progs keys from the current HTML
+  const keyMatches = html.matchAll(/\{key:"((?:MKT|WE)-\d+)",title:/g);
+  const keys = [...new Set([...keyMatches].map(m => m[1]))];
+  if (!keys.length) {
+    console.log('  ⚠  No p1progs keys found in HTML');
+    return {};
+  }
+  console.log(`  Querying ${keys.length} program statuses...`);
+
+  const jql = `key in (${keys.join(',')})`;
+  const issues = await jiraSearch(jql, 'summary,status');
+
+  const result = {};
+  for (const issue of issues) {
+    const statusName = issue.fields.status?.name || '';
+    result[issue.key] = STATUS_MAP[statusName] || STATUS_MAP[statusName.toLowerCase()] || 'planning';
+    console.log(`    ${issue.key}: "${statusName}" → ${result[issue.key]}`);
+  }
+  console.log(`  ✓ ${Object.keys(result).length} program statuses synced`);
+  return result;
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   const { TEAM, CHANNELS } = require('./config');
@@ -750,10 +887,36 @@ async function main() {
     console.warn(`  ⚠  Deliverables fetch failed (${err.message}) — shipped list unchanged`);
   }
 
+  // ── 4c. Fetch active + planning deliverables (scoped to last 90 days) ────
+  // 90-day cutoff avoids returning ancient stale items across the whole project
+  const cutoffDate = new Date(today);
+  cutoffDate.setDate(cutoffDate.getDate() - 90);
+  const cutoffStr = cutoffDate.toISOString().split('T')[0];
+
+  let activeItems = [];
+  try {
+    console.log(`\n── Active Deliverables (updated >= ${cutoffStr}) ────────────────────`);
+    activeItems = await fetchActiveDeliverables(TEAM, cutoffStr);
+  } catch (err) {
+    console.warn(`  ⚠  Active deliverables fetch failed (${err.message}) — active list unchanged`);
+  }
+
+  let planningItems = [];
+  try {
+    console.log(`\n── Planning Deliverables (updated >= ${cutoffStr}) ──────────────────`);
+    planningItems = await fetchPlanningDeliverables(TEAM, cutoffStr);
+  } catch (err) {
+    console.warn(`  ⚠  Planning deliverables fetch failed (${err.message}) — planning list unchanged`);
+  }
+
   // ── 5. Fetch and write strategic goal data ────────────────────────────
   console.log('\n── Strategic Goal Data ──────────────────────────────────────────');
   let strategicData = null;
-  try {
+  const jsonAge = fs.existsSync(JSON_PATH) ? (Date.now() - fs.statSync(JSON_PATH).mtimeMs) : Infinity;
+  const SKIP_STRATEGIC = jsonAge < 23 * 60 * 60 * 1000; // skip if file is less than 23h old
+  if (SKIP_STRATEGIC) {
+    console.log('  ↩  strategic-data.json is recent — skipping (run again tomorrow for fresh counts)');
+  } else try {
     strategicData = await fetchStrategicGoalData(today);
     if (!DRY_RUN) {
       fs.writeFileSync(JSON_PATH, JSON.stringify(strategicData, null, 2), 'utf8');
@@ -776,10 +939,21 @@ async function main() {
     console.warn(`  ⚠  Recent tasks fetch failed (${err.message})`);
   }
 
+  // ── 5c. Sync program statuses ─────────────────────────────────────────
+  let progStatuses = {};
+  try {
+    console.log('\n── Program Statuses ─────────────────────────────────────────────');
+    let htmlForScan = fs.readFileSync(HTML_PATH, 'utf8');
+    progStatuses = await syncProgStatuses(htmlForScan);
+  } catch (err) {
+    console.warn(`  ⚠  Program status sync failed (${err.message}) — statuses unchanged`);
+  }
+
   if (DRY_RUN) {
     console.log('\n[DRY RUN] HISTORY entry that would be added:');
     console.log(JSON.stringify(histEntry, null, 2));
     console.log(`\n[DRY RUN] ${shippedItems.length} shipped items · ${needsReview.length} flagged for review`);
+    console.log(`\n[DRY RUN] ${activeItems.length} active items · ${Object.keys(progStatuses).length} program statuses`);
     console.log('\n[DRY RUN] No changes written.\n');
     return;
   }
@@ -836,6 +1010,29 @@ async function main() {
       `/* BEGIN:RECENT_TASKS */\nconst RECENT_TASKS = ${jsLit(recentTasksData)};\n/* END:RECENT_TASKS */`
     );
     console.log(`   RECENT_TASKS → ${Object.keys(recentTasksData).length} initiatives`);
+  }
+
+  // Inject planning deliverables
+  html = html.replace(
+    /planning:\[[\s\S]*?\],(?=\s*active:)/,
+    `planning:${jsLit(planningItems, 1)},`
+  );
+  console.log(`   DATA.planning → ${planningItems.length} items`);
+
+  // Inject active deliverables
+  html = html.replace(
+    /active:\[[\s\S]*?\],(?=\s*shipped:)/,
+    `active:${jsLit(activeItems, 1)},`
+  );
+  console.log(`   DATA.active → ${activeItems.length} items`);
+
+  // Inject PROG_STATUSES
+  if (Object.keys(progStatuses).length) {
+    html = html.replace(
+      /\/\* BEGIN:PROG_STATUSES \*\/[\s\S]*?\/\* END:PROG_STATUSES \*\//,
+      `/* BEGIN:PROG_STATUSES */\nconst PROG_STATUSES = ${jsLit(progStatuses)};\n/* END:PROG_STATUSES */`
+    );
+    console.log(`   PROG_STATUSES → ${Object.keys(progStatuses).length} programs`);
   }
 
   if (process.env.ANTHROPIC_API_KEY) {
