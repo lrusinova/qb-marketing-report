@@ -849,14 +849,6 @@ const PROG_STATUSES = {
 };
 /* END:PROG_STATUSES */
 
-// Apply live Jira statuses to p1progs; remove items Jira has marked done
-(function(){
-  if(!Object.keys(PROG_STATUSES).length)return;
-  DATA.initiatives.forEach(ini=>{
-    ini.p1progs=(ini.p1progs||[]).map(p=>PROG_STATUSES[p.key]?{...p,status:PROG_STATUSES[p.key]}:p).filter(p=>p.status!=='done');
-  });
-})();
-
 /* ── PASSWORD GATE LOGIC — remove this block + CSS + HTML div to disable ── */
 (function(){
   const stored=localStorage.getItem('mkt_auth');
@@ -20454,6 +20446,14 @@ const DATA = {
     }
   ],
 };
+
+// Apply live Jira statuses to p1progs; remove items Jira has marked done
+(function(){
+  if(!Object.keys(PROG_STATUSES).length)return;
+  DATA.initiatives.forEach(ini=>{
+    ini.p1progs=(ini.p1progs||[]).map(p=>PROG_STATUSES[p.key]?{...p,status:PROG_STATUSES[p.key]}:p).filter(p=>p.status!=='done');
+  });
+})();
 
 /* ══════════════════════════════════════════════════════
    HELPERS
