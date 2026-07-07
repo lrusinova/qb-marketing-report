@@ -60,19 +60,32 @@ const JIRA_AUTH = Buffer.from(
 
 function jiraFetch(apiPath) {
   return new Promise((resolve, reject) => {
-    https.request({
+    let done = false;
+    const timer = setTimeout(() => {
+      if (done) return;
+      done = true;
+      req.destroy();
+      reject(new Error('Jira request timed out (30s)'));
+    }, 30000);
+
+    const req = https.request({
       hostname: 'quickbase.atlassian.net',
       path: apiPath,
       method: 'GET',
-      headers: { Authorization: `Basic ${JIRA_AUTH}`, Accept: 'application/json' }
+      headers: { Authorization: `Basic ${JIRA_AUTH}`, Accept: 'application/json' },
     }, res => {
       let body = '';
       res.on('data', c => body += c);
       res.on('end', () => {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
         if (res.statusCode >= 400) return reject(new Error(`Jira ${res.statusCode}: ${body.slice(0,200)}`));
         try { resolve(JSON.parse(body)); } catch (e) { reject(e); }
       });
-    }).on('error', reject).end();
+    });
+    req.on('error', e => { if (!done) { done = true; clearTimeout(timer); reject(e); } });
+    req.end();
   });
 }
 
@@ -83,7 +96,7 @@ async function jiraSearch(jql, fields = 'summary,status,issuetype,subtasks') {
     const url = `/rest/api/3/search/jql?jql=${encodeURIComponent(jql)}&startAt=${start}&maxResults=100&fields=${fields}`;
     const data = await jiraFetch(url);
     issues.push(...data.issues);
-    if (issues.length >= data.total || data.issues.length === 0) break;
+    if (data.isLast || data.issues.length === 0) break;
     start += 100;
   }
   return issues;
@@ -93,8 +106,8 @@ async function jiraSearch(jql, fields = 'summary,status,issuetype,subtasks') {
 async function estimateHours(tasks) {
   if (!tasks.length) return {};
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.warn('  ⚠  ANTHROPIC_API_KEY not set — defaulting to S=6h for all tasks');
+  const _ak = process.env.ANTHROPIC_API_KEY || '';
+  if (!_ak || _ak.startsWith('your_') || !_ak.startsWith('sk-')) {
     return Object.fromEntries(tasks.map(t => [t.key, 6]));
   }
 
@@ -296,7 +309,7 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
     const data = await jiraFetch(url);
     issues.push(...data.issues);
     process.stdout.write('.');
-    if (issues.length >= data.total || data.issues.length === 0) break;
+    if (data.isLast || data.issues.length === 0) break;
     start += 100;
   }
   console.log(` ${issues.length} raw`);

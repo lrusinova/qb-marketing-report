@@ -1,0 +1,48 @@
+{
+  "pulledAt": "Jul 7, 2026",
+  "note": "Live from Jira MKT + WE — counts exclude Done/Published/Released/etc.",
+  "strategicGoals": [
+    {
+      "key": "MKT-12568",
+      "name": "Agentic Workflow Evolution (AWE)",
+      "owner": "Gar Smyth",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    },
+    {
+      "key": "MKT-12569",
+      "name": "Core BU Marketing",
+      "owner": "TBH (role in hiring)",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    },
+    {
+      "key": "MKT-12570",
+      "name": "Integrated Marketing",
+      "owner": "Mirissa Kampf",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    },
+    {
+      "key": "MKT-12571",
+      "name": "Digital",
+      "owner": "Carlos Cortez de Barros",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    },
+    {
+      "key": "MKT-12572",
+      "name": "Corporate Communications",
+      "owner": "Tory Waldron",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    },
+    {
+      "key": "MKT-12573",
+      "name": "Marketing Systems & AI",
+      "owner": "Lynn Tan",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    },
+    {
+      "key": "MKT-12574",
+      "name": "Program Management",
+      "owner": "Luiza Rusinova",
+      "error": "getaddrinfo ENOTFOUND quickbase.atlassian.net"
+    }
+  ]
+}
