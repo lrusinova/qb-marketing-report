@@ -523,7 +523,7 @@ async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
           console.log('no BU labels configured');
           continue;
         }
-        jql = `project in (MKT, WE) AND statusCategory = Done AND updated >= "${cutoffStr}" AND labels in (${labelFilter}) ORDER BY updated DESC`;
+        jql = `project in (MKT, WE) AND status CHANGED TO ("Done","Published","Live","Posted","Design Done","Released","POSTED") AFTER "${cutoffStr}" AND labels in (${labelFilter}) ORDER BY updated DESC`;
       } else {
         // Channel-scoped: query by assignees who work in the scope channels
         const assignees = Object.entries(personChannel)
@@ -534,7 +534,7 @@ async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
           console.log('no assignees in scope channels');
           continue;
         }
-        jql = `project in (MKT, WE) AND statusCategory = Done AND updated >= "${cutoffStr}" AND assignee in (${assignees.join(',')}) ORDER BY updated DESC`;
+        jql = `project in (MKT, WE) AND status CHANGED TO ("Done","Published","Live","Posted","Design Done","Released","POSTED") AFTER "${cutoffStr}" AND assignee in (${assignees.join(',')}) ORDER BY updated DESC`;
       }
 
       const recentDone = await jiraSearch(jql, 'summary,assignee,issuetype,labels,status');
@@ -565,7 +565,7 @@ async function fetchRecentTasksPerInitiative(goals, today, personChannel) {
 
         if (!groups[groupKey]) groups[groupKey] = { count: 0, titles: [] };
         groups[groupKey].count++;
-        if (groups[groupKey].titles.length < 3) {
+        if (groups[groupKey].titles.length < 8) {
           const clean = summary.replace(/^\[[^\]]+\]\s*/, '').replace(/^[Pp]\d+:\s*/, '').substring(0, 70);
           groups[groupKey].titles.push(clean);
         }
