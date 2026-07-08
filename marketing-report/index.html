@@ -293,6 +293,8 @@ button{font-family:inherit;cursor:pointer}
 .gantt-bar:hover{box-shadow:0 3px 14px rgba(0,0,0,.28);z-index:14;filter:brightness(1.1)}
 .gantt-bar-lbl{font-size:10px;font-weight:700;color:#fff;white-space:nowrap;pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.35)}
 .gantt-bar-ext-lbl{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;font-weight:600;color:var(--g600);white-space:nowrap;pointer-events:none;padding-left:4px;z-index:5}
+.gantt-bar-live{position:relative}
+.gantt-bar-live::before{content:'';position:absolute;left:5px;top:4px;bottom:4px;width:3px;background:rgba(255,255,255,.52);border-radius:2px;pointer-events:none;z-index:5}
 /* overlays */
 .gantt-mo-div{position:absolute;top:0;bottom:0;width:1px;background:var(--g200);pointer-events:none;z-index:1}
 .gantt-wk-div{position:absolute;top:0;bottom:0;width:1px;background:var(--g100);pointer-events:none;z-index:1}
@@ -20561,30 +20563,30 @@ const DATA = {
 const ROADMAP = [
   // Q3 ── July 2026 ─────────────────────────────────────────────────────────────────────────
   // end = null → point-in-time milestone (diamond); end = date → duration bar
-  {id:'rm01',title:'Pave: Custom Agents',                          fn:'Product Mktg',    bu:'AWE', tier:'Tier 2',        owner:'Michelle',        weekOf:'2026-07-06',end:'2026-07-20',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12740'},
-  {id:'rm02',title:'FF: Beta AI Form Builder',                     fn:'Product Mktg',    bu:'AWE', tier:'Tier 3',        owner:'Michelle',        weekOf:'2026-07-06',end:'2026-07-13',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-11823'},
-  {id:'rm03',title:'Rebrand Phase 2 – Visual Systems',             fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny/Susana',    weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'confirmed',brief:null,jira:'WE-787'},
-  {id:'rm04',title:'Compilation Champion Video',                   fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Susana',          weekOf:'2026-07-06',end:'2026-08-17',qtr:'Q3',status:'tbc',      brief:null,jira:null},
-  {id:'rm05',title:'Advancing ElecPreFab (Jul 7–9, Dallas)',       fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-07-07',end:'2026-07-09',qtr:'Q3',status:'confirmed',brief:null,jira:null},
-  {id:'rm06',title:'Scheduler (Solvice) Open Beta',                fn:'Product Mktg',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-08-03',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12825'},
-  {id:'rm07',title:'New CX Offerings: Health Assessments + App-athon',fn:'Product Mktg',bu:'QB',  tier:'Tier 3',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'tbc',      brief:null,jira:null},
-  {id:'rm08',title:'IA + Nav Update (Brand Architecture)',          fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Susana/Carlos',   weekOf:'2026-07-13',end:'2026-09-28',qtr:'Q3',status:'confirmed',brief:null,jira:'WE-787'},
-  {id:'rm09',title:'Feature Focus: Summer Recap Webinar',          fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12598'},
-  {id:'rm10',title:'Empower 2026: 60-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-07-20',end:null,          qtr:'Q3',status:'planned', brief:null,jira:'MKT-12676'},
-  {id:'rm11',title:'Governance Features (ALM Enhancement)',         fn:'Product Mktg',    bu:'QB',  tier:'Tier 2',        owner:'Michael',         weekOf:'2026-07-20',end:'2026-08-03',qtr:'Q3',status:'tbc',      brief:null,jira:null},
-  {id:'rm_br01',title:'Brand: Design Directions – Ext. Team Review',fn:'Major Projects', bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-07-21',end:null,          qtr:'Q3',status:'confirmed',brief:null,jira:'WE-787'},
-  {id:'rm12',title:'AI Webinar 2',                                 fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-27',end:'2026-08-03',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  {id:'rm01',title:'Pave: Custom Agents',                          fn:'Product Mktg',    bu:'AWE', tier:'Tier 2',        owner:'Michelle',        weekOf:'2026-07-06',end:'2026-07-20',qtr:'Q3',status:'tbc',         brief:null,jira:'MKT-12740'},
+  {id:'rm02',title:'FF: Beta AI Form Builder',                     fn:'Product Mktg',    bu:'AWE', tier:'Tier 3',        owner:'Michelle',        weekOf:'2026-07-06',end:'2026-07-13',qtr:'Q3',status:'tbc',         brief:null,jira:'MKT-11823'},
+  {id:'rm03',title:'Rebrand Phase 2 – Visual Systems',             fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:'WE-787'},
+  {id:'rm04',title:'Compilation Champion Video',                   fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Jenny',           weekOf:'2026-07-06',end:'2026-08-17',qtr:'Q3',status:'in-progress',brief:null,jira:null},
+  {id:'rm05',title:'Advancing ElecPreFab (Jul 7–9, Dallas)',       fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-07-07',end:'2026-07-09',qtr:'Q3',status:'in-progress',brief:null,jira:null},
+  {id:'rm06',title:'Scheduler (Solvice) Open Beta',                fn:'Product Mktg',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-08-03',qtr:'Q3',status:'tbc',         brief:null,jira:'MKT-12825'},
+  {id:'rm07',title:'New CX Offerings: Health Assessments + App-athon',fn:'Product Mktg',bu:'QB',  tier:'Tier 3',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'tbc',         brief:null,jira:null},
+  {id:'rm08',title:'IA + Nav Update (Brand Architecture)',          fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Carlos',          weekOf:'2026-07-13',end:'2026-09-28',qtr:'Q3',status:'confirmed',  brief:null,jira:'WE-787'},
+  {id:'rm09',title:'Feature Focus: Summer Recap Webinar',          fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'tbc',         brief:null,jira:'MKT-12598'},
+  {id:'rm10',title:'Empower 2026: 60-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-07-20',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:'MKT-12676'},
+  {id:'rm11',title:'Governance Features (ALM Enhancement)',         fn:'Product Mktg',    bu:'QB',  tier:'Tier 2',        owner:'Michael',         weekOf:'2026-07-20',end:'2026-08-03',qtr:'Q3',status:'tbc',         brief:null,jira:null},
+  {id:'rm_br01',title:'Brand: Design Directions – Ext. Team Review',fn:'Major Projects', bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-07-21',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'WE-787'},
+  {id:'rm12',title:'AI Webinar 2',                                 fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-27',end:'2026-08-03',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   // Q3 ── August 2026 ───────────────────────────────────────────────────────────────────────
-  {id:'rm_br02',title:'Brand: Refined Design Review (Core Team)',  fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-06',end:null,          qtr:'Q3',status:'confirmed',brief:null,jira:'WE-787'},
-  {id:'rm13',title:'AI4 Conference (Aug 6–8, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-06',end:'2026-08-08',qtr:'Q3',status:'confirmed',brief:null,jira:'MKT-12386'},
-  {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Carlos/Susana',   weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',      brief:null,jira:'WE-787'},
-  {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'tbc',      brief:null,jira:null},
-  {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned', brief:null,jira:'MKT-12676'},
-  {id:'rm_br03',title:'Brand: Final Design – Extended Team Review',fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'confirmed',brief:null,jira:'WE-787'},
-  {id:'rm17',title:'Swag Store Launch',                            fn:'Events',          bu:'All', tier:'Activities',    owner:'Susana',          weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'planned', brief:null,jira:null},
-  {id:'rm18',title:'Integration Big Brand Video',                  fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Susana',          weekOf:'2026-08-31',end:'2026-10-12',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  {id:'rm_br02',title:'Brand: Refined Design Review (Core Team)',  fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-06',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'WE-787'},
+  {id:'rm13',title:'AI4 Conference (Aug 6–8, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-06',end:'2026-08-08',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12386'},
+  {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Carlos',          weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',         brief:null,jira:'WE-787'},
+  {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'tbc',         brief:null,jira:null},
+  {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:'MKT-12676'},
+  {id:'rm_br03',title:'Brand: Final Design – Extended Team Review',fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'WE-787'},
+  {id:'rm17',title:'Swag Store Launch',                            fn:'Events',          bu:'All', tier:'Activities',    owner:'Lindsey',         weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
+  {id:'rm18',title:'Integration Big Brand Video',                  fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Jenny',           weekOf:'2026-08-31',end:'2026-10-12',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   // Q3 ── September 2026 ────────────────────────────────────────────────────────────────────
-  {id:'rm_br04',title:'Brand: Asset Handoff & Onboarding',         fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny/Susana',    weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'planned', brief:null,jira:'WE-787'},
+  {id:'rm_br04',title:'Brand: Asset Handoff & Onboarding',         fn:'Major Projects',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'planned',   brief:null,jira:'WE-787'},
   {id:'rm19',title:'Scheduler (Solvice) GA',                       fn:'Product Mktg',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12825'},
   {id:'rm20',title:'FF: GA AI Form Builder',                       fn:'Product Mktg',    bu:'AWE', tier:'Tier 2',        owner:'Michelle',        weekOf:'2026-09-07',end:'2026-09-21',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-11823'},
   {id:'rm21',title:'Pave: Integration (Nango)',                    fn:'Product Mktg',    bu:'AWE', tier:'Tier 1',        owner:'Michelle',        weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12740'},
@@ -20658,16 +20660,23 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
    TAB
 ══════════════════════════════════════════════════════ */
 let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
-let rmQtr='Q3', rmFn='All', rmBU='All';
-function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
+let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All';
+function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;else if(w==='status')rmStatus=v;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
 
 /* ── ROADMAP GANTT RENDER ────────────────────────────────────────── */
 function renderRoadmap(){
   const FN_COL={'Product Mktg':'#4338ca','Events':'#0d9488','Major Projects':'#7c3aed','Brand & Creative':'#c2410c','Demand':'#1d4ed8','Community':'#15803d'};
   const FN_ORDER=['Product Mktg','Events','Major Projects','Brand & Creative','Demand','Community'];
   // item.end set → duration bar; item.end null → point-in-time diamond milestone
-  const ST={'confirmed':{op:1,dash:false,lbl:'Confirmed'},'planned':{op:0.8,dash:false,lbl:'Planned'},'tbc':{op:1,dash:true,lbl:'TBC'},'live':{op:1,dash:false,lbl:'Live'},'done':{op:0.45,dash:false,lbl:'Done'}};
-  const ST_DOT={'confirmed':'#0d9488','planned':'#1d4ed8','tbc':'#94a3b8','live':'#15803d','done':'#6b7280'};
+  const ST={
+    'confirmed':   {op:1,    dash:false, live:false, lbl:'Confirmed',   dot:'#0d9488'},
+    'in-progress': {op:1,    dash:false, live:true,  lbl:'In Progress', dot:'#16a34a'},
+    'planned':     {op:0.65, dash:false, live:false, lbl:'Planned',     dot:'#1d4ed8'},
+    'tbc':         {op:1,    dash:true,  live:false, lbl:'TBC',         dot:'#94a3b8'},
+    'live':        {op:1,    dash:false, live:true,  lbl:'Live',        dot:'#15803d'},
+    'done':        {op:0.4,  dash:false, live:false, lbl:'Done',        dot:'#6b7280'},
+  };
+  const ST_DOT=Object.fromEntries(Object.entries(ST).map(([k,v])=>[k,v.dot]));
   const RANGES={
     'Q3':{s:new Date('2026-07-01T00:00:00'),e:new Date('2026-09-30T23:59:59'),mo:[{lbl:'July 2026',s:'2026-07-01',e:'2026-07-31'},{lbl:'August 2026',s:'2026-08-01',e:'2026-08-31'},{lbl:'September 2026',s:'2026-09-01',e:'2026-09-30'}]},
     'Q4':{s:new Date('2026-10-01T00:00:00'),e:new Date('2026-12-31T23:59:59'),mo:[{lbl:'October 2026',s:'2026-10-01',e:'2026-10-31'},{lbl:'November 2026',s:'2026-11-01',e:'2026-11-30'},{lbl:'December 2026',s:'2026-12-01',e:'2026-12-31'}]},
@@ -20683,7 +20692,7 @@ function renderRoadmap(){
   const showToday=todayP>=0&&todayP<=100;
   const todayLbl=now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
   // filter + group
-  const items=ROADMAP.filter(i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU));
+  const items=ROADMAP.filter(i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU)&&(rmStatus==='All'||i.status===rmStatus));
   const grouped={};items.forEach(i=>{if(!grouped[i.fn])grouped[i.fn]=[];grouped[i.fn].push(i);});
   // month header strip
   const moHtml=rng.mo.map(m=>{
@@ -20713,6 +20722,7 @@ function renderRoadmap(){
   const allBUs=['All',...new Set(ROADMAP.map(i=>i.bu))];
   const fnOpts=allFns.map(f=>`<option value="${f}"${rmFn===f?' selected':''}>${f}</option>`).join('');
   const buOpts=allBUs.map(b=>`<option value="${b}"${rmBU===b?' selected':''}>${b}</option>`).join('');
+  const stOpts=[['All','All statuses'],['in-progress','In Progress'],['confirmed','Confirmed'],['planned','Planned'],['tbc','TBC'],['done','Done']].map(([v,l])=>`<option value="${v}"${rmStatus===v?' selected':''}>${l}</option>`).join('');
   const overdueCount=items.filter(i=>i.status==='tbc'&&new Date(i.weekOf+'T12:00:00')<now).length;
   const barCount=items.filter(i=>i.end).length;
   const mstCount=items.filter(i=>!i.end).length;
@@ -20720,20 +20730,23 @@ function renderRoadmap(){
     <div class="rm-seg">${['Q3','Q4','All'].map(q=>`<button class="rm-seg-btn${rmQtr===q?' on':''}" onclick="setRM('qtr','${q}')">${q==='All'?'Full H2':q}</button>`).join('')}</div>
     <select class="rm-drop${rmFn!=='All'?' active':''}" onchange="setRM('fn',this.value)">${fnOpts}</select>
     <select class="rm-drop${rmBU!=='All'?' active':''}" onchange="setRM('bu',this.value)">${buOpts}</select>
+    <select class="rm-drop${rmStatus!=='All'?' active':''}" onchange="setRM('status',this.value)">${stOpts}</select>
     <span class="rm-ctrl-count">${barCount} task${barCount!==1?'s':''} · ${mstCount} milestone${mstCount!==1?'s':''}</span>
     ${overdueCount>0?`<span style="font-size:11px;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:99px;padding:3px 10px">⚠ ${overdueCount} overdue TBC</span>`:''}
   </div>`;
   // legend
+  const legLive=`<span style="position:relative;display:inline-block;width:26px;height:10px;border-radius:3px;background:#16a34a;vertical-align:middle;overflow:hidden"><span style="position:absolute;left:4px;top:2px;bottom:2px;width:2px;background:rgba(255,255,255,.55);border-radius:1px"></span></span>`;
   const legBarSolid=`<span style="display:inline-block;width:26px;height:10px;border-radius:3px;background:#4338ca;vertical-align:middle"></span>`;
-  const legBarPlan=`<span style="display:inline-block;width:26px;height:10px;border-radius:3px;background:#4338ca;opacity:.8;vertical-align:middle"></span>`;
-  const legBarTbc=`<span style="display:inline-block;width:26px;height:10px;border-radius:3px;background:#4338ca18;border:2px dashed #4338ca;box-sizing:border-box;vertical-align:middle"></span>`;
+  const legBarPlan=`<span style="display:inline-block;width:26px;height:10px;border-radius:3px;background:#4338ca;opacity:.65;vertical-align:middle"></span>`;
+  const legBarTbc=`<span style="display:inline-block;width:26px;height:10px;border-radius:3px;background:#4338ca22;border:2px dashed #4338ca;box-sizing:border-box;vertical-align:middle"></span>`;
   const legDiamond=`<span style="display:inline-block;width:11px;height:11px;border-radius:2px;background:#0d9488;transform:rotate(45deg);vertical-align:middle"></span>`;
   const legDiaTbc=`<span style="display:inline-block;width:11px;height:11px;border-radius:2px;border:2px solid #94a3b8;transform:rotate(45deg);vertical-align:middle"></span>`;
   html+=`<div class="rm-legend">
-    <span class="rm-leg-item">${legBarSolid} Task (confirmed)</span>
-    <span class="rm-leg-item">${legBarPlan} Task (planned)</span>
-    <span class="rm-leg-item">${legBarTbc} Task (TBC)</span>
-    <span class="rm-leg-item">${legDiamond} Milestone (confirmed)</span>
+    <span class="rm-leg-item">${legLive} In Progress</span>
+    <span class="rm-leg-item">${legBarSolid} Confirmed</span>
+    <span class="rm-leg-item">${legBarPlan} Planned</span>
+    <span class="rm-leg-item">${legBarTbc} TBC</span>
+    <span class="rm-leg-item">${legDiamond} Milestone</span>
     <span class="rm-leg-item">${legDiaTbc} Milestone (TBC)</span>
     ${overdueCount>0?`<span class="rm-leg-item"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b;vertical-align:middle;margin-right:2px"></span>Overdue</span>`:''}
     ${showToday?`<span class="rm-leg-item"><span style="display:inline-block;width:2px;height:13px;background:#ef4444;vertical-align:middle;margin-right:2px"></span>Today (${todayLbl})</span>`:''}
@@ -20783,7 +20796,9 @@ function renderRoadmap(){
           barBg=col2;
         }
         const opStyle=(!st.dash)?`opacity:${st.op}`:'opacity:1';
-        markerHtml=`<div class="gantt-bar" style="left:${lp.toFixed(2)}%;width:${bw.toFixed(2)}%;background:${barBg};border:${barBorder};${opStyle}" title="${tipTxt}">`;
+        const liveCls=st.live?' gantt-bar-live':'';
+        const glowStyle=st.live?`;box-shadow:0 2px 12px ${col2}55`:'';
+        markerHtml=`<div class="gantt-bar${liveCls}" style="left:${lp.toFixed(2)}%;width:${bw.toFixed(2)}%;background:${barBg};border:${barBorder};${opStyle}${glowStyle}" title="${tipTxt}">`;
         if(bw>6.5){
           // label inside bar
           const t=item.title;
