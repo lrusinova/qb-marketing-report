@@ -20660,8 +20660,8 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
    TAB
 ══════════════════════════════════════════════════════ */
 let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
-let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All';
-function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;else if(w==='status')rmStatus=v;else if(w==='owner')rmOwner=v;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
+let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
+function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;else if(w==='status')rmStatus=v;else if(w==='owner')rmOwner=v;else if(w==='show-done')rmShowDone=!rmShowDone;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
 
 /* ── ROADMAP GANTT RENDER ────────────────────────────────────────── */
 function renderRoadmap(){
@@ -20692,7 +20692,12 @@ function renderRoadmap(){
   const showToday=todayP>=0&&todayP<=100;
   const todayLbl=now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
   // filter + group
-  const items=ROADMAP.filter(i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU)&&(rmStatus==='All'||i.status===rmStatus)&&(rmOwner==='All'||i.owner===rmOwner));
+  const baseFilter=i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU)&&(rmOwner==='All'||i.owner===rmOwner);
+  const items=ROADMAP.filter(i=>baseFilter(i)&&i.status!=='done'&&(rmStatus==='All'||i.status===rmStatus));
+  const doneItems=ROADMAP.filter(i=>baseFilter(i)&&i.status==='done').sort((a,b)=>b.weekOf.localeCompare(a.weekOf));
+  // per-owner active load (full roadmap, unfiltered, non-done)
+  const ownerLoad={};
+  ROADMAP.filter(i=>i.status!=='done').forEach(i=>{i.owner.split(',').forEach(o=>{const k=o.trim();ownerLoad[k]=(ownerLoad[k]||0)+1;});});
   const grouped={};items.forEach(i=>{if(!grouped[i.fn])grouped[i.fn]=[];grouped[i.fn].push(i);});
   // month header strip
   const moHtml=rng.mo.map(m=>{
@@ -20723,7 +20728,7 @@ function renderRoadmap(){
   const allOwners=['All',...Array.from(new Set(ROADMAP.map(i=>i.owner))).sort()];
   const fnOpts=allFns.map(f=>`<option value="${f}"${rmFn===f?' selected':''}>${f}</option>`).join('');
   const buOpts=allBUs.map(b=>`<option value="${b}"${rmBU===b?' selected':''}>${b}</option>`).join('');
-  const stOpts=[['All','All statuses'],['in-progress','In Progress'],['confirmed','Confirmed'],['planned','Planned'],['tbc','TBC'],['done','Done']].map(([v,l])=>`<option value="${v}"${rmStatus===v?' selected':''}>${l}</option>`).join('');
+  const stOpts=[['All','All statuses'],['in-progress','In Progress'],['confirmed','Confirmed'],['planned','Planned'],['tbc','TBC']].map(([v,l])=>`<option value="${v}"${rmStatus===v?' selected':''}>${l}</option>`).join('');
   const ownerOpts=allOwners.map(o=>`<option value="${o}"${rmOwner===o?' selected':''}>${o==='All'?'All owners':o}</option>`).join('');
   const overdueCount=items.filter(i=>i.status==='tbc'&&new Date(i.weekOf+'T12:00:00')<now).length;
   const barCount=items.filter(i=>i.end).length;
@@ -20831,7 +20836,7 @@ function renderRoadmap(){
       html+=`<div class="gantt-row${isOverdue?' gantt-row-overdue':''}" onclick="openRMPanel('${item.id}')">
         <div class="gantt-item-lc">
           <div class="gantt-item-title" title="${item.title}${!item.brief&&(item.status==='confirmed'||item.status==='in-progress')?' · No brief linked yet':''}"><span class="gantt-sdot" style="background:${dotCol}"></span>${item.title}${noBriefDot}</div>
-          <div class="gantt-item-meta">${buMeta}${item.tier} · ${item.owner}</div>
+          <div class="gantt-item-meta">${buMeta}${item.tier} · ${item.owner.split(',').map(o=>{const k=o.trim();const n=ownerLoad[k]||0;return n>3?`${k}<span style="display:inline-block;background:#fee2e2;color:#b91c1c;border-radius:99px;font-size:8.5px;font-weight:800;padding:0 4px;margin-left:2px;line-height:15px" title="${k} has ${n} active roadmap items">${n}</span>`:n>1?`${k}<span style="display:inline-block;background:#e0e7ff;color:#3730a3;border-radius:99px;font-size:8.5px;font-weight:800;padding:0 4px;margin-left:2px;line-height:15px" title="${k} has ${n} active roadmap items">${n}</span>`:k;}).join(', ')}</div>
           ${chips}
         </div>
         <div class="gantt-item-tc">
@@ -20841,6 +20846,42 @@ function renderRoadmap(){
       </div>`;
     });
   });
+  // ── Done / Completed section ──────────────────────────────────────
+  if(doneItems.length>0){
+    const doneIco=rmShowDone?'▼':'▶';
+    html+=`<div class="gantt-grp-row" onclick="setRM('show-done','x')" style="cursor:pointer;opacity:0.55;user-select:none">
+      <div class="gantt-grp-lc" style="border-left:3px solid #9ca3af"><span class="gantt-grp-name" style="color:#6b7280">${doneIco} Completed</span><span class="gantt-grp-cnt">${doneItems.length}</span></div>
+      <div class="gantt-grp-tc">${rowOv()}</div></div>`;
+    if(rmShowDone){
+      doneItems.forEach(item=>{
+        const col2=FN_COL[item.fn]||'#9ca3af';
+        const lp=p(item.weekOf);
+        const d=new Date(item.weekOf+'T12:00:00');
+        const startLbl=d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+        let endLbl='';if(item.end){const de=new Date(item.end+'T12:00:00');endLbl=' → '+de.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+        const buMeta2=item.bu!=='All'?item.bu+' · ':'';
+        const tipTxt2=`${item.title} · ${buMeta2}${item.tier} · ${item.owner} · ${startLbl}${endLbl} · Done`;
+        let doneMarker='';
+        if(item.end){
+          const ep=Math.min(p(item.end),99);const bw2=Math.max(ep-lp,0.6);
+          doneMarker=`<div class="gantt-bar" style="left:${lp.toFixed(2)}%;width:${bw2.toFixed(2)}%;background:#d1d5db;border:none;opacity:0.7" title="${tipTxt2}"><span class="gantt-bar-lbl" style="text-decoration:line-through">${bw2>6.5?item.title:''}</span></div>`;
+        } else {
+          doneMarker=`<div class="gantt-diamond" style="left:${lp.toFixed(2)}%;background:#9ca3af;opacity:0.7" title="${tipTxt2}"></div>`;
+        }
+        const jiraChip2=item.jira?`<a href="${JIRA}${item.jira}" target="_blank" rel="noopener" class="rm-link rm-link-jira" onclick="event.stopPropagation()" style="font-size:9.5px;padding:1px 6px">${item.jira}</a>`:'';
+        const briefChip2=item.brief?`<a href="${item.brief}" target="_blank" rel="noopener" class="rm-link rm-link-brief" onclick="event.stopPropagation()" style="font-size:9.5px;padding:1px 6px">Brief</a>`:'';
+        const chips2=(jiraChip2||briefChip2)?`<div style="display:flex;gap:3px;margin-top:3px">${jiraChip2}${briefChip2}</div>`:'';
+        html+=`<div class="gantt-row" style="opacity:0.55" onclick="openRMPanel('${item.id}')">
+          <div class="gantt-item-lc">
+            <div class="gantt-item-title" style="text-decoration:line-through;color:var(--g400)"><span class="gantt-sdot" style="background:#9ca3af"></span>${item.title}</div>
+            <div class="gantt-item-meta">${buMeta2}${item.tier} · ${item.owner}</div>
+            ${chips2}
+          </div>
+          <div class="gantt-item-tc">${rowOv()}${doneMarker}</div>
+        </div>`;
+      });
+    }
+  }
   html+=`</div></div>`;
   document.getElementById('roadmap').innerHTML=html;
   if(showToday){
