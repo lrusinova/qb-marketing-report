@@ -20660,8 +20660,8 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
    TAB
 ══════════════════════════════════════════════════════ */
 let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
-let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All';
-function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;else if(w==='status')rmStatus=v;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
+let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All';
+function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;else if(w==='status')rmStatus=v;else if(w==='owner')rmOwner=v;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
 
 /* ── ROADMAP GANTT RENDER ────────────────────────────────────────── */
 function renderRoadmap(){
@@ -20692,7 +20692,7 @@ function renderRoadmap(){
   const showToday=todayP>=0&&todayP<=100;
   const todayLbl=now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
   // filter + group
-  const items=ROADMAP.filter(i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU)&&(rmStatus==='All'||i.status===rmStatus));
+  const items=ROADMAP.filter(i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU)&&(rmStatus==='All'||i.status===rmStatus)&&(rmOwner==='All'||i.owner===rmOwner));
   const grouped={};items.forEach(i=>{if(!grouped[i.fn])grouped[i.fn]=[];grouped[i.fn].push(i);});
   // month header strip
   const moHtml=rng.mo.map(m=>{
@@ -20720,9 +20720,11 @@ function renderRoadmap(){
   // controls
   const allFns=['All',...new Set(ROADMAP.map(i=>i.fn))];
   const allBUs=['All',...new Set(ROADMAP.map(i=>i.bu))];
+  const allOwners=['All',...Array.from(new Set(ROADMAP.map(i=>i.owner))).sort()];
   const fnOpts=allFns.map(f=>`<option value="${f}"${rmFn===f?' selected':''}>${f}</option>`).join('');
   const buOpts=allBUs.map(b=>`<option value="${b}"${rmBU===b?' selected':''}>${b}</option>`).join('');
   const stOpts=[['All','All statuses'],['in-progress','In Progress'],['confirmed','Confirmed'],['planned','Planned'],['tbc','TBC'],['done','Done']].map(([v,l])=>`<option value="${v}"${rmStatus===v?' selected':''}>${l}</option>`).join('');
+  const ownerOpts=allOwners.map(o=>`<option value="${o}"${rmOwner===o?' selected':''}>${o==='All'?'All owners':o}</option>`).join('');
   const overdueCount=items.filter(i=>i.status==='tbc'&&new Date(i.weekOf+'T12:00:00')<now).length;
   const barCount=items.filter(i=>i.end).length;
   const mstCount=items.filter(i=>!i.end).length;
@@ -20731,6 +20733,7 @@ function renderRoadmap(){
     <select class="rm-drop${rmFn!=='All'?' active':''}" onchange="setRM('fn',this.value)">${fnOpts}</select>
     <select class="rm-drop${rmBU!=='All'?' active':''}" onchange="setRM('bu',this.value)">${buOpts}</select>
     <select class="rm-drop${rmStatus!=='All'?' active':''}" onchange="setRM('status',this.value)">${stOpts}</select>
+    <select class="rm-drop${rmOwner!=='All'?' active':''}" onchange="setRM('owner',this.value)">${ownerOpts}</select>
     <span class="rm-ctrl-count">${barCount} task${barCount!==1?'s':''} · ${mstCount} milestone${mstCount!==1?'s':''}</span>
     ${overdueCount>0?`<span style="font-size:11px;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:99px;padding:3px 10px">⚠ ${overdueCount} overdue TBC</span>`:''}
   </div>`;
@@ -20748,6 +20751,7 @@ function renderRoadmap(){
     <span class="rm-leg-item">${legBarTbc} TBC</span>
     <span class="rm-leg-item">${legDiamond} Milestone</span>
     <span class="rm-leg-item">${legDiaTbc} Milestone (TBC)</span>
+    <span class="rm-leg-item"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f97316;vertical-align:middle;margin-right:2px"></span>No brief yet</span>
     ${overdueCount>0?`<span class="rm-leg-item"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b;vertical-align:middle;margin-right:2px"></span>Overdue</span>`:''}
     ${showToday?`<span class="rm-leg-item"><span style="display:inline-block;width:2px;height:13px;background:#ef4444;vertical-align:middle;margin-right:2px"></span>Today (${todayLbl})</span>`:''}
   </div>`;
@@ -20823,9 +20827,10 @@ function renderRoadmap(){
       const jiraChip=item.jira?`<a href="${JIRA}${item.jira}" target="_blank" rel="noopener" class="rm-link rm-link-jira" onclick="event.stopPropagation()" style="font-size:9.5px;padding:1px 6px">${item.jira}</a>`:'';
       const briefChip=item.brief?`<a href="${item.brief}" target="_blank" rel="noopener" class="rm-link rm-link-brief" onclick="event.stopPropagation()" style="font-size:9.5px;padding:1px 6px">Brief</a>`:'';
       const chips=(jiraChip||briefChip)?`<div style="display:flex;gap:3px;margin-top:3px;flex-wrap:wrap">${jiraChip}${briefChip}</div>`:'';
+      const noBriefDot=(!item.brief&&(item.status==='confirmed'||item.status==='in-progress'))?`<span title="No brief linked yet" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f97316;flex-shrink:0;margin-left:5px;margin-top:1px"></span>`:'';
       html+=`<div class="gantt-row${isOverdue?' gantt-row-overdue':''}" onclick="openRMPanel('${item.id}')">
         <div class="gantt-item-lc">
-          <div class="gantt-item-title" title="${item.title}"><span class="gantt-sdot" style="background:${dotCol}"></span>${item.title}</div>
+          <div class="gantt-item-title" title="${item.title}${!item.brief&&(item.status==='confirmed'||item.status==='in-progress')?' · No brief linked yet':''}"><span class="gantt-sdot" style="background:${dotCol}"></span>${item.title}${noBriefDot}</div>
           <div class="gantt-item-meta">${buMeta}${item.tier} · ${item.owner}</div>
           ${chips}
         </div>
@@ -20838,6 +20843,12 @@ function renderRoadmap(){
   });
   html+=`</div></div>`;
   document.getElementById('roadmap').innerHTML=html;
+  if(showToday){
+    requestAnimationFrame(()=>{
+      const outer=document.querySelector('#roadmap .gantt-outer');
+      if(outer){outer.scrollLeft=Math.max(0,(todayP/100)*outer.scrollWidth-outer.clientWidth*0.35);}
+    });
+  }
 }
 
 /* ── ROADMAP SIDE PANEL ──────────────────────────────────────────── */
