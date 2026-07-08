@@ -22310,40 +22310,38 @@ function renderBriefing(){
 
   // ── BU snapshot cards ───────────────────────────────
   const _buDefs=[
-    {key:'AWE',  label:'AWE',            sub:'Fast Field + Pave', color:'#7c3aed'},
-    {key:'QB',   label:'QuickBase Core', sub:'Core product',      color:'#10503C'},
+    {key:'AWE', label:'AWE',            sub:'Fast Field + Pave', color:'#7c3aed'},
+    {key:'QB',  label:'QuickBase Core', sub:'Core product',      color:'#10503C'},
   ];
   const _buST={'in-progress':'#16a34a','confirmed':'#0d9488','planned':'#1d4ed8','tbc':'#94a3b8','live':'#15803d'};
-  const _fmtDt=d=>{if(!d)return '';const [,m,day]=d.split('-');const mn=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return mn[+m]+' '+parseInt(day);};
-  const buCardsHtml=`
-  <div class="sec-hd" style="margin-top:6px;margin-bottom:14px">
-    <h2>Business Unit Snapshot</h2>
-    <p>Upcoming Q3–Q4 launches &amp; activations · from roadmap</p>
-  </div>
-  <div class="bu-grid">
-    ${_buDefs.map(bu=>{
-      const items=ROADMAP.filter(i=>i.bu===bu.key&&i.status!=='done').sort((a,b)=>a.weekOf.localeCompare(b.weekOf));
-      const rows=items.map(i=>{
-        const dot=_buST[i.status]||'#94a3b8';
-        const dateStr=i.end?_fmtDt(i.end):_fmtDt(i.weekOf);
-        const tierLbl=i.tier&&i.tier.startsWith('Tier')?i.tier:'';
-        const titleInner=i.jira?`<a href="${JIRA}${i.jira}" target="_blank">${i.title}</a>`:i.title;
-        return \`<div class="bu-item">
-          <span class="bu-item-dot" style="background:\${dot}"></span>
-          <span class="bu-item-title">\${titleInner}</span>
-          \${tierLbl?'<span class="bu-item-tier">'+tierLbl+'</span>':''}
-          <span class="bu-item-meta">\${i.owner}<br>\${dateStr}</span>
-        </div>\`;
-      }).join('');
-      return \`<div class="bu-card">
-        <div class="bu-card-hdr" style="background:\${bu.color}">
-          <span class="bu-card-lbl">\${bu.label}</span>
-          <span class="bu-card-sub">\${bu.sub}</span>
-        </div>
-        <div class="bu-card-body">\${rows||'<div class="bu-item-empty">No upcoming items</div>'}</div>
-      </div>\`;
-    }).join('')}
-  </div>`;
+  const _fmtDt=function(d){if(!d)return '';const p=d.split('-');const mn=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return mn[+p[1]]+' '+parseInt(p[2]);};
+  let _buCardsInner='';
+  _buDefs.forEach(function(bu){
+    const items=ROADMAP.filter(function(i){return i.bu===bu.key&&i.status!=='done';}).sort(function(a,b){return a.weekOf.localeCompare(b.weekOf);});
+    let rows='';
+    items.forEach(function(i){
+      const dot=_buST[i.status]||'#94a3b8';
+      const dateStr=i.end?_fmtDt(i.end):_fmtDt(i.weekOf);
+      const tierLbl=i.tier&&i.tier.startsWith('Tier')?i.tier:'';
+      const titleInner=i.jira?'<a href="'+JIRA+i.jira+'" target="_blank">'+i.title+'</a>':i.title;
+      rows+='<div class="bu-item">'
+        +'<span class="bu-item-dot" style="background:'+dot+'"></span>'
+        +'<span class="bu-item-title">'+titleInner+'</span>'
+        +(tierLbl?'<span class="bu-item-tier">'+tierLbl+'</span>':'')
+        +'<span class="bu-item-meta">'+i.owner+'<br>'+dateStr+'</span>'
+        +'</div>';
+    });
+    _buCardsInner+='<div class="bu-card">'
+      +'<div class="bu-card-hdr" style="background:'+bu.color+'">'
+      +'<span class="bu-card-lbl">'+bu.label+'</span>'
+      +'<span class="bu-card-sub">'+bu.sub+'</span>'
+      +'</div>'
+      +'<div class="bu-card-body">'+(rows||'<div class="bu-item-empty">No upcoming items</div>')+'</div>'
+      +'</div>';
+  });
+  const buCardsHtml='<div class="sec-hd" style="margin-top:6px;margin-bottom:14px"><h2>Business Unit Snapshot</h2>'
+    +'<p>Upcoming Q3–Q4 launches &amp; activations · from roadmap</p></div>'
+    +'<div class="bu-grid">'+_buCardsInner+'</div>';
 
   document.getElementById('brief').innerHTML=`
     ${cmoBriefHtml}
