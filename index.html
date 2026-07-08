@@ -22796,7 +22796,7 @@ function renderAnalytics(){
     const xt=p.crossTeam?`<span class="cap-xtag">+${p.crossTeam} ${p.crossHours}h</span>`:'';
     const hCol=p.hours>40?'#92400E':p.load==='HIGH'?'#92400E':p.load==='LIGHT'?'var(--g400)':'var(--g700)';
     const dStr=p.hours<=0?'':p.hours>=40?'~'+(p.hours/40).toFixed(1)+'wk':Math.round(p.hours/8)+'d';
-    return `<div class="cap-row"><span class="cap-name" title="${p.name}">${sn}</span><div class="cap-bar-wrap" title="${p.hours}h = ${pct}% of 1 week (40h)"><div class="cap-bar-fill" style="width:${pct}%;background:${p.hours>40?'var(--red)':col}"></div></div><span class="cap-hrs" style="color:${hCol}">${p.hours}h<span style="font-size:9px;font-weight:400;color:var(--g400);margin-left:3px">${dStr}</span></span>${xt}</div>`;
+    return `<div class="cap-row"><span class="cap-name" title="${p.name}">${sn}</span><div class="cap-bar-wrap" title="${p.hours}h planned · ${pct}% of 1 week (40h)"><div class="cap-bar-fill" style="width:${pct}%;background:${p.hours>40?'var(--amber)':col}"></div></div><span class="cap-hrs" style="color:${hCol}">${p.hours}h<span style="font-size:9px;font-weight:400;color:var(--g400);margin-left:3px">${dStr}</span></span>${xt}</div>`;
   };
   const _LBADGE={
     'OVER':{label:'Full queue',   bg:'rgba(245,158,11,.12)',color:'#92400E',      cls:' is-over'},
@@ -22844,8 +22844,8 @@ function renderAnalytics(){
   const _gapChs=CAP_DATA.channels.filter(c=>c.load==='GAP');
   const capHtml='<div class="an-card an-full" style="border-top:3px solid var(--qb-teal);margin-bottom:16px">'
     +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px">'
-    +'<div><div class="an-hd" style="margin-bottom:3px">Team Capacity &mdash; AI Analyst View</div>'
-    +'<div class="an-sub">'+CAP_DATA.note+'</div></div>'
+    +'<div><div class="an-hd" style="margin-bottom:3px">Team Workload Snapshot</div>'
+    +'<div class="an-sub">Planned tasks assigned in Jira (To Do, Planning, In Progress) &mdash; reflects what is queued, not what is overdue &mdash; '+CAP_DATA.note+'</div></div>'
     +'<div style="flex-shrink:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--g500)">'+CAP_DATA.pulledAt+'</div>'
     +'</div>'
     +'<div class="an-kpi-row" style="grid-template-columns:repeat(5,1fr);margin-bottom:22px">'
@@ -22873,9 +22873,15 @@ function renderAnalytics(){
     +(_gapChs.length?'<span><span style="color:var(--g400)">'+_gapChs.length+' no data</span></span>':'')
     +'</div>'
     +'</div>'
-    +'<div style="font-size:12px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">By Channel / Team</div>'
+    +'<div style="font-size:12px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Workload by Team</div>'
+    +'<div style="font-size:11px;color:var(--g400);margin-bottom:12px">Planned hours in queue per channel · bars show weeks of backlog at current team size</div>'
     +'<div class="cap-ch-grid">'+CAP_DATA.channels.map(_chCard).join('')+'</div>'
-    +'<div style="font-size:12px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;margin-top:4px">By Person</div>'
+    +'<div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:8px;margin-bottom:4px">'
+    +'<div><div style="font-size:12px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px">Workload by Person</div>'
+    +'<div style="font-size:11px;color:var(--g400);margin-top:1px">Planned hours assigned in Jira per individual · bars capped at 1 week (40h)</div></div>'
+    +'<button id="cap-ppl-toggle" onclick="(function(){var el=document.getElementById(\'cap-ppl-body\');var btn=document.getElementById(\'cap-ppl-toggle\');var hidden=el.style.display===\'none\';el.style.display=hidden?\'\':\' none\';btn.textContent=hidden?\'Collapse ▲\':\'Show all people ▼\';})()" style="font-size:11px;font-weight:700;color:var(--g600);background:var(--g100);border:1px solid var(--g200);border-radius:6px;padding:4px 12px;cursor:pointer;white-space:nowrap;flex-shrink:0">Show all people ▼</button>'
+    +'</div>'
+    +'<div id="cap-ppl-body" style="display:none">'
     +'<div class="cap-teams">'
     +'<div class="cap-team" style="border-top:3px solid var(--navy)">'
     +'<div class="cap-team-hdr"><span class="cap-team-title">Marketing &mdash; MKT</span><span class="cap-team-meta">'+CAP_DATA.mkt.length+' people &middot; '+_cc(CAP_DATA.mkt,'OVER')+' full queue</span></div>'
@@ -22884,6 +22890,7 @@ function renderAnalytics(){
     +'<div class="cap-team" style="border-top:3px solid var(--blue)">'
     +'<div class="cap-team-hdr"><span class="cap-team-title">Web Experience &mdash; WE</span><span class="cap-team-meta">'+CAP_DATA.we.length+' people &middot; '+_cc(CAP_DATA.we,'OVER')+' full queue</span></div>'
     +CAP_DATA.we.map(_capRow).join('')
+    +'</div>'
     +'</div>'
     +'</div>'
     +'<div style="margin-top:14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--g700);line-height:1.65">'
