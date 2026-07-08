@@ -22787,20 +22787,20 @@ function renderAnalytics(){
   }).join('');
 
   // ── Capacity section ────────────────────────────────
-  const _LC={'OVER':'var(--red)','HIGH':'var(--amber)','OK':'var(--green)','LIGHT':'var(--g300)'};
+  const _LC={'OVER':'var(--amber)','HIGH':'#92400E','OK':'var(--green)','LIGHT':'var(--g300)'};
   const _capRow=p=>{
     const col=_LC[p.load]||'var(--g300)';
     const pct=Math.min(100,Math.round(p.hours/40*100));
     const parts=p.name.split(', ');
     const sn=parts.length>1?parts[1].trim().split(' ')[0]+' '+parts[0]:p.name;
     const xt=p.crossTeam?`<span class="cap-xtag">+${p.crossTeam} ${p.crossHours}h</span>`:'';
-    const hCol=p.hours>40?'var(--red)':p.load==='HIGH'?'#92400E':p.load==='LIGHT'?'var(--g400)':'var(--g700)';
+    const hCol=p.hours>40?'#92400E':p.load==='HIGH'?'#92400E':p.load==='LIGHT'?'var(--g400)':'var(--g700)';
     const dStr=p.hours<=0?'':p.hours>=40?'~'+(p.hours/40).toFixed(1)+'wk':Math.round(p.hours/8)+'d';
     return `<div class="cap-row"><span class="cap-name" title="${p.name}">${sn}</span><div class="cap-bar-wrap" title="${p.hours}h = ${pct}% of 1 week (40h)"><div class="cap-bar-fill" style="width:${pct}%;background:${p.hours>40?'var(--red)':col}"></div></div><span class="cap-hrs" style="color:${hCol}">${p.hours}h<span style="font-size:9px;font-weight:400;color:var(--g400);margin-left:3px">${dStr}</span></span>${xt}</div>`;
   };
   const _LBADGE={
-    'OVER':{label:'Over capacity',bg:'rgba(229,57,53,.12)', color:'var(--red)',   cls:' is-over'},
-    'HIGH':{label:'High load',    bg:'rgba(245,158,11,.12)',color:'#92400E',      cls:' is-high'},
+    'OVER':{label:'Full queue',   bg:'rgba(245,158,11,.12)',color:'#92400E',      cls:' is-over'},
+    'HIGH':{label:'High load',    bg:'rgba(245,158,11,.08)',color:'#92400E',      cls:' is-high'},
     'OK':  {label:'Healthy',      bg:'rgba(20,165,88,.1)',  color:'var(--green)', cls:''},
     'LIGHT':{label:'Light load',  bg:'var(--g100)',         color:'var(--g500)',  cls:''},
     'GAP': {label:'No data',      bg:'var(--g100)',         color:'var(--g400)',  cls:' is-gap'},
@@ -22812,7 +22812,7 @@ function renderAnalytics(){
     const wks=teamCap>0?c.hours/teamCap:0;
     // Bar scaled to 4-week max — full bar = 4 weeks of backlog
     const barPct=c.hours>0?Math.min(100,Math.round(wks/4*100)):0;
-    const barCol=c.load==='OVER'?'var(--red)':c.load==='HIGH'?'var(--amber)':c.load==='GAP'?'var(--g200)':'var(--green)';
+    const barCol=c.load==='OVER'?'var(--amber)':c.load==='HIGH'?'var(--amber)':c.load==='GAP'?'var(--g200)':'var(--green)';
     const unTag=c.unassigned>0?' &middot; <span style="color:var(--amber);font-weight:700">+'+c.unassigned+' unassigned</span>':'';
     const ppl=c.people.length>0?c.people.slice(0,3).join(', ')+(c.people.length>3?' +'+(c.people.length-3):''):'<em style="color:var(--g400)">No assignees</em>';
     const noteStr=c.note?'<div class="cap-ch-note">'+c.note+'</div>':'';
@@ -22849,13 +22849,13 @@ function renderAnalytics(){
     +'<div style="flex-shrink:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--g500)">'+CAP_DATA.pulledAt+'</div>'
     +'</div>'
     +'<div class="an-kpi-row" style="grid-template-columns:repeat(5,1fr);margin-bottom:22px">'
-    +'<div class="an-kpi" style="border-top:3px solid var(--red)"><div class="an-kpi-n" style="color:var(--red)">'+_aOver.length+'</div><span class="an-kpi-l">Over capacity</span><div class="an-kpi-sub">&gt;40h &middot; '+_overChs.length+' channels</div></div>'
+    +'<div class="an-kpi" style="border-top:3px solid var(--amber)"><div class="an-kpi-n" style="color:#92400E">'+_aOver.length+'</div><span class="an-kpi-l">Full queue</span><div class="an-kpi-sub">40h+ planned &middot; '+_overChs.length+' channels</div></div>'
     +'<div class="an-kpi" style="border-top:3px solid var(--amber)"><div class="an-kpi-n" style="color:#92400E">'+_aHigh.length+'</div><span class="an-kpi-l">High load</span><div class="an-kpi-sub">32&ndash;40h &middot; '+_highChs.length+' channels</div></div>'
     +'<div class="an-kpi" style="border-top:3px solid var(--green)"><div class="an-kpi-n" style="color:var(--green)">'+_aOk.length+'</div><span class="an-kpi-l">Healthy</span><div class="an-kpi-sub">16&ndash;32h &middot; '+_okChs.length+' channels</div></div>'
     +'<div class="an-kpi" style="border-top:3px solid var(--g300)"><div class="an-kpi-n">'+_aLt.length+'</div><span class="an-kpi-l">Light load</span><div class="an-kpi-sub">&lt;16h &middot; '+_ltChs.length+' channels</div></div>'
     +'<div class="an-kpi" style="border-top:3px solid var(--orange)"><div class="an-kpi-n" style="color:var(--orange)">'+CAP_DATA.mkt.filter(p=>p.crossTeam).length+'</div><span class="an-kpi-l">Cross-team</span><div class="an-kpi-sub">Span MKT + WE</div></div>'
     +'</div>'
-    +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:var(--red);margin-bottom:7px">&#9888;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' over capacity &mdash; action needed</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
+    +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:#92400E;margin-bottom:7px">&#128204;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' with full queues &mdash; consider prioritising before adding new work</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
     +'<div class="cap-seg-wrap">'
     +'<div style="font-size:11px;font-weight:700;color:var(--g500);margin-bottom:6px">Channel health distribution &mdash; '+CAP_DATA.channels.length+' teams</div>'
     +'<div class="cap-seg">'
@@ -22878,27 +22878,27 @@ function renderAnalytics(){
     +'<div style="font-size:12px;font-weight:800;color:var(--g500);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;margin-top:4px">By Person</div>'
     +'<div class="cap-teams">'
     +'<div class="cap-team" style="border-top:3px solid var(--navy)">'
-    +'<div class="cap-team-hdr"><span class="cap-team-title">Marketing &mdash; MKT</span><span class="cap-team-meta">'+CAP_DATA.mkt.length+' people &middot; '+_cc(CAP_DATA.mkt,'OVER')+' over capacity</span></div>'
+    +'<div class="cap-team-hdr"><span class="cap-team-title">Marketing &mdash; MKT</span><span class="cap-team-meta">'+CAP_DATA.mkt.length+' people &middot; '+_cc(CAP_DATA.mkt,'OVER')+' full queue</span></div>'
     +CAP_DATA.mkt.map(_capRow).join('')
     +'</div>'
     +'<div class="cap-team" style="border-top:3px solid var(--blue)">'
-    +'<div class="cap-team-hdr"><span class="cap-team-title">Web Experience &mdash; WE</span><span class="cap-team-meta">'+CAP_DATA.we.length+' people &middot; '+_cc(CAP_DATA.we,'OVER')+' over capacity</span></div>'
+    +'<div class="cap-team-hdr"><span class="cap-team-title">Web Experience &mdash; WE</span><span class="cap-team-meta">'+CAP_DATA.we.length+' people &middot; '+_cc(CAP_DATA.we,'OVER')+' full queue</span></div>'
     +CAP_DATA.we.map(_capRow).join('')
     +'</div>'
     +'</div>'
-    +'<div style="margin-top:14px;background:rgba(242,62,48,.06);border:1px solid rgba(242,62,48,.16);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--g700);line-height:1.65">'
-    +'<strong style="color:var(--red)">&#9888; Capacity alert:</strong> <strong>Michael Young-Ward</strong> 61 active tasks (~828h) &mdash; primary WE developer across all 3 BU web streams; highest load on team by a wide margin. <strong>Soumya Ghosh</strong> 31 tasks (~378h). <strong>Stephanie McPhee</strong> 25 tasks (~266h). <strong>Nikol Topozliyska</strong> 16 tasks (~242h). 11 of 12 channels over capacity &mdash; recommend a prioritization review before assigning new work.'
+    +'<div style="margin-top:14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--g700);line-height:1.65">'
+    +'<strong style="color:#92400E">&#128204; Workload snapshot:</strong> <strong>Michael Young-Ward</strong> has the highest queue (~828h planned) as primary WE developer across all 3 BU web streams. <strong>Soumya Ghosh</strong> ~378h &middot; <strong>Stephanie McPhee</strong> ~266h &middot; <strong>Nikol Topozliyska</strong> ~242h. Most channels have a full queue entering Q3 &mdash; this reflects planned work assigned, not work that is overdue.'
     +'</div>'
     +'<div class="cap-insights-row">'
-    +'<div class="cap-ins" style="border-top:3px solid var(--red)">'
-    +'<div class="cap-ins-icon">&#128293;</div>'
-    +'<div class="cap-ins-title">Act now</div>'
-    +'<div class="cap-ins-body">Web &amp; Digital: 122 tasks, 1,696h across the WE team. Michael Young-Ward carries 828h alone &mdash; primary dev for Pave Solutions pages (Jul 29), FF web build-out, and brand refresh. Immediate scope review needed before any new WE assignments.</div>'
+    +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
+    +'<div class="cap-ins-icon">&#128204;</div>'
+    +'<div class="cap-ins-title">Priority review</div>'
+    +'<div class="cap-ins-body">Web &amp; Digital has the largest planned queue (122 tasks, 1,696h across WE). Michael Young-Ward is the primary developer for Pave Solutions pages (Jul 29), FF web build-out, and brand refresh — worth reviewing scope before adding new WE items.</div>'
     +'</div>'
     +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
     +'<div class="cap-ins-icon">&#128336;</div>'
-    +'<div class="cap-ins-title">Q3 risk</div>'
-    +'<div class="cap-ins-body">11 of 12 channels are over capacity entering Q3. Highest: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics is the only healthy channel (32h, 1 person). Deprioritize lower-impact Q3 work now to prevent burnout mid-quarter.</div>'
+    +'<div class="cap-ins-title">Q3 planning</div>'
+    +'<div class="cap-ins-body">Most channels enter Q3 with a full queue of planned work. Highest queues: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics has the lightest queue (32h). Consider sequencing lower-priority items to later in the quarter.</div>'
     +'</div>'
     +'<div class="cap-ins" style="border-top:3px solid var(--green)">'
     +'<div class="cap-ins-icon">&#9989;</div>'
@@ -22988,6 +22988,15 @@ function renderAnalytics(){
 
   document.getElementById('analytics').innerHTML=`
     <div class="sec-hd"><h2>Analytics</h2><p>Updated ${DATA.lastUpdated}</p></div>
+
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px">
+      <span style="font-size:18px;flex-shrink:0;line-height:1.3">📋</span>
+      <div style="font-size:12.5px;color:#78350f;line-height:1.65">
+        <strong>What you're seeing:</strong> This tab shows <strong>planned workload</strong> — tasks currently assigned in Jira with status To Do, Planning, or In Progress.
+        A full queue means the team has a lot lined up, not that work is overdue or behind.
+        Use this view to sequence priorities and avoid overloading individuals before assigning new work.
+      </div>
+    </div>
 
     ${capHtml}
 
