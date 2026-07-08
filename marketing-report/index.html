@@ -400,9 +400,9 @@ button{font-family:inherit;cursor:pointer}
 .tl-strip-link:hover{text-decoration:underline}
 .ch-chips{display:flex;flex-wrap:wrap;gap:5px}
 .ch-chip{display:inline-flex;align-items:center;gap:4px;border-radius:14px;padding:3px 9px 3px 6px;font-size:11px;font-weight:600;border:1px solid;white-space:nowrap;line-height:1.4}
-.cap-attn{border-left:3px solid var(--red);background:rgba(229,57,53,.04);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:18px}
+.cap-attn{border-left:3px solid var(--amber);background:rgba(245,158,11,.04);border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:18px}
 .cap-attn-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
-.cap-attn-tag{font-size:11px;font-weight:800;background:rgba(229,57,53,.1);color:var(--red);border:1px solid rgba(229,57,53,.2);border-radius:4px;padding:2px 8px}
+.cap-attn-tag{font-size:11px;font-weight:700;background:var(--g100);color:var(--g600);border:1px solid var(--g200);border-radius:6px;padding:2px 9px}
 .cap-seg{display:flex;border-radius:6px;overflow:hidden;height:12px;gap:2px;margin-bottom:7px}
 .cap-seg-lbl{display:flex;gap:14px;font-size:10px;color:var(--g400);margin-bottom:18px;flex-wrap:wrap}
 .cap-seg-wrap{margin-bottom:20px}
@@ -22848,12 +22848,12 @@ function renderAnalytics(){
     +'<div class="an-sub">Planned tasks assigned in Jira (To Do, Planning, In Progress) &mdash; reflects what is queued, not what is overdue &mdash; '+CAP_DATA.note+'</div></div>'
     +'<div style="flex-shrink:0;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--g500)">'+CAP_DATA.pulledAt+'</div>'
     +'</div>'
-    +'<div class="an-kpi-row" style="grid-template-columns:repeat(5,1fr);margin-bottom:22px">'
-    +'<div class="an-kpi" style="border-top:3px solid var(--amber)"><div class="an-kpi-n" style="color:#92400E">'+_aOver.length+'</div><span class="an-kpi-l">Full queue</span><div class="an-kpi-sub">40h+ planned &middot; '+_overChs.length+' channels</div></div>'
-    +'<div class="an-kpi" style="border-top:3px solid var(--amber)"><div class="an-kpi-n" style="color:#92400E">'+_aHigh.length+'</div><span class="an-kpi-l">High load</span><div class="an-kpi-sub">32&ndash;40h &middot; '+_highChs.length+' channels</div></div>'
-    +'<div class="an-kpi" style="border-top:3px solid var(--green)"><div class="an-kpi-n" style="color:var(--green)">'+_aOk.length+'</div><span class="an-kpi-l">Healthy</span><div class="an-kpi-sub">16&ndash;32h &middot; '+_okChs.length+' channels</div></div>'
-    +'<div class="an-kpi" style="border-top:3px solid var(--g300)"><div class="an-kpi-n">'+_aLt.length+'</div><span class="an-kpi-l">Light load</span><div class="an-kpi-sub">&lt;16h &middot; '+_ltChs.length+' channels</div></div>'
-    +'<div class="an-kpi" style="border-top:3px solid var(--orange)"><div class="an-kpi-n" style="color:var(--orange)">'+CAP_DATA.mkt.filter(p=>p.crossTeam).length+'</div><span class="an-kpi-l">Cross-team</span><div class="an-kpi-sub">Span MKT + WE</div></div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px">'
+    +'<div style="display:flex;align-items:center;gap:8px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:8px 14px"><span style="font-size:22px;font-weight:900;color:#92400E;line-height:1">'+_aOver.length+'</span><div><div style="font-size:11px;font-weight:700;color:#92400E">Full queue</div><div style="font-size:10px;color:var(--g500)">40h+ planned &middot; '+_overChs.length+' channels</div></div></div>'
+    +'<div style="display:flex;align-items:center;gap:8px;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:8px 14px"><span style="font-size:22px;font-weight:900;color:var(--g700);line-height:1">'+_aHigh.length+'</span><div><div style="font-size:11px;font-weight:700;color:var(--g600)">High load</div><div style="font-size:10px;color:var(--g500)">32–40h &middot; '+_highChs.length+' channels</div></div></div>'
+    +'<div style="display:flex;align-items:center;gap:8px;background:rgba(20,165,88,.07);border:1px solid rgba(20,165,88,.2);border-radius:8px;padding:8px 14px"><span style="font-size:22px;font-weight:900;color:var(--green);line-height:1">'+_aOk.length+'</span><div><div style="font-size:11px;font-weight:700;color:var(--green)">Healthy</div><div style="font-size:10px;color:var(--g500)">16–32h &middot; '+_okChs.length+' channels</div></div></div>'
+    +'<div style="display:flex;align-items:center;gap:8px;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:8px 14px"><span style="font-size:22px;font-weight:900;color:var(--g400);line-height:1">'+_aLt.length+'</span><div><div style="font-size:11px;font-weight:700;color:var(--g500)">Light load</div><div style="font-size:10px;color:var(--g500)">&lt;16h &middot; '+_ltChs.length+' channels</div></div></div>'
+    +'<div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--g500);padding-right:4px"><span style="background:var(--g100);border-radius:6px;padding:4px 10px;font-weight:600">'+CAP_DATA.pulledAt+'</span></div>'
     +'</div>'
     +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:#92400E;margin-bottom:7px">&#128204;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' with a full Q3 queue &mdash; work is assigned and sequenced</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
     +'<div class="cap-seg-wrap">'
@@ -22996,13 +22996,8 @@ function renderAnalytics(){
   document.getElementById('analytics').innerHTML=`
     <div class="sec-hd"><h2>Analytics</h2><p>Updated ${DATA.lastUpdated}</p></div>
 
-    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 18px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px">
-      <span style="font-size:18px;flex-shrink:0;line-height:1.3">📋</span>
-      <div style="font-size:12.5px;color:#78350f;line-height:1.65">
-        <strong>What you're seeing:</strong> This tab shows <strong>planned workload</strong> — tasks currently assigned in Jira with status To Do, Planning, or In Progress.
-        A full queue means the team has a lot lined up, not that work is overdue or behind.
-        Use this view to sequence priorities and avoid overloading individuals before assigning new work.
-      </div>
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 14px;margin-bottom:18px;font-size:12px;color:#78350f;line-height:1.5">
+      📋 <strong>Planned workload view</strong> — tasks assigned in Jira (To Do, Planning, In Progress). A full queue means work is lined up and in progress, not that anything is overdue.
     </div>
 
     ${capHtml}
