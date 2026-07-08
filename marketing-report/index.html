@@ -250,6 +250,94 @@ button{font-family:inherit;cursor:pointer}
 .del3-avatar{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0}
 .del-empty{padding:36px;text-align:center;color:var(--g400);font-size:13px}
 
+/* ── ROADMAP GANTT ────────────────────────────────────── */
+.rm-ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:#fff;border-radius:12px;border:1px solid var(--g200);box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:10px;position:sticky;top:60px;z-index:50}
+.rm-seg{display:inline-flex;background:var(--g100);border-radius:9px;padding:3px;gap:2px;flex-shrink:0}
+.rm-seg-btn{padding:5px 14px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g500);cursor:pointer;transition:all .15s;white-space:nowrap}
+.rm-seg-btn.on{background:#fff;color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,.12);font-weight:700}
+.rm-drop{height:32px;border:1.5px solid var(--g200);border-radius:8px;padding:0 28px 0 10px;font-size:12.5px;color:var(--g600);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E") no-repeat right 9px center;appearance:none;cursor:pointer;font-weight:500;max-width:190px;min-width:130px}
+.rm-drop.active{border-color:var(--navy);color:var(--navy);font-weight:700}
+.rm-ctrl-count{margin-left:auto;font-size:11.5px;color:var(--g400);font-weight:600;white-space:nowrap}
+.rm-legend{display:flex;gap:16px;align-items:center;padding:0 2px 10px;flex-wrap:wrap}
+.rm-leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g500);font-weight:600}
+.rm-leg-swatch{width:22px;height:8px;border-radius:3px}
+/* gantt outer — horizontal scroll */
+.gantt-outer{overflow-x:auto;background:#fff;border:1px solid var(--g200);border-radius:12px;margin-bottom:8px}
+.gantt-inner{min-width:820px;font-size:12px}
+/* header */
+.gantt-head{display:flex;border-bottom:2px solid var(--g300)}
+.gantt-lc{width:240px;min-width:240px;flex-shrink:0;border-right:1px solid var(--g200);position:sticky;left:0;background:inherit;z-index:12}
+.gantt-lc-hd{height:52px;display:flex;align-items:flex-end;padding:0 14px 8px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--g400)}
+.gantt-tc{flex:1;position:relative;overflow:hidden}
+.gantt-mo-strip{position:relative;height:26px;border-bottom:1px solid var(--g200)}
+.gantt-mo{position:absolute;top:0;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--g700);border-right:1px solid var(--g200);overflow:hidden;white-space:nowrap;padding:0 6px}
+.gantt-wk-strip{position:relative;height:26px}
+.gantt-wk{position:absolute;top:0;height:26px;display:flex;align-items:center;font-size:9px;color:var(--g400);font-weight:600;border-right:1px solid var(--g100);padding-left:4px;overflow:hidden;white-space:nowrap}
+/* group row */
+.gantt-grp-row{display:flex;background:#f1f5f9;border-top:1.5px solid var(--g200);border-bottom:1px solid var(--g200)}
+.gantt-grp-lc{height:28px;display:flex;align-items:center;gap:7px;padding:0 14px;width:240px;min-width:240px;flex-shrink:0;position:sticky;left:0;background:#f1f5f9;border-right:1px solid var(--g200);z-index:11}
+.gantt-grp-name{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.gantt-grp-cnt{font-size:9px;font-weight:700;background:var(--g400);color:#fff;padding:1px 6px;border-radius:99px}
+.gantt-grp-tc{flex:1;position:relative;height:28px}
+/* item rows */
+.gantt-row{display:flex;border-bottom:1px solid var(--g100)}
+.gantt-row:last-child{border-bottom:none}
+.gantt-row:hover{background:#f8fafc}
+.gantt-row:hover .gantt-item-lc{background:#f8fafc}
+.gantt-item-lc{width:240px;min-width:240px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;padding:5px 14px;position:sticky;left:0;background:#fff;border-right:1px solid var(--g200);z-index:10;transition:background .1s}
+.gantt-item-title{font-size:12px;font-weight:600;color:var(--g900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+.gantt-item-meta{font-size:10px;color:var(--g400);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gantt-item-tc{flex:1;position:relative;min-height:38px}
+/* bars */
+.gantt-bar{position:absolute;top:50%;transform:translateY(-50%);height:18px;border-radius:5px;cursor:default;transition:opacity .15s,box-shadow .15s;z-index:4;display:flex;align-items:center;padding:0 7px;overflow:hidden;min-width:6px}
+.gantt-bar:hover{box-shadow:0 2px 12px rgba(0,0,0,.25);z-index:14;opacity:1!important}
+.gantt-bar-lbl{font-size:9px;font-weight:700;color:#fff;white-space:nowrap;pointer-events:none;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+/* overlays */
+.gantt-mo-div{position:absolute;top:0;bottom:0;width:1px;background:var(--g200);pointer-events:none;z-index:1}
+.gantt-wk-div{position:absolute;top:0;bottom:0;width:1px;background:var(--g100);pointer-events:none;z-index:1}
+.gantt-today-v{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;opacity:.8;z-index:6;pointer-events:none}
+.gantt-today-lbl{position:absolute;top:3px;font-size:8.5px;font-weight:800;color:#ef4444;white-space:nowrap;transform:translateX(-50%)}
+.rm-link{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px;text-decoration:none;display:inline-flex;align-items:center;gap:3px;border:1px solid transparent;transition:opacity .12s}
+.rm-link:hover{opacity:.8}
+.rm-link-brief{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.rm-link-jira{background:#f0fdf4;color:#15803d;border-color:#bbf7d0;font-family:monospace}
+.rm-empty{padding:60px 32px;text-align:center;background:#fff;border-radius:12px;border:1px solid var(--g200)}
+/* gantt enhancements */
+.gantt-row{cursor:pointer}
+.gantt-bar{cursor:pointer}
+.gantt-diamond{position:absolute;top:50%;width:13px;height:13px;border-radius:2px;transform:translateY(-50%) translateX(-50%) rotate(45deg);z-index:4;cursor:pointer;transition:box-shadow .15s,z-index .15s}
+.gantt-diamond:hover{box-shadow:0 2px 10px rgba(0,0,0,.35);z-index:14}
+.gantt-diamond-tbc{position:absolute;top:50%;width:13px;height:13px;border-radius:2px;transform:translateY(-50%) translateX(-50%) rotate(45deg);z-index:4;cursor:pointer;background:transparent;transition:box-shadow .15s}
+.gantt-diamond-tbc:hover{box-shadow:0 2px 10px rgba(0,0,0,.2);z-index:14}
+.gantt-row-overdue .gantt-item-lc{border-left:3px solid #f59e0b}
+.gantt-row-overdue .gantt-item-title{color:#92400e}
+.gantt-row-overdue .gantt-item-meta{color:#b45309}
+.gantt-sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-right:3px;display:inline-block;vertical-align:middle}
+/* side panel */
+#rm-panel{position:fixed;inset:0;z-index:200;pointer-events:none;visibility:hidden}
+#rm-panel.open{pointer-events:auto;visibility:visible}
+.rmp-backdrop{position:absolute;inset:0;background:rgba(15,23,42,.25);opacity:0;transition:opacity .22s}
+#rm-panel.open .rmp-backdrop{opacity:1}
+.rmp-drawer{position:absolute;top:0;right:0;bottom:0;width:360px;max-width:92vw;background:#fff;box-shadow:-6px 0 28px rgba(0,0,0,.13);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+#rm-panel.open .rmp-drawer{transform:translateX(0)}
+.rmp-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--g200);flex-shrink:0;background:#f8fafc}
+.rmp-hd-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--g400)}
+.rmp-close{background:none;border:none;font-size:16px;cursor:pointer;color:var(--g400);padding:4px 8px;border-radius:6px;line-height:1;transition:background .1s,color .1s}
+.rmp-close:hover{background:var(--g200);color:var(--g700)}
+.rmp-body{flex:1;overflow-y:auto;padding:20px 18px}
+.rmp-fn-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;display:block}
+.rmp-title{font-size:16px;font-weight:800;color:var(--navy);line-height:1.35;margin-bottom:10px}
+.rmp-status-chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:99px;margin-bottom:18px}
+.rmp-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:18px}
+.rmp-meta-cell{background:var(--g50);border-radius:9px;padding:10px 12px}
+.rmp-meta-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--g400);margin-bottom:3px}
+.rmp-meta-val{font-size:13px;font-weight:700;color:var(--g800)}
+.rmp-links{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.rmp-btn{display:flex;align-items:center;gap:9px;padding:12px 14px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity .15s,transform .1s;border:1.5px solid transparent}
+.rmp-btn:hover{opacity:.85;transform:translateY(-1px)}
+.rmp-btn-brief{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.rmp-btn-jira{background:#f0fdf4;color:#15803d;border-color:#bbf7d0;font-family:monospace}
+.rmp-footer{padding-top:14px;border-top:1px solid var(--g100);font-size:10px;color:var(--g400)}
 /* ── ANALYTICS ──────────────────────────────────────── */
 .an-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .an-full{grid-column:1/-1}
@@ -628,6 +716,10 @@ window.addEventListener('load',function(){
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
     Programs
   </button>
+  <button class="tbtn" onclick="go('roadmap',this)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
+    Roadmap
+  </button>
   <button class="tbtn" onclick="go('analytics',this)">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     Analytics
@@ -637,7 +729,20 @@ window.addEventListener('load',function(){
 <div id="brief"        class="pane on"></div>
 <div id="programs"     class="pane"></div>
 <div id="deliverables" class="pane"></div>
+<div id="roadmap"      class="pane"></div>
 <div id="analytics"    class="pane"></div>
+
+<!-- Roadmap side panel -->
+<div id="rm-panel" aria-hidden="true">
+  <div class="rmp-backdrop" onclick="closeRMPanel()"></div>
+  <div class="rmp-drawer">
+    <div class="rmp-hd">
+      <span class="rmp-hd-label">Item Details</span>
+      <button class="rmp-close" onclick="closeRMPanel()" title="Close (Esc)">✕</button>
+    </div>
+    <div class="rmp-body" id="rm-panel-body"></div>
+  </div>
+</div>
 
 <script>
 /* ══════════════════════════════════════════════════════
@@ -20447,6 +20552,46 @@ const DATA = {
   ],
 };
 
+/* ── ROADMAP DATA ────────────────────────────────────────────────────
+   status: tbc | planned | confirmed | live | done
+   brief:  Confluence URL (null until created)
+   jira:   Jira issue key e.g. "MKT-12345" (null until created)
+──────────────────────────────────────────────────────────────────── */
+const ROADMAP = [
+  // Q3 ── July 2026 ───────────────────────────────────────────────
+  {id:'rm01',title:'Pave: Custom Agents',                          fn:'Product Mktg',    bu:'AWE', tier:'Tier 2',        owner:'Michelle',        weekOf:'2026-07-06',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12740'},
+  {id:'rm02',title:'FF: Beta AI Form Builder',                     fn:'Product Mktg',    bu:'AWE', tier:'Tier 3',        owner:'Michelle',        weekOf:'2026-07-06',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-11823'},
+  {id:'rm03',title:'Rebrand Phase 2 – Visual Systems',             fn:'Major Projects',  bu:'All', tier:'Workstream 2+3',owner:'Susana',          weekOf:'2026-07-06',qtr:'Q3',status:'tbc',      brief:null,jira:'WE-787'},
+  {id:'rm04',title:'Compilation Champion Video',                   fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Susana',          weekOf:'2026-07-06',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  {id:'rm05',title:'Advancing ElecPreFab (Jul 7–9, Dallas)',       fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-07-07',qtr:'Q3',status:'confirmed', brief:null,jira:null},
+  {id:'rm06',title:'Scheduler (Solvice) Open Beta',                fn:'Product Mktg',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-07-13',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12825'},
+  {id:'rm07',title:'New CX Offerings: Health Assessments + App-athon',fn:'Product Mktg',bu:'QB',  tier:'Tier 3',        owner:'Michael',         weekOf:'2026-07-13',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  {id:'rm08',title:'IA + Nav Update (Brand Architecture)',          fn:'Major Projects',  bu:'All', tier:'Workstream 4',  owner:'Susana',          weekOf:'2026-07-13',qtr:'Q3',status:'tbc',      brief:null,jira:'WE-787'},
+  {id:'rm09',title:'Feature Focus: Summer Recap Webinar',          fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-13',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12598'},
+  {id:'rm10',title:'Empower 2026: 60-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-07-20',qtr:'Q3',status:'planned',   brief:null,jira:'MKT-12676'},
+  {id:'rm11',title:'Governance Features (ALM Enhancement)',         fn:'Product Mktg',    bu:'QB',  tier:'Tier 2',        owner:'Michael',         weekOf:'2026-07-20',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  {id:'rm12',title:'AI Webinar 2',                                 fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-27',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  // Q3 ── August 2026 ─────────────────────────────────────────────
+  {id:'rm13',title:'AI4 Conference (Aug 6–8, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-06',qtr:'Q3',status:'confirmed', brief:null,jira:'MKT-12386'},
+  {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Major Projects',  bu:'All', tier:'Workstream 4',  owner:'Susana',          weekOf:'2026-08-10',qtr:'Q3',status:'tbc',      brief:null,jira:'WE-787'},
+  {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',qtr:'Q3',status:'planned',   brief:null,jira:'MKT-12676'},
+  {id:'rm17',title:'Swag Store Launch',                            fn:'Events',          bu:'All', tier:'Activities',    owner:'Susana',          weekOf:'2026-08-24',qtr:'Q3',status:'planned',   brief:null,jira:null},
+  {id:'rm18',title:'Integration Big Brand Video',                  fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Susana',          weekOf:'2026-08-31',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  // Q3 ── September 2026 ──────────────────────────────────────────
+  {id:'rm19',title:'Scheduler (Solvice) GA',                       fn:'Product Mktg',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-09-07',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12825'},
+  {id:'rm20',title:'FF: GA AI Form Builder',                       fn:'Product Mktg',    bu:'AWE', tier:'Tier 2',        owner:'Michelle',        weekOf:'2026-09-07',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-11823'},
+  {id:'rm21',title:'Pave: Integration (Nango)',                    fn:'Product Mktg',    bu:'AWE', tier:'Tier 1',        owner:'Michelle',        weekOf:'2026-09-07',qtr:'Q3',status:'tbc',      brief:null,jira:'MKT-12740'},
+  {id:'rm22',title:'FF: Solvice',                                  fn:'Product Mktg',    bu:'AWE', tier:'Tier 3',        owner:'Michelle',        weekOf:'2026-09-07',qtr:'Q3',status:'tbc',      brief:null,jira:null},
+  // Q4 ── October 2026 ────────────────────────────────────────────
+  {id:'rm23',title:'NECA (Oct 4–7, Las Vegas)',                    fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-10-04',qtr:'Q4',status:'confirmed', brief:null,jira:null},
+  {id:'rm24',title:'Empower Pro 2026 – Dates Announcement',        fn:'Events',          bu:'All', tier:'Empower Pro',   owner:'Bridgette',       weekOf:'2026-10-12',qtr:'Q4',status:'tbc',      brief:null,jira:null},
+  {id:'rm25',title:'FY27 Empower – Location Announcement',         fn:'Events',          bu:'All', tier:'FY27 Empower',  owner:'Bridgette, Lilly',weekOf:'2026-10-12',qtr:'Q4',status:'tbc',      brief:null,jira:null},
+  {id:'rm26',title:'Gartner IT Symposium (Oct 19–20, Orlando)',    fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-10-19',qtr:'Q4',status:'confirmed', brief:null,jira:'MKT-12684'},
+  // Q4 ── November 2026 ───────────────────────────────────────────
+  {id:'rm27',title:'FY27 Empower – Registration Opens',            fn:'Events',          bu:'All', tier:'FY27 Empower',  owner:'Bridgette, Lilly',weekOf:'2026-11-02',qtr:'Q4',status:'tbc',      brief:null,jira:null},
+];
+
 // Apply live Jira statuses to p1progs; remove items Jira has marked done
 (function(){
   if(!Object.keys(PROG_STATUSES).length)return;
@@ -20506,6 +20651,193 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
    TAB
 ══════════════════════════════════════════════════════ */
 let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
+let rmQtr='Q3', rmFn='All', rmBU='All';
+function setRM(w,v){if(w==='qtr')rmQtr=v;else if(w==='fn')rmFn=v;else if(w==='bu')rmBU=v;document.getElementById('roadmap').innerHTML='';renderRoadmap();}
+
+/* ── ROADMAP GANTT RENDER ────────────────────────────────────────── */
+function renderRoadmap(){
+  const FN_COL={'Product Mktg':'#4338ca','Events':'#0d9488','Major Projects':'#7c3aed','Brand & Creative':'#c2410c','Demand':'#1d4ed8','Community':'#15803d'};
+  const FN_ORDER=['Product Mktg','Events','Major Projects','Brand & Creative','Demand','Community'];
+  // shape: diamond = point-in-time milestone; bar = phased/ongoing work
+  const BAR_FNS=new Set(['Major Projects','Brand & Creative']);
+  const ST={'confirmed':{op:1,dash:false,lbl:'Confirmed'},'planned':{op:0.72,dash:false,lbl:'Planned'},'tbc':{op:1,dash:true,lbl:'TBC'},'live':{op:1,dash:false,lbl:'Live'},'done':{op:0.5,dash:false,lbl:'Done'}};
+  const ST_DOT={'confirmed':'#0d9488','planned':'#1d4ed8','tbc':'#94a3b8','live':'#15803d','done':'#94a3b8'};
+  const RANGES={
+    'Q3':{s:new Date('2026-07-01T00:00:00'),e:new Date('2026-09-30T23:59:59'),mo:[{lbl:'July 2026',s:'2026-07-01',e:'2026-07-31'},{lbl:'August 2026',s:'2026-08-01',e:'2026-08-31'},{lbl:'September 2026',s:'2026-09-01',e:'2026-09-30'}]},
+    'Q4':{s:new Date('2026-10-01T00:00:00'),e:new Date('2026-12-31T23:59:59'),mo:[{lbl:'October 2026',s:'2026-10-01',e:'2026-10-31'},{lbl:'November 2026',s:'2026-11-01',e:'2026-11-30'},{lbl:'December 2026',s:'2026-12-01',e:'2026-12-31'}]},
+    'All':{s:new Date('2026-07-01T00:00:00'),e:new Date('2026-12-31T23:59:59'),mo:[{lbl:'Jul',s:'2026-07-01',e:'2026-07-31'},{lbl:'Aug',s:'2026-08-01',e:'2026-08-31'},{lbl:'Sep',s:'2026-09-01',e:'2026-09-30'},{lbl:'Oct',s:'2026-10-01',e:'2026-10-31'},{lbl:'Nov',s:'2026-11-01',e:'2026-11-30'},{lbl:'Dec',s:'2026-12-01',e:'2026-12-31'}]}
+  };
+  const rng=RANGES[rmQtr]||RANGES['Q3'];
+  const tMs=rng.e-rng.s;
+  const tDays=tMs/86400000;
+  const p=d=>Math.max(0,Math.min(97,(new Date(d+'T12:00:00')-rng.s)/tMs*100));
+  const barW=Math.max(2.5,7/tDays*100);
+  const now=new Date();
+  const todayP=(now-rng.s)/tMs*100;
+  const showToday=todayP>=0&&todayP<=100;
+  const todayLbl=now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  // filter + group
+  const items=ROADMAP.filter(i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU));
+  const grouped={};items.forEach(i=>{if(!grouped[i.fn])grouped[i.fn]=[];grouped[i.fn].push(i);});
+  // month headers
+  const moHtml=rng.mo.map(m=>{
+    const ms=new Date(m.s+'T00:00:00'),me=new Date(m.e+'T23:59:59');
+    const l=Math.max(0,(ms-rng.s)/tMs*100),w=(me-ms)/tMs*100;
+    return `<div class="gantt-mo" style="left:${l.toFixed(2)}%;width:${w.toFixed(2)}%">${m.lbl}</div>`;
+  }).join('');
+  // week ticks
+  let wkHtml='';
+  const wd=new Date(rng.s);while(wd.getDay()!==1)wd.setDate(wd.getDate()+1);
+  while(wd<rng.e){
+    const wp=(wd-rng.s)/tMs*100;
+    if(wp>0&&wp<99)wkHtml+=`<div class="gantt-wk" style="left:${wp.toFixed(2)}%;width:${barW.toFixed(2)}%">${wd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>`;
+    wd.setDate(wd.getDate()+7);
+  }
+  function rowOv(){
+    let o='';
+    const wd2=new Date(rng.s);while(wd2.getDay()!==1)wd2.setDate(wd2.getDate()+1);
+    while(wd2<rng.e){const wp=(wd2-rng.s)/tMs*100;if(wp>0&&wp<99)o+=`<div class="gantt-wk-div" style="left:${wp.toFixed(2)}%"></div>`;wd2.setDate(wd2.getDate()+7);}
+    rng.mo.slice(1).forEach(m=>{const mp=(new Date(m.s+'T00:00:00')-rng.s)/tMs*100;o+=`<div class="gantt-mo-div" style="left:${mp.toFixed(2)}%"></div>`;});
+    if(showToday)o+=`<div class="gantt-today-v" style="left:${todayP.toFixed(2)}%"></div>`;
+    return o;
+  }
+  // controls
+  const allFns=['All',...new Set(ROADMAP.map(i=>i.fn))];
+  const allBUs=['All',...new Set(ROADMAP.map(i=>i.bu))];
+  const fnOpts=allFns.map(f=>`<option value="${f}"${rmFn===f?' selected':''}>${f}</option>`).join('');
+  const buOpts=allBUs.map(b=>`<option value="${b}"${rmBU===b?' selected':''}>${b}</option>`).join('');
+  const overdueCount=items.filter(i=>i.status==='tbc'&&new Date(i.weekOf+'T12:00:00')<now).length;
+  let html=`<div class="rm-ctrl">
+    <div class="rm-seg">${['Q3','Q4','All'].map(q=>`<button class="rm-seg-btn${rmQtr===q?' on':''}" onclick="setRM('qtr','${q}')">${q==='All'?'Full H2':q}</button>`).join('')}</div>
+    <select class="rm-drop${rmFn!=='All'?' active':''}" onchange="setRM('fn',this.value)">${fnOpts}</select>
+    <select class="rm-drop${rmBU!=='All'?' active':''}" onchange="setRM('bu',this.value)">${buOpts}</select>
+    <span class="rm-ctrl-count">${items.length} milestone${items.length!==1?'s':''}</span>
+    ${overdueCount>0?`<span style="font-size:11px;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:99px;padding:3px 10px">${overdueCount} overdue TBC</span>`:''}
+  </div>`;
+  // legend
+  html+=`<div class="rm-legend">
+    <span class="rm-leg-item"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#4338ca;transform:rotate(45deg);vertical-align:middle"></span>Milestone (confirmed)</span>
+    <span class="rm-leg-item"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#4338ca;opacity:.72;transform:rotate(45deg);vertical-align:middle"></span>Milestone (planned)</span>
+    <span class="rm-leg-item"><span style="display:inline-block;width:12px;height:12px;border-radius:2px;border:2px dashed #4338ca;box-sizing:border-box;transform:rotate(45deg);vertical-align:middle"></span>TBC</span>
+    <span class="rm-leg-item"><span style="display:inline-block;width:22px;height:8px;border-radius:3px;background:#7c3aed;vertical-align:middle"></span>Phase (ongoing)</span>
+    ${overdueCount>0?`<span class="rm-leg-item"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b;vertical-align:middle;margin-right:2px"></span>Overdue TBC</span>`:''}
+    ${showToday?`<span class="rm-leg-item"><span style="display:inline-block;width:2px;height:12px;background:#ef4444;vertical-align:middle;margin-right:2px"></span>Today (${todayLbl})</span>`:''}
+  </div>`;
+  if(!items.length){
+    html+=`<div class="rm-empty"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:14px;font-weight:700;color:var(--g700)">No items match</div><div style="font-size:12px;color:var(--g400);margin-top:4px">Try adjusting the filters</div></div>`;
+    document.getElementById('roadmap').innerHTML=html;return;
+  }
+  html+=`<div style="font-size:11px;color:var(--g400);margin-bottom:8px;padding:0 2px">Click any row to see details and links.</div>`;
+  html+=`<div class="gantt-outer"><div class="gantt-inner">`;
+  html+=`<div class="gantt-head">
+    <div class="gantt-lc gantt-lc-hd"><span>Item</span></div>
+    <div class="gantt-tc">
+      <div class="gantt-mo-strip">${moHtml}${showToday?`<div class="gantt-today-v" style="left:${todayP.toFixed(2)}%"><div class="gantt-today-lbl">${todayLbl}</div></div>`:''}</div>
+      <div class="gantt-wk-strip">${wkHtml}</div>
+    </div>
+  </div>`;
+  const fnKeys=FN_ORDER.filter(f=>grouped[f]).concat(Object.keys(grouped).filter(f=>!FN_ORDER.includes(f)));
+  fnKeys.forEach(fn=>{
+    const col=FN_COL[fn]||'#64748b';
+    const gi=grouped[fn].sort((a,b)=>a.weekOf.localeCompare(b.weekOf));
+    html+=`<div class="gantt-grp-row"><div class="gantt-grp-lc" style="border-left:3px solid ${col}"><span class="gantt-grp-name" style="color:${col}">${fn}</span><span class="gantt-grp-cnt">${gi.length}</span></div><div class="gantt-grp-tc">${rowOv()}</div></div>`;
+    gi.forEach(item=>{
+      const col2=FN_COL[item.fn]||'#64748b';
+      const st=ST[item.status]||ST.tbc;
+      const isBar=BAR_FNS.has(item.fn);
+      const lp=p(item.weekOf);
+      const isOverdue=item.status==='tbc'&&new Date(item.weekOf+'T12:00:00')<now;
+      const dotCol=isOverdue?'#f59e0b':(ST_DOT[item.status]||'#94a3b8');
+      const d=new Date(item.weekOf+'T12:00:00');
+      const wkLbl=d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      const buMeta=item.bu!=='All'?item.bu+' · ':'';
+      const stLbl=isOverdue?'Overdue TBC':st.lbl;
+      const tipTxt=`${item.title} · ${buMeta}${item.tier} · ${item.owner} · wk of ${wkLbl} · ${stLbl}`;
+      // marker: diamond or bar
+      let markerHtml='';
+      if(isBar){
+        // phase bar
+        const barStyle=st.dash
+          ?`left:${lp.toFixed(2)}%;width:${barW.toFixed(2)}%;background:transparent;border:2px dashed ${col2};border-radius:5px`
+          :`left:${lp.toFixed(2)}%;width:${barW.toFixed(2)}%;background:${col2};opacity:${st.op}`;
+        markerHtml=`<div class="gantt-bar" style="${barStyle}" title="${tipTxt}">
+          ${!st.dash&&barW>8?`<span class="gantt-bar-lbl">${item.title.length>18?item.title.slice(0,16)+'…':item.title}</span>`:''}
+        </div>`;
+      } else {
+        // diamond milestone
+        if(st.dash){
+          markerHtml=`<div class="gantt-diamond-tbc" style="left:${lp.toFixed(2)}%;border:2px solid ${isOverdue?'#f59e0b':col2}" title="${tipTxt}"></div>`;
+        } else {
+          markerHtml=`<div class="gantt-diamond" style="left:${lp.toFixed(2)}%;background:${col2};opacity:${st.op}" title="${tipTxt}"></div>`;
+        }
+      }
+      // jira/brief chips in left column
+      const jiraChip=item.jira?`<a href="${JIRA}${item.jira}" target="_blank" rel="noopener" class="rm-link rm-link-jira" onclick="event.stopPropagation()" style="font-size:9.5px;padding:1px 6px">${item.jira}</a>`:'';
+      const briefChip=item.brief?`<a href="${item.brief}" target="_blank" rel="noopener" class="rm-link rm-link-brief" onclick="event.stopPropagation()" style="font-size:9.5px;padding:1px 6px">Brief</a>`:'';
+      const chips=(jiraChip||briefChip)?`<div style="display:flex;gap:3px;margin-top:3px;flex-wrap:wrap">${jiraChip}${briefChip}</div>`:'';
+      html+=`<div class="gantt-row${isOverdue?' gantt-row-overdue':''}" onclick="openRMPanel('${item.id}')">
+        <div class="gantt-item-lc">
+          <div class="gantt-item-title" title="${item.title}"><span class="gantt-sdot" style="background:${dotCol}"></span>${item.title}</div>
+          <div class="gantt-item-meta">${buMeta}${item.tier} · ${item.owner}</div>
+          ${chips}
+        </div>
+        <div class="gantt-item-tc">
+          ${rowOv()}
+          ${markerHtml}
+        </div>
+      </div>`;
+    });
+  });
+  html+=`</div></div>`;
+  document.getElementById('roadmap').innerHTML=html;
+}
+
+/* ── ROADMAP SIDE PANEL ──────────────────────────────────────────── */
+function _rmEscHandler(e){if(e.key==='Escape')closeRMPanel();}
+function closeRMPanel(){
+  const panel=document.getElementById('rm-panel');
+  if(panel){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+  document.removeEventListener('keydown',_rmEscHandler);
+}
+function openRMPanel(id){
+  const item=ROADMAP.find(r=>r.id===id);
+  if(!item)return;
+  const FN_COL={'Product Mktg':'#4338ca','Events':'#0d9488','Major Projects':'#7c3aed','Brand & Creative':'#c2410c','Demand':'#1d4ed8','Community':'#15803d'};
+  const ST_LBL={'confirmed':'Confirmed','planned':'Planned','tbc':'TBC','live':'Live','done':'Done'};
+  const ST_COL={'confirmed':'#0d9488','planned':'#1d4ed8','tbc':'#94a3b8','live':'#15803d','done':'#6b7280'};
+  const col=FN_COL[item.fn]||'#64748b';
+  const now=new Date();
+  const isOverdue=item.status==='tbc'&&new Date(item.weekOf+'T12:00:00')<now;
+  const stCol=isOverdue?'#d97706':(ST_COL[item.status]||'#94a3b8');
+  const stLbl=isOverdue?'Overdue — TBC':(ST_LBL[item.status]||item.status);
+  const d=new Date(item.weekOf+'T12:00:00');
+  const wkFmt=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  let body=`<span class="rmp-fn-tag" style="color:${col}">${item.fn}</span>
+  <div class="rmp-title">${item.title}</div>
+  <span class="rmp-status-chip" style="background:${stCol}18;color:${stCol};border:1.5px solid ${stCol}40">
+    <span style="width:7px;height:7px;border-radius:50%;background:${stCol};display:inline-block;flex-shrink:0"></span>${stLbl}
+  </span>
+  <div class="rmp-meta-grid">
+    <div class="rmp-meta-cell"><div class="rmp-meta-lbl">Business Unit</div><div class="rmp-meta-val">${item.bu}</div></div>
+    <div class="rmp-meta-cell"><div class="rmp-meta-lbl">Tier</div><div class="rmp-meta-val">${item.tier}</div></div>
+    <div class="rmp-meta-cell"><div class="rmp-meta-lbl">Owner</div><div class="rmp-meta-val">${item.owner}</div></div>
+    <div class="rmp-meta-cell"><div class="rmp-meta-lbl">Week of</div><div class="rmp-meta-val" style="font-size:12px">${wkFmt}</div></div>
+  </div>`;
+  if(item.brief||item.jira){
+    body+=`<div class="rmp-links">`;
+    if(item.brief)body+=`<a href="${item.brief}" target="_blank" rel="noopener" class="rmp-btn rmp-btn-brief">📄&nbsp; Open Brief (Confluence)</a>`;
+    if(item.jira)body+=`<a href="${JIRA}${item.jira}" target="_blank" rel="noopener" class="rmp-btn rmp-btn-jira">🔗&nbsp; ${item.jira} — Open in Jira</a>`;
+    body+=`</div>`;
+  } else {
+    body+=`<div style="background:var(--g50);border-radius:9px;padding:12px 14px;font-size:12px;color:var(--g400);margin-bottom:16px">No brief or Jira issue linked yet.</div>`;
+  }
+  body+=`<div class="rmp-footer">${item.qtr} · ${item.fn}${item.bu!=='All'?' · '+item.bu:''}</div>`;
+  document.getElementById('rm-panel-body').innerHTML=body;
+  const panel=document.getElementById('rm-panel');
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden','false');
+  document.addEventListener('keydown',_rmEscHandler);
+}
 
 function go(id,btn){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
@@ -20515,6 +20847,7 @@ function go(id,btn){
   if(id==='brief'        && !document.querySelector('#brief .tl2'))              renderBriefing();
   if(id==='programs'     && !document.querySelector('#programs .prog-sp-group')) renderPrograms();
   if(id==='deliverables' && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
+  if(id==='roadmap'      && !document.querySelector('#roadmap .rm-ctrl'))        renderRoadmap();
   if(id==='analytics'    && !document.querySelector('#analytics .an-card'))       renderAnalytics();
 }
 
