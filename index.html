@@ -181,19 +181,25 @@ button{font-family:inherit;cursor:pointer}
 /* BU snapshot cards */
 .bu-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
 .bu-card{border-radius:12px;overflow:hidden;border:1px solid var(--g200);box-shadow:0 2px 8px rgba(0,40,85,.07)}
-.bu-card-hdr{padding:13px 18px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.bu-card-lbl{font-size:13px;font-weight:800;color:#fff;letter-spacing:.2px}
-.bu-card-sub{font-size:10px;color:rgba(255,255,255,.55);font-weight:500;white-space:nowrap}
-.bu-card-body{padding:4px 14px 6px;background:#fff}
-.bu-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--g100)}
+.bu-card-hdr{padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bu-card-lbl{font-size:14px;font-weight:800;color:#fff;letter-spacing:.2px;display:block;line-height:1.2}
+.bu-card-sub{font-size:10px;color:rgba(255,255,255,.5);font-weight:500;display:block;margin-top:1px}
+.bu-card-count{font-size:10px;font-weight:700;color:rgba(255,255,255,.7);background:rgba(255,255,255,.15);border-radius:20px;padding:3px 9px;white-space:nowrap;flex-shrink:0}
+.bu-card-body{padding:2px 0 4px;background:#fff}
+.bu-item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:9px 16px;border-bottom:1px solid var(--g100)}
 .bu-item:last-child{border-bottom:none}
-.bu-item-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
-.bu-item-tier{font-size:9px;font-weight:700;color:var(--g400);white-space:nowrap;flex-shrink:0;margin-top:2px;letter-spacing:.3px}
-.bu-item-title{flex:1;font-size:12px;font-weight:600;color:var(--g800);line-height:1.4}
+.bu-item-left{flex:1;min-width:0}
+.bu-item-tags{display:flex;gap:5px;margin-bottom:4px;flex-wrap:wrap}
+.bu-item-sub{font-size:9.5px;font-weight:700;border-radius:4px;padding:1px 6px;letter-spacing:.3px}
+.bu-item-tier{font-size:9.5px;font-weight:600;color:var(--g500);background:var(--g100);border-radius:4px;padding:1px 6px;letter-spacing:.2px}
+.bu-item-title{font-size:12px;font-weight:600;color:var(--g800);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bu-item-title a{color:inherit;text-decoration:none}
 .bu-item-title a:hover{text-decoration:underline}
-.bu-item-meta{font-size:10.5px;color:var(--g500);white-space:nowrap;padding-left:6px;line-height:1.4;text-align:right}
-.bu-item-empty{font-size:12px;color:var(--g400);padding:14px 0;text-align:center}
+.bu-item-owner{font-size:10.5px;color:var(--g500);margin-top:2px}
+.bu-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.bu-item-st{font-size:9.5px;font-weight:700;border-radius:4px;padding:2px 7px;white-space:nowrap}
+.bu-item-date{font-size:10.5px;color:var(--g500);white-space:nowrap}
+.bu-item-empty{font-size:12px;color:var(--g400);padding:18px 0;text-align:center}
 .cmo-kpi-row{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--g100);background:var(--g50)}
 .cmo-kpi-cell{padding:14px 8px;text-align:center;position:relative}
 .cmo-kpi-cell+.cmo-kpi-cell::before{content:'';position:absolute;left:0;top:20%;height:60%;width:1px;background:var(--g200)}
@@ -725,15 +731,11 @@ window.addEventListener('load',function(){
 <nav class="tbar">
   <button class="tbtn on" onclick="go('brief',this)">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-    Executive Briefing
+    Overview
   </button>
   <button class="tbtn" onclick="go('deliverables',this)">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
     Deliverables
-  </button>
-  <button class="tbtn" onclick="go('programs',this)">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-    Programs
   </button>
   <button class="tbtn" onclick="go('roadmap',this)">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
@@ -22072,7 +22074,7 @@ function renderBriefing(){
   const cmoBriefHtml = `
   <div class="cmo-brief">
     <div class="cmo-brief-hdr">
-      <span class="cmo-brief-lbl"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Executive Brief</span>
+      <span class="cmo-brief-lbl"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Marketing Dashboard</span>
       <span class="cmo-brief-date">${_todayFmt}</span>
     </div>
     <div class="cmo-brief-body">
@@ -22311,10 +22313,12 @@ function renderBriefing(){
   // ── BU snapshot cards ───────────────────────────────
   const _buDefs=[
     {key:'AWE', label:'AWE',            sub:'Fast Field + Pave', color:'#7c3aed'},
-    {key:'QB',  label:'QuickBase Core', sub:'Core product',      color:'#10503C'},
+    {key:'QB',  label:'Quickbase Core',  sub:'Core product',      color:'#10503C'},
   ];
   const _buST={'in-progress':'#16a34a','confirmed':'#0d9488','planned':'#1d4ed8','tbc':'#94a3b8','live':'#15803d'};
   const _fmtDt=function(d){if(!d)return '';const p=d.split('-');const mn=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return mn[+p[1]]+' '+parseInt(p[2]);};
+  const _subBU=function(i){const t=i.title;if(/^FF[:\s]/i.test(t))return 'FF';if(/^Pave[:\s]/i.test(t))return 'Pave';return null;};
+  const _subCol={'FF':'#ea580c','Pave':'#2563eb'};
   let _buCardsInner='';
   _buDefs.forEach(function(bu){
     const items=ROADMAP.filter(function(i){return i.bu===bu.key&&i.status!=='done';}).sort(function(a,b){return a.weekOf.localeCompare(b.weekOf);});
@@ -22323,18 +22327,29 @@ function renderBriefing(){
       const dot=_buST[i.status]||'#94a3b8';
       const dateStr=i.end?_fmtDt(i.end):_fmtDt(i.weekOf);
       const tierLbl=i.tier&&i.tier.startsWith('Tier')?i.tier:'';
-      const titleInner=i.jira?'<a href="'+JIRA+i.jira+'" target="_blank">'+i.title+'</a>':i.title;
+      const sub=_subBU(i);
+      const subPill=sub?'<span class="bu-item-sub" style="background:'+_subCol[sub]+'22;color:'+_subCol[sub]+'">'+sub+'</span>':'';
+      const cleanTitle=i.title.replace(/^(FF|Pave)[:\s]\s*/i,'');
+      const titleInner=i.jira?'<a href="'+JIRA+i.jira+'" target="_blank">'+cleanTitle+'</a>':cleanTitle;
+      const stLbl={'in-progress':'Active','confirmed':'Confirmed','tbc':'TBC','planned':'Planned','live':'Live'}[i.status]||i.status;
+      const stStyle='background:'+dot+'22;color:'+dot;
       rows+='<div class="bu-item">'
-        +'<span class="bu-item-dot" style="background:'+dot+'"></span>'
-        +'<span class="bu-item-title">'+titleInner+'</span>'
-        +(tierLbl?'<span class="bu-item-tier">'+tierLbl+'</span>':'')
-        +'<span class="bu-item-meta">'+i.owner+'<br>'+dateStr+'</span>'
+        +'<div class="bu-item-left">'
+        +(sub||tierLbl?'<div class="bu-item-tags">'+subPill+(tierLbl?'<span class="bu-item-tier">'+tierLbl+'</span>':'')+'</div>':'')
+        +'<div class="bu-item-title">'+titleInner+'</div>'
+        +'<div class="bu-item-owner">'+i.owner+'</div>'
+        +'</div>'
+        +'<div class="bu-item-right">'
+        +'<span class="bu-item-st" style="'+stStyle+'">'+stLbl+'</span>'
+        +'<div class="bu-item-date">'+dateStr+'</div>'
+        +'</div>'
         +'</div>';
     });
+    const countBadge='<span class="bu-card-count">'+items.length+' upcoming</span>';
     _buCardsInner+='<div class="bu-card">'
       +'<div class="bu-card-hdr" style="background:'+bu.color+'">'
-      +'<span class="bu-card-lbl">'+bu.label+'</span>'
-      +'<span class="bu-card-sub">'+bu.sub+'</span>'
+      +'<div><span class="bu-card-lbl">'+bu.label+'</span><span class="bu-card-sub">'+bu.sub+'</span></div>'
+      +countBadge
       +'</div>'
       +'<div class="bu-card-body">'+(rows||'<div class="bu-item-empty">No upcoming items</div>')+'</div>'
       +'</div>';
