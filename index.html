@@ -22292,18 +22292,18 @@ function renderBriefing(){
   const _allLight=_dedup([...CAP_DATA.mkt.filter(p=>p.load==='LIGHT'),...CAP_DATA.we.filter(p=>p.load==='LIGHT')]);
   const _overDisp=_allOver.slice(0,3).map(p=>_pSn(p.name)).join(', ')+(_allOver.length>3?` +${_allOver.length-3}`:'');
   const _cSh={'Content & SEO':'Content','Email & Lifecycle':'Email','Creative & Design':'Creative','Demand Gen':'DG','Social Media':'Social','PMM / Product':'PMM','Marketing Analytics':'Analytics','Events & Experiences':'Events','Community':'Community','PR & Comms':'PR & Comms','Web & Digital':'Web','UX & Design':'UX'};
-  const _cCl=l=>l==='OVER'?{bg:'rgba(229,57,53,.1)',bc:'rgba(229,57,53,.28)',dot:'var(--red)'}:l==='HIGH'?{bg:'rgba(245,158,11,.1)',bc:'rgba(245,158,11,.28)',dot:'var(--amber)'}:l==='GAP'?{bg:'var(--g100)',bc:'var(--g200)',dot:'var(--g400)'}:{bg:'rgba(20,165,88,.08)',bc:'rgba(20,165,88,.28)',dot:'var(--green)'};
+  const _cCl=l=>l==='OVER'?{bg:'rgba(245,158,11,.1)',bc:'rgba(245,158,11,.3)',dot:'var(--amber)'}:l==='HIGH'?{bg:'rgba(245,158,11,.07)',bc:'rgba(245,158,11,.2)',dot:'var(--amber)'}:l==='GAP'?{bg:'var(--g100)',bc:'var(--g200)',dot:'var(--g400)'}:{bg:'rgba(20,165,88,.08)',bc:'rgba(20,165,88,.28)',dot:'var(--green)'};
   const capStripHtml='<div class="tl-strip" style="flex-direction:column;align-items:flex-start;gap:9px;padding:14px 20px">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;width:100%">'
-    +'<span class="tl-strip-lbl">Team Load &mdash; '+CAP_DATA.pulledAt+' &nbsp;<span style="font-size:9px;font-weight:400;color:var(--g400)">· total estimated effort · all active assigned tasks · hover for detail</span></span>'
+    +'<span class="tl-strip-lbl">Team Load &mdash; '+CAP_DATA.pulledAt+' &nbsp;<span style="font-size:9px;font-weight:400;color:var(--g400)">· planned workload in Jira (not overdue) · hover for detail</span></span>'
     +'<button class="tl-strip-link" onclick="go(\'analytics\',document.querySelector(\'.tbtn[onclick*=analytics]\'))">Full view &rarr;</button>'
     +'</div>'
     +'<div class="ch-chips">'
     +CAP_DATA.channels.map(c=>{const cl=_cCl(c.load);const nP=Math.max(1,c.people.length);const wk=c.hours/(40*nP);const wkTxt=wk<=0?'—':wk<0.2?'<1d':wk<0.5?Math.max(1,Math.round(wk*5))+'d':wk<1?Math.round(wk*5)+'d':wk.toFixed(1)+'wk';return '<span class="ch-chip" style="background:'+cl.bg+';border-color:'+cl.bc+'" title="'+c.hours+'h &middot; '+nP+' people &middot; ~'+wkTxt+' to clear all active work"><span style="width:6px;height:6px;border-radius:50%;background:'+cl.dot+';display:inline-block;flex-shrink:0"></span><span style="color:var(--g800)">'+(_cSh[c.ch]||c.ch)+'</span><span style="color:'+cl.dot+';font-size:10px;font-weight:800">&nbsp;~'+wkTxt+'</span></span>';}).join('')
     +'</div>'
     +'<div style="font-size:10px;color:var(--g500)">'
-    +'<span style="color:var(--red);font-weight:800">'+CAP_DATA.channels.filter(c=>c.load==='OVER').length+' over capacity</span>'
-    +' &middot; '+CAP_DATA.channels.filter(c=>c.load==='HIGH').length+' high'
+    +'<span style="color:#92400E;font-weight:800">'+CAP_DATA.channels.filter(c=>c.load==='OVER').length+' full queue</span>'
+    +' &middot; '+CAP_DATA.channels.filter(c=>c.load==='HIGH').length+' high load'
     +' &middot; '+CAP_DATA.channels.filter(c=>c.load==='OK').length+' healthy'
     +' &middot; '+CAP_DATA.channels.filter(c=>c.load==='LIGHT').length+' light'
     +(CAP_DATA.channels.some(c=>c.load==='GAP')?' &middot; 1 no data':'')
@@ -22817,7 +22817,7 @@ function renderAnalytics(){
     const ppl=c.people.length>0?c.people.slice(0,3).join(', ')+(c.people.length>3?' +'+(c.people.length-3):''):'<em style="color:var(--g400)">No assignees</em>';
     const noteStr=c.note?'<div class="cap-ch-note">'+c.note+'</div>':'';
     const timeLabel=wks<=0?'No active work':wks<0.2?'< 1 day':wks<0.5?Math.max(1,Math.round(wks*5))+' days of work':wks<1?Math.round(wks*5)+' days of work':wks.toFixed(1)+' weeks of work';
-    const timeCol=c.load==='OVER'?'var(--red)':c.load==='HIGH'?'#92400E':c.load==='LIGHT'?'var(--g400)':'var(--green)';
+    const timeCol=c.load==='OVER'?'#92400E':c.load==='HIGH'?'#92400E':c.load==='LIGHT'?'var(--g400)':'var(--green)';
     return '<div class="cap-ch-card'+lb.cls+'">'
       +'<div class="cap-ch-top"><span class="cap-ch-name">'+c.ch+'</span><span class="cap-ch-badge" style="background:'+lb.bg+';color:'+lb.color+'">'+lb.label+'</span></div>'
       +'<div style="margin:8px 0 6px;display:flex;align-items:baseline;gap:5px">'
@@ -22859,14 +22859,14 @@ function renderAnalytics(){
     +'<div class="cap-seg-wrap">'
     +'<div style="font-size:11px;font-weight:700;color:var(--g500);margin-bottom:6px">Channel health distribution &mdash; '+CAP_DATA.channels.length+' teams</div>'
     +'<div class="cap-seg">'
-    +(_overChs.length?'<div style="flex:'+_overChs.length+';background:var(--red);min-width:4%"></div>':'')
+    +(_overChs.length?'<div style="flex:'+_overChs.length+';background:var(--amber);min-width:4%"></div>':'')
     +(_highChs.length?'<div style="flex:'+_highChs.length+';background:var(--amber)"></div>':'')
     +(_okChs.length?'<div style="flex:'+_okChs.length+';background:var(--green)"></div>':'')
     +(_ltChs.length?'<div style="flex:'+_ltChs.length+';background:var(--g300)"></div>':'')
     +(_gapChs.length?'<div style="flex:'+_gapChs.length+';background:var(--g200);min-width:4%"></div>':'')
     +'</div>'
     +'<div class="cap-seg-lbl">'
-    +'<span><span style="color:var(--red);font-weight:700">'+_overChs.length+' over</span> (&gt;40h/wk)</span>'
+    +'<span><span style="color:#92400E;font-weight:700">'+_overChs.length+' full queue</span> (40h+ planned)</span>'
     +'<span><span style="color:var(--amber);font-weight:700">'+_highChs.length+' high</span> (32&ndash;40h)</span>'
     +'<span><span style="color:var(--green);font-weight:700">'+_okChs.length+' healthy</span></span>'
     +'<span><span style="color:var(--g500);font-weight:700">'+_ltChs.length+' light</span></span>'
@@ -22911,7 +22911,7 @@ function renderAnalytics(){
   // ── Trend / History section ─────────────────────────
   const _trendHtml=(()=>{
     const n=HISTORY.length;
-    const LD={'OVER':'var(--red)','HIGH':'var(--amber)','OK':'var(--green)','LIGHT':'var(--g300)','GAP':'var(--g200)'};
+    const LD={'OVER':'var(--amber)','HIGH':'var(--amber)','OK':'var(--green)','LIGHT':'var(--g300)','GAP':'var(--g200)'};
     if(n<2){
       const h0=HISTORY[0]||{};
       return '<div class="an-card an-full" style="border-top:3px solid var(--qb-teal);margin-bottom:16px">'
