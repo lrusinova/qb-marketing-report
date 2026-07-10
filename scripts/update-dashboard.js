@@ -175,8 +175,10 @@ const BU_LABEL_MAP = {
   'awe-mkt':     { bu: 'Cross-BU',  label: 'AWE-MKT'     },
 };
 
-function detectBU(labels, text) {
-  for (const l of labels) {
+// components array is treated the same as labels for BU matching
+function detectBU(labels, text, components = []) {
+  const allLabels = [...labels, ...components];
+  for (const l of allLabels) {
     const norm = l.toLowerCase().trim();
     if (BU_LABEL_MAP[norm]) return BU_LABEL_MAP[norm];
   }
@@ -190,6 +192,69 @@ function detectBU(labels, text) {
   if (/\[cross[ -]?bu\]/i.test(t))
     return { bu: 'Cross-BU', label: 'CrossBU-MKT' };
   return null;
+}
+
+// Strict BU detection for parent issues: labels + components (exact) + bracket tags in summary only.
+// Never uses free-text keyword matching on descriptions — prevents false positives like
+// "pave the way" in a parent description assigning Pave BU.
+function detectBUFromParent(labels, summary, components) {
+  const allLabels = [...labels, ...components];
+  for (const l of allLabels) {
+    const norm = l.toLowerCase().trim();
+    if (BU_LABEL_MAP[norm]) return BU_LABEL_MAP[norm];
+  }
+  // Only bracket-prefix patterns in the summary — these are intentional tags, not free text
+  const s = summary.toLowerCase();
+  if (/\[core\]|\[qb\]|\[qb-core\]/.test(s))        return { bu: 'QB-Core',   label: 'QB-Core-MKT' };
+  if (/\[ff\]|\[fastfield\]|\[fast-field\]/.test(s)) return { bu: 'FastField', label: 'FF-MKT'      };
+  if (/\[pave\]/.test(s))                             return { bu: 'Pave',      label: 'Pave-MKT'    };
+  if (/\[cross-?bu\]|\[crossbu\]/.test(s))           return { bu: 'Cross-BU',  label: 'CrossBU-MKT' };
+  if (/\[awe\]/.test(s))                             return { bu: 'Cross-BU',  label: 'AWE-MKT'     };
+  return null;
+}
+
+// Parent-walk BU resolution: fetches parent/grandparent until BU is found (max 3 levels).
+// Description is fetched for caching but NOT passed to detectBUFromParent — only labels,
+// components, and summary bracket tags are authoritative signals up the hierarchy.
+const _parentBUCache = new Map();
+async function fetchIssueForBU(key) {
+  if (_parentBUCache.has(key)) return _parentBUCache.get(key);
+  try {
+    const data = await jiraFetch(`/rest/api/3/issue/${key}?fields=summary,labels,components,parent`);
+    const f = data.fields;
+    const entry = {
+      labels:     f.labels || [],
+      components: (f.components || []).map(c => c.name || ''),
+      summary:    f.summary || '',
+      parentKey:  f.parent?.key || null,
+    };
+    _parentBUCache.set(key, entry);
+    return entry;
+  } catch { return null; }
+}
+
+async function resolveUnknownBUs(items) {
+  const unknown = items.filter(i => i.bu === 'Unknown' && i._parentKey);
+  if (!unknown.length) return;
+  // Pre-warm cache: batch-fetch all unique parent keys
+  const parentKeys = [...new Set(unknown.map(i => i._parentKey))];
+  const BATCH = 15;
+  for (let b = 0; b < parentKeys.length; b += BATCH) {
+    await Promise.all(parentKeys.slice(b, b + BATCH).map(k => fetchIssueForBU(k)));
+  }
+  for (const item of unknown) {
+    let key = item._parentKey;
+    let depth = 0;
+    while (key && depth < 3) {
+      const p = await fetchIssueForBU(key);
+      if (!p) break;
+      const result = detectBUFromParent(p.labels, p.summary, p.components);
+      if (result) { item.bu = result.bu; item.label = result.label; break; }
+      key = p.parentKey;
+      depth++;
+    }
+  }
+  for (const item of items) delete item._parentKey;
 }
 
 // Channel from issuetype (typed request forms are reliable)
@@ -298,7 +363,7 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
 
   const GENUINE_LIST = '"Done","Published","Live","Posted","POSTED","Released","Design Done"';
   const jql = `project in (MKT, WE) AND status CHANGED TO (${GENUINE_LIST}) DURING ("${q2Start}","${q2End}") ORDER BY updated DESC`;
-  const fields = 'summary,assignee,issuetype,labels,components,description,resolutiondate,status,updated';
+  const fields = 'summary,assignee,issuetype,labels,components,description,resolutiondate,status,updated,parent';
 
   // Paginate through every result
   const issues = [];
@@ -325,18 +390,20 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
   // Categorize immediately if channel is known; BU defaults to 'Unknown' when
   // no label or keyword match (99% of task-level issues have no BU label).
   for (const issue of genuine) {
-    const summary   = issue.fields.summary || '';
-    const labels    = issue.fields.labels || [];
-    const assignee  = issue.fields.assignee?.displayName || null;
-    const issuetype = issue.fields.issuetype?.name || 'Task';
-    const descText  = extractTextFromADF(issue.fields.description);
-    const allText   = `${summary} ${descText}`;
-    const rawDate   = issue.fields.resolutiondate || issue.fields.updated;
-    const doneDate  = rawDate
+    const summary    = issue.fields.summary || '';
+    const labels     = issue.fields.labels || [];
+    const components = (issue.fields.components || []).map(c => c.name || '');
+    const assignee   = issue.fields.assignee?.displayName || null;
+    const issuetype  = issue.fields.issuetype?.name || 'Task';
+    const descText   = extractTextFromADF(issue.fields.description);
+    const allText    = `${summary} ${descText}`;
+    const parentKey  = issue.fields.parent?.key || null;
+    const rawDate    = issue.fields.resolutiondate || issue.fields.updated;
+    const doneDate   = rawDate
       ? new Date(rawDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
       : '';
 
-    const buResult = detectBU(labels, allText);
+    const buResult = detectBU(labels, allText, components);
     const channel  = detectChannel(assignee, issuetype, summary, allText, personChannel);
 
     if (channel) {
@@ -347,12 +414,13 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
         label: buResult ? buResult.label : '',
         owner: assignee || 'Unassigned',
         type: detectType(issuetype, summary), doneDate,
+        _parentKey: buResult ? null : parentKey,
       });
     } else {
       // Channel still unknown — try comments in Pass 2
       needComments.push({
-        key: issue.key, summary, labels, assignee, issuetype, descText, doneDate,
-        knownBU: buResult,
+        key: issue.key, summary, labels, components, assignee, issuetype, descText, doneDate,
+        knownBU: buResult, parentKey,
       });
     }
   }
@@ -375,7 +443,7 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
         const item        = batch[j];
         const commentText = commentTexts[j];
         const allText     = `${item.summary} ${item.descText} ${commentText}`;
-        const buResult    = item.knownBU || detectBU(item.labels, allText);
+        const buResult    = item.knownBU || detectBU(item.labels, allText, item.components || []);
         const channel     = detectChannel(item.assignee, item.issuetype, item.summary, allText, personChannel);
         if (channel) {
           categorized.push({
@@ -385,6 +453,7 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
             label: buResult ? buResult.label : '',
             owner: item.assignee || 'Unassigned',
             type:  detectType(item.issuetype, item.summary), doneDate: item.doneDate,
+            _parentKey: buResult ? null : (item.parentKey || null),
           });
         } else {
           needsReview.push({
@@ -413,6 +482,9 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
   if (overflow.length > 0) {
     console.log(`  ${overflow.length} items exceeded comment cap → flagged for review`);
   }
+
+  // Walk parent hierarchy for any items still showing Unknown BU
+  await resolveUnknownBUs(categorized);
 
   // Sort newest first
   categorized.sort((a, b) => {
@@ -623,18 +695,20 @@ function jsLit(val, depth = 0) {
 function categorizeIssues(issues, personChannel) {
   const results = [];
   for (const issue of issues) {
-    const summary   = issue.fields.summary || '';
-    const labels    = issue.fields.labels || [];
-    const assignee  = issue.fields.assignee?.displayName || null;
-    const issuetype = issue.fields.issuetype?.name || 'Task';
-    const descText  = extractTextFromADF(issue.fields.description);
-    const allText   = `${summary} ${descText}`;
-    const rawDate   = issue.fields.updated;
+    const summary    = issue.fields.summary || '';
+    const labels     = issue.fields.labels || [];
+    const components = (issue.fields.components || []).map(c => c.name || '');
+    const assignee   = issue.fields.assignee?.displayName || null;
+    const issuetype  = issue.fields.issuetype?.name || 'Task';
+    const descText   = extractTextFromADF(issue.fields.description);
+    const allText    = `${summary} ${descText}`;
+    const parentKey  = issue.fields.parent?.key || null;
+    const rawDate    = issue.fields.updated;
     const updatedDate = rawDate
       ? new Date(rawDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
       : '';
 
-    const buResult = detectBU(labels, allText);
+    const buResult = detectBU(labels, allText, components);
     let channel    = detectChannel(assignee, issuetype, summary, allText, personChannel);
     if (!channel && assignee && personChannel[assignee]) channel = personChannel[assignee];
     if (!channel) channel = 'Program Management'; // fallback so no items are dropped
@@ -646,6 +720,7 @@ function categorizeIssues(issues, personChannel) {
       label: buResult ? buResult.label : '',
       owner: assignee || 'Unassigned',
       type:  detectType(issuetype, summary), updatedDate,
+      _parentKey: buResult ? null : parentKey,
     });
   }
   results.sort((a, b) => {
@@ -664,7 +739,7 @@ async function fetchActiveDeliverables(team, cutoff) {
   const assignees = team.map(p => `"${p.jiraName}"`).join(',');
   // Scope to items updated within the last 90 days to avoid ancient stale items
   const jql = `project in (MKT, WE) AND statusCategory = "In Progress" AND assignee in (${assignees}) AND updated >= "${cutoff}" AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project") ORDER BY updated DESC`;
-  const fields = 'summary,assignee,issuetype,labels,description,updated';
+  const fields = 'summary,assignee,issuetype,labels,components,description,updated,parent';
 
   const issues = [];
   let start = 0;
@@ -680,6 +755,7 @@ async function fetchActiveDeliverables(team, cutoff) {
   }
   console.log(` ${issues.length} raw`);
   const active = categorizeIssues(issues, personChannel);
+  await resolveUnknownBUs(active);
   console.log(`  ✓ Active deliverables: ${active.length} categorized`);
   return active;
 }
@@ -691,7 +767,7 @@ async function fetchPlanningDeliverables(team, cutoff) {
 
   const assignees = team.map(p => `"${p.jiraName}"`).join(',');
   const jql = `project in (MKT, WE) AND statusCategory = "To Do" AND assignee in (${assignees}) AND updated >= "${cutoff}" AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project") ORDER BY updated DESC`;
-  const fields = 'summary,assignee,issuetype,labels,description,updated';
+  const fields = 'summary,assignee,issuetype,labels,components,description,updated,parent';
 
   const issues = [];
   let start = 0;
@@ -707,6 +783,7 @@ async function fetchPlanningDeliverables(team, cutoff) {
   }
   console.log(` ${issues.length} raw`);
   const planning = categorizeIssues(issues, personChannel);
+  await resolveUnknownBUs(planning);
   console.log(`  ✓ Planning deliverables: ${planning.length} categorized`);
   return planning;
 }
