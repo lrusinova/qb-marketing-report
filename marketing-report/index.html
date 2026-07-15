@@ -788,51 +788,7 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .pw-error{font-size:12px;color:#dc2626;margin-top:6px;min-height:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px}
 .pw-footer{font-size:11px;color:#94a3b8;margin-top:24px;padding-top:20px;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;gap:6px}
 
-/* ── MEETING VIEW ────────────────────────────────────── */
-.mv-wrap{max-width:900px;margin:0 auto}
-.mv-back{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--g500);background:#fff;border:1px solid var(--g200);border-radius:6px;padding:5px 13px;cursor:pointer;margin-bottom:20px;transition:all .14s;box-shadow:var(--sh)}
-.mv-back:hover{color:var(--navy);border-color:var(--g400)}
-.mv-hdr{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--g200)}
-.mv-hdr-title{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:-.4px}
-.mv-hdr-date{font-size:12px;color:var(--g400);margin-top:4px;font-weight:500}
-.mv-sec{background:#fff;border-radius:12px;border:1px solid var(--g200);box-shadow:var(--sh);margin-bottom:16px;overflow:hidden}
-.mv-sec-hd{display:flex;align-items:center;gap:10px;padding:11px 18px;background:var(--g50);border-bottom:1px solid var(--g100);border-left:4px solid transparent}
-.mv-sec-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px}
-.mv-sec-range{font-size:11px;color:var(--g400);font-weight:500}
-.mv-sec-ct{font-size:11px;font-weight:700;color:var(--g400);margin-left:auto}
-.mv-row{display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid var(--g100);border-left:4px solid transparent;cursor:pointer;transition:background .12s}
-.mv-row:last-child{border-bottom:none}
-.mv-row:hover{background:var(--g50)}
-.mv-pill{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 9px;border-radius:20px;white-space:nowrap;flex-shrink:0}
-.mv-title-txt{flex:1;font-size:14px;font-weight:600;color:var(--navy);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mv-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.mv-owner{font-size:11px;color:var(--g400);white-space:nowrap}
-.mv-st{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap}
-.mv-empty{padding:14px 18px;font-size:12px;color:var(--g400);font-style:italic}
-/* ── WEEKLY SYNC ──────────────────────────────────────── */
-#weeklysync{padding:20px 24px;max-width:1100px;margin:0 auto}
-.ws-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid #1e293b}
-.ws-hdr-title{font-size:19px;font-weight:700;color:#f8fafc;letter-spacing:-.3px}
-.ws-hdr-week{font-size:12px;color:#94a3b8;background:#1e293b;padding:3px 12px;border-radius:20px;border:1px solid #334155}
-.ws-attn-bar{background:#451a0320;border:1px solid #92400e50;border-radius:8px;padding:7px 14px;font-size:12px;color:#fbbf24;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.ws-section{margin-bottom:20px}
-.ws-sec-hdr{display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:8px;margin-bottom:8px}
-.ws-sec-title{font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
-.ws-sec-range{font-size:11px;opacity:.65}
-.ws-sec-ct{font-size:11px;font-weight:600;opacity:.55;margin-left:auto}
-.ws-row{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;border-radius:8px;margin-bottom:5px;background:#0f172a;border:1px solid #1e293b;cursor:pointer;transition:background .14s}
-.ws-row:hover{background:#172033}
-.ws-row.ws-ov{border-color:#92400e45;background:#2d0f0008}
-.ws-fn{font-size:9px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap;margin-top:2px;flex-shrink:0;max-width:110px;overflow:hidden;text-overflow:ellipsis}
-.ws-main{flex:1;min-width:0}
-.ws-title{font-size:13px;font-weight:600;color:#f1f5f9;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ws-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.ws-st{padding:1px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap}
-.ws-owner{font-size:11px;color:#94a3b8}
-.ws-empty{font-size:12px;color:#334155;padding:10px 14px;font-style:italic}
-
 </style>
-<script src="workstream-data.js"></script>
 </head>
 <body>
 
@@ -932,10 +888,6 @@ window.addEventListener('load',function(){
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     Analytics
   </button>
-  <button class="tbtn" onclick="go('workstreams',this)">
-    <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".7"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".7"/></svg>
-    Workstreams
-  </button>
 </nav>
 
 <div id="brief"        class="pane on"></div>
@@ -943,7 +895,6 @@ window.addEventListener('load',function(){
 <div id="deliverables" class="pane"></div>
 <div id="roadmap"      class="pane"></div>
 <div id="analytics"    class="pane"></div>
-<div id="workstreams"  class="pane"></div>
 
 <!-- Roadmap side panel -->
 <div id="rm-panel" aria-hidden="true">
@@ -20911,7 +20862,7 @@ const ROADMAP = [
   {id:'rm_br02',title:'Brand: Refined Design Review (Core Team)',  fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-06',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   {id:'rm13',title:'AI4 Conference (Aug 4–6, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-04',end:'2026-08-06',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12386'},
   {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Web',                  bu:'All', tier:'Web',           owner:'Carlos',          weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',         brief:null,jira:'WE-788'},
-  {id:'rm15',title:'[Core] Webinar — App Inheritance to App Ownership',fn:'Demand',   bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-13',end:null,          qtr:'Q3',status:'planned',  brief:null,jira:'MKT-12950'},
+  {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
   {id:'rm_br03',title:'Brand: Final Design – Extended Team Review',fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   {id:'rm17',title:'Swag Store Launch',                            fn:'Events',          bu:'All', tier:'Activities',    owner:'Lindsey',         weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
@@ -20926,14 +20877,11 @@ const ROADMAP = [
   {id:'rm_comm01',title:'Qrew Migration: Khoros → Gainsight',      fn:'Community',bu:'QB', tier:'Migration',owner:'Ben',        weekOf:'2026-06-03',end:'2026-09-21',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12463'},
   {id:'rm_comm02',title:'FF: Net-New Community Launch',            fn:'Community',bu:'AWE',tier:'Launch',   owner:'Ben',        weekOf:'2026-07-06',end:'2026-09-14',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12471'},
   {id:'rm_comm03',title:'Pave: Net-New Community Launch',          fn:'Community',bu:'AWE',tier:'Launch',   owner:'Ben',        weekOf:'2026-07-06',end:'2026-10-07',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12469'},
-  // Q4 ── October–December 2026 ─────────────────────────────────────────────────────────────────
-  {id:'rm_ev_q401',title:'Gartner IT Symposium (Oct 19–22, Orlando)',fn:'Events',bu:'All',tier:'Sponsored T1',owner:'Susana',weekOf:'2026-10-19',end:'2026-10-22',qtr:'Q4',status:'confirmed',brief:null,jira:'MKT-12684'},
   // Q3 ── Content & SEO ────────────────────────────────────────────────────────────────────────
   {id:'rm_seo01',title:'SEO Entity Clusters — QB Core (Pillar + 8 Topic Clusters)',fn:'Content & SEO',bu:'QB',  tier:'SEO',           owner:'Tom',       weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:null},
   {id:'rm_seo02',title:'FF SEO Content Strategy & Top-20 Priority Pages',          fn:'Content & SEO',bu:'AWE', tier:'SEO',           owner:'Tom',       weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:null},
   {id:'rm_cont01',title:'QB Core Blog Calendar — Q3 Content Sprint',               fn:'Content & SEO',bu:'QB',  tier:'Content',       owner:'Nathan',    weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:null},
   {id:'rm_cont02',title:'FF + Pave YouTube & LinkedIn Content Engine',              fn:'Content & SEO',bu:'AWE', tier:'Content',       owner:'Evan',      weekOf:'2026-07-13',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12568'},
-  {id:'rm_cont03',title:'Pave Use Case Pages — 10-page content sprint (Nathan)',fn:'Content & SEO',bu:'Pave',tier:'Content',owner:'Wahl, Nathan',weekOf:'2026-07-31',end:null,qtr:'Q3',status:'planned',brief:null,jira:'MKT-12801'},
   {id:'rm_seo03',title:'Pave SEO: ICP-Aligned TOFU Pages',                         fn:'Content & SEO',bu:'AWE', tier:'SEO',           owner:'Tom',       weekOf:'2026-07-13',end:'2026-09-21',qtr:'Q3',status:'planned',  brief:null,jira:null},
   {id:'rm_cs01', title:'Customer Stories: FF Field Service Videos (x2)',            fn:'Content & SEO',bu:'AWE', tier:'Customer Story',owner:'Colin',     weekOf:'2026-07-20',end:'2026-09-14',qtr:'Q3',status:'planned',  brief:null,jira:null},
   {id:'rm_seo04',title:'AEO / AI-Search Optimization — Glossary & FAQ Pages',      fn:'Content & SEO',bu:'QB',  tier:'SEO',           owner:'Tom',       weekOf:'2026-08-03',end:'2026-09-28',qtr:'Q3',status:'planned',  brief:null,jira:null},
@@ -20945,12 +20893,12 @@ const ROADMAP = [
   {id:'rm_crv04',title:'Email Template Refresh (Rebrand-Ready)',                    fn:'Brand & Creative',bu:'All', tier:'Email Creative',owner:'Jenny',   weekOf:'2026-08-03',end:'2026-09-14',qtr:'Q3',status:'planned',  brief:null,jira:null},
   // Q3 ── Web ─────────────────────────────────────────────────────────────────────────────────
   {id:'rm_web05',title:'FF Web: Platform Pages & Nav Build-out (AI Form Builder, AI Form Converter, Offline Capture)',fn:'Web',bu:'AWE',tier:'Platform Pages',owner:'Michael YW / Hira / Kristina',weekOf:'2026-07-13',end:'2026-08-31',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12850'},
-  // WE Sprints — Jul 2026 onward (2-week cadence)
-  {id:'rm_we_s13',title:'WE Sprint 13 — Pave Pricing, Feed Scheduler, Snowflake Ads, OAuth Sign-In',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',weekOf:'2026-07-14',end:'2026-07-28',qtr:'Q3',status:'in-progress',brief:null,jira:null},
-  {id:'rm_we_s14',title:'WE Sprint 14 (Jul 28–Aug 11) — TBD',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',weekOf:'2026-07-28',end:'2026-08-11',qtr:'Q3',status:'tbc',brief:null,jira:null},
-  {id:'rm_we_s15',title:'WE Sprint 15 (Aug 11–25) — TBD',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',weekOf:'2026-08-11',end:'2026-08-25',qtr:'Q3',status:'tbc',brief:null,jira:null},
-  {id:'rm_we_s16',title:'WE Sprint 16 (Aug 25–Sep 8) — TBD',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',weekOf:'2026-08-25',end:'2026-09-08',qtr:'Q3',status:'tbc',brief:null,jira:null},
-  {id:'rm_we_s17',title:'WE Sprint 17 (Sep 8–22) — TBD',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',weekOf:'2026-09-08',end:'2026-09-22',qtr:'Q3',status:'tbc',brief:null,jira:null},
+  // WE WebEx-Sprint-12 — Jun 30–Jul 14
+  {id:'rm_we_s12',  title:'WE Sprint 12: Pave Pricing · IA/Nav · Snowflake Ads · CSS Arch',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',    weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:null},
+  {id:'rm_we_s12a', title:'Pave Pricing Page: New Interactive PricingPlans Component',      fn:'Web',bu:'AWE',tier:'Sprint',owner:'Nikol',      weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:'WE-860'},
+  {id:'rm_we_s12b', title:'IA & Navigation: Audit + Short-Term Cleanup',                   fn:'Web',bu:'All',tier:'Sprint',owner:'Michael YW', weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:'WE-791'},
+  {id:'rm_we_s12c', title:'Snowflake → Google Ads: Offline Conversion Tracking',           fn:'Web',bu:'All',tier:'Sprint',owner:'Tihomir',     weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:'WE-713'},
+  {id:'rm_we_s12d', title:'Multi-Brand CSS Architecture + Design Token Consolidation',      fn:'Web',bu:'All',tier:'Sprint',owner:'Nikol',      weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:'WE-767'},
   {id:'rm_web04',title:'CRO: A/B Tests on Core Trial + Demo CTAs',                  fn:'Web',           bu:'QB',  tier:'CRO',           owner:'Tim',           weekOf:'2026-07-13',end:'2026-09-28',qtr:'Q3',status:'planned',  brief:null,jira:null},
   {id:'rm_web01',title:'Homepage Redesign: New Hero, Messaging & CTA',              fn:'Web',           bu:'QB',  tier:'Web',           owner:'Carlos',         weekOf:'2026-08-03',end:'2026-09-28',qtr:'Q3',status:'planned',  brief:null,jira:'WE-787'},
   {id:'rm_web03',title:'Pave & FF Solutions Hub: New Landing Pages',                fn:'Web',           bu:'AWE', tier:'Web',           owner:'Carlos',         weekOf:'2026-08-10',end:'2026-09-28',qtr:'Q3',status:'tbc',      brief:null,jira:'WE-788'},
@@ -20958,13 +20906,12 @@ const ROADMAP = [
   {id:'rm_pave01',title:'Pave: Tier 2/3 Feature Launches + Releases',fn:'Product Launches',bu:'AWE',tier:'Tier 2',owner:'Michelle',weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'planned',brief:null,jira:'MKT-12795'},
   // Q4 ── October 2026 ──────────────────────────────────────────────────────────────────────
   {id:'rm_br05',title:'Brand: External Launch',                    fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Team',            weekOf:'2026-10-01',end:null,          qtr:'Q4',status:'tbc',      brief:null,jira:'MKT-12613'},
-  {id:'rm23',title:'NECA (Oct 4–7, Las Vegas)',                    fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Lindsey, Susana', weekOf:'2026-10-04',end:'2026-10-07',qtr:'Q4',status:'confirmed',brief:null,jira:'MKT-12985'},
+  {id:'rm23',title:'NECA (Oct 4–7, Las Vegas)',                    fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-10-04',end:'2026-10-07',qtr:'Q4',status:'confirmed',brief:null,jira:null},
   {id:'rm24',title:'Empower Pro 2026 – Dates Announcement',        fn:'Events',          bu:'All', tier:'Empower Pro',   owner:'Bridgette',       weekOf:'2026-10-12',end:null,          qtr:'Q4',status:'tbc',      brief:null,jira:null},
   {id:'rm25',title:'FY27 Empower – Location Announcement',         fn:'Events',          bu:'All', tier:'FY27 Empower',  owner:'Bridgette, Lilly',weekOf:'2026-10-12',end:null,          qtr:'Q4',status:'tbc',      brief:null,jira:null},
   {id:'rm26',title:'Gartner IT Symposium (Oct 19–22, Orlando)',    fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-10-19',end:'2026-10-22',qtr:'Q4',status:'confirmed',brief:null,jira:'MKT-12684'},
   // Q4 ── November 2026 ─────────────────────────────────────────────────────────────────────
   {id:'rm27',title:'FY27 Empower – Registration Opens',            fn:'Events',          bu:'All', tier:'FY27 Empower',  owner:'Bridgette, Lilly',weekOf:'2026-11-02',end:null,          qtr:'Q4',status:'tbc',      brief:null,jira:null},
-
 ];
 
 // Apply live Jira statuses to p1progs; remove items Jira has marked done
@@ -21029,7 +20976,6 @@ let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', 
 let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
 let _rmCollapsed=new Set();
 let _rmFocusMode=false;
-let _rmMeetingMode=false;
 function setRM(w,v){
   if(w==='qtr')rmQtr=v;
   else if(w==='fn')rmFn=v;
@@ -21041,119 +20987,9 @@ function setRM(w,v){
   else if(w==='focus'){_rmFocusMode=!_rmFocusMode;}
   document.getElementById('roadmap').innerHTML='';renderRoadmap();
 }
-function setRMSync(){
-  _rmMeetingMode=!_rmMeetingMode;
-  document.getElementById('roadmap').innerHTML='';
-  renderRoadmap();
-}
 
-/* ══════════════════════════════════════════════════════
-   MEETING VIEW — clean list for weekly sync screen share
-══════════════════════════════════════════════════════ */
-function renderMeetingMode(){
-  const el=document.getElementById('roadmap');
-  const now=new Date();
-  const dow=now.getDay(), diffMon=dow===0?-6:1-dow;
-  const mon=new Date(now); mon.setDate(now.getDate()+diffMon); mon.setHours(0,0,0,0);
-  const DAY=864e5, WEEK=7*DAY;
-  const w0s=mon, w0e=new Date(mon.getTime()+WEEK-1);
-  const w1s=new Date(mon.getTime()+WEEK), w1e=new Date(mon.getTime()+2*WEEK-1);
-  const w2s=new Date(mon.getTime()+2*WEEK), w2e=new Date(mon.getTime()+3*WEEK-1);
-  const todayMid=new Date(now); todayMid.setHours(0,0,0,0);
-  const fmt=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  const fri=s=>new Date(s.getTime()+4*DAY);
-  const fmtWk=s=>{const f=fri(s);return s.getMonth()===f.getMonth()?fmt(s)+' – '+f.getDate():fmt(s)+' – '+fmt(f);};
-  const FN_COL={'Product Launches':'#4338ca','Events':'#0d9488','Brand Refresh':'#7c3aed','Brand & Creative':'#c2410c','Web':'#0891b2','Demand':'#1d4ed8','Content & SEO':'#0066D6','Community':'#15803d'};
-  const FN_SHORT={'Product Launches':'Launch','Events':'Event','Brand Refresh':'Brand','Brand & Creative':'Creative','Web':'Web','Demand':'Demand','Content & SEO':'Content','Community':'Community'};
-  const ST_COL={'in-progress':'#15803d','confirmed':'#0f766e','tbc':'#92400e','live':'#15803d','planned':'#1d4ed8'};
-  const ST_BG={'in-progress':'#dcfce7','confirmed':'#ccfbf1','tbc':'#fef3c7','live':'#dcfce7','planned':'#dbeafe'};
-  const ST_LBL={'in-progress':'In Progress','confirmed':'Confirmed','tbc':'TBC','live':'Live','planned':'Planned'};
-  const dOf=r=>new Date(r.weekOf+'T12:00:00');
-  const dEnd=r=>r.end?new Date(r.end+'T12:00:00'):null;
-  const inW=(r,s,e)=>{const d=dOf(r);return d>=s&&d<=e;};
-  const base=ROADMAP.filter(r=>r.status!=='done');
-  const needsDec=base.filter(r=>r.status==='tbc'&&dOf(r)<=w2e);
-  const thisWk=base.filter(r=>inW(r,w0s,w0e)&&r.status!=='tbc');
-  const nextWk=base.filter(r=>inW(r,w1s,w1e)&&r.status!=='tbc');
-  const wk2=base.filter(r=>inW(r,w2s,w2e)&&r.status!=='tbc');
-  const inFlight=base.filter(r=>r.end&&dOf(r)<w0s&&dEnd(r)>=todayMid&&r.status!=='tbc'&&r.status!=='planned');
-  const noBriefAlert=base.filter(r=>!r.brief&&(r.status==='confirmed'||r.status==='in-progress')&&inW(r,w0s,w1e));
-  const ownerWk={};
-  [...thisWk,...nextWk].forEach(r=>{
-    const wk=inW(r,w0s,w0e)?'this':'next';
-    r.owner.split(/[\/,]/).map(o=>o.trim()).filter(o=>o.length>1).forEach(o=>{
-      const k=o+'|'+wk; if(!ownerWk[k])ownerWk[k]={o,wk,items:[]}; ownerWk[k].items.push(r);
-    });
-  });
-  const overlaps=Object.values(ownerWk).filter(x=>x.items.length>=2);
-  const mkRow=r=>{
-    const fc=FN_COL[r.fn]||'#64748b';
-    const fs=FN_SHORT[r.fn]||r.fn;
-    const isOv=r.status==='tbc'&&dOf(r)<todayMid;
-    const sc=isOv?'#92400e':(ST_COL[r.status]||'#64748b');
-    const sb=isOv?'#fef3c7':(ST_BG[r.status]||'#f1f5f9');
-    const sl=isOv?'Overdue TBC':(ST_LBL[r.status]||r.status);
-    const jLnk=r.jira?`<a href="${JIRA}${r.jira}" target="_blank" onclick="event.stopPropagation()" style="font-size:10px;color:var(--blue);opacity:.7;font-weight:700;flex-shrink:0;text-decoration:none" title="${r.jira}">↗</a>`:'';
-    const noBr=(!r.brief&&(r.status==='confirmed'||r.status==='in-progress'))?`<span style="width:6px;height:6px;border-radius:50%;background:#f97316;display:inline-block;flex-shrink:0" title="No brief linked"></span>`:'';
-    return`<div class="mv-row" style="border-left-color:${fc}" onclick="openRMPanel('${r.id}')">
-      <span class="mv-pill" style="background:${fc}18;color:${fc};border:1px solid ${fc}30">${fs}</span>
-      <span class="mv-title-txt">${r.title}</span>
-      <div class="mv-right">
-        <span class="mv-owner">${r.owner}</span>
-        ${noBr}${jLnk}
-        <span class="mv-st" style="background:${sb};color:${sc}">${sl}</span>
-      </div>
-    </div>`;
-  };
-  const mkSec=(title,range,arr,accentCol,emptyMsg)=>{
-    if(!arr.length&&!emptyMsg)return'';
-    return`<div class="mv-sec">
-      <div class="mv-sec-hd" style="border-left-color:${accentCol}">
-        <span class="mv-sec-label" style="color:${accentCol}">${title}</span>
-        ${range?`<span class="mv-sec-range">${range}</span>`:''}
-        <span class="mv-sec-ct">${arr.length}</span>
-      </div>
-      ${arr.length?arr.map(mkRow).join(''):`<div class="mv-empty">${emptyMsg}</div>`}
-    </div>`;
-  };
-  let h=`<div class="mv-wrap">`;
-  h+=`<button class="mv-back" onclick="setRMSync()">← Back to Calendar</button>`;
-  h+=`<div class="mv-hdr">
-    <div class="mv-hdr-title">Weekly Marketing Sync</div>
-    <div class="mv-hdr-date">${now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}</div>
-  </div>`;
-  if(noBriefAlert.length){
-    h+=`<div style="margin-bottom:16px;padding:11px 16px;border-radius:10px;border:1px solid rgba(249,115,22,.3);background:#fff7ed;display:flex;align-items:flex-start;gap:10px">
-      <span style="font-size:13px;flex-shrink:0;margin-top:1px">⚠️</span>
-      <div><div style="font-size:12px;font-weight:700;color:#c2410c;margin-bottom:3px">No brief — ${noBriefAlert.length} item${noBriefAlert.length!==1?'s':''} launching soon with no brief linked</div>
-      <div style="font-size:11px;color:var(--g500);line-height:1.7">${noBriefAlert.map(r=>r.title).join(' · ')}</div></div>
-    </div>`;
-  }
-  if(needsDec.length) h+=mkSec('Needs Alignment','TBC — decision or go / no-go required',needsDec,'#d97706');
-  h+=mkSec('Active This Week',fmtWk(w0s)+' · flag anything at-risk or blocked',thisWk,'#16a34a','Nothing new launching this week');
-  h+=mkSec('Up Next',fmtWk(w1s)+' · early heads-up for dependencies',nextWk,'#0d9488','Nothing scheduled yet');
-  if(wk2.length) h+=mkSec('Week of '+fmt(w2s),'coming up — note any prep needed',wk2,'#64748b');
-  if(overlaps.length){
-    h+=`<div class="mv-sec">
-      <div class="mv-sec-hd" style="border-left-color:#f97316">
-        <span class="mv-sec-label" style="color:#f97316">Dependencies / Capacity</span>
-        <span class="mv-sec-range">same owner · multiple items in one week</span>
-        <span class="mv-sec-ct">${overlaps.length}</span>
-      </div>`;
-    h+=overlaps.map(x=>`<div style="padding:10px 18px;border-bottom:1px solid var(--g100);border-left:4px solid #f97316;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
-      <span style="font-size:13px;font-weight:700;color:var(--navy)">${x.o}</span>
-      <span style="font-size:11px;color:var(--g400)">${x.wk==='this'?'this week':'next week'}</span>
-      <span style="font-size:12px;color:var(--g500)">${x.items.map(i=>i.title).join(' · ')}</span>
-    </div>`).join('');
-    h+=`</div>`;
-  }
-  if(inFlight.length) h+=mkSec('In Flight','ongoing programs — no action needed unless flagged',inFlight,'#7c3aed');
-  h+=`</div>`;
-  el.innerHTML=h;
-}
 /* ── ROADMAP GANTT RENDER ────────────────────────────────────────── */
 function renderRoadmap(){
-  if(_rmMeetingMode){renderMeetingMode();return;}
   const FN_COL={'Product Launches':'#4338ca','Events':'#0d9488','Brand Refresh':'#7c3aed','Brand & Creative':'#c2410c','Web':'#0891b2','Demand':'#1d4ed8','Content & SEO':'#0066D6','Community':'#15803d'};
   const FN_ORDER=['Product Launches','Events','Brand Refresh','Brand & Creative','Web','Demand','Content & SEO','Community'];
   const FN_PROGRAM_HEADER={'Brand Refresh':{label:'Brand & Web Program',tag:'Cross-Functional'}};
@@ -21184,8 +21020,7 @@ function renderRoadmap(){
   const todayLbl=now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
   // filter + group
   const baseFilter=i=>(rmQtr==='All'||i.qtr===rmQtr)&&(rmFn==='All'||i.fn===rmFn)&&(rmBU==='All'||i.bu===rmBU)&&(rmOwner==='All'||i.owner===rmOwner);
-  const ACTIVE_ST=new Set(['in-progress','confirmed','tbc']);
-  const items=ROADMAP.filter(i=>baseFilter(i)&&i.status!=='done'&&(rmStatus==='All'||rmStatus==='active'?rmStatus!=='active'||ACTIVE_ST.has(i.status):i.status===rmStatus)&&(!_rmFocusMode||FOCUS_TIERS.has(i.tier)));
+  const items=ROADMAP.filter(i=>baseFilter(i)&&i.status!=='done'&&(rmStatus==='All'||i.status===rmStatus)&&(!_rmFocusMode||FOCUS_TIERS.has(i.tier)));
   const doneItems=ROADMAP.filter(i=>baseFilter(i)&&i.status==='done').sort((a,b)=>b.weekOf.localeCompare(a.weekOf));
   // per-owner active load (full roadmap, unfiltered, non-done)
   const ownerLoad={};
@@ -21231,9 +21066,8 @@ function renderRoadmap(){
     <select class="rm-drop${rmBU!=='All'?' active':''}" onchange="setRM('bu',this.value)">${buOpts}</select>
     <select class="rm-drop${rmStatus!=='All'?' active':''}" onchange="setRM('status',this.value)">${stOpts}</select>
     <select class="rm-drop${rmOwner!=='All'?' active':''}" onchange="setRM('owner',this.value)">${ownerOpts}</select>
-    <button class="rm-focus-btn" onclick="(function(){const o=document.querySelector('.gcal-outer');if(!o)return;const tw=o.querySelector('.gcal-today-hd');if(tw){const or=o.getBoundingClientRect();const tr=tw.getBoundingClientRect();o.scrollLeft=o.scrollLeft+(tr.left-or.left)-210;}else o.scrollLeft=0;})()" title="Jump to the current week column">↗ Jump to Today</button>
-    <button class="rm-focus-btn${_rmFocusMode?' on':''}" onclick="setRM('focus','x')" title="Toggle between all items and key launches + events only (Tier 1/2, Brand Refresh, Events)">${_rmFocusMode?'◆ Key items only':'◇ Key items only'}</button>
-    <button class="rm-focus-btn" onclick="setRMSync()" title="Meeting view: key items only, scroll to today — ideal for weekly sync screen share" style="background:#10503c20;color:#34d399;border-color:#10503c40">📋 Meeting View</button>
+    <button class="rm-focus-btn" onclick="(function(){const o=document.querySelector('.gcal-outer');if(!o)return;const i=o.querySelector('.gcal-inner');if(!i)return;const nw=o.querySelectorAll('.gcal-head-tc .gcal-week-hd').length;const tw=o.querySelector('.gcal-today-hd');if(tw){const or=o.getBoundingClientRect();const tr=tw.getBoundingClientRect();o.scrollLeft=o.scrollLeft+(tr.left-or.left)-210;}else o.scrollLeft=0;})()" title="Scroll to current week" style="padding:5px 10px">↗ Today</button>
+    <button class="rm-focus-btn${_rmFocusMode?' on':''}" onclick="setRM('focus','x')" title="Show only key launches, events &amp; milestones">${_rmFocusMode?'◆ Highlights':'◇ Highlights'}</button>
     <span class="rm-ctrl-count">${barCount} item${barCount!==1?'s':''} · ${mstCount} milestone${mstCount!==1?'s':''}</span>
     ${overdueCount>0?`<span style="font-size:11px;font-weight:700;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:99px;padding:3px 10px">⚠ ${overdueCount} overdue TBC</span>`:''}
   </div>`;
@@ -21252,11 +21086,10 @@ function renderRoadmap(){
     document.getElementById('roadmap').innerHTML=html;return;
   }
   // ── CALENDAR GRID ─────────────────────────────────────────────────
-  const toLocalDate=d=>{const y=d.getFullYear(),m=d.getMonth()+1,dy=d.getDate();return`${y}-${m<10?'0':''}${m}-${dy<10?'0':''}${dy}`;};
   const calWks=[];
-  {const cw=new Date(rng.s);while(cw.getDay()!==1)cw.setDate(cw.getDate()+1);while(cw<=rng.e){calWks.push(toLocalDate(cw));cw.setDate(cw.getDate()+7);}}
+  {const cw=new Date(rng.s);while(cw.getDay()!==1)cw.setDate(cw.getDate()+1);while(cw<=rng.e){calWks.push(cw.toISOString().slice(0,10));cw.setDate(cw.getDate()+7);}}
   const nWks=calWks.length;
-  const todayStr=toLocalDate(now);
+  const todayStr=now.toISOString().slice(0,10);
   const todayWkIdx=calWks.findIndex((w,i)=>todayStr>=w&&(i===nWks-1||todayStr<calWks[i+1]));
   function wkOf(dateStr){const idx=calWks.findIndex((w,i)=>dateStr>=w&&(i===nWks-1||dateStr<calWks[i+1]));return idx>=0?idx:0;}
   const wkHdHtml=calWks.map((w,i)=>{
@@ -21399,73 +21232,6 @@ function openRMPanel(id){
   document.addEventListener('keydown',_rmEscHandler);
 }
 
-/* ══════════════════════════════════════════════════════
-   WEEKLY SYNC VIEW
-══════════════════════════════════════════════════════ */
-function renderWeeklySync(){
-  const el=document.getElementById('weeklysync');
-  const now=new Date();
-  const dow=now.getDay();
-  const diffMon=dow===0?-6:1-dow;
-  const mon=new Date(now); mon.setDate(now.getDate()+diffMon); mon.setHours(0,0,0,0);
-  const DAY=864e5, WEEK=7*DAY;
-  const w0s=mon,  w0e=new Date(mon.getTime()+WEEK-1);
-  const w1s=new Date(mon.getTime()+WEEK),   w1e=new Date(mon.getTime()+2*WEEK-1);
-  const w2s=new Date(mon.getTime()+2*WEEK), w2e=new Date(mon.getTime()+3*WEEK-1);
-  const todayMid=new Date(now); todayMid.setHours(0,0,0,0);
-  const fmt=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-  const fmtWk=(s,e)=>{
-    const fs=fmt(s), day=e.getDate();
-    return s.getMonth()===e.getMonth()?`${fs}–${day}`:fs+' – '+fmt(e);
-  };
-  const FN_COL={'Product Launches':'#4338ca','Events':'#0d9488','Brand Refresh':'#7c3aed','Brand & Creative':'#c2410c','Web':'#0891b2','Demand':'#1d4ed8','Content & SEO':'#0066D6','Community':'#15803d'};
-  const ST_INFO={'in-progress':{lbl:'In Progress',bg:'#dcfce7',col:'#15803d'},'confirmed':{lbl:'Confirmed',bg:'#ccfbf1',col:'#0d9488'},'planned':{lbl:'Planned',bg:'#dbeafe',col:'#1d4ed8'},'tbc':{lbl:'TBC',bg:'#fef3c7',col:'#92400e'},'live':{lbl:'Live',bg:'#dcfce7',col:'#15803d'}};
-  const dOf=r=>new Date(r.weekOf+'T12:00:00');
-  const dEnd=r=>r.end?new Date(r.end+'T12:00:00'):null;
-  const inW=(r,s,e)=>{const d=dOf(r);return d>=s&&d<=e;};
-  const items=ROADMAP.filter(r=>r.status!=='done');
-  const needsAttn=items.filter(r=>r.status==='tbc'&&dOf(r)<=w1e);
-  const thisWeek =items.filter(r=>inW(r,w0s,w0e));
-  const nextWeek =items.filter(r=>inW(r,w1s,w1e));
-  const week2    =items.filter(r=>inW(r,w2s,w2e));
-  const inFlight =items.filter(r=>r.end&&dOf(r)<w0s&&dEnd(r)>=todayMid);
-  const mkRow=r=>{
-    const fc=FN_COL[r.fn]||'#64748b';
-    const isOv=r.status==='tbc'&&dOf(r)<todayMid;
-    const st=isOv?{lbl:'Overdue TBC',bg:'#fef3c7',col:'#92400e'}:(ST_INFO[r.status]||ST_INFO.tbc);
-    const jLnk=r.jira?`<a href="${JIRA}${r.jira}" target="_blank" onclick="event.stopPropagation()" style="font-size:9px;padding:1px 6px;border-radius:4px;background:#1e293b;color:#7c93b0;border:1px solid #334155;text-decoration:none;white-space:nowrap">${r.jira}</a>`:'';
-    const bLnk=r.brief?`<a href="${r.brief}" target="_blank" onclick="event.stopPropagation()" style="font-size:9px;padding:1px 6px;border-radius:4px;background:#1e293b;color:#7c93b0;border:1px solid #334155;text-decoration:none">Brief</a>`:'';
-    const noBrief=(!r.brief&&(r.status==='confirmed'||r.status==='in-progress'))?`<span title="No brief linked" style="width:6px;height:6px;border-radius:50%;background:#f97316;display:inline-block;flex-shrink:0"></span>`:'';
-    const dateStr=fmt(dOf(r))+(r.end?' → '+fmt(dEnd(r)):'');
-    return `<div class="ws-row${isOv?' ws-ov':''}" onclick="openRMPanel('${r.id}')">
-      <div class="ws-fn" style="background:${fc}18;color:${fc};border:1px solid ${fc}30">${r.fn}</div>
-      <div class="ws-main">
-        <div class="ws-title">${r.title}</div>
-        <div class="ws-meta">
-          <span class="ws-st" style="background:${st.bg};color:${st.col}">${st.lbl}</span>
-          <span class="ws-owner">${r.owner}</span>
-          <span style="font-size:10px;color:#475569">${r.bu!=='All'?r.bu:'All BUs'}</span>
-          <span style="font-size:10px;color:#334155">${dateStr}</span>
-          ${noBrief}${jLnk}${bLnk}
-        </div>
-      </div>
-    </div>`;
-  };
-  const mkSec=(title,range,arr,secBg,secCol,emptyTxt)=>{
-    if(!arr.length&&!emptyTxt)return'';
-    return`<div class="ws-section"><div class="ws-sec-hdr" style="background:${secBg}"><span class="ws-sec-title" style="color:${secCol}">${title}</span>${range?`<span class="ws-sec-range" style="color:${secCol}">${range}</span>`:''}<span class="ws-sec-ct" style="color:${secCol}">${arr.length} item${arr.length!==1?'s':''}</span></div>${arr.length?arr.map(mkRow).join(''):`<div class="ws-empty">${emptyTxt}</div>`}</div>`;
-  };
-  let h=`<div id="weeklysync"><div class="ws-hdr"><div><div class="ws-hdr-title">Weekly Marketing Sync</div><div style="font-size:12px;color:#64748b;margin-top:3px">Q3 2026 &middot; All programs in flight</div></div><div style="display:flex;gap:8px;align-items:center"><span class="ws-hdr-week">Week of ${fmtWk(w0s,new Date(w0s.getTime()+4*DAY))}</span><span style="font-size:11px;color:#475569">as of ${now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</span></div></div>`;
-  if(needsAttn.length)h+=`<div class="ws-attn-bar"><span>⚠️</span><span>${needsAttn.length} item${needsAttn.length!==1?'s':''} need a go/no-go decision — TBC launching within 2 weeks</span></div>`;
-  if(needsAttn.length)h+=mkSec('Needs Decision','TBC — resolve before launch',needsAttn,'#451a0320','#fbbf24');
-  h+=mkSec('This Week',fmtWk(w0s,new Date(w0s.getTime()+4*DAY)),thisWeek,'#15803d18','#86efac','Nothing new launching this week');
-  h+=mkSec('Next Week',fmtWk(w1s,new Date(w1s.getTime()+4*DAY)),nextWeek,'#1d4ed818','#93c5fd');
-  h+=mkSec('Week of '+fmt(w2s),'',week2,'#1e293b','#94a3b8');
-  if(inFlight.length)h+=mkSec('In-Flight Programs','ongoing across Q3',inFlight,'#7c3aed18','#c4b5fd');
-  h+=`</div>`;
-  el.innerHTML=h;
-}
-
 function go(id,btn){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
@@ -21476,7 +21242,6 @@ function go(id,btn){
   if(id==='deliverables' && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
   if(id==='roadmap'      && !document.querySelector('#roadmap .rm-ctrl'))        renderRoadmap();
   if(id==='analytics'    && !document.querySelector('#analytics .an-card'))       renderAnalytics();
-  if(id==='workstreams'  && !document.querySelector('#workstreams .ws-stab'))    renderWorkstreams();
 }
 
 /* ══════════════════════════════════════════════════════
@@ -23501,151 +23266,6 @@ function filterDelSearch(term){applyDelFilters();}
 /* ══════════════════════════════════════════════════════
    TAB 4 — ANALYTICS
 ══════════════════════════════════════════════════════ */
-/* ═════════════════════════════════════════════════════════════
-   TAB 5 — WORKSTREAMS
-══════════════════════════════════════════════════════════════ */
-let _wsTab='sprint';
-function wsSwitch(t){
-  _wsTab=t;
-  document.querySelectorAll('.ws-stab').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
-  wsRenderTab();
-}
-function wsRenderTab(){
-  const w=document.getElementById('ws-body');
-  if(!w)return;
-  w.innerHTML='';
-  if(_wsTab==='sprint')wsRenderSprint(w);
-  else if(_wsTab==='content')wsRenderContent(w);
-  else if(_wsTab==='creative')wsRenderCreative(w);
-  else if(_wsTab==='mops')wsRenderMops(w);
-  else if(_wsTab==='social')wsRenderSocial(w);
-}
-function wsRenderSprint(w){
-  const D=WS_DATA.sprint;
-  const todo=D.items.filter(i=>i.status==='To Do');
-  const prog=D.items.filter(i=>i.status==='In Progress');
-  const rev=D.items.filter(i=>i.status==='In Review');
-  const done=D.items.filter(i=>i.status==='Done');
-  const total=D.items.length;
-  const pct=Math.round((done.length+rev.length)*100/total);
-  const jb='https://quickbase.atlassian.net/browse/';
-  function card(i){
-    const a=i.assignee?i.assignee.split(',')[0].trim():'Unassigned';
-    return '<div class="ws-card"><a class="ws-jid" href="'+jb+i.id+'" target="_blank">'+i.id+'</a><p class="ws-ct">'+i.title+'</p><span class="ws-own">'+a+'</span></div>';
-  }
-  function col(label,items,cls){
-    return '<div class="ws-col '+cls+'"><div class="ws-col-h">'+label+' <span class="ws-badge">'+items.length+'</span></div>'+items.map(card).join('')+'</div>';
-  }
-  w.innerHTML='<div class="ws-sp-hdr"><div class="ws-sp-title">'+D.label+'</div><div class="ws-sp-bar"><div class="ws-sp-fill" style="width:'+pct+'%"></div></div><p class="ws-sp-pct">'+pct+'% complete ('+( done.length+rev.length)+'/'+total+' items in review or done)</p></div><div class="ws-board">'+col('To Do',todo,'col-todo')+col('In Progress',prog,'col-prog')+col('In Review',rev,'col-rev')+'</div>';
-}
-function wsRenderContent(w){
-  const items=WS_DATA.content;
-  const today=new Date();today.setHours(0,0,0,0);
-  const jb='https://quickbase.atlassian.net/browse/';
-  const SC={'In Review':'#2C9382','Brief':'#6264a7','idea':'#8a8a8a'};
-  const weeks={};
-  items.forEach(i=>{
-    if(!i.duedate)return;
-    const d=new Date(i.duedate+'T00:00:00');
-    const dow=d.getDay();const mon=new Date(d);mon.setDate(d.getDate()-(dow===0?6:dow-1));
-    const wk=mon.toISOString().slice(0,10);
-    if(!weeks[wk])weeks[wk]=[];weeks[wk].push(i);
-  });
-  const sortedWks=Object.keys(weeks).sort();
-  function fmt(d){return new Date(d+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'});}
-  function badge(s){const c=SC[s]||'#888';return '<span class="ws-sbadge" style="background:'+c+'20;color:'+c+';border:1px solid '+c+'40">'+s+'</span>';}
-  const rows=sortedWks.map(wk=>{
-    const wkD=new Date(wk+'T00:00:00');const wkE=new Date(wkD);wkE.setDate(wkD.getDate()+6);
-    const isNow=today>=wkD&&today<=wkE;
-    const lbl='Week of '+wkD.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    const cards=weeks[wk].map(i=>{
-      const ov=new Date(i.duedate+'T00:00:00')<today;
-      return '<div class="ws-cont-item'+(ov?' ws-overdue':'')+'"><span class="ws-cont-date">'+fmt(i.duedate)+'</span><a href="'+jb+i.id+'" target="_blank" class="ws-cont-title">'+i.title+'</a>'+badge(i.status)+'<span class="ws-own">'+(i.assignee?i.assignee.split(',')[0].trim():'?')+'</span></div>';
-    }).join('');
-    return '<div class="ws-week'+(isNow?' ws-now':'')+'"><div class="ws-wk-lbl">'+lbl+(isNow?'<span class="ws-now-tag">current</span>':'')+'</div>'+cards+'</div>';
-  }).join('');
-  w.innerHTML='<div class="ws-cont-wrap">'+rows+'</div>';
-}
-function wsRenderCreative(w){
-  const items=WS_DATA.creative;
-  const today=new Date();today.setHours(0,0,0,0);
-  const jb='https://quickbase.atlassian.net/browse/';
-  const COLS=['Intake','Design In Progress','In Review','Blocked'];
-  const CC={'Intake':'#2C9382','Design In Progress':'#6264a7','In Review':'#0052CC','Blocked':'#DE350B'};
-  function fmtD(d){
-    if(!d)return '';
-    const dt=new Date(d+'T00:00:00');const ov=dt<today;
-    return '<span class="ws-due'+(ov?' ws-red':'')+'">'+dt.toLocaleDateString('en-US',{month:'short',day:'numeric'})+'</span>';
-  }
-  function card(i){
-    const a=i.assignee?i.assignee.split(',')[0].trim():'Unassigned';
-    return '<div class="ws-card"><a class="ws-jid" href="'+jb+i.id+'" target="_blank">'+i.id+'</a><p class="ws-ct">'+i.title+'</p><div class="ws-card-ft">'+fmtD(i.duedate)+'<span class="ws-own">'+a+'</span></div></div>';
-  }
-  function col(label){
-    const ci=items.filter(i=>i.status===label).sort((a,b)=>(a.duedate||'9')>(b.duedate||'9')?1:-1);
-    const c=CC[label]||'#666';
-    return '<div class="ws-col"><div class="ws-col-h" style="border-left:3px solid '+c+';padding-left:8px">'+label+' <span class="ws-badge">'+ci.length+'</span></div>'+ci.map(card).join('')+'</div>';
-  }
-  w.innerHTML='<div class="ws-board ws-4col">'+COLS.map(col).join('')+'</div>';
-}
-function wsRenderMops(w){
-  const items=WS_DATA.mops;
-  const today=new Date();today.setHours(0,0,0,0);
-  const jb='https://quickbase.atlassian.net/browse/';
-  const TI={'MOPs Email Request':'📧','MOPs Campaign Request':'📋','MOPs List Upload':'📤','MOPs Other Project Request':'⚙️','MOPs Report Request':'📊'};
-  const dated=items.filter(i=>i.duedate).sort((a,b)=>a.duedate>b.duedate?1:-1);
-  const undated=items.filter(i=>!i.duedate);
-  const weeks={};
-  dated.forEach(i=>{
-    const d=new Date(i.duedate+'T00:00:00');const dow=d.getDay();const mon=new Date(d);mon.setDate(d.getDate()-(dow===0?6:dow-1));
-    const wk=mon.toISOString().slice(0,10);if(!weeks[wk])weeks[wk]=[];weeks[wk].push(i);
-  });
-  const sortedWks=Object.keys(weeks).sort();
-  function row(i){
-    const ov=i.duedate&&new Date(i.duedate+'T00:00:00')<today;
-    const ic=TI[i.issueType]||'📌';
-    const dt=i.duedate?new Date(i.duedate+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
-    return '<div class="ws-mops-row'+(ov?' ws-overdue':'')+'"><span class="ws-micon">'+ic+'</span><a href="'+jb+i.id+'" target="_blank" class="ws-cont-title">'+i.title+'</a><span class="ws-mdate'+(ov?' ws-red':'')+'">'+dt+'</span><span class="ws-own">'+(i.assignee?i.assignee.split(',')[0].trim():'?')+'</span></div>';
-  }
-  const wkHtml=sortedWks.map(wk=>{
-    const wkD=new Date(wk+'T00:00:00');const wkE=new Date(wkD);wkE.setDate(wkD.getDate()+6);
-    const isNow=today>=wkD&&today<=wkE;
-    const lbl='Week of '+wkD.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    return '<div class="ws-week'+(isNow?' ws-now':'')+'"><div class="ws-wk-lbl">'+lbl+(isNow?'<span class="ws-now-tag">current</span>':'')+'</div>'+weeks[wk].map(row).join('')+'</div>';
-  }).join('');
-  const udHtml=undated.length?'<div class="ws-week"><div class="ws-wk-lbl ws-wk-gray">No due date</div>'+undated.map(row).join('')+'</div>':'';
-  w.innerHTML='<div class="ws-cont-wrap">'+wkHtml+udHtml+'</div>';
-}
-function wsRenderSocial(w){
-  const items=WS_DATA.social||[];
-  if(!items.length){w.innerHTML='<div class="ws-nodata"><p>No social requests loaded.</p><p class="ws-hint">Ask Claude to refresh social data from Jira (Marketing Social Request issue type).</p></div>';return;}
-  const today=new Date();today.setHours(0,0,0,0);
-  const jb='https://quickbase.atlassian.net/browse/';
-  const sorted=[...items].sort((a,b)=>(a.duedate||'9')>(b.duedate||'9')?1:-1);
-  function card(i){
-    const ov=i.duedate&&new Date(i.duedate+'T00:00:00')<today;
-    const dt=i.duedate?new Date(i.duedate+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric'}):'No date';
-    return '<div class="ws-card'+(ov?' ws-overdue':'')+'"><span class="ws-cont-date">'+dt+'</span><a href="'+jb+i.id+'" target="_blank" class="ws-cont-title" style="display:block;margin:4px 0">'+i.title+'</a><div class="ws-card-ft"><span class="ws-sbadge" style="background:#e8f0ee;color:#2c5a4e;border:1px solid #c5d9d4">'+i.status+'</span><span class="ws-own">'+(i.assignee?i.assignee.split(',')[0].trim():'?')+'</span></div></div>';
-  }
-  w.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">'+sorted.map(card).join('')+'</div>';
-}
-function renderWorkstreams(){
-  const el=document.getElementById('workstreams');
-  if(!document.getElementById('ws-style')){
-    const s=document.createElement('style');s.id='ws-style';
-    s.textContent='.ws-wrap{padding-bottom:40px}.ws-title{margin:0;font-size:22px;color:var(--navy)}.ws-sub{margin:4px 0 16px;font-size:12px;color:#999}.ws-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}.ws-stab{padding:7px 16px;border-radius:20px;border:1px solid #dde;background:#fff;cursor:pointer;font-size:13px;color:#555;transition:.15s}.ws-stab.on{background:var(--navy);color:#fff;border-color:var(--navy)}.ws-stab:hover:not(.on){background:var(--bg)}.ws-board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.ws-4col{grid-template-columns:repeat(4,1fr)}.ws-col{background:#f8faf9;border-radius:10px;padding:12px;min-height:160px}.ws-col-h{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#666;margin-bottom:10px;display:flex;align-items:center;gap:6px}.ws-badge{background:#e2e8e5;color:#555;border-radius:8px;padding:1px 7px;font-size:11px;font-weight:600}.ws-card{background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:8px;border:1px solid #eaeef0;box-shadow:0 1px 3px rgba(0,0,0,.05)}.ws-jid{font-size:11px;font-weight:600;color:var(--navy);text-decoration:none;opacity:.65;display:block;margin-bottom:2px}.ws-jid:hover{opacity:1}.ws-ct{margin:0 0 6px;font-size:12.5px;line-height:1.35;color:#1a2d3a}.ws-card-ft{display:flex;align-items:center;justify-content:space-between}.ws-own{font-size:11px;background:#e8f0ee;color:#2c5a4e;padding:2px 7px;border-radius:10px;white-space:nowrap}.ws-due{font-size:11px;color:#666}.ws-red{color:#DE350B!important}.ws-overdue{border-left:3px solid #DE350B!important}.ws-sp-hdr{background:var(--bg);border-radius:10px;padding:14px 18px;margin-bottom:18px}.ws-sp-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:10px}.ws-sp-bar{height:7px;background:#dde8e4;border-radius:4px;overflow:hidden;margin-bottom:5px}.ws-sp-fill{height:100%;background:var(--navy);border-radius:4px}.ws-sp-pct{font-size:12px;color:#888;margin:0}.ws-week{border-left:3px solid #e2e8e5;padding:0 0 14px 16px;margin-bottom:2px}.ws-week.ws-now{border-left-color:var(--navy)}.ws-wk-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#999;margin-bottom:8px;display:flex;align-items:center;gap:8px}.ws-wk-gray{color:#ccc}.ws-now-tag{background:var(--navy);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px;text-transform:none;letter-spacing:0;font-weight:600}.ws-cont-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;background:#fff;border:1px solid #eaeef0;margin-bottom:5px}.ws-cont-date{font-size:11px;color:#aaa;min-width:52px;flex-shrink:0}.ws-cont-title{font-size:12.5px;color:#1a2d3a;text-decoration:none;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ws-cont-title:hover{text-decoration:underline;color:var(--navy)}.ws-sbadge{font-size:11px;padding:2px 7px;border-radius:8px;flex-shrink:0;white-space:nowrap}.ws-mops-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;background:#fff;border:1px solid #eaeef0;margin-bottom:5px}.ws-micon{font-size:13px;flex-shrink:0}.ws-mdate{font-size:11px;color:#aaa;min-width:52px;flex-shrink:0;text-align:right}.ws-cont-wrap{max-width:920px}.ws-nodata{text-align:center;padding:60px 40px;color:#888}.ws-nodata p{margin:0 0 8px;font-size:15px}.ws-hint{font-size:13px!important;color:#aaa!important}';
-    document.head.appendChild(s);
-  }
-  if(typeof WS_DATA==='undefined'){
-    el.innerHTML='<div class="ws-nodata"><p>Workstream data not loaded.</p><p class="ws-hint">The workstream-data.js file is missing. Ask Claude to refresh.</p></div>';
-    return;
-  }
-  const ref=WS_DATA.refreshed?new Date(WS_DATA.refreshed+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'unknown';
-  el.innerHTML='<div class="ws-wrap"><h2 class="ws-title">Workstreams</h2><p class="ws-sub">Last refreshed '+ref+' \xb7 Ask Claude to update with latest Jira data</p><div class="ws-tabs"><button class="ws-stab on" data-t="sprint" onclick="wsSwitch(\'sprint\')">&#127760; Sprint 13</button><button class="ws-stab" data-t="content" onclick="wsSwitch(\'content\')">&#9997; Content</button><button class="ws-stab" data-t="creative" onclick="wsSwitch(\'creative\')">&#127912; Creative</button><button class="ws-stab" data-t="mops" onclick="wsSwitch(\'mops\')">&#128231; Email &amp; MOPs</button><button class="ws-stab" data-t="social" onclick="wsSwitch(\'social\')">&#128241; Social</button></div><div id="ws-body"></div></div>';
-  _wsTab='sprint';
-  wsRenderTab();
-}
-
 function renderAnalytics(){
   const inits=DATA.initiatives;
   const totalDone=inits.reduce((s,i)=>s+i.done,0);
