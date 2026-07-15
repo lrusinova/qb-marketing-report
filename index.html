@@ -1088,6 +1088,7 @@ const PROG_STATUSES = {
   "WE-632":"done",
   "WE-615":"in-progress",
   "MKT-13061":"planning",
+  "MKT-13036":"planning",
   "MKT-12888":"in-progress",
   "MKT-12856":"planning",
   "MKT-12850":"in-progress",
@@ -1243,6 +1244,7 @@ const DATA = {
        {key:"MKT-12805",title:"[Core] G2 — Always-On Activation",status:"in-progress"},
        {key:"MKT-12494",title:"[Core] Webinar — Tropicana Road Show (Jul 9)",status:"planning"},
        {key:"MKT-12598",title:"[Core] Webinar — Feature Focus: Summer Recap (Jul 16)",status:"planning"},
+       {key:"MKT-13036",title:"[Core] Webinar — From Prompt to Power: Automating Work with QB AI (Aug 4)",status:"planning"},
      ]},
     {key:"MKT-12570",title:"Integrated Marketing",sub:"Brand · Creative · Content · Community · Partners · Events",
      owner:"Mirissa Kampf",status:"on-track",pct:32,done:4,flight:7,blocked:0,total:14,color:"#F23E30",delta:0,note:"Key Opinion Partners & Power Videos programs pending Jira issues.",
@@ -1363,6 +1365,7 @@ const DATA = {
     {sp:"MKT-12569",key:"MKT-12186",title:"Webinar — QB Extensions: Leveraging Workflows (Jun 17)",owner:"Lynch, Emma",status:"in-progress",priority:"P1",goal:2},
     {sp:"MKT-12569",key:"MKT-12494",title:"Webinar — Tropicana Road Show (Jul 9 · AI Intelligence)",owner:"Kleiner, Charlie",status:"planning",priority:"P1",goal:2,due:"2026-07-09"},
     {sp:"MKT-12569",key:"MKT-12598",title:"Webinar — Feature Focus: Summer Recap (Jul 16)",owner:"Lynch, Emma",status:"planning",priority:"P1",goal:2,due:"2026-07-16"},
+    {sp:"MKT-12569",key:"MKT-13036",title:"Webinar — From Prompt to Power: Automating Work with QB AI (Aug 4)",owner:"Lynch, Emma",status:"planning",priority:"P1",goal:2,due:"2026-08-04"},
     {sp:"MKT-12569",key:"MKT-12825",title:"[Core] Launch — Auto-Schedule (Solvice) — Q3 2026",owner:"Decker, Michael",status:"planning",priority:"P1",due:"2026-08-24"},
     {sp:"MKT-12569",key:"MKT-12805",title:"[Core] G2 — Always-On Activation — Q3 2026",owner:"Lynch, Emma",status:"in-progress",priority:"P1"},
     {sp:"MKT-12569",key:"MKT-11666",title:"Grid Reports — Go-to-Market Launch",owner:"Decker, Michael",status:"done",priority:"P1",goal:2},
@@ -19647,6 +19650,456 @@ const DATA = {
     }
   ],
   shipped:[
+    {
+      key:"MKT-12114",
+      title:"[Pave] SEO Content Program — Q2 2026",
+      ch:"Content & SEO",
+      bu:"Pave",
+      label:"Pave-MKT",
+      owner:"South, Tom",
+      type:"Program",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"MKT-13040",
+      title:"Goldcast Setup — From Prompt to Power: Automating Work with Quickbase AI Features",
+      ch:"Webinars & Events",
+      bu:"QB-Core",
+      label:"QB-Core-MKT",
+      owner:"Kleiner, Charlie",
+      type:"Task",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"MKT-12673",
+      title:"Email_Customer_Feature Focus: The Quickbase Summer Drop_Promo 3",
+      ch:"Email & Lifecycle",
+      bu:"QB-Core",
+      label:"",
+      owner:"Schiff, Ayva",
+      type:"Email",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"MKT-12739",
+      title:"[Design] Comparison Pages — Page Template Design",
+      ch:"Creative & Design",
+      bu:"Pave",
+      label:"Pave-MKT",
+      owner:"Boyanova, Kristina",
+      type:"Creative",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"WE-815",
+      title:"Implement design feedback on MVP Pave solution pages",
+      ch:"Web / Digital",
+      bu:"Unknown",
+      label:"",
+      owner:"Young-Ward, Michael",
+      type:"Sub-task",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"WE-813",
+      title:"New Pave product images for new Pave solution pages",
+      ch:"Web / Digital",
+      bu:"Unknown",
+      label:"",
+      owner:"Martinez, Evan",
+      type:"Sub-task",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"WE-812",
+      title:"Final copy for new Pave solution pages",
+      ch:"Web / Digital",
+      bu:"Unknown",
+      label:"",
+      owner:"Hendley, Michelle",
+      type:"Sub-task",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"WE-811",
+      title:"Wireframe new Pave solution pages",
+      ch:"Web / Digital",
+      bu:"Unknown",
+      label:"",
+      owner:"Hendley, Michelle",
+      type:"Sub-task",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"MKT-12053",
+      title:"[FF] Launch Program — Q2 2026 ",
+      ch:"Launches & GTM",
+      bu:"FastField",
+      label:"FF-MKT",
+      owner:"Rusinova, Luiza",
+      type:"Program",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"MKT-12528",
+      title:"[Cross-BU] Web — Q2 2026",
+      ch:"Web / Digital",
+      bu:"Cross-BU",
+      label:"CrossBU-MKT",
+      owner:"Unassigned",
+      type:"Program",
+      doneDate:"Jul 15, 2026"
+    },
+    {
+      key:"MKT-10953",
+      title:"Knack vs Quickbase",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12415",
+      title:"Sales Outreach Campaign — AI4 2026",
+      ch:"Demand Gen",
+      bu:"Unknown",
+      label:"",
+      owner:"McPhee, Stephanie",
+      type:"Task",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12713",
+      title:"Demo page — BoFu content and messaging review",
+      ch:"Web / Digital",
+      bu:"QB-Core",
+      label:"QB-Core-MKT",
+      owner:"Saari, Tim",
+      type:"Task",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12712",
+      title:"Trial page — BoFu content and messaging review",
+      ch:"Web / Digital",
+      bu:"QB-Core",
+      label:"QB-Core-MKT",
+      owner:"Saari, Tim",
+      type:"Task",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11094",
+      title:"WorkOS vs Quickbase",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Patro, Shreya",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12978",
+      title:"Creating a Web Data Report for QB/FF/Pave + Bot Traffic Filtered",
+      ch:"Web / Digital",
+      bu:"Unknown",
+      label:"",
+      owner:"Radev, Tihomir",
+      type:"Task",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-10865",
+      title:"BLOG: AI Is Only as Mature as the System It Runs Inside",
+      ch:"Content & SEO",
+      bu:"Unknown",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Blog",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11412",
+      title:"No-code Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11411",
+      title:"Agile Project Management Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Husain, Javeria",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11779",
+      title:"Best Training Management Software",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Wahl, Nathan",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11409",
+      title:"Data Visualization Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11410",
+      title:"Workflow Automation Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Patro, Shreya",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11176",
+      title:"Best Compliance Management Software",
+      ch:"Content & SEO",
+      bu:"Unknown",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11408",
+      title:"Enterprise Application Platform Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12517",
+      title:"Compliance Reporting Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Husain, Javeria",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12518",
+      title:"Project Dashboard Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Husain, Javeria",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12514",
+      title:"Custom Application Development Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Husain, Javeria",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12515",
+      title:"Contracts Management System Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Husain, Javeria",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12516",
+      title:"Dashboards Project Management Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Husain, Javeria",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12509",
+      title:"Business Process Automation Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12510",
+      title:"Data Synchronization Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12511",
+      title:"Project Portfolio Management Software Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12512",
+      title:"Application Development Platform Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12513",
+      title:"Workflow Automation Tool Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Sarkar, Anamika",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12560",
+      title:"Workflow Builder Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12075",
+      title:"Low Code Platform Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12076",
+      title:"Application Development Cost Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12561",
+      title:"AI Business Solutions Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12073",
+      title:"Process Improvement Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12074",
+      title:"Process Management Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12562",
+      title:"Resource Management Plan Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12071",
+      title:"Database Software Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Wahl, Nathan",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12563",
+      title:"Low Code App Development Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-12072",
+      title:"Team Collaboration Glossary",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
+    {
+      key:"MKT-11157",
+      title:"The Best Field Service Management (FSM) Software for 2026",
+      ch:"Content & SEO",
+      bu:"QB-Core",
+      label:"",
+      owner:"Mondal, Sanchita",
+      type:"Content",
+      doneDate:"Jul 14, 2026"
+    },
     {
       key:"MKT-12808",
       title:"Testing Qualified email for expired QB trial users to promote Pave",
