@@ -788,6 +788,43 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .pw-error{font-size:12px;color:#dc2626;margin-top:6px;min-height:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px}
 .pw-footer{font-size:11px;color:#94a3b8;margin-top:24px;padding-top:20px;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;gap:6px}
 
+/* ── WORKSTREAMS TAB ─────────────────────────────────── */
+.ws-wrap{padding:24px 28px;max-width:1100px;margin:0 auto}
+.ws-grid{display:flex;flex-direction:column;gap:8px}
+.ws-card{background:#fff;border:1px solid var(--g200);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
+.ws-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ws-card-hd{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;min-height:52px}
+.ws-card-hd:hover{background:var(--g50)}
+.ws-ch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.ws-ch-name{font-size:13.5px;font-weight:700;color:var(--g900);flex:1}
+.ws-badges{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.ws-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px;white-space:nowrap}
+.ws-badge-active{background:#e8f7f4;color:#0d7560;border:1px solid #b0ddd7}
+.ws-badge-queue{background:#eef3ff;color:#3451b2;border:1px solid #c0ccf5}
+.ws-badge-0{background:var(--g100);color:var(--g400);border:1px solid var(--g200)}
+.ws-chevron{color:var(--g400);flex-shrink:0;transition:transform .2s}
+.ws-card.open .ws-chevron{transform:rotate(180deg)}
+.ws-body{display:none;border-top:1px solid var(--g100);padding:4px 18px 18px}
+.ws-card.open .ws-body{display:block}
+.ws-section{margin-top:14px}
+.ws-sec-title{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g500);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--g100)}
+.ws-item{display:flex;align-items:flex-start;gap:10px;padding:5px 0;border-bottom:1px solid var(--g50)}
+.ws-item:last-child{border-bottom:none}
+.ws-item-key{font-size:11px;color:var(--g400);white-space:nowrap;flex-shrink:0;padding-top:2px;font-weight:500;min-width:78px}
+.ws-item-key a{color:var(--g400)}
+.ws-item-key a:hover{color:var(--blue)}
+.ws-item-body{flex:1;min-width:0}
+.ws-item-title{font-size:12.5px;color:var(--g900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
+.ws-item-meta{display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap}
+.ws-item-owner{font-size:11px;color:var(--g500)}
+.ws-item-type{font-size:10px;background:var(--g100);color:var(--g600);padding:1px 6px;border-radius:4px;font-weight:500}
+.ws-item-date{font-size:11px;color:var(--g400)}
+.ws-more-btn{margin-top:6px;font-size:11.5px;color:var(--blue);cursor:pointer;background:none;border:none;padding:4px 0;font-weight:500}
+.ws-more-btn:hover{text-decoration:underline}
+.ws-empty{font-size:12px;color:var(--g400);padding:8px 0;font-style:italic}
+.ws-intro-bar{background:#fff;border:1px solid var(--g200);border-radius:10px;padding:13px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--g600)}
+.ws-intro-bar strong{color:var(--g900)}
+
 </style>
 </head>
 <body>
@@ -888,6 +925,10 @@ window.addEventListener('load',function(){
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     Analytics
   </button>
+  <button class="tbtn" onclick="go('workstreams',this)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Workstreams
+  </button>
 </nav>
 
 <div id="brief"        class="pane on"></div>
@@ -895,6 +936,7 @@ window.addEventListener('load',function(){
 <div id="deliverables" class="pane"></div>
 <div id="roadmap"      class="pane"></div>
 <div id="analytics"    class="pane"></div>
+<div id="workstreams"  class="pane"></div>
 
 <!-- Roadmap side panel -->
 <div id="rm-panel" aria-hidden="true">
@@ -13773,9 +13815,10 @@ function go(id,btn){
   if(btn)btn.classList.add('on');
   if(id==='brief'        && !document.querySelector('#brief .tl2'))              renderBriefing();
   if(id==='programs'     && !document.querySelector('#programs .prog-sp-group')) renderPrograms();
-  if(id==='deliverables' && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
-  if(id==='roadmap'      && !document.querySelector('#roadmap .rm-ctrl'))        renderRoadmap();
-  if(id==='analytics'    && !document.querySelector('#analytics .an-card'))       renderAnalytics();
+  if(id==='deliverables'  && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
+  if(id==='roadmap'       && !document.querySelector('#roadmap .rm-ctrl'))          renderRoadmap();
+  if(id==='analytics'     && !document.querySelector('#analytics .an-card'))        renderAnalytics();
+  if(id==='workstreams'   && !document.querySelector('#workstreams .ws-grid'))      renderWorkstreams();
 }
 
 /* ══════════════════════════════════════════════════════
@@ -16102,6 +16145,142 @@ function renderAnalytics(){
     ${_trendHtml}
 
     `;
+}
+
+/* ══════════════════════════════════════════════════════
+   WORKSTREAMS TAB
+══════════════════════════════════════════════════════ */
+const _wsExpanded={};
+function wsToggle(ch){
+  _wsExpanded[ch]=!_wsExpanded[ch];
+  const card=document.querySelector('.ws-card[data-ch="'+ch.replace(/"/g,'&quot;')+'"]');
+  if(card)card.classList.toggle('open',!!_wsExpanded[ch]);
+}
+function wsShowMore(safeId){
+  const list=document.getElementById('ws-more-'+safeId);
+  const btn =document.getElementById('ws-mbtn-'+safeId);
+  if(list)list.style.display='';
+  if(btn)btn.remove();
+}
+function renderWorkstreams(){
+  // Helpers (shared logic with renderDeliverables)
+  const _isSeo=t=>{if(!t)return false;const s=t.toLowerCase();
+    return s.endsWith('glossary')||/^(the )?best\b/.test(s)||s.includes(' vs ')||
+           /\buse case page/i.test(s)||/\bcomparison page/i.test(s)||/^top\b/.test(s)||
+           s.includes('seo')||s.includes('aeo')||s.includes('entity cluster');};
+  const _inferBU=i=>{if(i.bu&&i.bu!=='Unknown')return i.bu;
+    const t=i.title||'';
+    if(/^\[Pave\]/i.test(t)||/\bpaveathon\b/i.test(t))return 'Pave';
+    if(/^\[FF\]/i.test(t)||/\bfastfield\b/i.test(t)||/\bfso\b/i.test(t))return 'FastField';
+    if(/^\[Core\]/i.test(t))return 'Core (QB)';
+    if(/^\[Cross-BU\]/i.test(t)||/\bempower\b/i.test(t))return 'Cross-BU';
+    return i.bu||'Unknown';};
+  const _normCh=ch=>{if(!ch)return'Other';
+    const n=ch.trim();
+    if(n==='Web / Digital'||n==='Web & Digital')return'Web & Digital';
+    if(n==='Webinars & Events')return'Events & Experiences';
+    if(n==='Content & SEO')return'Content';
+    if(n==='Launches & GTM'||n==='Other')return'Other';
+    return n;};
+  const _norm=i=>({...i,
+    ch:_normCh(i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch),
+    bu:_inferBU(i)});
+
+  const CH_COLOR={'Web & Digital':'#14B8A6','Content':'#0066D6','SEO':'#0891B2',
+    'Creative & Design':'#DB2777','Email & Lifecycle':'#14A558','Social Media':'#9333EA',
+    'Demand Gen':'#F59E0B','PMM / Product':'#7C3AED','Events & Experiences':'#E53935',
+    'PR & Comms':'#6366F1','Community':'#D97706','Marketing Analytics':'#059669','Other':'#94A3B8'};
+  const CH_ORDER=['Web & Digital','Content','SEO','Creative & Design','Email & Lifecycle',
+    'Social Media','Demand Gen','PMM / Product','Events & Experiences','PR & Comms',
+    'Community','Marketing Analytics','Other'];
+
+  const activeItems=(DATA.active||[]).map(i=>({..._norm(i),_st:'active'}));
+  const queueItems =(DATA.planning||[]).map(i=>({..._norm(i),_st:'queue'}));
+
+  // Group by channel
+  const channels={};
+  [...activeItems,...queueItems].forEach(i=>{
+    const ch=i.ch||'Other';
+    if(!channels[ch])channels[ch]={active:[],queue:[]};
+    channels[ch][i._st==='active'?'active':'queue'].push(i);
+  });
+
+  const sortedChs=Object.keys(channels).sort((a,b)=>{
+    const ia=CH_ORDER.indexOf(a),ib=CH_ORDER.indexOf(b);
+    if(ia>=0&&ib>=0)return ia-ib;
+    if(ia>=0)return -1;if(ib>=0)return 1;
+    return(channels[b].active.length+channels[b].queue.length)-(channels[a].active.length+channels[a].queue.length);
+  });
+
+  const _ownerFmt=n=>(!n||n==='(unassigned)'||n==='Unassigned')?'':
+    (n.includes(', ')?n.split(', ').reverse().join(' '):n);
+
+  const _itemRow=item=>{
+    const key=item.key||'';
+    const rawTitle=item.title||'';
+    const title=rawTitle.replace(/^\[[^\]]+\]\s*/,'');
+    const owner=_ownerFmt(item.owner||'');
+    const firstName=owner?owner.split(' ')[0]:'';
+    const type=item.type||'';
+    const date=item.updatedDate||item.doneDate||'';
+    return`<div class="ws-item">`
+      +`<div class="ws-item-key">${jl(key,key)}</div>`
+      +`<div class="ws-item-body">`
+        +`<div class="ws-item-title" title="${title.replace(/"/g,'&quot;')}">${title}</div>`
+        +`<div class="ws-item-meta">`
+          +(firstName?`<span class="ws-item-owner">${firstName}</span>`:'')
+          +(type?`<span class="ws-item-type">${type}</span>`:'')
+          +(date?`<span class="ws-item-date">${date}</span>`:'')
+        +`</div>`
+      +`</div>`
+    +`</div>`;};
+
+  const SHOW=5;
+  const _section=(items,label,sectionKey)=>{
+    if(!items.length)return'';
+    const sid=sectionKey.replace(/[^a-zA-Z0-9]/g,'_');
+    const init=items.slice(0,SHOW),rest=items.slice(SHOW);
+    let h=`<div class="ws-section">`
+      +`<div class="ws-sec-title">${label} <span style="opacity:.6;font-weight:500">(${items.length})</span></div>`
+      +init.map(_itemRow).join('');
+    if(rest.length){
+      h+=`<div id="ws-more-${sid}" style="display:none">${rest.map(_itemRow).join('')}</div>`
+        +`<button class="ws-more-btn" id="ws-mbtn-${sid}" onclick="wsShowMore('${sid}')">+ ${rest.length} more</button>`;
+    }
+    return h+`</div>`;};
+
+  const totalA=activeItems.length,totalQ=queueItems.length;
+  let html=`<div class="ws-wrap">`
+    +`<div class="sec-hd"><h2>Workstreams</h2><p>${totalA} active &middot; ${totalQ} queued &middot; updated ${DATA.lastUpdated}</p></div>`
+    +`<div class="ws-intro-bar"><strong>Team queue by channel</strong>&ensp;&mdash;&ensp;Check what each team has active and lined up before assigning new work. Click any channel to expand.</div>`
+    +`<div class="ws-grid">`;
+
+  sortedChs.forEach(ch=>{
+    const g=channels[ch];
+    const color=CH_COLOR[ch]||'#94A3B8';
+    const ac=g.active.length,qc=g.queue.length;
+    const safeAttr=ch.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    const safeJs=ch.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    html+=`<div class="ws-card" data-ch="${safeAttr}">`
+      +`<div class="ws-card-hd" onclick="wsToggle('${safeJs}')">`
+        +`<div class="ws-ch-dot" style="background:${color}"></div>`
+        +`<div class="ws-ch-name">${ch}</div>`
+        +`<div class="ws-badges">`
+          +`<span class="ws-badge ${ac?'ws-badge-active':'ws-badge-0'}">${ac} active</span>`
+          +`<span class="ws-badge ${qc?'ws-badge-queue':'ws-badge-0'}">${qc} queued</span>`
+        +`</div>`
+        +`<svg class="ws-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`
+      +`</div>`
+      +`<div class="ws-body">`
+        +_section(g.active,'Active Now','active_'+ch)
+        +_section(g.queue,'In Queue','queue_'+ch)
+        +(!ac&&!qc?`<p class="ws-empty">No open items</p>`:'')
+      +`</div>`
+    +`</div>`;
+  });
+
+  html+=`</div></div>`;
+  document.getElementById('workstreams').innerHTML=html;
 }
 
 /* ══════════════════════════════════════════════════════
