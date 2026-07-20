@@ -828,6 +828,26 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .del-view-btn{padding:5px 16px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g500);cursor:pointer;transition:all .15s;white-space:nowrap}
 .del-view-btn.on{background:#fff;color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,.12);font-weight:700}
 .del-view-btn:hover:not(.on){color:var(--navy);background:rgba(255,255,255,.6)}
+/* ── CHANNEL VIEW ITEM ENHANCEMENTS ─────────────────── */
+.ws-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;letter-spacing:.03em}
+.ws-av-empty{background:var(--g300);color:var(--g500)}
+.ws-item{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-bottom:1px solid var(--g50)}
+.ws-item:last-child{border-bottom:none}
+.ws-item-sub{padding-left:8px;opacity:.9}
+.ws-sub-mark{font-size:11px;color:var(--g400);margin-right:3px}
+.ws-item-body{flex:1;min-width:0}
+.ws-item-title{font-size:12.5px;font-weight:500;color:var(--g900);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ws-title-lnk{color:var(--g900);text-decoration:none}
+.ws-title-lnk:hover{color:var(--blue);text-decoration:underline}
+.ws-item-meta{display:flex;align-items:center;gap:5px;margin-top:2px;flex-wrap:wrap}
+.ws-key-sm{font-size:10px;color:var(--g400);font-weight:500;white-space:nowrap}
+.ws-key-sm a{color:var(--g400)}
+.ws-type-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;white-space:nowrap}
+.ws-item-owner{font-size:11px;color:var(--g500);white-space:nowrap}
+.ws-item-date{font-size:10.5px;color:var(--g400);white-space:nowrap}
+.ws-sec-cnt{font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:6px}
+.ws-section{margin-top:16px;padding-bottom:4px}
+.ws-sec-title{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center}
 
 </style>
 </head>
@@ -15652,6 +15672,7 @@ function expandAllProgs(){
 function renderDeliverables(){
   const _viewTog=`<div class="del-view-tog"><button class="del-view-btn${delView==='channel'?' on':''}" onclick="setDelView('channel')">By Channel</button><button class="del-view-btn${delView==='list'?' on':''}" onclick="setDelView('list')">All Items</button></div>`;
   if(delView==='channel'){
+    // ── Helpers ───────────────────────────────────────────────────────
     const _isSeo=t=>{if(!t)return false;const s=t.toLowerCase();
       return s.endsWith('glossary')||/^(the )?best\b/.test(s)||s.includes(' vs ')||
              /\buse case page/i.test(s)||/\bcomparison page/i.test(s)||/^top\b/.test(s)||
@@ -15663,25 +15684,69 @@ function renderDeliverables(){
       if(/^\[Core\]/i.test(t))return 'Core (QB)';
       if(/^\[Cross-BU\]/i.test(t)||/\bempower\b/i.test(t))return 'Cross-BU';
       return i.bu||'Unknown';};
-    const _normCh=ch=>{if(!ch)return'Other';const n=ch.trim();
-      if(n==='Web / Digital'||n==='Web & Digital')return'Web & Digital';
-      if(n==='Webinars & Events')return'Events & Experiences';
-      if(n==='Content & SEO')return'Content';
-      if(n==='Launches & GTM'||n==='Other')return'Other';
+    const _normCh=ch=>{
+      if(!ch)return 'Other';
+      const n=ch.trim();
+      if(n==='Web / Digital'||n==='Web & Digital')return 'Web & Digital';
+      if(n==='Webinars & Events')return 'Events & Experiences';
+      if(n==='SEO / AEO')return 'SEO';
+      if(n==='PR & Exec Comms')return 'PR & Comms';
+      if(n==='UX & Design')return 'Creative & Design';
+      if(n==='Paid Media')return 'Demand Gen';
+      if(n==='Systems & AI'||n==='Launches & GTM'||n==='Other')return 'Other';
       return n;};
-    const _norm=i=>({...i,ch:_normCh(i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch),bu:_inferBU(i)});
-    const CH_COLOR={'Web & Digital':'#14B8A6','Content':'#0066D6','SEO':'#0891B2',
+    const _norm=i=>({...i,
+      ch:_normCh(i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch),
+      bu:_inferBU(i)});
+
+    // ── Channel-specific type filters (remove noise) ──────────────────
+    const CONTENT_T =new Set(['Content Request','Content','Blog','White Paper','Video']);
+    const CREATIVE_T=new Set(['Marketing Creative Request','Creative','UX Design','UX Design Request']);
+    const EMAIL_T   =new Set(['MOPs Email Request','Email','MOPs List Upload','MOPs Campaign Request','MOPs Other Project Request']);
+    const SOCIAL_T  =new Set(['Marketing Social Request','Social']);
+    const SEO_T     =new Set(['Content Request','Content','Blog','Web Page Request','Web Page']);
+    const WEB_T     =new Set(['Web Page Request','Web Page','Development','Bug','Story','Sub-task','Task']);
+    const CH_FILTER={
+      'Content':           i=>CONTENT_T.has(i.type),
+      'SEO':               i=>SEO_T.has(i.type),
+      'Creative & Design': i=>CREATIVE_T.has(i.type),
+      'Email & Lifecycle': i=>EMAIL_T.has(i.type),
+      'Social Media':      i=>SOCIAL_T.has(i.type),
+      'Web & Digital':     i=>(i.key||'').startsWith('WE-')||WEB_T.has(i.type),
+    };
+
+    // ── Config ────────────────────────────────────────────────────────
+    const CH_COLOR={
+      'Web & Digital':'#14B8A6','Content':'#0066D6','SEO':'#0891B2',
       'Creative & Design':'#DB2777','Email & Lifecycle':'#14A558','Social Media':'#9333EA',
       'Demand Gen':'#F59E0B','PMM / Product':'#7C3AED','Events & Experiences':'#E53935',
       'PR & Comms':'#6366F1','Community':'#D97706','Marketing Analytics':'#059669','Other':'#94A3B8'};
     const CH_ORDER=['Web & Digital','Content','SEO','Creative & Design','Email & Lifecycle',
       'Social Media','Demand Gen','PMM / Product','Events & Experiences','PR & Comms',
       'Community','Marketing Analytics','Other'];
+    const TYPE_COL={
+      'Content':'#0066D6','Content Request':'#0066D6','Blog':'#0066D6','White Paper':'#0066D6',
+      'Creative':'#DB2777','Marketing Creative Request':'#DB2777','UX Design':'#EC4899',
+      'Email':'#14A558','MOPs Email Request':'#14A558','MOPs List Upload':'#14A558',
+      'MOPs Campaign Request':'#14A558','MOPs Other Project Request':'#14A558',
+      'Social':'#9333EA','Marketing Social Request':'#9333EA',
+      'Web Page Request':'#14B8A6','Web Page':'#14B8A6','Development':'#0891B2','Bug':'#E53935',
+      'Video':'#F59E0B','Sub-task':'#64748B','Task':'#64748B','Program':'#7C3AED'};
+    const TYPE_SHORT={
+      'Content Request':'Content','Marketing Creative Request':'Creative',
+      'MOPs Email Request':'Email','MOPs List Upload':'List Upload',
+      'MOPs Campaign Request':'Campaign','MOPs Other Project Request':'MOPs',
+      'Marketing Social Request':'Social','Web Page Request':'Web Page',
+      'UX Design Request':'UX Design'};
+
+    // ── Group + filter data ───────────────────────────────────────────
     const activeItems=(DATA.active||[]).map(i=>({..._norm(i),_st:'active'}));
     const queueItems =(DATA.planning||[]).map(i=>({..._norm(i),_st:'queue'}));
     const channels={};
     [...activeItems,...queueItems].forEach(i=>{
       const ch=i.ch||'Other';
+      const f=CH_FILTER[ch];
+      if(f&&!f(i))return;
       if(!channels[ch])channels[ch]={active:[],queue:[]};
       channels[ch][i._st==='active'?'active':'queue'].push(i);
     });
@@ -15691,34 +15756,54 @@ function renderDeliverables(){
       if(ia>=0)return -1;if(ib>=0)return 1;
       return(channels[b].active.length+channels[b].queue.length)-(channels[a].active.length+channels[a].queue.length);
     });
+
+    // ── Avatar helper ─────────────────────────────────────────────────
+    const _AV_PAL=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935','#D97706','#6366F1','#0d9488','#b45309'];
+    const _avCol=n=>{let h=0;for(const c of(n||''))h=(h*31+c.charCodeAt(0))%_AV_PAL.length;return _AV_PAL[h];};
+    const _ini=n=>{if(!n)return'?';const p=n.trim().split(' ').filter(Boolean);return(p.length>=2?p[0][0]+p[p.length-1][0]:p[0]?p[0].slice(0,2):'?').toUpperCase();};
     const _ownerFmt=n=>(!n||n==='(unassigned)'||n==='Unassigned')?'':
       (n.includes(', ')?n.split(', ').reverse().join(' '):n);
+
+    // ── Item row ──────────────────────────────────────────────────────
     const _itemRow=item=>{
       const key=item.key||'';
       const title=(item.title||'').replace(/^\[[^\]]+\]\s*/,'');
       const owner=_ownerFmt(item.owner||'');
-      const firstName=owner?owner.split(' ')[0]:'';
-      const type=item.type||'';
-      const date=item.updatedDate||item.doneDate||'';
-      return`<div class="ws-item">`
-        +`<div class="ws-item-key">${jl(key,key)}</div>`
+      const rawType=item.type||'';
+      const typeLabel=TYPE_SHORT[rawType]||rawType;
+      const typeColor=TYPE_COL[rawType]||'#94A3B8';
+      const date=(item.updatedDate||item.doneDate||'').replace(/,\s*\d{4}$/,'');
+      const isSub=rawType==='Sub-task';
+      const av=owner
+        ?`<div class="ws-av" style="background:${_avCol(owner)}" title="${owner}">${_ini(owner)}</div>`
+        :`<div class="ws-av ws-av-empty">?</div>`;
+      return`<div class="ws-item${isSub?' ws-item-sub':''}">`
+        +av
         +`<div class="ws-item-body">`
-          +`<div class="ws-item-title" title="${title.replace(/"/g,'&quot;')}">${title}</div>`
+          +`<div class="ws-item-title">${isSub?'<span class="ws-sub-mark">↳</span>':''}<a href="${JIRA}${key}" target="_blank" rel="noopener" class="ws-title-lnk">${title}</a></div>`
           +`<div class="ws-item-meta">`
-            +(firstName?`<span class="ws-item-owner">${firstName}</span>`:'')
-            +(type?`<span class="ws-item-type">${type}</span>`:'')
+            +`<span class="ws-key-sm">${key}</span>`
+            +(typeLabel?`<span class="ws-type-tag" style="background:${typeColor}18;color:${typeColor};border:1px solid ${typeColor}35">${typeLabel}</span>`:'')
+            +(owner?`<span class="ws-item-owner">${owner.split(' ')[0]}</span>`:'')
             +(date?`<span class="ws-item-date">${date}</span>`:'')
-          +`</div></div></div>`;};
-    const SHOW=5;
-    const _section=(items,label,sectionKey)=>{
+          +`</div>`
+        +`</div>`
+      +`</div>`;};
+
+    // ── Section ───────────────────────────────────────────────────────
+    const SHOW=6;
+    const _section=(items,label,sectionKey,accent)=>{
       if(!items.length)return'';
       const sid=sectionKey.replace(/[^a-zA-Z0-9]/g,'_');
       const init=items.slice(0,SHOW),rest=items.slice(SHOW);
-      let h=`<div class="ws-section"><div class="ws-sec-title">${label} <span style="opacity:.6;font-weight:500">(${items.length})</span></div>`
+      let h=`<div class="ws-section" style="border-left:3px solid ${accent}30;padding-left:12px">`
+        +`<div class="ws-sec-title"><span style="color:${accent}">${label}</span><span class="ws-sec-cnt" style="background:${accent}15;color:${accent}">${items.length}</span></div>`
         +init.map(_itemRow).join('');
       if(rest.length)h+=`<div id="ws-more-${sid}" style="display:none">${rest.map(_itemRow).join('')}</div>`
         +`<button class="ws-more-btn" id="ws-mbtn-${sid}" onclick="wsShowMore('${sid}')">+ ${rest.length} more</button>`;
       return h+`</div>`;};
+
+    // ── Render ────────────────────────────────────────────────────────
     const totalA=activeItems.length,totalQ=queueItems.length;
     let html=`<div class="ws-wrap">`
       +`<div class="sec-hd" style="margin-bottom:14px"><h2>Deliverables</h2><p>${totalA} active &middot; ${totalQ} queued &middot; updated ${DATA.lastUpdated}</p></div>`
@@ -15742,8 +15827,8 @@ function renderDeliverables(){
           +`<svg class="ws-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`
         +`</div>`
         +`<div class="ws-body">`
-          +_section(g.active,'Active Now','active_'+ch)
-          +_section(g.queue,'In Queue','queue_'+ch)
+          +_section(g.active,'Active Now','active_'+ch,'#2C9382')
+          +_section(g.queue,'In Queue','queue_'+ch,'#4361EE')
           +(!ac&&!qc?`<p class="ws-empty">No open items</p>`:'')
         +`</div></div>`;
     });
