@@ -789,11 +789,11 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .pw-footer{font-size:11px;color:#94a3b8;margin-top:24px;padding-top:20px;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;gap:6px}
 
 /* ── BY CHANNEL VIEW ─────────────────────────────────── */
-.del-view-tog{display:inline-flex;background:var(--g100);border-radius:9px;padding:3px;gap:2px}
-.del-view-btn{padding:5px 16px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g500);cursor:pointer;transition:all .15s;white-space:nowrap}
-.del-view-btn.on{background:#fff;color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,.12);font-weight:700}
-.del-view-btn:hover:not(.on){color:var(--navy);background:rgba(255,255,255,.6)}
-.ws-wrap{padding:20px 28px;max-width:980px;margin:0 auto}
+.del-view-tog{display:flex;border-bottom:2px solid var(--g100);margin-bottom:14px;background:none;border-radius:0;padding:0;gap:0}
+.del-view-btn{padding:10px 22px;font-size:13px;font-weight:600;color:var(--g400);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;transition:all .15s;border-radius:4px 4px 0 0;letter-spacing:-.1px}
+.del-view-btn.on{color:var(--navy);border-bottom-color:var(--navy);font-weight:700}
+.del-view-btn:hover:not(.on){color:var(--g800);background:var(--g50)}
+.ws-wrap{max-width:980px;margin:0 auto}
 .ws-grid{display:flex;flex-direction:column;gap:5px}
 .ws-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.05);transition:box-shadow .15s}
 .ws-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.09),0 0 0 1px rgba(0,0,0,.07)}
@@ -15800,17 +15800,21 @@ function renderDeliverables(){
 
     // ── Render ────────────────────────────────────────────────────────
     const allChItems=[...(DATA.active||[]),...(DATA.planning||[])].map(i=>({..._norm(i)}));
-    const totalA=activeItems.filter(i=>(ofBU==='All'||i.bu===ofBU)&&(!ofOwner||ofOwner==='All'||(i.owner||'')===ofOwner)).length;
-    const totalQ=queueItems.filter(i=>(ofBU==='All'||i.bu===ofBU)&&(!ofOwner||ofOwner==='All'||(i.owner||'')===ofOwner)).length;
+    const totalA=Object.values(channels).reduce((s,g)=>s+g.active.length,0);
+    const totalQ=Object.values(channels).reduce((s,g)=>s+g.queue.length,0);
     const buOpts=['All','FastField','Pave','Core (QB)','Cross-BU'];
     const buFilter=`<select class="dv-drop${ofBU!=='All'?' active':''}" onchange="setOF('bu',this.value);renderDeliverables()"><option value="All"${ofBU==='All'?' selected':''}>BU: All</option>${buOpts.slice(1).map(b=>`<option value="${b}"${ofBU===b?' selected':''}>${b}</option>`).join('')}</select>`;
     const _allOwners=[...new Set(allChItems.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort();
     const ownerFilter=`<select class="dv-drop${ofOwner&&ofOwner!=='All'?' active':''}" onchange="setOF('owner',this.value);renderDeliverables()"><option value="All"${!ofOwner||ofOwner==='All'?' selected':''}>👤 All people</option>${_allOwners.map(n=>`<option value="${n}"${ofOwner===n?' selected':''}>${n.includes(', ')?n.split(', ').reverse().join(' '):n}</option>`).join('')}</select>`;
     const hasFilter=(ofBU!=='All')||(ofOwner&&ofOwner!=='All');
     const clrFilters=hasFilter?`<a href="#" onclick="event.preventDefault();ofBU='All';ofOwner='All';renderDeliverables()" style="font-size:11px;color:var(--blue);font-weight:600;white-space:nowrap">Clear ×</a>`:'';
+    // Default-open top 3 channels on first render
+    const DEFAULT_OPEN=['Content','Email & Lifecycle','Web & Digital','Creative & Design'];
+    DEFAULT_OPEN.forEach(ch=>{if(_wsExpanded[ch]===undefined)_wsExpanded[ch]=true;});
     let html=`<div class="ws-wrap">`
-      +`<div class="sec-hd" style="margin-bottom:14px"><h2>Deliverables</h2><p>${totalA} active &middot; ${totalQ} queued &middot; updated ${DATA.lastUpdated}</p></div>`
-      +`<div class="ws-ch-filters">${_viewTog}${buFilter}${ownerFilter}${clrFilters}</div>`
+      +`<div class="sec-hd" style="margin-bottom:12px"><h2>Deliverables</h2><p>${totalA} active &middot; ${totalQ} queued &middot; updated ${DATA.lastUpdated}</p></div>`
+      +_viewTog
+      +`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px">${buFilter}${ownerFilter}${clrFilters}</div>`
       +`<div class="ws-grid">`;
     sortedChs.forEach(ch=>{
       const g=channels[ch];
@@ -15818,7 +15822,8 @@ function renderDeliverables(){
       const ac=g.active.length,qc=g.queue.length;
       const safeAttr=ch.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
       const safeJs=ch.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      html+=`<div class="ws-card" data-ch="${safeAttr}">`
+      const isOpen=!!_wsExpanded[ch];
+      html+=`<div class="ws-card${isOpen?' open':''}" data-ch="${safeAttr}">`
         +`<div class="ws-card-hd" onclick="wsToggle('${safeJs}')" style="border-left-color:${color}">`
           +`<div class="ws-ch-name">${ch}</div>`
           +`<div class="ws-badges">`
@@ -15986,12 +15991,13 @@ function renderDeliverables(){
   const pgCtrl=totalPages>1?`<div class="dv-pg"><button class="dv-pg-btn" onclick="setDelPage(${delPage-1})" ${delPage<=1?'disabled':''}>← Prev</button><span style="font-size:12.5px">Page <strong>${delPage}</strong> of <strong>${totalPages}</strong> &nbsp;·&nbsp; ${allItems.length} items</span><button class="dv-pg-btn" onclick="setDelPage(${delPage+1})" ${delPage>=totalPages?'disabled':''}>Next →</button></div>`:'';
 
   document.getElementById('deliverables').innerHTML=`
-    <div class="sec-hd" style="margin-bottom:14px"><h2>Deliverables</h2><p>${summaryParts.join(' · ')}${_anyFilter?` &nbsp;${clrLink}`:''}</p></div>
+    <div style="max-width:980px;margin:0 auto">
+    <div class="sec-hd" style="margin-bottom:12px"><h2>Deliverables</h2><p>${summaryParts.join(' · ')}${_anyFilter?` &nbsp;${clrLink}`:''}</p></div>
     ${_viewTog}
     <div class="dv-ctrl">
       ${seg}
-      ${ownerDrop}
       ${buDrop}
+      ${ownerDrop}
       ${chDrop}
       ${qtrCtrl}
       ${periodCtrl}
@@ -15999,7 +16005,8 @@ function renderDeliverables(){
     </div>
     ${allItems.length
       ?`<div class="dv-list" id="del3-feed">${feedHtml}</div>${pgCtrl}`
-      :`<div class="dv-empty"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">No items found</div><div style="font-size:13px;color:var(--g500)">${_anyFilter?`Try adjusting your filters &nbsp;—&nbsp; ${clrLink}`:'No deliverables loaded yet.'}</div></div>`}`;
+      :`<div class="dv-empty"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">No items found</div><div style="font-size:13px;color:var(--g500)">${_anyFilter?`Try adjusting your filters &nbsp;—&nbsp; ${clrLink}`:'No deliverables loaded yet.'}</div></div>`}
+    </div>`;
 }
 
 function setDelView(v){delView=v;document.getElementById('deliverables').innerHTML='';renderDeliverables();}
