@@ -269,7 +269,7 @@ button{font-family:inherit;cursor:pointer}
 .del3-tab{padding:7px 18px;border-radius:9px;font-size:12px;font-weight:700;border:none;cursor:pointer;color:var(--g500);background:transparent;transition:all .18s;white-space:nowrap}
 .del3-tab.on{background:#fff;color:var(--navy);box-shadow:0 1px 6px rgba(0,0,0,.14)}
 /* ── New deliverables design ── */
-.dv-ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:#fff;border-radius:12px;border:1px solid var(--g200);box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:14px;position:sticky;top:104px;z-index:50}
+.dv-ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;background:#fff;border-radius:12px;border:1px solid var(--g200);box-shadow:0 1px 4px rgba(0,0,0,.05);margin-bottom:10px;position:sticky;top:60px;z-index:50}
 .dv-seg{display:inline-flex;background:var(--g100);border-radius:9px;padding:3px;gap:2px;flex-shrink:0}
 .dv-seg-btn{padding:5px 13px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g500);cursor:pointer;transition:all .15s;white-space:nowrap;line-height:1.4}
 .dv-seg-btn.on{background:#fff;color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,.12);font-weight:700}
@@ -13561,7 +13561,7 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
 /* ══════════════════════════════════════════════════════
    TAB
 ══════════════════════════════════════════════════════ */
-let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1, delGroupBy='status', delSearch='';
+let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
 let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
 let _rmCollapsed=new Set();
 let _rmFocusMode=false;
@@ -13828,7 +13828,7 @@ function go(id,btn){
   if(btn)btn.classList.add('on');
   if(id==='brief'        && !document.querySelector('#brief .tl2'))              renderBriefing();
   if(id==='programs'     && !document.querySelector('#programs .prog-sp-group')) renderPrograms();
-  if(id==='deliverables' && !document.querySelector('#deliverables .dv-ctrl')) renderDeliverables();
+  if(id==='deliverables' && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
   if(id==='roadmap'       && !document.querySelector('#roadmap .rm-ctrl'))          renderRoadmap();
   if(id==='analytics'     && !document.querySelector('#analytics .an-card'))        renderAnalytics();
 }
@@ -15666,7 +15666,7 @@ function expandAllProgs(){
 function renderDeliverables(){
   const JIRA='https://quickbase.atlassian.net/browse/';
 
-  // ── Normalisation helpers ──────────────────────────────────────────────
+  // ── Normalisation ──────────────────────────────────────────────────────
   const _isSeo=t=>{if(!t)return false;const s=t.toLowerCase();
     return s.endsWith('glossary')||/^(the )?best\b/.test(s)||s.includes(' vs ')||
            /\buse case page/i.test(s)||/\bcomparison page/i.test(s)||/^top\b/.test(s)||
@@ -15674,247 +15674,184 @@ function renderDeliverables(){
   const _inferBU=i=>{if(i.bu&&i.bu!=='Unknown')return i.bu;
     const t=i.title||'';
     if(/^\[Pave\]/i.test(t)||/\bpaveathon\b/i.test(t))return 'Pave';
-    if(/^\[FF\]/i.test(t)||/\bfastfield\b/i.test(t)||/\bfso\b/i.test(t)||/field service/i.test(t))return 'FastField';
+    if(/^\[FF\]/i.test(t)||/\bfastfield\b/i.test(t)||/\bfso\b/i.test(t)||/field service/i.test(t)||/smarter services/i.test(t))return 'FastField';
     if(/^\[Core\]/i.test(t))return 'Core (QB)';
     if(/^\[Cross-BU\]/i.test(t)||/\bempower\b/i.test(t))return 'Cross-BU';
     if(i.ch==='Content & SEO'||i.ch==='Content'||i.ch==='SEO')return 'Core (QB)';
     return 'Unknown';};
-  const _normCh=ch=>{
-    if(!ch)return 'Other';const n=ch.trim();
-    if(n==='Web / Digital'||n==='Web & Digital')return 'Web & Digital';
-    if(n==='Webinars & Events')return 'Events & Experiences';
-    if(n==='SEO / AEO')return 'SEO';
-    if(n==='PR & Exec Comms')return 'PR & Comms';
-    if(n==='UX & Design')return 'Creative & Design';
-    if(n==='Paid Media')return 'Demand Gen';
-    if(n==='Content & SEO')return 'Content';
-    if(n==='Systems & AI'||n==='Launches & GTM'||n==='Other')return 'Other';
-    return n;};
   const _norm=i=>({...i,
-    ch:_normCh(i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch),
+    ch:i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch,
     bu:_inferBU(i)});
 
-  // ── Colour maps ────────────────────────────────────────────────────────
-  const CH_COLOR={'Web & Digital':'#14B8A6','Content':'#0066D6','SEO':'#0891B2',
-    'Creative & Design':'#DB2777','Email & Lifecycle':'#14A558','Social Media':'#9333EA',
-    'Demand Gen':'#F59E0B','PMM / Product':'#7C3AED','Events & Experiences':'#E53935',
-    'PR & Comms':'#6366F1','Community':'#D97706','Marketing Analytics':'#059669','Other':'#94A3B8'};
-  const CH_ORDER=['Web & Digital','Content','SEO','Creative & Design','Email & Lifecycle',
-    'Social Media','Demand Gen','PMM / Product','Events & Experiences','PR & Comms',
-    'Community','Marketing Analytics','Other'];
-  const TYPE_COL={'Content':'#0066D6','Content Request':'#0066D6','Blog':'#0066D6','White Paper':'#0066D6',
-    'Creative':'#DB2777','Marketing Creative Request':'#DB2777','UX Design':'#EC4899',
-    'Email':'#14A558','MOPs Email Request':'#14A558','MOPs List Upload':'#14A558',
-    'MOPs Campaign Request':'#14A558','MOPs Other Project Request':'#14A558',
-    'Social':'#9333EA','Marketing Social Request':'#9333EA',
-    'Web Page Request':'#14B8A6','Web Page':'#14B8A6','Development':'#0891B2','Bug':'#E53935',
-    'Video':'#F59E0B','Sub-task':'#64748B','Task':'#64748B','Program':'#7C3AED'};
-  const TYPE_SHORT={'Content Request':'Content','Marketing Creative Request':'Creative',
-    'MOPs Email Request':'Email','MOPs List Upload':'List Upload',
-    'MOPs Campaign Request':'Campaign','MOPs Other Project Request':'MOPs',
-    'Marketing Social Request':'Social','Web Page Request':'Web Page','UX Design Request':'UX Design'};
+  // ── Color maps ─────────────────────────────────────────────────────────
+  const CH_COLOR_MAP={'Content':'#0066D6','SEO':'#0891B2','Email & Lifecycle':'#14A558',
+    'Creative & Design':'#DB2777','Demand Gen':'#F59E0B','Social Media':'#9333EA',
+    'PMM / Product':'#7C3AED','Marketing Analytics':'#059669','Events & Experiences':'#E53935',
+    'Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6','UX & Design':'#EC4899'};
+  const _chFallback=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];
+  let _chFbIdx=0;
+  const chColMap={};
   const BU_COLS={'FastField':'#D97706','Pave':'#2C9382','Core (QB)':'#10503C','Cross-BU':'#6d28d9'};
-  const CONTENT_T=new Set(['Content Request','Content','Blog','White Paper','Video']);
-  const CREATIVE_T=new Set(['Marketing Creative Request','Creative','UX Design','UX Design Request']);
-  const EMAIL_T=new Set(['MOPs Email Request','Email','MOPs List Upload','MOPs Campaign Request','MOPs Other Project Request']);
-  const SOCIAL_T=new Set(['Marketing Social Request','Social']);
-  const SEO_T=new Set(['Content Request','Content','Blog','Web Page Request','Web Page']);
-  const WEB_T=new Set(['Web Page Request','Web Page','Development','Bug','Story','Sub-task','Task']);
-  const CH_FILTER={'Content':i=>CONTENT_T.has(i.type),'SEO':i=>SEO_T.has(i.type),
-    'Creative & Design':i=>CREATIVE_T.has(i.type),'Email & Lifecycle':i=>EMAIL_T.has(i.type),
-    'Social Media':i=>SOCIAL_T.has(i.type),
-    'Web & Digital':i=>(i.key||'').startsWith('WE-')||WEB_T.has(i.type)};
 
-  // ── Avatar helpers ─────────────────────────────────────────────────────
-  const _PAL=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935','#D97706','#6366F1','#0d9488','#b45309'];
-  const _avCol=n=>{let h=0;for(const c of(n||''))h=(h*31+c.charCodeAt(0))%_PAL.length;return _PAL[h];};
-  const _ini=n=>{if(!n)return'?';const p=n.trim().split(' ').filter(Boolean);
-    return(p.length>=2?p[0][0]+p[p.length-1][0]:p[0]?p[0].slice(0,2):'?').toUpperCase();};
-  const _fmt=n=>(!n||n==='(unassigned)'||n==='Unassigned')?'':
-    (n.includes(', ')?n.split(', ').reverse().join(' '):n);
+  // ── Build sources ──────────────────────────────────────────────────────
+  const _planningSrc=(DATA.planning||[]).map(i=>({..._norm(i),_st:'planning'}));
+  const _activeSrc=(DATA.active||[]).map(i=>({..._norm(i),_st:'in-progress'}));
+  const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
+  const _shippedSrc=_raw.map(i=>({..._norm(i),_st:'done'}));
+  const _allSrc=[..._planningSrc,..._activeSrc,..._shippedSrc];
+  _allSrc.forEach(i=>{if(i.ch&&!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];});
 
-  // ── Data sources ───────────────────────────────────────────────────────
-  const _active=(DATA.active||[]).map(i=>({..._norm(i),_st:'active'}));
-  const _plan=(DATA.planning||[]).map(i=>({..._norm(i),_st:'planning'}));
-  const _done=(delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped).map(i=>({..._norm(i),_st:'done'}));
-  const _inFlight=[..._active,..._plan];
+  // ── Owner helper ───────────────────────────────────────────────────────
+  const _ownerFmt=n=>(!n||n==='(unassigned)'||n==='Unassigned')?null:(n.includes(', ')?n.split(', ').reverse().join(' '):n);
 
-  // ── Filter ─────────────────────────────────────────────────────────────
-  const _srch=delSearch.toLowerCase().trim();
-  const _pass=i=>(ofBU==='All'||i.bu===ofBU)
-    &&(!ofOwner||ofOwner==='All'||(i.owner||'')===(ofOwner))
-    &&(!_srch||(i.title||'').toLowerCase().includes(_srch));
+  // ── Time helpers ───────────────────────────────────────────────────────
+  const _now=new Date();
+  const _monStart=new Date(_now.getFullYear(),_now.getMonth(),1);
+  const _wkStart=(()=>{const d=new Date(_now);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d;})();
+  const _wkEnd=new Date(_wkStart);_wkEnd.setDate(_wkStart.getDate()+6);_wkEnd.setHours(23,59,59);
+  const _todayStart=new Date(_now);_todayStart.setHours(0,0,0,0);
+  const _todayEnd=new Date(_now);_todayEnd.setHours(23,59,59);
+  const _qStart=new Date(_now.getFullYear(),Math.floor(_now.getMonth()/3)*3,1);
+  const _qEnd=new Date(_now.getFullYear(),Math.floor(_now.getMonth()/3)*3+3,0,23,59);
+  const parseD=s=>{if(!s)return null;const d=new Date(s);return isNaN(d)?null:d;};
+  const inPeriod=(s,p)=>{
+    const d=parseD(s);if(!d)return p==='All';
+    if(p==='Today')return d>=_todayStart&&d<=_todayEnd;
+    if(p==='Week')return d>=_wkStart&&d<=_wkEnd;
+    if(p==='Month')return d>=_monStart&&d.getMonth()===_now.getMonth()&&d.getFullYear()===_now.getFullYear();
+    if(p==='Quarter')return d>=_qStart&&d<=_qEnd;
+    return true;};
 
-  // ── Owners for dropdown ────────────────────────────────────────────────
-  const _owners=[...new Set(_inFlight.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort();
+  // ── Filter application ─────────────────────────────────────────────────
+  const _matchOwner=i=>!ofOwner||ofOwner==='All'||(i.owner||'').toLowerCase().includes(ofOwner.toLowerCase());
+  const _bf=i=>(ofBU==='All'||i.bu===ofBU)&&(ofCh==='All'||i.ch===ofCh)&&_matchOwner(i);
 
-  // ── Counts ─────────────────────────────────────────────────────────────
-  const nA=_active.filter(_pass).length,nQ=_plan.filter(_pass).length,nD=_done.filter(_pass).length;
+  const _stMap={'All':i=>true,'Planning':i=>i._st==='planning','In Progress':i=>i._st==='in-progress','Done':i=>i._st==='done'};
+  const _stFn=_stMap[ofStatus]||_stMap['All'];
 
-  // ── Shared ctrl bar ────────────────────────────────────────────────────
-  const _gpBtn=(v,lbl)=>`<button class="del-grp-btn${delGroupBy===v?' on':''}" onclick="setDelGroupBy('${v}')">${lbl}</button>`;
-  const groupBar=`<div class="del-group-bar"><span class="del-group-lbl">Group by</span>${_gpBtn('status','Status')}${_gpBtn('channel','Channel')}${_gpBtn('person','Person')}</div>`;
-  const buDrop=`<select class="dv-drop${ofBU!=='All'?' active':''}" onchange="setOF('bu',this.value)"><option value="All"${ofBU==='All'?' selected':''}>BU: All</option>${['FastField','Pave','Core (QB)','Cross-BU'].map(b=>`<option value="${b}"${ofBU===b?' selected':''}>${b}</option>`).join('')}</select>`;
-  const ownerDrop=`<select class="dv-drop${ofOwner&&ofOwner!=='All'?' active':''}" onchange="setOF('owner',this.value)"><option value="All"${!ofOwner||ofOwner==='All'?' selected':''}>👤 All</option>${_owners.map(n=>`<option value="${n}"${ofOwner===n?' selected':''}>${_fmt(n)||n}</option>`).join('')}</select>`;
-  const hasFilter=(ofBU!=='All')||(ofOwner&&ofOwner!=='All')||!!_srch;
-  const clrBtn=hasFilter?`<a href="#" onclick="event.preventDefault();ofBU='All';ofOwner='All';delSearch='';renderDeliverables()" style="font-size:11px;color:var(--blue);font-weight:600;white-space:nowrap">Clear ×</a>`:'';
-  const ctrl=`<div class="dv-ctrl">${groupBar}<div class="del-sep"></div>${buDrop}${ownerDrop}<div class="dv-search-wrap"><span class="dv-search-icon">⌕</span><input id="del-srch" type="text" class="dv-search" placeholder="Filter by title…" value="${_srch.replace(/"/g,'&quot;')}" oninput="delSearch=this.value;delPage=1;renderDeliverables()"></div>${clrBtn}</div>`;
-  const secHd=`<div class="sec-hd" style="margin-bottom:12px"><h2>Deliverables</h2><p>${nA} active &middot; ${nQ} queued &middot; ${nD} shipped &middot; ${DATA.lastUpdated}</p></div>`;
-  const _wrap=c=>`<div style="max-width:980px;margin:0 auto">${secHd}${ctrl}${c}</div>`;
+  const planItems=_planningSrc.filter(_bf);
+  const activeItems=_activeSrc.filter(_bf);
+  const doneItemsAll=_shippedSrc.filter(_bf).filter(i=>inPeriod(i.doneDate,ofPeriod));
+  const allItems=_allSrc.filter(_bf).filter(i=>i._st==='planning'||i._st==='in-progress'||inPeriod(i.doneDate,ofPeriod)).filter(_stFn);
+  const totalPages=Math.max(1,Math.ceil(allItems.length/50));
+  if(delPage>totalPages)delPage=1;
+  const pageItems=allItems.slice((delPage-1)*50,delPage*50);
 
-  // ══════════════════════════════════════════════════════════════════
-  // GROUP BY STATUS — flat list, all three sections
-  // ══════════════════════════════════════════════════════════════════
-  if(delGroupBy==='status'){
-    const chMap={};const _fb=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];let _ci=0;
-    const _CM={'Content':'#0066D6','SEO':'#0891B2','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777','Demand Gen':'#F59E0B','Social Media':'#9333EA','PMM / Product':'#7C3AED','Marketing Analytics':'#059669','Events & Experiences':'#E53935','Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6'};
-    [..._active,..._plan,..._done].forEach(i=>{if(i.ch&&!chMap[i.ch])chMap[i.ch]=_CM[i.ch]||_fb[_ci++%_fb.length];});
-    const buTag=i=>{const c=BU_COLS[i.bu];return c?`<span class="dv-bu" style="background:${c}18;color:${c};border:1px solid ${c}30">${i.bu.replace(' (QB)','')}</span>`:''};
-    const ST_DOT={active:'#2C9382',planning:'#4361EE',done:'#14A558'};
-    const ST_LBL={active:'In Progress',planning:'Planning',done:'Done'};
-    const _row=i=>{
-      const col=chMap[i.ch]||'#94a3b8';
-      const owFmt=_fmt(i.owner);
-      const dot=ST_DOT[i._st]||'#94a3b8';
-      const ds=i._st==='done'?(i.doneDate||''):(i.updatedDate||'');
-      const df=ds.replace(/, 2026$/,'').replace(/, 2025$/," '25");
-      const dpfx=i._st==='done'?'Done':'Updated';
-      return`<div class="dv-row" onclick="window.open('${JIRA}${i.key}','_blank')">
-        <span class="dv-st-dot" style="background:${dot}" title="${ST_LBL[i._st]||''}"></span>
-        <div class="dv-title-area"><a class="dv-title" href="${JIRA}${i.key}" target="_blank" onclick="event.stopPropagation()">${i.title}</a><div class="dv-key">${i.key}</div></div>
-        <div class="dv-meta-own">${owFmt?`<span class="dv-av" style="background:${_avCol(owFmt)}">${_ini(owFmt)}</span><span class="dv-owner">${owFmt}</span>`:'<span style="font-size:11px;color:var(--g300)">—</span>'}</div>
-        <span class="dv-ch" style="background:${col}18;color:${col}">${i.ch||'—'}</span>
-        <span class="dv-bu-cell">${buTag(i)}</span>
-        ${df?`<span class="dv-date"><span class="dv-date-pfx">${dpfx}</span>${df}</span>`:'<span class="dv-date"></span>'}
-      </div>`;};
-    const planItems=_plan.filter(_pass);
-    const activeItems=_active.filter(_pass);
-    const doneItems=_done.filter(_pass);
-    const DPAGE=30;
-    const doneShown=doneItems.slice(0,delPage*DPAGE);
-    const secH=(lbl,cnt,col)=>`<div class="dv-sec-hd" style="color:${col}"><span>${lbl}</span><span class="dv-sec-cnt">${cnt} total</span></div>`;
-    let feed='';
-    if(activeItems.length) feed+=secH('In Progress',activeItems.length,'#2C9382')+activeItems.map(_row).join('');
-    if(planItems.length) feed+=secH('Queued / Planning',planItems.length,'#4361EE')+planItems.map(_row).join('');
-    if(doneShown.length){
-      const qtrCtrl=`<div style="display:flex;align-items:center;gap:8px;padding-bottom:6px"><span style="font-size:11px;color:var(--g500)">Showing:</span><div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div></div>`;
-      feed+=secH('Shipped',doneItems.length,'#14A558')+qtrCtrl+doneShown.map(_row).join('');
-      if(doneItems.length>doneShown.length) feed+=`<div style="text-align:center;padding:10px 0"><button class="ws-more-btn" onclick="delPage++;renderDeliverables()">+ ${doneItems.length-doneShown.length} more</button></div>`;
-    }
-    if(!feed) feed=`<div class="dv-empty"><div style="font-size:28px;margin-bottom:8px">📋</div><p style="font-size:14px;font-weight:700;color:var(--navy)">No items match your filters</p></div>`;
-    document.getElementById('deliverables').innerHTML=_wrap(`<div class="dv-list">${feed}</div>`);
-    return;
+  // ── Controls ───────────────────────────────────────────────────────────
+  const stCnt={'All':allItems.length,'Planning':planItems.length,'In Progress':activeItems.length,'Done':doneItemsAll.length};
+  const ST=[{k:'All',lbl:'All'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Planning',lbl:'Queued',dot:'#4361EE'},{k:'Done',lbl:'Shipped',dot:'#14A558'}];
+  const seg=`<div class="dv-seg">${ST.map(s=>{const on=ofStatus===s.k;return`<button class="dv-seg-btn${on?' on':''}" onclick="setOF('status','${s.k}')" style="${on&&s.dot?`color:${s.dot}`:''}">${s.lbl}<span style="opacity:.65;font-size:10.5px;margin-left:3px">${stCnt[s.k]}</span></button>`;}).join('')}</div>`;
+
+  const _owners=[...new Set(_allSrc.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort((a,b)=>(_ownerFmt(a)||a).localeCompare(_ownerFmt(b)||b));
+  const ownerDrop=`<select class="dv-drop${ofOwner&&ofOwner!=='All'?' active':''}" onchange="setOF('owner',this.value)"><option value="All"${!ofOwner||ofOwner==='All'?' selected':''}>👤 All people</option>${_owners.map(n=>`<option value="${n}"${ofOwner===n?' selected':''}>${_ownerFmt(n)||n}</option>`).join('')}</select>`;
+
+  const _buCnt={};allItems.forEach(i=>_buCnt[i.bu]=(_buCnt[i.bu]||0)+1);
+  const buDrop=`<select class="dv-drop${ofBU!=='All'?' active':''}" onchange="setOF('bu',this.value)"><option value="All"${ofBU==='All'?' selected':''}>BU: All</option>${['FastField','Pave','Core (QB)','Cross-BU'].map(b=>`<option value="${b}"${ofBU===b?' selected':''}>${b} (${_buCnt[b]||0})</option>`).join('')}</select>`;
+
+  const _chTotals={};_allSrc.forEach(i=>{if(i.ch)_chTotals[i.ch]=(_chTotals[i.ch]||0)+1;});
+  const _chCnt={};allItems.forEach(i=>{if(i.ch)_chCnt[i.ch]=(_chCnt[i.ch]||0)+1;});
+  const chDrop=`<select class="dv-drop${ofCh!=='All'?' active':''}" onchange="setOF('ch',this.value)"><option value="All"${ofCh==='All'?' selected':''}>Channel: All</option>${Object.keys(_chTotals).sort((a,b)=>(_chTotals[b]||0)-(_chTotals[a]||0)).map(ch=>`<option value="${ch}"${ofCh===ch?' selected':''}>${ch} (${_chCnt[ch]||0})</option>`).join('')}</select>`;
+
+  const qtrCtrl=(ofStatus==='Planning'||ofStatus==='In Progress')?'':
+    `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
+
+  const PERIODS=[{k:'All',lbl:'All'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
+  const periodCtrl=(ofStatus==='Planning'||ofStatus==='In Progress'||delQtr==='Q2')?'':
+    `<div class="dv-qtr">${PERIODS.map(p=>`<button class="dv-qtr-btn${ofPeriod===p.k?' on':''}" onclick="setOF('period','${p.k}')">${p.lbl}</button>`).join('')}</div>`;
+
+  // ── Row builder ────────────────────────────────────────────────────────
+  const _avPalette=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935','#D97706','#6366F1'];
+  const _avColor=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%_avPalette.length;return _avPalette[h];};
+  const _initials=n=>n.split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
+  const ST_DOT={planning:'#4361EE','in-progress':'#2C9382',done:'#14A558'};
+  const ST_LBL={planning:'Planning','in-progress':'In Progress',done:'Done'};
+  const buTag=i=>{const c=BU_COLS[i.bu];return c?`<span class="dv-bu" style="background:${c}18;color:${c};border:1px solid ${c}30">${i.bu.replace(' (QB)','')}</span>`:''};
+
+  const _row=i=>{
+    const col=chColMap[i.ch]||'#94a3b8';
+    const ownerFmt=_ownerFmt(i.owner);
+    const dot=ST_DOT[i._st]||'#94a3b8';
+    const dateStr=i._st==='done'?(i.doneDate||''):(i.updatedDate||'');
+    const dateFmt=dateStr.replace(/, 2026$/,'').replace(/, 2025$/," '25");
+    const datePfx=i._st==='done'?'Done':'Updated';
+    return`<div class="dv-row" onclick="window.open('${JIRA}${i.key}','_blank')">
+      <span class="dv-st-dot" style="background:${dot}" title="${ST_LBL[i._st]||''}"></span>
+      <div class="dv-title-area">
+        <a class="dv-title" href="${JIRA}${i.key}" target="_blank" onclick="event.stopPropagation()">${i.title}</a>
+        <div class="dv-key">${i.key}</div>
+      </div>
+      <div class="dv-meta-own">
+        ${ownerFmt?`<span class="dv-av" style="background:${_avColor(ownerFmt)}" title="${ownerFmt}">${_initials(ownerFmt)}</span><span class="dv-owner">${ownerFmt}</span>`:'<span style="font-size:11px;color:var(--g300)">—</span>'}
+      </div>
+      <span class="dv-ch" style="background:${col}18;color:${col}">${i.ch||'—'}</span>
+      <span class="dv-bu-cell">${buTag(i)}</span>
+      ${dateFmt?`<span class="dv-date"><span class="dv-date-pfx">${datePfx}</span>${dateFmt}</span>`:'<span class="dv-date"></span>'}
+    </div>`;};
+
+  // ── Feed ───────────────────────────────────────────────────────────────
+  let feedHtml='';
+  if(pageItems.length){
+    let curSt=null;
+    feedHtml=pageItems.map(i=>{
+      let hd='';
+      if(ofStatus==='All'&&i._st!==curSt){
+        curSt=i._st;
+        const secCounts={planning:planItems.length,'in-progress':activeItems.length,done:doneItemsAll.length};
+        hd=`<div class="dv-sec-hd" style="color:${ST_DOT[i._st]||'var(--g500)'}"><span>${ST_LBL[i._st]||i._st}</span><span class="dv-sec-cnt">${secCounts[i._st]||0} total</span></div>`;
+      }
+      return hd+_row(i);
+    }).join('');
   }
 
-  // ══════════════════════════════════════════════════════════════════
-  // GROUP BY CHANNEL — accordion, in-flight only
-  // ══════════════════════════════════════════════════════════════════
-  if(delGroupBy==='channel'){
-    const groups={};
-    _inFlight.filter(_pass).forEach(i=>{
-      const ch=i.ch||'Other';
-      const f=CH_FILTER[ch];if(f&&!f(i))return;
-      if(!groups[ch])groups[ch]=[];groups[ch].push(i);});
-    const sorted=Object.keys(groups).sort((a,b)=>{
-      const ia=CH_ORDER.indexOf(a),ib=CH_ORDER.indexOf(b);
-      if(ia>=0&&ib>=0)return ia-ib;if(ia>=0)return -1;if(ib>=0)return 1;
-      return(groups[b]||[]).length-(groups[a]||[]).length;});
-    const DEF=['Content','Email & Lifecycle','Web & Digital','Creative & Design'];
-    DEF.forEach(ch=>{if(_wsExpanded[ch]===undefined)_wsExpanded[ch]=true;});
-    const SHOW=8;
-    const _row=item=>{
-      const k=item.key||'',tit=(item.title||'').replace(/^\[[^\]]+\]\s*/,'');
-      const ow=_fmt(item.owner||''),rt=item.type||'';
-      const tl=TYPE_SHORT[rt]||rt,tc=TYPE_COL[rt]||'#94A3B8';
-      const dt=(item.updatedDate||'').replace(/,\s*\d{4}$/,'');
-      const isSub=rt==='Sub-task';
-      const stC=item._st==='active'?'#2C9382':'#4361EE',stT=item._st==='active'?'Active':'Queued';
-      const av=ow?`<div class="ws-av" style="background:${_avCol(ow)}" title="${ow}">${_ini(ow)}</div>`:`<div class="ws-av ws-av-empty">?</div>`;
-      return`<div class="ws-item${isSub?' ws-item-sub':''}">`
-        +av
-        +`<div class="ws-item-body">`
-          +`<div class="ws-item-title">${isSub?'<span class="ws-sub-mark">↳</span>':''}<a href="${JIRA}${k}" target="_blank" class="ws-title-lnk">${tit}</a></div>`
-          +`<div class="ws-item-meta"><span class="ws-key-sm">${k}</span>${ow?`<span class="ws-item-sep">·</span><span class="ws-item-owner">${ow.split(' ')[0]}</span>`:''}</div>`
-        +`</div>`
-        +`<div class="ws-item-right"><span class="ws-st-pill" style="background:${stC}18;color:${stC}">${stT}</span>${tl?`<span class="ws-type-tag" style="background:${tc}18;color:${tc};border:1px solid ${tc}35">${tl}</span>`:''}${dt?`<span class="ws-item-date">${dt}</span>`:''}</div>`
-        +`</div>`;};
-    let cards='';
-    sorted.forEach(ch=>{
-      const items=groups[ch]||[];if(!items.length)return;
-      const col=CH_COLOR[ch]||'#94A3B8';
-      const isOpen=!!_wsExpanded[ch];
-      const sa=ch.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
-      const sj=ch.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      const sid='ch_'+ch.replace(/[^a-zA-Z0-9]/g,'_');
-      const init=items.slice(0,SHOW),rest=items.slice(SHOW);
-      const body=init.map(_row).join('')+(rest.length?`<div id="ws-more-${sid}" style="display:none">${rest.map(_row).join('')}</div><button class="ws-more-btn" onclick="wsShowMore('${sid}')">+ ${rest.length} more</button>`:'');
-      cards+=`<div class="ws-card${isOpen?' open':''}" data-ch="${sa}">`
-        +`<div class="ws-card-hd" onclick="wsToggle('${sj}')" style="border-left-color:${col}">`
-          +`<div class="ws-ch-name">${ch}</div>`
-          +`<div class="ws-badges"><span class="ws-badge ${items.filter(i=>i._st==='active').length?'ws-badge-active':'ws-badge-0'}">${items.filter(i=>i._st==='active').length} active</span><span class="ws-badge ${items.filter(i=>i._st==='planning').length?'ws-badge-queue':'ws-badge-0'}">${items.filter(i=>i._st==='planning').length} queued</span></div>`
-          +`<svg class="ws-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`
-        +`</div><div class="ws-body">${body}</div></div>`;});
-    if(!cards)cards=`<div class="ws-empty">No in-flight items match your filters.</div>`;
-    document.getElementById('deliverables').innerHTML=_wrap(`<div class="ws-grid">${cards}</div>`);
-    return;
-  }
+  // ── Assemble ───────────────────────────────────────────────────────────
+  const _anyFilter=ofBU!=='All'||ofCh!=='All'||ofPeriod!=='All'||ofStatus!=='All'||(ofOwner&&ofOwner!=='All');
+  const clrLink=`<a href="#" onclick="event.preventDefault();ofBU=ofCh='All';ofPeriod='All';ofStatus='All';ofOwner='All';delPage=1;renderDeliverables()" style="font-size:11.5px;color:var(--blue);font-weight:600">Clear all ×</a>`;
+  const summaryParts=[];
+  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> queued`);
+  if(_activeSrc.length)summaryParts.push(`<strong>${activeItems.length}</strong> in progress`);
+  summaryParts.push(`<strong>${doneItemsAll.length}</strong> shipped`);
+  const pgCtrl=totalPages>1?`<div class="dv-pg"><button class="dv-pg-btn" onclick="setDelPage(${delPage-1})" ${delPage<=1?'disabled':''}>← Prev</button><span style="font-size:12.5px">Page <strong>${delPage}</strong> of <strong>${totalPages}</strong> &nbsp;·&nbsp; ${allItems.length} items</span><button class="dv-pg-btn" onclick="setDelPage(${delPage+1})" ${delPage>=totalPages?'disabled':''}>Next →</button></div>`:'';
 
-  // ══════════════════════════════════════════════════════════════════
-  // GROUP BY PERSON — accordion, in-flight only
-  // ══════════════════════════════════════════════════════════════════
-  if(delGroupBy==='person'){
-    const groups={};
-    _inFlight.filter(_pass).forEach(i=>{
-      const ow=_fmt(i.owner||'')||'Unassigned';
-      if(!groups[ow])groups[ow]=[];groups[ow].push(i);});
-    const sorted=[...Object.keys(groups).filter(p=>p!=='Unassigned').sort((a,b)=>
-      (groups[b]||[]).length-(groups[a]||[]).length)];
-    if(groups['Unassigned']&&groups['Unassigned'].length)sorted.push('Unassigned');
-    const PSHOW=8;
-    const _row=item=>{
-      const k=item.key||'',tit=(item.title||'').replace(/^\[[^\]]+\]\s*/,'');
-      const rt=item.type||'',tl=TYPE_SHORT[rt]||rt,tc=TYPE_COL[rt]||'#94A3B8';
-      const chC=CH_COLOR[item.ch]||'#94A3B8';
-      const stC=item._st==='active'?'#2C9382':'#4361EE',stT=item._st==='active'?'Active':'Queued';
-      return`<div class="ws-item">`
-        +`<div class="ws-av" style="background:${stC}1a;color:${stC};font-size:11px" title="${stT}">●</div>`
-        +`<div class="ws-item-body">`
-          +`<div class="ws-item-title"><a href="${JIRA}${k}" target="_blank" class="ws-title-lnk">${tit}</a></div>`
-          +`<div class="ws-item-meta"><span class="ws-key-sm">${k}</span><span class="ws-item-sep">·</span><span style="font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:4px;background:${chC}18;color:${chC}">${item.ch||'—'}</span></div>`
-        +`</div>`
-        +`<div class="ws-item-right">${tl?`<span class="ws-type-tag" style="background:${tc}18;color:${tc};border:1px solid ${tc}35">${tl}</span>`:''}</div>`
-        +`</div>`;};
-    let cards='';
-    sorted.forEach(person=>{
-      const items=groups[person]||[];if(!items.length)return;
-      const pKey='p_'+person.replace(/[^a-zA-Z0-9]/g,'_');
-      const isOpen=!!_wsExpanded[pKey];
-      const ac=items.filter(i=>i._st==='active').length,qc=items.length-ac;
-      const bg=person==='Unassigned'?'#94A3B8':_avCol(person);
-      const init=items.slice(0,PSHOW),rest=items.slice(PSHOW);
-      const sid='prs_'+person.replace(/[^a-zA-Z0-9]/g,'_');
-      const body=init.map(_row).join('')+(rest.length?`<div id="ws-more-${sid}" style="display:none">${rest.map(_row).join('')}</div><button class="ws-more-btn" onclick="wsShowMore('${sid}')">+ ${rest.length} more</button>`:'');
-      cards+=`<div class="ws-card${isOpen?' open':''}" data-ch="${pKey}">`
-        +`<div class="ws-card-hd" onclick="wsToggle('${pKey}')" style="border-left-color:${bg}">`
-          +`<div class="ws-av" style="background:${bg};width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0">${_ini(person)}</div>`
-          +`<div class="ws-ch-name">${person}</div>`
-          +`<div class="ws-badges">${ac?`<span class="ws-badge ws-badge-active">${ac} active</span>`:''}<span class="ws-badge ${qc?'ws-badge-queue':'ws-badge-0'}">${qc} queued</span></div>`
-          +`<svg class="ws-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`
-        +`</div><div class="ws-body">${body}</div></div>`;});
-    if(!cards)cards=`<div class="ws-empty">No in-flight items match your filters.</div>`;
-    document.getElementById('deliverables').innerHTML=_wrap(`<div class="ws-grid">${cards}</div>`);
-    return;
-  }
+  document.getElementById('deliverables').innerHTML=`
+    <div style="max-width:980px;margin:0 auto">
+    <div class="sec-hd del3-summary" style="margin-bottom:12px"><h2>Deliverables</h2><p>${summaryParts.join(' · ')}${_anyFilter?` &nbsp;${clrLink}`:''}</p></div>
+    <div class="dv-ctrl">
+      ${seg}
+      ${buDrop}
+      ${ownerDrop}
+      ${chDrop}
+      ${qtrCtrl}
+      ${periodCtrl}
+      <div class="dv-search-wrap"><span class="dv-search-icon">⌕</span><input id="del-title-input" type="text" class="dv-search" placeholder="Search by title…" oninput="applyDelFilters()"></div>
+    </div>
+    ${allItems.length
+      ?`<div class="dv-list" id="del3-feed">${feedHtml}</div>${pgCtrl}`
+      :`<div class="dv-empty"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px">No items found</div><div style="font-size:13px;color:var(--g500)">${_anyFilter?`Try adjusting your filters &nbsp;—&nbsp; ${clrLink}`:'No deliverables loaded yet.'}</div></div>`}
+    </div>`;
 }
 
-function setDelGroupBy(v){delGroupBy=v;delPage=1;document.getElementById('deliverables').innerHTML='';renderDeliverables();}
-function setDelQtr(q){delQtr=q;delPage=1;document.getElementById('deliverables').innerHTML='';renderDeliverables();}
+function setDelQtr(q){delQtr=q;ofBU='All';ofCh='All';ofLbl='All';ofPeriod='All';ofStatus='All';ofOwner='All';delPage=1;document.getElementById('deliverables').innerHTML='';renderDeliverables();}
 function setDelPage(n){delPage=n;document.getElementById('deliverables').innerHTML='';renderDeliverables();}
 function setOF(w,v){
-  if(w==='bu')ofBU=v;else if(w==='owner')ofOwner=v;
-  delPage=1;document.getElementById('deliverables').innerHTML='';renderDeliverables();
+  if(w==='bu')ofBU=v; else if(w==='ch')ofCh=v; else if(w==='lbl')ofLbl=v; else if(w==='period')ofPeriod=v; else if(w==='status')ofStatus=v; else if(w==='owner')ofOwner=v;
+  delPage=1;
+  document.getElementById('deliverables').innerHTML='';
+  renderDeliverables();
 }
-function filterDelSearch(){}
+function pickCh(i){const n=window._chNames[i];setOF('ch',ofCh===n?'All':n);}
+function applyDelFilters(){
+  const titleTerm=((document.getElementById('del-title-input')||{}).value||'').toLowerCase().trim();
+  document.querySelectorAll('#del3-feed .dv-row').forEach(r=>{
+    const txt=(r.querySelector('.dv-title')||{}).textContent?.toLowerCase()||'';
+    r.style.display=(!titleTerm||txt.includes(titleTerm))?'':'none';
+  });
+  document.querySelectorAll('#del3-feed .dv-sec-hd').forEach(hd=>{
+    let sib=hd.nextElementSibling;let hasVis=false;
+    while(sib&&!sib.classList.contains('dv-sec-hd')){if(sib.style.display!=='none')hasVis=true;sib=sib.nextElementSibling;}
+    hd.style.display=hasVis?'':'none';
+  });
+}
+function filterDelSearch(term){applyDelFilters();}
 
 /* ══════════════════════════════════════════════════════
    TAB 4 — ANALYTICS
