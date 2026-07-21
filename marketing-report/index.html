@@ -788,66 +788,53 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .pw-error{font-size:12px;color:#dc2626;margin-top:6px;min-height:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px}
 .pw-footer{font-size:11px;color:#94a3b8;margin-top:24px;padding-top:20px;border-top:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;gap:6px}
 
-/* ── WORKSTREAMS TAB ─────────────────────────────────── */
-.ws-wrap{padding:24px 28px;max-width:1100px;margin:0 auto}
-.ws-grid{display:flex;flex-direction:column;gap:8px}
-.ws-card{background:#fff;border:1px solid var(--g200);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
-.ws-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.ws-card-hd{display:flex;align-items:center;gap:12px;padding:13px 18px;cursor:pointer;user-select:none;min-height:52px}
-.ws-card-hd:hover{background:var(--g50)}
-.ws-ch-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.ws-ch-name{font-size:13.5px;font-weight:700;color:var(--g900);flex:1}
-.ws-badges{display:flex;gap:6px;align-items:center;flex-shrink:0}
-.ws-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px;white-space:nowrap}
-.ws-badge-active{background:#e8f7f4;color:#0d7560;border:1px solid #b0ddd7}
-.ws-badge-queue{background:#eef3ff;color:#3451b2;border:1px solid #c0ccf5}
-.ws-badge-0{background:var(--g100);color:var(--g400);border:1px solid var(--g200)}
-.ws-chevron{color:var(--g400);flex-shrink:0;transition:transform .2s}
-.ws-card.open .ws-chevron{transform:rotate(180deg)}
-.ws-body{display:none;border-top:1px solid var(--g100);padding:4px 18px 18px}
-.ws-card.open .ws-body{display:block}
-.ws-section{margin-top:14px}
-.ws-sec-title{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g500);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--g100)}
-.ws-item{display:flex;align-items:flex-start;gap:10px;padding:5px 0;border-bottom:1px solid var(--g50)}
-.ws-item:last-child{border-bottom:none}
-.ws-item-key{font-size:11px;color:var(--g400);white-space:nowrap;flex-shrink:0;padding-top:2px;font-weight:500;min-width:78px}
-.ws-item-key a{color:var(--g400)}
-.ws-item-key a:hover{color:var(--blue)}
-.ws-item-body{flex:1;min-width:0}
-.ws-item-title{font-size:12.5px;color:var(--g900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500}
-.ws-item-meta{display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap}
-.ws-item-owner{font-size:11px;color:var(--g500)}
-.ws-item-type{font-size:10px;background:var(--g100);color:var(--g600);padding:1px 6px;border-radius:4px;font-weight:500}
-.ws-item-date{font-size:11px;color:var(--g400)}
-.ws-more-btn{margin-top:6px;font-size:11.5px;color:var(--blue);cursor:pointer;background:none;border:none;padding:4px 0;font-weight:500}
-.ws-more-btn:hover{text-decoration:underline}
-.ws-empty{font-size:12px;color:var(--g400);padding:8px 0;font-style:italic}
-.ws-intro-bar{background:#fff;border:1px solid var(--g200);border-radius:10px;padding:13px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--g600)}
-.ws-intro-bar strong{color:var(--g900)}
-.del-view-tog{display:inline-flex;background:var(--g100);border-radius:9px;padding:3px;gap:2px;margin-bottom:0}
+/* ── BY CHANNEL VIEW ─────────────────────────────────── */
+.del-view-tog{display:inline-flex;background:var(--g100);border-radius:9px;padding:3px;gap:2px}
 .del-view-btn{padding:5px 16px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--g500);cursor:pointer;transition:all .15s;white-space:nowrap}
 .del-view-btn.on{background:#fff;color:var(--navy);box-shadow:0 1px 5px rgba(0,0,0,.12);font-weight:700}
 .del-view-btn:hover:not(.on){color:var(--navy);background:rgba(255,255,255,.6)}
-/* ── CHANNEL VIEW ITEM ENHANCEMENTS ─────────────────── */
-.ws-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;letter-spacing:.03em}
-.ws-av-empty{background:var(--g300);color:var(--g500)}
-.ws-item{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-bottom:1px solid var(--g50)}
+.ws-wrap{padding:20px 28px;max-width:980px;margin:0 auto}
+.ws-grid{display:flex;flex-direction:column;gap:5px}
+.ws-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.05);transition:box-shadow .15s}
+.ws-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.09),0 0 0 1px rgba(0,0,0,.07)}
+.ws-card-hd{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;user-select:none;border-left:4px solid transparent;transition:background .12s}
+.ws-card-hd:hover{background:var(--g50)}
+.ws-ch-dot{display:none}
+.ws-ch-name{font-size:13px;font-weight:700;color:var(--g900);flex:1;letter-spacing:-.1px}
+.ws-badges{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.ws-badge{font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;white-space:nowrap}
+.ws-badge-active{background:#e6f4f1;color:#0b6952;border:1px solid #b2ddd6}
+.ws-badge-queue{background:#eef1ff;color:#3451b2;border:1px solid #c5cef8}
+.ws-badge-0{background:var(--g100);color:var(--g400);border:1px solid var(--g200)}
+.ws-chevron{color:var(--g300);flex-shrink:0;transition:transform .2s}
+.ws-card.open .ws-chevron{transform:rotate(180deg)}
+.ws-body{display:none;padding:2px 16px 16px 20px}
+.ws-card.open .ws-body{display:block}
+.ws-section{margin-top:14px}
+.ws-sec-title{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid var(--g100)}
+.ws-sec-cnt{font-size:9.5px;font-weight:700;padding:1px 7px;border-radius:8px}
+.ws-item{display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.04)}
 .ws-item:last-child{border-bottom:none}
-.ws-item-sub{padding-left:8px;opacity:.9}
-.ws-sub-mark{font-size:11px;color:var(--g400);margin-right:3px}
-.ws-item-body{flex:1;min-width:0}
-.ws-item-title{font-size:12.5px;font-weight:500;color:var(--g900);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ws-title-lnk{color:var(--g900);text-decoration:none}
+.ws-item-sub{padding-left:6px}
+.ws-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff}
+.ws-av-empty{background:var(--g300);color:var(--g500)}
+.ws-item-body{min-width:0}
+.ws-item-title{font-size:12.5px;font-weight:500;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.4}
+.ws-title-lnk{color:inherit;text-decoration:none}
 .ws-title-lnk:hover{color:var(--blue);text-decoration:underline}
-.ws-item-meta{display:flex;align-items:center;gap:5px;margin-top:2px;flex-wrap:wrap}
-.ws-key-sm{font-size:10px;color:var(--g400);font-weight:500;white-space:nowrap}
-.ws-key-sm a{color:var(--g400)}
-.ws-type-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;white-space:nowrap}
-.ws-item-owner{font-size:11px;color:var(--g500);white-space:nowrap}
-.ws-item-date{font-size:10.5px;color:var(--g400);white-space:nowrap}
-.ws-sec-cnt{font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:6px}
-.ws-section{margin-top:16px;padding-bottom:4px}
-.ws-sec-title{font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center}
+.ws-item-meta{display:flex;align-items:center;gap:5px;margin-top:1px}
+.ws-key-sm{font-size:10px;color:var(--g400);font-weight:500}
+.ws-item-owner{font-size:10.5px;color:var(--g500)}
+.ws-item-sep{color:var(--g300);font-size:10px}
+.ws-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;min-width:72px}
+.ws-type-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.ws-item-date{font-size:10px;color:var(--g400);white-space:nowrap}
+.ws-sub-mark{color:var(--g300);margin-right:2px;font-size:10.5px}
+.ws-more-btn{margin-top:8px;font-size:11.5px;color:var(--blue);cursor:pointer;background:none;border:none;padding:4px 0;font-weight:600;display:block}
+.ws-more-btn:hover{text-decoration:underline}
+.ws-empty{font-size:12px;color:var(--g400);padding:12px 0;font-style:italic;text-align:center}
+.ws-item-bu{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:4px;background:var(--g100);color:var(--g600);white-space:nowrap}
+.ws-ch-filters{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 
 </style>
 </head>
@@ -15744,6 +15731,8 @@ function renderDeliverables(){
     const queueItems =(DATA.planning||[]).map(i=>({..._norm(i),_st:'queue'}));
     const channels={};
     [...activeItems,...queueItems].forEach(i=>{
+      if(ofBU!=='All'&&i.bu!==ofBU)return;
+      if(ofOwner&&ofOwner!=='All'&&(i.owner||'')!==ofOwner)return;
       const ch=i.ch||'Other';
       const f=CH_FILTER[ch];
       if(f&&!f(i))return;
@@ -15774,6 +15763,7 @@ function renderDeliverables(){
       const typeColor=TYPE_COL[rawType]||'#94A3B8';
       const date=(item.updatedDate||item.doneDate||'').replace(/,\s*\d{4}$/,'');
       const isSub=rawType==='Sub-task';
+      const buLabel=item.bu&&item.bu!=='Unknown'?item.bu.replace(' (QB)',''):'';
       const av=owner
         ?`<div class="ws-av" style="background:${_avCol(owner)}" title="${owner}">${_ini(owner)}</div>`
         :`<div class="ws-av ws-av-empty">?</div>`;
@@ -15783,11 +15773,16 @@ function renderDeliverables(){
           +`<div class="ws-item-title">${isSub?'<span class="ws-sub-mark">↳</span>':''}<a href="${JIRA}${key}" target="_blank" rel="noopener" class="ws-title-lnk">${title}</a></div>`
           +`<div class="ws-item-meta">`
             +`<span class="ws-key-sm">${key}</span>`
-            +(typeLabel?`<span class="ws-type-tag" style="background:${typeColor}18;color:${typeColor};border:1px solid ${typeColor}35">${typeLabel}</span>`:'')
-            +(owner?`<span class="ws-item-owner">${owner.split(' ')[0]}</span>`:'')
-            +(date?`<span class="ws-item-date">${date}</span>`:'')
+            +(buLabel?`<span class="ws-item-sep">·</span><span class="ws-item-bu">${buLabel}</span>`:'')
+            +(owner?`<span class="ws-item-sep">·</span><span class="ws-item-owner">${owner.split(' ')[0]}</span>`:'')
           +`</div>`
         +`</div>`
+        +(typeLabel||date
+          ?`<div class="ws-item-right">`
+            +(typeLabel?`<span class="ws-type-tag" style="background:${typeColor}18;color:${typeColor};border:1px solid ${typeColor}35">${typeLabel}</span>`:'')
+            +(date?`<span class="ws-item-date">${date}</span>`:'')
+          +`</div>`
+          :'')
       +`</div>`;};
 
     // ── Section ───────────────────────────────────────────────────────
@@ -15804,11 +15799,18 @@ function renderDeliverables(){
       return h+`</div>`;};
 
     // ── Render ────────────────────────────────────────────────────────
-    const totalA=activeItems.length,totalQ=queueItems.length;
+    const allChItems=[...(DATA.active||[]),...(DATA.planning||[])].map(i=>({..._norm(i)}));
+    const totalA=activeItems.filter(i=>(ofBU==='All'||i.bu===ofBU)&&(!ofOwner||ofOwner==='All'||(i.owner||'')===ofOwner)).length;
+    const totalQ=queueItems.filter(i=>(ofBU==='All'||i.bu===ofBU)&&(!ofOwner||ofOwner==='All'||(i.owner||'')===ofOwner)).length;
+    const buOpts=['All','FastField','Pave','Core (QB)','Cross-BU'];
+    const buFilter=`<select class="dv-drop${ofBU!=='All'?' active':''}" onchange="setOF('bu',this.value);renderDeliverables()"><option value="All"${ofBU==='All'?' selected':''}>BU: All</option>${buOpts.slice(1).map(b=>`<option value="${b}"${ofBU===b?' selected':''}>${b}</option>`).join('')}</select>`;
+    const _allOwners=[...new Set(allChItems.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort();
+    const ownerFilter=`<select class="dv-drop${ofOwner&&ofOwner!=='All'?' active':''}" onchange="setOF('owner',this.value);renderDeliverables()"><option value="All"${!ofOwner||ofOwner==='All'?' selected':''}>👤 All people</option>${_allOwners.map(n=>`<option value="${n}"${ofOwner===n?' selected':''}>${n.includes(', ')?n.split(', ').reverse().join(' '):n}</option>`).join('')}</select>`;
+    const hasFilter=(ofBU!=='All')||(ofOwner&&ofOwner!=='All');
+    const clrFilters=hasFilter?`<a href="#" onclick="event.preventDefault();ofBU='All';ofOwner='All';renderDeliverables()" style="font-size:11px;color:var(--blue);font-weight:600;white-space:nowrap">Clear ×</a>`:'';
     let html=`<div class="ws-wrap">`
       +`<div class="sec-hd" style="margin-bottom:14px"><h2>Deliverables</h2><p>${totalA} active &middot; ${totalQ} queued &middot; updated ${DATA.lastUpdated}</p></div>`
-      +_viewTog
-      +`<div style="height:14px"></div>`
+      +`<div class="ws-ch-filters">${_viewTog}${buFilter}${ownerFilter}${clrFilters}</div>`
       +`<div class="ws-grid">`;
     sortedChs.forEach(ch=>{
       const g=channels[ch];
@@ -15817,8 +15819,7 @@ function renderDeliverables(){
       const safeAttr=ch.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
       const safeJs=ch.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
       html+=`<div class="ws-card" data-ch="${safeAttr}">`
-        +`<div class="ws-card-hd" onclick="wsToggle('${safeJs}')">`
-          +`<div class="ws-ch-dot" style="background:${color}"></div>`
+        +`<div class="ws-card-hd" onclick="wsToggle('${safeJs}')" style="border-left-color:${color}">`
           +`<div class="ws-ch-name">${ch}</div>`
           +`<div class="ws-badges">`
             +`<span class="ws-badge ${ac?'ws-badge-active':'ws-badge-0'}">${ac} active</span>`
@@ -16339,7 +16340,8 @@ function renderAnalytics(){
 const _wsExpanded={};
 function wsToggle(ch){
   _wsExpanded[ch]=!_wsExpanded[ch];
-  const card=document.querySelector('.ws-card[data-ch="'+ch.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'"]');
+  // browser stores data attributes decoded, so query with unencoded value
+  const card=document.querySelector('.ws-card[data-ch="'+ch.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"]');
   if(card)card.classList.toggle('open',!!_wsExpanded[ch]);
 }
 function wsShowMore(safeId){
