@@ -21607,6 +21607,7 @@ const ROADMAP = [
   // Q3 ── August 2026 ───────────────────────────────────────────────────────────────────────
   {id:'rm_br02',title:'Brand: Refined Design Review (Core Team)',  fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-06',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   {id:'rm13',title:'AI4 Conference (Aug 4–6, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-04',end:'2026-08-06',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12386'},
+  {id:'rm_ent01',title:'[Core] Enterprise Plan Trial — In-Product Launch',fn:'Product Launches',bu:'QB',tier:'Tier 2',owner:'Heather',weekOf:'2026-08-05',end:'2026-08-24',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6521356312',jira:'MKT-13268'},
   {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Web',                  bu:'All', tier:'Web',           owner:'Carlos',          weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',         brief:null,jira:'WE-788'},
   {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
@@ -23447,6 +23448,20 @@ function renderBriefing(){
      target:'Streamlined processes · Jira-based operating model · team-wide ways of working',
      signal:'on-track',color:'#b45309'},
   ];
+  // Goal Cascade data — owner goals embedded in each SP card
+  const _tgData=[
+    {id:'MKT-01',owner:'Cortez de Barros, Carlos',mo:'MO-01',moD:'QCP New Logos',      ns:'ARR Growth', curr:'$3.5M',      tgt:'$3.6M',       qtr:'Q3',sig:'on-track'},
+    {id:'MKT-02',owner:'Smyth, Gar',              mo:'MO-02',moD:'Pave New/PMF',        ns:'ARR Growth', curr:'15%',        tgt:'67%',         qtr:'Q4',sig:'on-track'},
+    {id:'MKT-03',owner:'Smyth, Gar',              mo:'MO-03',moD:'Fastfield Conversion',ns:'NRR',        curr:'20%',        tgt:'50%',         qtr:'Q4',sig:'on-track'},
+    {id:'MKT-04',owner:'Kampf, Mirissa',          mo:'MO-04',moD:'Partner New Logos',   ns:'ARR Growth', curr:'—',     tgt:'100% / 50%',  qtr:'Q3',sig:'on-track'},
+    {id:'MKT-05',owner:'Pepe, Heather',           mo:'MO-05',moD:'Multi-Product X-Sell',ns:'NRR',        curr:'>30%',       tgt:'>50%',        qtr:'Q3',sig:'on-track'},
+    {id:'MKT-06',owner:'Reynders, Alys',          mo:'MO-06',moD:'Whitespace Expansion',ns:'NRR',        curr:'267',        tgt:'300 SQOs',    qtr:'Q3',sig:'on-track'},
+    {id:'MKT-07',owner:'Kampf, Mirissa',          mo:'MO-07',moD:'Customer Adoption',   ns:'NRR',        curr:'57%',        tgt:'60%',         qtr:'H2',sig:'on-track'},
+    {id:'MKT-08',owner:'Reynders, Alys',          mo:'MO-08',moD:'Innovation Accel.',   ns:'NRR',        curr:'—',     tgt:'≤ ship date',qtr:'H2',sig:'on-track'},
+    {id:'MKT-09',owner:'Tan, Lynn',               mo:'MO-10',moD:'AI Feature Adoption', ns:'AI Adoption',curr:'—',     tgt:'Multi-metric',qtr:'H2',sig:'on-track'},
+    {id:'MKT-10',owner:'Kampf, Mirissa',          mo:'MO-09',moD:'Customer Retention',  ns:'NRR',        curr:'86.7% / 19%',tgt:'88% / 25%',   qtr:'Q3',sig:'on-track'},
+    {id:'MKT-11',owner:'Rusinova, Luiza',         mo:'MO-13',moD:'Process Redesign',    ns:'AEBITDA',    curr:'—',     tgt:'60% → 90%',qtr:'H2',sig:'on-track'},
+  ];
   const _sigCls={'on-track':'ok','watch':'watch','at-risk':'risk'};
   const _sigLbl={'on-track':'On track','watch':'Watch','at-risk':'At risk'};
   const _nsCardsHtml=_nsKpi.map(function(n){
@@ -23457,7 +23472,7 @@ function renderBriefing(){
       +'<span class="ns-signal '+(_sigCls[n.signal]||'ok')+'" style="margin-bottom:8px">'
       +'<span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;flex-shrink:0"></span>&nbsp;'
       +(_sigLbl[n.signal]||'On track')+'</span>'
-      +'<div class="ns-card-target">'+n.target+'</div>'
+      +'<div class="ns-mo-list">'+_tgData.filter(function(m){return m.ns===n.label;}).map(function(m){return'<div class="ns-mo-row"><span class="ns-mo-desc">'+m.moD+'</span><span class="ns-mo-nums"><span class="ns-mo-curr">'+m.curr+'</span><span class="ns-mo-arr">→</span><span class="ns-mo-tgt">'+m.tgt+'</span></span></div>';}).join('')+'</div>'
       +'</div>';
   }).join('');
   const _kpiChips=(onTrack===7
@@ -23472,7 +23487,7 @@ function renderBriefing(){
     +'<span class="ns-kpi-chip"><strong>'+_q2Dels.toLocaleString()+'</strong> Q2 deliverables shipped</span>';
   const nsStripHtml='<div class="ns-strip">'
     +'<div class="ns-strip-hdr">'
-    +'<span class="ns-strip-ttl">Company North Stars — H2 2026</span>'
+    +'<span class="ns-strip-ttl">H2 North Stars</span>'
     +'<span class="ns-strip-src">Goal Cascade &middot; Jul 2026 actuals &middot; '+_todayFmt+'</span>'
     +'</div>'
     +'<div class="ns-cards">'+_nsCardsHtml+'</div>'
@@ -23573,11 +23588,15 @@ function renderBriefing(){
     'MKT-12574':{ns:['Efficiency'],               mos:['MO-13']},
   };
   const _nsStyleDark={
-    'Growth':    'background:rgba(21,128,61,.22);color:#bbf7d0;border:1px solid rgba(21,128,61,.35)',
-    'Expansion': 'background:rgba(8,145,178,.22);color:#a5f3fc;border:1px solid rgba(8,145,178,.35)',
-    'Innovation':'background:rgba(124,58,237,.22);color:#e9d5ff;border:1px solid rgba(124,58,237,.35)',
-    'Retention': 'background:rgba(67,56,202,.22);color:#c7d2fe;border:1px solid rgba(67,56,202,.35)',
-    'Efficiency':'background:rgba(180,83,9,.22);color:#fde68a;border:1px solid rgba(180,83,9,.35)',
+    'ARR Growth': 'background:rgba(21,128,61,.1);color:#15803d;border:1px solid rgba(21,128,61,.28)',
+    'NRR':        'background:rgba(8,145,178,.1);color:#0e7490;border:1px solid rgba(8,145,178,.28)',
+    'AI Adoption':'background:rgba(124,58,237,.1);color:#7c3aed;border:1px solid rgba(124,58,237,.28)',
+    'AEBITDA':    'background:rgba(180,83,9,.1);color:#b45309;border:1px solid rgba(180,83,9,.28)',
+    'Growth':     'background:rgba(21,128,61,.1);color:#15803d;border:1px solid rgba(21,128,61,.28)',
+    'Expansion':  'background:rgba(8,145,178,.1);color:#0e7490;border:1px solid rgba(8,145,178,.28)',
+    'Innovation': 'background:rgba(124,58,237,.1);color:#7c3aed;border:1px solid rgba(124,58,237,.28)',
+    'Retention':  'background:rgba(67,56,202,.1);color:#4338ca;border:1px solid rgba(67,56,202,.28)',
+    'Efficiency': 'background:rgba(180,83,9,.1);color:#b45309;border:1px solid rgba(180,83,9,.28)',
   };
   const _moDesc={
     'MO-01':'QCP New Logos','MO-02':'Pave New/PMF','MO-03':'Fastfield Conversion',
@@ -23585,24 +23604,17 @@ function renderBriefing(){
     'MO-07':'Customer Adoption','MO-08':'Innovation Acceleration',
     'MO-09':'Customer Retention','MO-10':'AI Feature Adoption','MO-13':'Process Redesign',
   };
-  // Goal Cascade data — owner goals embedded in each SP card
-  const _tgData=[
-    {id:'MKT-01',owner:'Cortez de Barros, Carlos',mo:'MO-01',moD:'QCP New Logos',      ns:'ARR Growth', curr:'$3.5M',      tgt:'$3.6M',       qtr:'Q3',sig:'on-track'},
-    {id:'MKT-02',owner:'Smyth, Gar',              mo:'MO-02',moD:'Pave New/PMF',        ns:'ARR Growth', curr:'15%',        tgt:'67%',         qtr:'Q4',sig:'on-track'},
-    {id:'MKT-03',owner:'Smyth, Gar',              mo:'MO-03',moD:'Fastfield Conversion',ns:'NRR',        curr:'20%',        tgt:'50%',         qtr:'Q4',sig:'on-track'},
-    {id:'MKT-04',owner:'Kampf, Mirissa',          mo:'MO-04',moD:'Partner New Logos',   ns:'ARR Growth', curr:'—',     tgt:'100% / 50%',  qtr:'Q3',sig:'on-track'},
-    {id:'MKT-05',owner:'Pepe, Heather',           mo:'MO-05',moD:'Multi-Product X-Sell',ns:'NRR',        curr:'>30%',       tgt:'>50%',        qtr:'Q3',sig:'on-track'},
-    {id:'MKT-06',owner:'Reynders, Alys',          mo:'MO-06',moD:'Whitespace Expansion',ns:'NRR',        curr:'267',        tgt:'300 SQOs',    qtr:'Q3',sig:'on-track'},
-    {id:'MKT-07',owner:'Kampf, Mirissa',          mo:'MO-07',moD:'Customer Adoption',   ns:'NRR',        curr:'57%',        tgt:'60%',         qtr:'H2',sig:'on-track'},
-    {id:'MKT-08',owner:'Reynders, Alys',          mo:'MO-08',moD:'Innovation Accel.',   ns:'NRR',        curr:'—',     tgt:'≤ ship date',qtr:'H2',sig:'on-track'},
-    {id:'MKT-09',owner:'Tan, Lynn',               mo:'MO-10',moD:'AI Feature Adoption', ns:'AI Adoption',curr:'—',     tgt:'Multi-metric',qtr:'H2',sig:'on-track'},
-    {id:'MKT-10',owner:'Kampf, Mirissa',          mo:'MO-09',moD:'Customer Retention',  ns:'NRR',        curr:'86.7% / 19%',tgt:'88% / 25%',   qtr:'Q3',sig:'on-track'},
-    {id:'MKT-11',owner:'Rusinova, Luiza',         mo:'MO-13',moD:'Process Redesign',    ns:'AEBITDA',    curr:'—',     tgt:'60% → 90%',qtr:'H2',sig:'on-track'},
-  ];
   const _gcPal=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];
   const _gcAvC=function(n){let h=0;for(let i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))%_gcPal.length;return _gcPal[h];};
   const _gcIni=function(n){const p=n.split(', ');return((p.length>1?p[1].trim():p[0])[0]||'').toUpperCase()+((p[0]||'')[0]||'').toUpperCase();};
   const _gcOwn=function(n){const p=n.split(', ');return p.length>1?p[1].trim().split(' ')[0]+' '+p[0]:n;};
+  const _lcBuCls={
+    'FF':'ff','Pave':'pave','Core':'core','Cross-BU':'cross',
+    'SEO':'seo','Paid':'paid','Web':'web','CRO':'cro',
+    'Brand':'brand','Community':'community','Events':'events',
+    'Creative':'creative','PR':'pr','Social':'social',
+    'Lifecycle':'lifecycle','AI':'ai','Launch':'launch','Webinar':'webinar'
+  };
   const initCards = inits.map(ini=>{
     const goals = (ini.goals||[]).map((g,gi)=>`
       <div class="sp-goal">
@@ -23612,6 +23624,7 @@ function renderBriefing(){
 
     // P1 programs: blocked first → active → planning, all shown with expand toggle
     const allP1 = (ini.p1progs||[]);
+    const planningCount = allP1.filter(p=>p.status==='planning'||p.status==='intake').length;
     const _p1ip=allP1.filter(p=>p.status==='in-progress').length;
     const _p1pl=allP1.filter(p=>p.status==='planning'||p.status==='intake').length;
     const _p1bl=allP1.filter(p=>p.status==='blocked').length;
@@ -23621,7 +23634,6 @@ function renderBriefing(){
     const sortedP1 = [
       ..._sb(allP1.filter(p=>p.status==='blocked')),
       ..._sb(allP1.filter(p=>p.status==='in-progress')),
-      ..._sb(allP1.filter(p=>p.status==='planning'||p.status==='intake')),
     ];
     const SHOW_INIT = 5;
     const moreCount = Math.max(0, sortedP1.length - SHOW_INIT);
@@ -23633,7 +23645,7 @@ function renderBriefing(){
       const _bl = _bm ? _bm[1] : null;
       const _bk = _bl ? (_bl.toLowerCase()==='pave'?'pave':_bl.toLowerCase()==='core'||_bl.toLowerCase()==='qb-core'?'core':_bl.toLowerCase()==='ff'?'ff':_bl.toLowerCase()==='cross-bu'?'cross':null) : null;
       const buHtml = _bk ? `<span class="sp-bu-tag sp-bu-${_bk}">${_bl}</span>` : '';
-      const cleanTitle = _bm ? p.title.slice(_bm[0].length) : p.title;
+      const cleanTitle = (_bm ? p.title.slice(_bm[0].length) : p.title).replace(' — Q3 2026','· Q3').replace(' — Q4 2026','· Q4').replace(' — Q2 2026','· Q2');
       const titleEl = p.key
         ? `${buHtml}<a href="${JIRA}${p.key}" target="_blank" class="sp-prog-link${lnkCls}">${cleanTitle}</a>`
         : `${buHtml}<span class="${lnkCls.trim()}">${cleanTitle}</span>`;
@@ -23644,9 +23656,12 @@ function renderBriefing(){
         <span style="flex:1;min-width:0">${titleEl}</span>${chip}
       </div>`;
     }).join('') + (moreCount>0?`<button class="sp-more-btn" onclick="toggleP1Overflow(this,${moreCount})">+ ${moreCount} more →</button>`:'')
-    : '<div class="sp-active-empty">No P1 programs yet</div>';
+    + (planningCount>0?`<div class="sp-prog-more">+ ${planningCount} in planning</div>`:'')
+    : (planningCount>0?`<div class="sp-prog-more">+ ${planningCount} in planning</div>`:'<div class="sp-active-empty">No P1 programs yet</div>');
 
-    const metaLine=[ini.sub,ini.owner].filter(Boolean).join(' · ');
+    const _pct = (ini.done != null && ini.total) ? Math.round(ini.done/ini.total*100) : ini.pct;
+    const ownerHtml = ini.owner ? `<span class="sp-card-owner-name" style="color:${ini.color}">${ini.owner}</span>` : '';
+    const subHtml = ini.sub ? `<div class="sp-card-meta">${ini.sub}</div>` : '';
     const deltaHdrHtml = ini.delta>0
       ? `<span class="sp-pct-hdr-up"> ↑${ini.delta}</span>`
       : ini.delta<0
@@ -23683,8 +23698,16 @@ function renderBriefing(){
     })() : '';
 
     const _nsD=_nsMap[ini.key]||{ns:[],mos:[]};
-    const _nsChipsHtml=_nsD.ns.map(n=>'<span class="sp-ns-chip" style="'+(_nsStyleDark[n]||'background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.25)')+'">'+n+'</span>').join('');
+    const _nsChipsHtml=_nsD.ns.map(n=>'<span class="sp-ns-chip" style="'+(_nsStyleDark[n]||'background:var(--g100);color:var(--g500);border:1px solid var(--g200)')+'">'+n+'</span>').join('');
     const nsRowHtml=_nsChipsHtml?'<div class="sp-ns-row">'+_nsChipsHtml+'</div>':'';
+    const buScopeHtml=(()=>{
+      const bus=(ini.scope&&ini.scope.bus)||[];
+      const buMap={'FastField':['ff','FF'],'Pave':['pave','Pave'],'Core (QB)':['core','Core']};
+      if(bus.length){
+        return '<div class="sp-bu-scope">'+bus.map(b=>{const[c,l]=buMap[b]||['cross',b];return'<span class="sp-bu-tag sp-bu-'+c+'">'+l+'</span>';}).join('')+'</div>';
+      }
+      return '<div class="sp-bu-scope"><span class="sp-bu-tag sp-bu-cross">Cross-BU</span></div>';
+    })();
     const _moTagsHtml=_nsD.mos.map(function(m){const d=_moDesc[m];return '<span class="sp-mo-tag" title="'+m+'">'+(d?'<span style="font-size:9px;opacity:.6;margin-right:3px">'+m+'</span>'+d:m)+'</span>';}).join('');
     const moRowHtml=_moTagsHtml?'<div class="sp-mo-row"><span style="font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-right:4px;flex-shrink:0">Delivers</span>'+_moTagsHtml+'</div>':'';
     const execHtml=ini.execSummary?'<div class="sp-exec">'+ini.execSummary+'</div>':'';
@@ -23708,23 +23731,35 @@ function renderBriefing(){
 
     return `
     <div class="sp-card" data-key="${ini.key}">
-      <div class="sp-card-hdr" style="background:linear-gradient(135deg,#10503C 0%,${ini.color} 100%)" onclick="toggleCard(this)">
+      <div class="sp-card-hdr" style="border-left:5px solid ${ini.color}" onclick="toggleCard(this)">
         <div class="sp-card-hdr-row">
           <a href="${JIRA}${ini.key}" target="_blank" class="sp-card-key-lnk" onclick="event.stopPropagation()">${ini.key}</a>
-          <span style="display:flex;align-items:center;gap:7px">${ini.pct!=null?`<span style="font-size:15px;font-weight:700;color:rgba(255,255,255,.95);letter-spacing:-.5px">${ini.pct}%</span>`:''}${badgeLight(ini.status)}<span class="sp-chevron">▾</span></span>
+          <span style="display:flex;align-items:center;gap:7px">${_pct!=null?`<span style="font-size:15px;font-weight:800;color:${ini.color};letter-spacing:-.5px">${_pct}%${deltaHdrHtml}</span>`:''}${badgeLight(ini.status)}<span class="sp-chevron">▾</span></span>
         </div>
         <div class="sp-card-ttl">${ini.title}</div>
-        ${metaLine?`<div class="sp-card-meta">${metaLine}</div>`:''}
+        ${ownerHtml}
+        ${subHtml}
+        ${buScopeHtml}
         ${nsRowHtml}
       </div>
       <div class="sp-card-body">
-        <div class="sp-progs">
-          <div class="sp-progs-hd">
-            <span class="sp-progs-lbl">P1 Programs</span>
-            <span class="sp-progs-count">${allP1.length} total${_p1qs?' &middot; '+_p1qs:''}</span>
-          </div>
-          ${progsHtml}
-        </div>
+        ${(ini.launches && ini.launches.length ?
+  '<div class="sp-launches">'
+  +'<div class="sp-launches-hdr">'+(ini.launchesLabel||'Active Programs')+'</div>'
+  +ini.launches.map(function(l){
+    var _lc = l.status==='in-progress' ? '#0066D6' : l.status==='planning' ? '#b45309' : '#6b7280';
+    var _ls = l.status==='in-progress' ? 'In Flight' : l.status==='planning' ? 'Planning' : l.status;
+    return '<a class="sp-launch-chip" href="'+JIRA+l.key+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'
+      +'<span class="sp-bu-tag sp-bu-'+(_lcBuCls[l.bu]||'cross')+'">'+l.bu+'</span>'
+      +'<span class="sp-lc-title">'+l.title+'</span>'
+      +(l.due ? '<span class="sp-lc-due">'+l.due+'</span>' : '')
+      +'<span class="sp-lc-status" style="color:'+_lc+'">'+_ls+'</span>'
+      +'<span class="sp-lc-key">'+l.key+' ↗</span>'
+      +'</a>';
+  }).join('')
+  +'</div>'
+: '')}
+        ${ini.goals && ini.goals.length ? '<div class="sp-goals-list">'+ini.goals.map(function(g){ return '<div class="sp-goal-item"><span class="sp-goal-dot">▸</span>'+g+'</div>'; }).join('')+'</div>' : ''}
       </div>
       <button class="sp-copy-btn" onclick="event.stopPropagation();getStatusUpdate('${ini.key}',this)">⚡ Get status update</button>
     </div>`;
@@ -23838,9 +23873,9 @@ function renderBriefing(){
   ];
   const goalsBarHtml=`<div style="padding:4px 0 14px">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px">
-      <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--g400)">Company Strategic Goals — H2 2026</span>
+      <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--g400)">H2 Goal Pillars</span>
       <span style="flex:1;height:1px;background:var(--g200)"></span>
-      <span style="font-size:9px;color:var(--g300);font-weight:600">Goal Cascade · Aly's H2 2026 Priorities</span>
+      <span style="font-size:9px;color:var(--g300);font-weight:600">Aly's H2 2026 · Goal Cascade</span>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:nowrap">
       ${_GOALS.map(g=>{
@@ -23864,11 +23899,10 @@ function renderBriefing(){
   </div>`;
 
   document.getElementById('brief').innerHTML=`
-    ${goalsBarHtml}
-    ${capStripHtml}
+    ${nsStripHtml}
     <div class="tl2">
       <div class="tl2-hd">
-        <span class="tl2-hdtitle">Quickbase Marketing · FY 2026 Execution</span>
+        <span class="tl2-hdtitle">Marketing Execution · FY 2026</span>
         <span class="tl2-today-badge">Q3 Week ${_weekInQ3} · ${_todayFmt}</span>
       </div>
 
@@ -23893,12 +23927,12 @@ function renderBriefing(){
 
       ${winsHtml}
     </div>
-
     <div class="sec-hd">
-      <h2>H2 2026 Goal Areas</h2>
-      <p>${jl('MKT-12568','MKT-12568')}–${jl('MKT-12574','12574')} · 7 strategic projects · aligned to company North Stars &amp; Marketing Objectives</p>
+      <h2>Strategic Initiatives</h2>
+      <p>${jl('MKT-12568','MKT-12568')}–${jl('MKT-12574','12574')} · 7 strategic projects · owners + goals + active programs</p>
     </div>
-    <div class="sp-grid">${initCards}</div>`;
+    <div class="sp-grid">${initCards}</div>
+    ${capStripHtml}`;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -24093,7 +24127,7 @@ function renderDeliverables(){
   const _matchOwner=i=>!ofOwner||ofOwner==='All'||(i.owner||'').toLowerCase().includes(ofOwner.toLowerCase());
   const _bf=i=>(ofBU==='All'||i.bu===ofBU)&&(ofCh==='All'||i.ch===ofCh)&&_matchOwner(i);
 
-  const _stMap={'All':i=>true,'Planning':i=>i._st==='planning','In Progress':i=>i._st==='in-progress','Done':i=>i._st==='done'};
+  const _stMap={'All':i=>true,'Planning':i=>i._st==='planning','Backlog / Intake':i=>i._st==='planning','In Progress':i=>i._st==='in-progress','Done':i=>i._st==='done'};
   const _stFn=_stMap[ofStatus]||_stMap['All'];
 
   const planItems=_planningSrc.filter(_bf);
@@ -24105,8 +24139,8 @@ function renderDeliverables(){
   const pageItems=allItems.slice((delPage-1)*50,delPage*50);
 
   // ── Controls ───────────────────────────────────────────────────────────
-  const stCnt={'All':allItems.length,'Planning':planItems.length,'In Progress':activeItems.length,'Done':doneItemsAll.length};
-  const ST=[{k:'All',lbl:'All'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Planning',lbl:'Queued',dot:'#4361EE'},{k:'Done',lbl:'Shipped',dot:'#14A558'}];
+  const stCnt={'All':allItems.length,'Planning':planItems.length,'Backlog / Intake':planItems.length,'In Progress':activeItems.length,'Done':doneItemsAll.length};
+  const ST=[{k:'All',lbl:'All'},{k:'Backlog / Intake',lbl:'Backlog / Intake',dot:'#4361EE'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Done',lbl:'Done',dot:'#14A558'}];
   const seg=`<div class="dv-seg">${ST.map(s=>{const on=ofStatus===s.k;return`<button class="dv-seg-btn${on?' on':''}" onclick="setOF('status','${s.k}')" style="${on&&s.dot?`color:${s.dot}`:''}">${s.lbl}<span style="opacity:.65;font-size:10.5px;margin-left:3px">${stCnt[s.k]}</span></button>`;}).join('')}</div>`;
 
   const _owners=[...new Set(_allSrc.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort((a,b)=>(_ownerFmt(a)||a).localeCompare(_ownerFmt(b)||b));
@@ -24119,11 +24153,12 @@ function renderDeliverables(){
   const _chCnt={};allItems.forEach(i=>{if(i.ch)_chCnt[i.ch]=(_chCnt[i.ch]||0)+1;});
   const chDrop=`<select class="dv-drop${ofCh!=='All'?' active':''}" onchange="setOF('ch',this.value)"><option value="All"${ofCh==='All'?' selected':''}>Channel: All</option>${Object.keys(_chTotals).sort((a,b)=>(_chTotals[b]||0)-(_chTotals[a]||0)).map(ch=>`<option value="${ch}"${ofCh===ch?' selected':''}>${ch} (${_chCnt[ch]||0})</option>`).join('')}</select>`;
 
-  const qtrCtrl=(ofStatus==='Planning'||ofStatus==='In Progress')?'':
+  const _isBacklogOrActive=ofStatus==='Planning'||ofStatus==='Backlog / Intake'||ofStatus==='In Progress';
+  const qtrCtrl=_isBacklogOrActive?'':
     `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
 
   const PERIODS=[{k:'All',lbl:'All'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
-  const periodCtrl=(ofStatus==='Planning'||ofStatus==='In Progress'||delQtr==='Q2')?'':
+  const periodCtrl=(_isBacklogOrActive||delQtr==='Q2')?'':
     `<div class="dv-qtr">${PERIODS.map(p=>`<button class="dv-qtr-btn${ofPeriod===p.k?' on':''}" onclick="setOF('period','${p.k}')">${p.lbl}</button>`).join('')}</div>`;
 
   // ── Row builder ────────────────────────────────────────────────────────
@@ -24131,16 +24166,16 @@ function renderDeliverables(){
   const _avColor=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%_avPalette.length;return _avPalette[h];};
   const _initials=n=>n.split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
   const ST_DOT={planning:'#4361EE','in-progress':'#2C9382',done:'#14A558'};
-  const ST_LBL={planning:'Planning','in-progress':'In Progress',done:'Done'};
+  const ST_LBL={planning:'Backlog / Intake','in-progress':'In Progress',done:'Done'};
   const buTag=i=>{const c=BU_COLS[i.bu];return c?`<span class="dv-bu" style="background:${c}18;color:${c};border:1px solid ${c}30">${i.bu.replace(' (QB)','')}</span>`:''};
 
   const _row=i=>{
     const col=chColMap[i.ch]||'#94a3b8';
     const ownerFmt=_ownerFmt(i.owner);
     const dot=ST_DOT[i._st]||'#94a3b8';
-    const dateStr=i._st==='done'?(i.doneDate||''):(i.updatedDate||'');
+    const dateStr=i._st==='done'?(i.doneDate||''):'';
     const dateFmt=dateStr.replace(/, 2026$/,'').replace(/, 2025$/," '25");
-    const datePfx=i._st==='done'?'Done':'Updated';
+    const datePfx=i._st==='done'?'Done':'';
     return`<div class="dv-row" onclick="window.open('${JIRA}${i.key}','_blank')">
       <span class="dv-st-dot" style="background:${dot}" title="${ST_LBL[i._st]||''}"></span>
       <div class="dv-title-area">
@@ -24174,7 +24209,7 @@ function renderDeliverables(){
   const _anyFilter=ofBU!=='All'||ofCh!=='All'||ofPeriod!=='All'||ofStatus!=='All'||(ofOwner&&ofOwner!=='All');
   const clrLink=`<a href="#" onclick="event.preventDefault();ofBU=ofCh='All';ofPeriod='All';ofStatus='All';ofOwner='All';delPage=1;renderDeliverables()" style="font-size:11.5px;color:var(--blue);font-weight:600">Clear all ×</a>`;
   const summaryParts=[];
-  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> queued`);
+  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> in backlog`);
   if(_activeSrc.length)summaryParts.push(`<strong>${activeItems.length}</strong> in progress`);
   summaryParts.push(`<strong>${doneItemsAll.length}</strong> shipped`);
   const pgCtrl=totalPages>1?`<div class="dv-pg"><button class="dv-pg-btn" onclick="setDelPage(${delPage-1})" ${delPage<=1?'disabled':''}>← Prev</button><span style="font-size:12.5px">Page <strong>${delPage}</strong> of <strong>${totalPages}</strong> &nbsp;·&nbsp; ${allItems.length} items</span><button class="dv-pg-btn" onclick="setDelPage(${delPage+1})" ${delPage>=totalPages?'disabled':''}>Next →</button></div>`:'';
