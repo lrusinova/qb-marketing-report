@@ -21607,6 +21607,7 @@ const ROADMAP = [
   // Q3 ── August 2026 ───────────────────────────────────────────────────────────────────────
   {id:'rm_br02',title:'Brand: Refined Design Review (Core Team)',  fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-06',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   {id:'rm13',title:'AI4 Conference (Aug 4–6, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-04',end:'2026-08-06',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12386'},
+  {id:'rm_ent01',title:'[Core] Enterprise Plan Trial — In-Product Launch',fn:'Product Launches',bu:'QB',tier:'Tier 2',owner:'Heather',weekOf:'2026-08-05',end:'2026-08-24',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6521356312',jira:'MKT-13268'},
   {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Web',                  bu:'All', tier:'Web',           owner:'Carlos',          weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',         brief:null,jira:'WE-788'},
   {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
@@ -24093,7 +24094,7 @@ function renderDeliverables(){
   const _matchOwner=i=>!ofOwner||ofOwner==='All'||(i.owner||'').toLowerCase().includes(ofOwner.toLowerCase());
   const _bf=i=>(ofBU==='All'||i.bu===ofBU)&&(ofCh==='All'||i.ch===ofCh)&&_matchOwner(i);
 
-  const _stMap={'All':i=>true,'Planning':i=>i._st==='planning','In Progress':i=>i._st==='in-progress','Done':i=>i._st==='done'};
+  const _stMap={'All':i=>true,'Planning':i=>i._st==='planning','Backlog / Intake':i=>i._st==='planning','In Progress':i=>i._st==='in-progress','Done':i=>i._st==='done'};
   const _stFn=_stMap[ofStatus]||_stMap['All'];
 
   const planItems=_planningSrc.filter(_bf);
@@ -24105,8 +24106,8 @@ function renderDeliverables(){
   const pageItems=allItems.slice((delPage-1)*50,delPage*50);
 
   // ── Controls ───────────────────────────────────────────────────────────
-  const stCnt={'All':allItems.length,'Planning':planItems.length,'In Progress':activeItems.length,'Done':doneItemsAll.length};
-  const ST=[{k:'All',lbl:'All'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Planning',lbl:'Queued',dot:'#4361EE'},{k:'Done',lbl:'Shipped',dot:'#14A558'}];
+  const stCnt={'All':allItems.length,'Planning':planItems.length,'Backlog / Intake':planItems.length,'In Progress':activeItems.length,'Done':doneItemsAll.length};
+  const ST=[{k:'All',lbl:'All'},{k:'Backlog / Intake',lbl:'Backlog / Intake',dot:'#4361EE'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Done',lbl:'Done',dot:'#14A558'}];
   const seg=`<div class="dv-seg">${ST.map(s=>{const on=ofStatus===s.k;return`<button class="dv-seg-btn${on?' on':''}" onclick="setOF('status','${s.k}')" style="${on&&s.dot?`color:${s.dot}`:''}">${s.lbl}<span style="opacity:.65;font-size:10.5px;margin-left:3px">${stCnt[s.k]}</span></button>`;}).join('')}</div>`;
 
   const _owners=[...new Set(_allSrc.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort((a,b)=>(_ownerFmt(a)||a).localeCompare(_ownerFmt(b)||b));
@@ -24119,11 +24120,12 @@ function renderDeliverables(){
   const _chCnt={};allItems.forEach(i=>{if(i.ch)_chCnt[i.ch]=(_chCnt[i.ch]||0)+1;});
   const chDrop=`<select class="dv-drop${ofCh!=='All'?' active':''}" onchange="setOF('ch',this.value)"><option value="All"${ofCh==='All'?' selected':''}>Channel: All</option>${Object.keys(_chTotals).sort((a,b)=>(_chTotals[b]||0)-(_chTotals[a]||0)).map(ch=>`<option value="${ch}"${ofCh===ch?' selected':''}>${ch} (${_chCnt[ch]||0})</option>`).join('')}</select>`;
 
-  const qtrCtrl=(ofStatus==='Planning'||ofStatus==='In Progress')?'':
+  const _isBacklogOrActive=ofStatus==='Planning'||ofStatus==='Backlog / Intake'||ofStatus==='In Progress';
+  const qtrCtrl=_isBacklogOrActive?'':
     `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
 
   const PERIODS=[{k:'All',lbl:'All'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
-  const periodCtrl=(ofStatus==='Planning'||ofStatus==='In Progress'||delQtr==='Q2')?'':
+  const periodCtrl=(_isBacklogOrActive||delQtr==='Q2')?'':
     `<div class="dv-qtr">${PERIODS.map(p=>`<button class="dv-qtr-btn${ofPeriod===p.k?' on':''}" onclick="setOF('period','${p.k}')">${p.lbl}</button>`).join('')}</div>`;
 
   // ── Row builder ────────────────────────────────────────────────────────
@@ -24131,16 +24133,16 @@ function renderDeliverables(){
   const _avColor=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%_avPalette.length;return _avPalette[h];};
   const _initials=n=>n.split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
   const ST_DOT={planning:'#4361EE','in-progress':'#2C9382',done:'#14A558'};
-  const ST_LBL={planning:'Planning','in-progress':'In Progress',done:'Done'};
+  const ST_LBL={planning:'Backlog / Intake','in-progress':'In Progress',done:'Done'};
   const buTag=i=>{const c=BU_COLS[i.bu];return c?`<span class="dv-bu" style="background:${c}18;color:${c};border:1px solid ${c}30">${i.bu.replace(' (QB)','')}</span>`:''};
 
   const _row=i=>{
     const col=chColMap[i.ch]||'#94a3b8';
     const ownerFmt=_ownerFmt(i.owner);
     const dot=ST_DOT[i._st]||'#94a3b8';
-    const dateStr=i._st==='done'?(i.doneDate||''):(i.updatedDate||'');
+    const dateStr=i._st==='done'?(i.doneDate||''):'';
     const dateFmt=dateStr.replace(/, 2026$/,'').replace(/, 2025$/," '25");
-    const datePfx=i._st==='done'?'Done':'Updated';
+    const datePfx=i._st==='done'?'Done':'';
     return`<div class="dv-row" onclick="window.open('${JIRA}${i.key}','_blank')">
       <span class="dv-st-dot" style="background:${dot}" title="${ST_LBL[i._st]||''}"></span>
       <div class="dv-title-area">
@@ -24174,7 +24176,7 @@ function renderDeliverables(){
   const _anyFilter=ofBU!=='All'||ofCh!=='All'||ofPeriod!=='All'||ofStatus!=='All'||(ofOwner&&ofOwner!=='All');
   const clrLink=`<a href="#" onclick="event.preventDefault();ofBU=ofCh='All';ofPeriod='All';ofStatus='All';ofOwner='All';delPage=1;renderDeliverables()" style="font-size:11.5px;color:var(--blue);font-weight:600">Clear all ×</a>`;
   const summaryParts=[];
-  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> queued`);
+  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> in backlog`);
   if(_activeSrc.length)summaryParts.push(`<strong>${activeItems.length}</strong> in progress`);
   summaryParts.push(`<strong>${doneItemsAll.length}</strong> shipped`);
   const pgCtrl=totalPages>1?`<div class="dv-pg"><button class="dv-pg-btn" onclick="setDelPage(${delPage-1})" ${delPage<=1?'disabled':''}>← Prev</button><span style="font-size:12.5px">Page <strong>${delPage}</strong> of <strong>${totalPages}</strong> &nbsp;·&nbsp; ${allItems.length} items</span><button class="dv-pg-btn" onclick="setDelPage(${delPage+1})" ${delPage>=totalPages?'disabled':''}>Next →</button></div>`:'';
