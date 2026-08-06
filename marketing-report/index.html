@@ -140,6 +140,23 @@ button{font-family:inherit;cursor:pointer}
 .sp-gc-metric strong{color:var(--g900);font-weight:700}
 .sp-gc-sig{font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;white-space:nowrap;flex-shrink:0}
 .sp-gc-sig.ok{background:#dcfce7;color:#15803d}.sp-gc-sig.watch{background:#fef3c7;color:#b45309}.sp-gc-sig.risk{background:#fee2e2;color:#dc2626}
+.sp-exec-summary{font-size:12px;color:var(--g500);line-height:1.5;padding:10px 14px 4px;border-bottom:1px solid var(--g100);}
+.sp-launches{padding:8px 14px 4px;border-bottom:1px solid var(--g100);}
+.sp-launches-hdr{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--g300);margin-bottom:6px;}
+.sp-bu-scope{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 2px;}
+/* sp-card-hdr BU tags now inherit standard light-bg sp-bu-* styles — no overrides needed */
+.sp-launch-chip{display:flex;align-items:center;gap:6px;padding:5px 6px;border-bottom:1px solid var(--g50);border-radius:5px;text-decoration:none;transition:background .14s;}
+.sp-launch-chip:last-child{border-bottom:none;}
+.sp-launch-chip:hover{background:var(--g50);text-decoration:none;}
+.sp-launch-chip:hover .sp-lc-title{color:var(--navy);}
+.sp-lc-key{font-size:8.5px;font-family:'SF Mono','Fira Code',monospace;font-weight:700;color:var(--g300);flex-shrink:0;letter-spacing:.4px;}
+.sp-lc-bu{font-size:9px;font-weight:700;background:var(--g100);color:var(--g400);padding:1px 5px;border-radius:3px;flex-shrink:0;}
+.sp-lc-title{font-size:11px;font-weight:600;color:var(--g600);flex:1;}
+.sp-lc-due{font-size:10px;color:var(--g300);flex-shrink:0;}
+.sp-lc-status{font-size:9px;font-weight:700;flex-shrink:0;}
+.sp-goals-list{padding:6px 14px 8px;border-bottom:1px solid var(--g100);}
+.sp-goal-item{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--g500);padding:2px 0;line-height:1.4;}
+.sp-goal-dot{color:var(--g300);flex-shrink:0;margin-top:1px;}
 /* NS strip */
 .ns-strip{background:#fff;border-radius:16px;box-shadow:0 2px 8px rgba(0,40,85,.08),0 8px 28px rgba(0,40,85,.07);margin-bottom:20px;overflow:hidden}
 .ns-strip-hdr{padding:13px 20px 11px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between}
@@ -151,7 +168,15 @@ button{font-family:inherit;cursor:pointer}
 .ns-card-metric{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);margin-bottom:5px}
 .ns-card-kpi{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.05;margin-bottom:2px}
 .ns-card-kpisub{font-size:9.5px;font-weight:500;color:var(--g400);margin-bottom:7px;line-height:1.35}
-.ns-card-target{font-size:10px;font-weight:500;color:var(--g500);margin-bottom:9px;line-height:1.4}
+.ns-card-target{font-size:10px;color:var(--g300);font-style:italic;margin-top:4px;line-height:1.4}
+.ns-mo-list{margin-top:6px;display:flex;flex-direction:column;gap:3px;}
+.ns-mo-row{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-size:10px;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.05);}
+.ns-mo-row:last-child{border-bottom:none;}
+.ns-mo-desc{color:var(--g500);flex:1;line-height:1.3;}
+.ns-mo-nums{display:flex;align-items:center;gap:4px;flex-shrink:0;white-space:nowrap;}
+.ns-mo-curr{font-weight:700;color:var(--g500);}
+.ns-mo-arr{color:var(--g300);font-size:9px;}
+.ns-mo-tgt{font-weight:700;color:var(--g600);}
 .ns-signal{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:8px}
 .ns-signal.ok{background:#dcfce7;color:#15803d}
 .ns-signal.watch{background:#fef3c7;color:#b45309}
@@ -555,23 +580,23 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 @media(max-width:1200px){.an-grid{grid-template-columns:1fr}.an-full{grid-column:1}}
 
 /* ── CARD COLORED HEADER (compact) ───────────────────── */
-.sp-card-hdr{padding:13px 18px 11px;position:relative;overflow:hidden;cursor:pointer;user-select:none}
-.sp-chevron{font-size:13px;color:rgba(255,255,255,.92);transition:transform .25s;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:rgba(255,255,255,.18);border-radius:6px;flex-shrink:0}
+.sp-card-hdr{padding:13px 18px 12px;position:relative;overflow:hidden;cursor:pointer;user-select:none;background:#fff;border-bottom:1px solid var(--g100)}
+.sp-chevron{font-size:13px;color:var(--g400);transition:transform .25s;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--g100);border-radius:6px;flex-shrink:0}
 .sp-card.collapsed .sp-chevron{transform:rotate(-90deg)}
 .sp-card-body{overflow:hidden;max-height:2000px;transition:max-height .28s ease-out;flex:1;display:flex;flex-direction:column}
 .sp-card.collapsed .sp-card-body{max-height:0}
 .sp-card.collapsed{align-self:start}
 .sp-card.collapsed:hover{transform:translateY(-2px)}
-.sp-card-hdr::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.15) 0%,transparent 65%);pointer-events:none}
-.sp-card-hdr::after{content:'';position:absolute;top:-24px;right:-16px;width:110px;height:110px;background:rgba(255,255,255,.08);border-radius:50%;pointer-events:none}
+.sp-card-hdr::before{display:none}
+.sp-card-hdr::after{display:none}
 .sp-card-hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;position:relative;z-index:1}
-.sp-card-key-lnk{font-size:9px;font-family:'SF Mono','Fira Code',monospace;color:rgba(255,255,255,.5);font-weight:700;letter-spacing:.6px;text-decoration:none}
-.sp-card-key-lnk:hover{color:#fff;text-decoration:none}
-.sp-card-ttl{font-size:16px;font-weight:900;color:#fff;line-height:1.15;letter-spacing:-.3px;margin-bottom:3px;position:relative;z-index:1}
-.sp-card-meta{font-size:10.5px;color:rgba(255,255,255,.6);line-height:1.4;position:relative;z-index:1}
-.badge-lt{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;background:rgba(255,255,255,.2);color:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.3)}
-.badge-lt-rk{background:rgba(0,0,0,.22);border-color:rgba(255,255,255,.2);color:#FDE68A}
-.badge-lt-off{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.15);color:#FCA5A5}
+.sp-card-key-lnk{font-size:9px;font-family:'SF Mono','Fira Code',monospace;color:var(--g400);font-weight:700;letter-spacing:.6px;text-decoration:none}
+.sp-card-key-lnk:hover{color:var(--navy);text-decoration:none}
+.sp-card-ttl{font-size:16px;font-weight:900;color:var(--navy);line-height:1.15;letter-spacing:-.3px;margin-bottom:4px;position:relative;z-index:1}
+.sp-card-meta{font-size:10px;color:var(--g400);line-height:1.4;position:relative;z-index:1}
+.badge-lt{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;background:var(--g100);color:var(--g600);border:1px solid var(--g200)}
+.badge-lt-rk{background:#fef3c7;border-color:#fcd34d;color:#92400e}
+.badge-lt-off{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
 /* ── H2 GOALS section ────────────────────────────────── */
 .sp-goals2{padding:11px 18px 10px;background:#fff;border-bottom:1px solid var(--g100)}
 .sp-goals2-lbl{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g400);margin-bottom:7px;display:block}
@@ -583,14 +608,16 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-progs-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .sp-progs-lbl{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g400)}
 .sp-progs-count{font-size:9px;font-weight:600;color:var(--g300)}
+.sp-prog-more{font-size:10px;color:var(--g300);padding:4px 14px 6px;font-style:italic;}
 /* ── HEADER PROGRESS BAR (inside colored header) ─────── */
-.sp-card-counts{display:flex;align-items:center;gap:6px;margin-top:9px;position:relative;z-index:1;font-size:10.5px;font-weight:600;color:rgba(255,255,255,.72)}
+.sp-card-counts{display:flex;align-items:center;gap:6px;margin-top:8px;position:relative;z-index:1;font-size:10.5px;font-weight:600;color:var(--g500)}
 .sp-card-counts .sp-cnt-sep{opacity:.4}
-.sp-card-counts .sp-cnt-blk{color:#fca5a5;font-weight:800}
+.sp-card-counts .sp-cnt-blk{color:#dc2626;font-weight:800}
 .sp-exec{padding:11px 18px 10px;font-size:11.5px;color:var(--g600);line-height:1.55;border-bottom:1px solid var(--g100);background:#fafcff;font-style:italic}
-.sp-card-progsub{font-size:8px;font-weight:600;color:rgba(255,255,255,.5);margin-left:1px}
-.sp-pct-hdr-up{color:rgba(134,239,172,.92);font-size:9.5px;font-weight:800}
-.sp-pct-hdr-dn{color:rgba(252,165,165,.92);font-size:9.5px;font-weight:800}
+.sp-card-progsub{font-size:8px;font-weight:600;color:var(--g400);margin-left:1px}
+.sp-pct-hdr-up{color:#16a34a;font-size:9.5px;font-weight:800}
+.sp-pct-hdr-dn{color:#dc2626;font-size:9.5px;font-weight:800}
+.sp-card-owner-name{font-size:12.5px;font-weight:800;display:block;margin-bottom:1px;letter-spacing:-.1px}
 /* health-dot strip */
 .sp-health-dots{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
 .sp-hdot{width:8px;height:8px;border-radius:50%;cursor:default;flex-shrink:0;transition:transform .12s}
@@ -620,6 +647,20 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .sp-bu-core{background:rgba(16,80,60,.1);color:#10503C;border:1px solid rgba(16,80,60,.25)}
 .sp-bu-ff{background:rgba(245,158,11,.13);color:#92400E;border:1px solid rgba(245,158,11,.32)}
 .sp-bu-cross{background:rgba(124,58,237,.1);color:#6d28d9;border:1px solid rgba(124,58,237,.25)}
+.sp-bu-seo{background:rgba(21,128,61,.12);color:#166534;border:1px solid rgba(21,128,61,.25)}
+.sp-bu-paid{background:rgba(29,78,216,.12);color:#1e40af;border:1px solid rgba(29,78,216,.25)}
+.sp-bu-web{background:rgba(99,102,241,.1);color:#4338ca;border:1px solid rgba(99,102,241,.25)}
+.sp-bu-cro{background:rgba(124,58,237,.1);color:#6d28d9;border:1px solid rgba(124,58,237,.25)}
+.sp-bu-brand{background:rgba(190,24,93,.1);color:#9d174d;border:1px solid rgba(190,24,93,.22)}
+.sp-bu-community{background:rgba(44,147,130,.13);color:#1a7a6c;border:1px solid rgba(44,147,130,.28)}
+.sp-bu-events{background:rgba(194,65,12,.12);color:#9a3412;border:1px solid rgba(194,65,12,.25)}
+.sp-bu-creative{background:rgba(219,39,119,.1);color:#be185d;border:1px solid rgba(219,39,119,.22)}
+.sp-bu-pr{background:rgba(8,145,178,.12);color:#0e7490;border:1px solid rgba(8,145,178,.25)}
+.sp-bu-social{background:rgba(2,132,199,.12);color:#0369a1;border:1px solid rgba(2,132,199,.25)}
+.sp-bu-lifecycle{background:rgba(5,150,105,.12);color:#065f46;border:1px solid rgba(5,150,105,.25)}
+.sp-bu-ai{background:rgba(67,56,202,.12);color:#3730a3;border:1px solid rgba(67,56,202,.25)}
+.sp-bu-launch{background:rgba(16,80,60,.1);color:#10503C;border:1px solid rgba(16,80,60,.25)}
+.sp-bu-webinar{background:rgba(8,145,178,.12);color:#0e7490;border:1px solid rgba(8,145,178,.25)}
 .sp-active-empty{font-size:11px;color:var(--g400);font-style:italic}
 .sp-plan-more{font-size:10.5px;color:var(--g400);margin-top:4px;padding-left:12px}
 .sp-more-btn{background:none;border:none;cursor:pointer;font-size:10.5px;color:var(--blue);font-weight:600;margin-top:5px;padding:0;display:block;text-align:left}
@@ -1151,17 +1192,17 @@ const RECENT_TASKS = {
 const PROG_STATUSES = {
   "WE-849":"in-progress",
   "WE-845":"done",
-  "WE-835":"done",
+  "WE-835":"planning",
   "WE-810":"in-progress",
   "WE-791":"planning",
   "WE-787":"in-progress",
   "WE-782":"in-progress",
-  "WE-710":"done",
+  "WE-710":"in-progress",
   "WE-699":"done",
   "WE-632":"done",
-  "WE-615":"done",
+  "WE-615":"planning",
   "MKT-13061":"planning",
-  "MKT-13036":"in-progress",
+  "MKT-13036":"planning",
   "MKT-12888":"in-progress",
   "MKT-12856":"planning",
   "MKT-12850":"in-progress",
@@ -1172,10 +1213,10 @@ const PROG_STATUSES = {
   "MKT-12804":"planning",
   "MKT-12803":"in-progress",
   "MKT-12802":"planning",
-  "MKT-12740":"in-progress",
+  "MKT-12740":"planning",
   "MKT-12690":"in-progress",
-  "MKT-12688":"done",
-  "MKT-12687":"done",
+  "MKT-12688":"in-progress",
+  "MKT-12687":"in-progress",
   "MKT-12684":"in-progress",
   "MKT-12676":"in-progress",
   "MKT-12634":"in-progress",
@@ -1205,7 +1246,7 @@ const PROG_STATUSES = {
   "MKT-12362":"planning",
   "MKT-12361":"planning",
   "MKT-12360":"planning",
-  "MKT-12186":"done",
+  "MKT-12186":"in-progress",
   "MKT-12119":"planning",
   "MKT-12118":"in-progress",
   "MKT-12117":"in-progress",
@@ -1283,212 +1324,223 @@ const DATA = {
   q3closed: 96,
 
   initiatives:[
-    {key:"MKT-12568",title:"Agentic Workflow Evolution (AWE)",sub:"FastField + Pave BU",
+    {key:"MKT-12568",title:"Agentic Workflow Evolution (AWE)",sub:"VP, AWE Marketing · FastField + Pave GTM · SDR",
      owner:"Gar Smyth",status:"on-track",pct:62,done:52,flight:24,blocked:2,total:84,color:"#0066D6",delta:+4,note:"",
      scope:{bus:['FastField','Pave']},
      outcome:"Compounding, ICP-quality growth for the next-gen portfolio.",
-     execSummary:"AI Builder trial and Paveathon campaign driving Pave ICP sign-ups for Field & Business Ops. Three FF AI launches complete. June launch (Spreadsheet Import) in flight.",
-     goals:["Pave ICP focus — sign-ups, activation & pipeline concentrated on Field & Business Ops","Critical FF & Pave launches — Tier 1 & 2 moments converted into adoption and pipeline","Ramp content & social engine — YouTube, LinkedIn and builder-native formats at scale"],
+     execSummary:"Pave Tier 1 launch: Connectors, Workflows & Custom Agents — soft launch Aug 18, hard launch Sep 16 (theme: 'Don't build an app. Run an operation.'). FF AI Form Builder in-flight, due Sep 1. Marketplace & App Gallery active. Post-Paveathon GTM content activation in planning.",
+     launches:[
+       {key:"MKT-12740",title:"Connectors, Workflows & Custom Agents",bu:"Pave",status:"in-progress",due:"Sep 16"},
+       {key:"MKT-12888",title:"AI Form Builder",bu:"FF",status:"in-progress",due:"Sep 1"},
+       {key:"MKT-12850",title:"FF Web — Platform Pages & Nav",bu:"FF",status:"in-progress",due:null},
+       {key:"MKT-11797",title:"Marketplace & App Gallery",bu:"Pave",status:"in-progress",due:null},
+       {key:"MKT-13061",title:"Pave ICP Traffic Growth",bu:"Pave",status:"planning",due:null},
+       {key:"MKT-13159",title:"Webinar: AI Workflow Live Build",bu:"Webinar",status:"planning",due:"Aug 12"},
+       {key:"MKT-12820",title:"FF G2 — Always-On Activation",bu:"FF",status:"planning",due:null},
+       {key:"MKT-12822",title:"Pave G2 — Always-On Activation",bu:"Pave",status:"planning",due:null},
+     ],
+     launchesLabel:"Active Launches",
+     goals:["Focus on our Pave ICP — Field & Business Ops","Focus on critical FF & Pave launches","Ramp our content & social engine"],
      p1progs:[
-       {key:"MKT-12888",title:"[FF] AI Form Builder Launch — Q3 2026",status:"in-progress"},
-       {key:"MKT-12740",title:"[Pave] Connectors, Workflows & Custom Agents Launch",status:"in-progress"},
-       {key:"WE-810",title:"[Pave] New Solutions & Industry Pages",status:"in-progress"},
-       {key:"MKT-12117",title:"[Pave] SEO — Competitor Comparison Pages",status:"in-progress"},
-       {key:"MKT-12118",title:"[Pave] SEO — Industry & Use Case Pages",status:"in-progress"},
-       {key:"MKT-13061",title:"[Pave] ICP Traffic Growth",status:"planning",goal:1},
-       {key:"MKT-12452",title:"[Pave] Post-Paveathon Content & GTM Activation — Q3",status:"planning"},
-       {key:"MKT-12115",title:"[Pave] SEO — Vibe Coding & No-Code Content",status:"planning"},
-       {key:"MKT-12116",title:"[Pave] SEO — AI App Builder Pages",status:"planning"},
-       {key:"MKT-12119",title:"[Pave] SEO — Enterprise & Governance Content",status:"planning"},
-       {key:"MKT-12850",title:"[FF] Web — Platform Pages & Nav Build-out — Q3",status:"planning"},
+       {key:"MKT-12427",title:"[FF] Launch Program — Q3 2026",status:"in-progress"},
+       {key:"MKT-12431",title:"[Pave] Launch Program — Q3 2026",status:"planning"},
+       {key:"MKT-12445",title:"[Pave] Launch Program — Q4 2026",status:"planning"},
+       {key:"MKT-12441",title:"[FF] Launch Program — Q4 2026",status:"planning"},
+       {key:"MKT-12054",title:"[Pave] Launch Program — Q2 2026",status:"in-progress"},
+       {key:"MKT-12430",title:"[Pave] Campaigns — Q3 2026",status:"planning"},
+       {key:"MKT-12426",title:"[FF] Campaigns — Q3 2026",status:"planning"},
+       {key:"MKT-12444",title:"[Pave] Campaigns — Q4 2026",status:"planning"},
+       {key:"MKT-12440",title:"[FF] Campaigns — Q4 2026",status:"planning"},
      ]},
-    {key:"MKT-12569",title:"Core BU Marketing",sub:"Quickbase Core",
-     owner:"",status:"on-track",pct:55,done:20,flight:12,blocked:1,total:36,color:"#14A558",delta:+2,note:"Sr Director of Core Marketing role in hiring — risk to Q3 program ownership.",
+    {key:"MKT-12569",title:"Core BU Marketing",sub:"Sr Director, Core BU Marketing · QB Core revenue & customer growth",
+     owner:"Heather Pepe",status:"on-track",pct:55,done:20,flight:12,blocked:1,total:36,color:"#14A558",delta:+2,note:"Sr Director of Core Marketing role in hiring — risk to Q3 program ownership.",
      scope:{bus:['Core (QB)']},
      outcome:"Protected and growing Core revenue while Pave scales.",
-     execSummary:"Grid Reports launched Q2. QB Extensions and Intelligence Package in flight. Webinar program active — June events wrapping up, two July webinars in planning. Sr. Director of Core Marketing role open — Q3 ownership at risk.",
-     goals:["Customer expansion & cross-sell — upsell campaigns into Core base, UserGems, Empower experiences","Core new-logo demand — GTM launches, SEO content, CRO improvements, partner activation","Retention & at-risk plays — coordinated save/win-back motions with CX for at-risk accounts"],
+     execSummary:"Auto-Schedule (powered by Solvice) in-flight — open beta Aug, GA Sep 30. Grid Reports launched Q2. QB Extensions and Intelligence Package in-flight. Webinar program active. Sr. Director of Core Marketing role open — Q3 ownership risk.",
+     launches:[
+       {key:"MKT-12825",title:"Auto-Schedule (Solvice)",bu:"Launch",status:"in-progress",due:"Sep 30"},
+       {key:"MKT-11668",title:"QB Intelligence Package",bu:"Launch",status:"in-progress",due:null},
+       {key:"MKT-12805",title:"G2 — Always-On Activation",bu:"Core",status:"in-progress",due:null},
+       {key:"MKT-12950",title:"Webinar: App Inheritance to App Ownership",bu:"Webinar",status:"in-progress",due:"Aug 13"},
+       {key:"MKT-13036",title:"Webinar: From Prompt to Power — AI Features",bu:"Webinar",status:"planning",due:"Aug 4"},
+     ],
+     launchesLabel:"Active Programs",
+     goals:["Customer expansion & cross-sell","Core new-logo demand","Retention & at-risk plays"],
      p1progs:[
-       {key:"MKT-12825",title:"[Core] Auto-Schedule Launch — Solvice · Beta Jul · GA Sep",status:"planning",priority:"P1"},
-       {key:"MKT-11667",title:"[Core] QB Extensions Launch — 3 new features",status:"in-progress"},
-       {key:"MKT-11668",title:"[Core] QB Intelligence Package Launch",status:"in-progress"},
-       {key:"MKT-12106",title:"[Core] Webinar — NCR Voyix Road Show (Jul 7)",status:"in-progress"},
-       {key:"MKT-12186",title:"[Core] Webinar — QB Extensions: Leveraging Workflows",status:"in-progress"},
-       {key:"MKT-12805",title:"[Core] G2 — Always-On Activation",status:"in-progress"},
-       {key:"MKT-12494",title:"[Core] Webinar — Tropicana Road Show (Jul 9)",status:"planning"},
-       {key:"MKT-12598",title:"[Core] Webinar — Feature Focus: Summer Recap (Jul 16)",status:"planning"},
-       {key:"MKT-13036",title:"[Core] Webinar — From Prompt to Power: Automating Work with QB AI (Aug 4)",status:"planning"},
+       {key:"MKT-12055",title:"[Core] Launch Program — Q2 2026",status:"in-progress"},
+       {key:"MKT-12435",title:"[Core] Launch Program — Q3 2026",status:"planning"},
+       {key:"MKT-12449",title:"[Core] Launch Program — Q4 2026",status:"planning"},
+       {key:"MKT-12434",title:"[Core] Campaigns — Q3 2026",status:"planning"},
+       {key:"MKT-12448",title:"[Core] Campaigns — Q4 2026",status:"planning"},
      ]},
-    {key:"MKT-12570",title:"Integrated Marketing",sub:"Brand · Creative · Content · Community · Partners · Events",
+    {key:"MKT-12570",title:"Integrated Marketing",sub:"VP, Integrated Marketing · Brand · Content · Events · Partner Marketing",
      owner:"Mirissa Kampf",status:"on-track",pct:32,done:4,flight:7,blocked:0,total:14,color:"#F23E30",delta:0,note:"Key Opinion Partners & Power Videos programs pending Jira issues.",
      scope:{chs:['Creative & Design','Content & SEO','Community','Events & Experiences']},
      outcome:"A unified brand. A unified story. A unified + integrated marketing engine.",
      execSummary:"Brand architecture (Andy) + identity expression (Jenny) both in flight — connecting QB, FF, Pave into one visual identity. Community migrating Khoros→Gainsight. Creative Studio selection underway. AI4 conference Aug 4–6 active.",
-     goals:["Brand refresh — architecture, narrative & visual overhaul connecting Quickbase, FastField and Pave into one unified identity","Content + Studio + Community + Partners — scalable engine across search, AEO, owned channels and strategic partners","Integrated planning + experiences — Empower, Pro, SKO, Qrew, launches and events that bring the brand to life"],
+     launches:[
+       {key:"MKT-12613",title:"Brand + Web Refresh",bu:"Brand",status:"in-progress",due:null},
+       {key:"MKT-12470",title:"Community Platform Migration",bu:"Community",status:"in-progress",due:"Oct 30"},
+       {key:"MKT-12386",title:"AI4 Conference",bu:"Events",status:"in-progress",due:"Aug 6"},
+       {key:"MKT-12690",title:"Creative Studio Selection",bu:"Creative",status:"in-progress",due:null},
+       {key:"MKT-12684",title:"Gartner IT Symposium",bu:"Events",status:"in-progress",due:"Oct 22"},
+       {key:"MKT-12985",title:"NECA 2026",bu:"Events",status:"planning",due:"Oct 4"},
+     ],
+     launchesLabel:"Active Programs",
+     goals:["Brand refresh: architecture, narrative, and visual overhaul","Content (SEO, AEO) + Studio + Community + Partner","Integrated Planning + Experiences"],
      p1progs:[
-       {key:"MKT-12613",title:"[Cross-BU] Brand + Web Refresh (Q2–Q4)",status:"in-progress",goal:1},
-       {key:"MKT-12615",title:"[Cross-BU] Brand Identity & Expression",status:"in-progress",goal:1},
-       {key:"MKT-12614",title:"[Cross-BU] Portfolio Architecture & Narrative",status:"in-progress",goal:1},
-       {key:"MKT-12470",title:"[Cross-BU] Community Platform Migration",status:"in-progress",goal:2},
-       {key:"MKT-12690",title:"[Cross-BU] Creative Studio Selection — H2",status:"in-progress",goal:2},
-       {key:"MKT-12386",title:"[Cross-BU] AI4 Tradeshow — Aug 4–6, Las Vegas",status:"in-progress",goal:3},
-       {key:"MKT-12822",title:"[Pave] G2 — Always-On Review Activation — Q3",owner:"Englert, Caroline",status:"planning",goal:2},
-       {key:"MKT-12820",title:"[FF] G2 — Always-On Review Activation — Q3",owner:"Englert, Caroline",status:"planning",goal:2},
-       {key:"MKT-12469",title:"[Pave] Community Launch — H2",status:"planning",goal:2},
-       {key:"MKT-12471",title:"[FF] Community Launch — H2",status:"planning",goal:2},
-       {key:"MKT-12684",title:"[Cross-BU] Gartner IT Symposium — Oct 19–22, Orlando",status:"planning",goal:3},
-       {key:"",title:"[Cross-BU] Key Opinion Partners — H2",status:"planning",goal:2},
-       {key:"",title:"[Cross-BU] Power Videos — H2",status:"planning",goal:2},
+       {key:"MKT-12613",title:"[Cross-BU] Brand + Web Refresh — Q2-Q4 2026",status:"in-progress"},
+       {key:"MKT-12470",title:"[Cross-BU] Community Platform Migration & Launch — 2026",status:"in-progress"},
+       {key:"MKT-12386",title:"[Events] Tradeshow: AI4 2026 — Aug 4-6",status:"in-progress"},
+       {key:"MKT-12526",title:"[Cross-BU] Community — Q3 2026",status:"planning"},
+       {key:"MKT-12527",title:"[Cross-BU] Community — Q4 2026",status:"planning"},
      ]},
-    {key:"MKT-12571",title:"Digital",sub:"Web · SEO · CRO · Paid Media",
+    {key:"MKT-12571",title:"Digital",sub:"Sr Director, Digital · Web · SEO · Paid Media · Web Analytics",
      owner:"Carlos Cortez de Barros",status:"on-track",pct:48,done:5,flight:5,blocked:0,total:11,color:"#7C3AED",delta:+1,
      note:"",
      scope:{chs:['Web & Digital','Content & SEO']},
      outcome:"A website and search presence that convert ICP demand efficiently.",
      execSummary:"Content Hub live for all three BUs. Pave ICP conversion tracking wired into Google Ads & GA4. Web team executing across 3 BUs in Q3: Pave new Solutions/Industry pages (due Jul 29), FF Platform Pages & Nav build-out, Core web updates — all feeding the brand refresh (14 transitional pages in flight). SEO programs running across Core, FF, and Pave.",
-     goals:["Website refresh + CRO — 3-stage (audit → copy → experience) with conversion optimization across key pages","Pave TOFU with ICP focus — top-of-funnel demand for Pave ICP buyers, conversion tracking wired into paid channels","SEO across QB Core · FF · Pave — one unified strategy so products don't compete for the same demand"],
+     launches:[
+       {key:"MKT-12590",title:"Core SEO Content Program",bu:"SEO",status:"in-progress",due:null},
+       {key:"MKT-12594",title:"FF SEO Content Program Q3",bu:"SEO",status:"in-progress",due:null},
+       {key:"MKT-12588",title:"Pave SEO Content Program Q3",bu:"SEO",status:"in-progress",due:null},
+       {key:"WE-458",title:"Paid Landing Pages Framework",bu:"Paid",status:"in-progress",due:null},
+       {key:"WE-782",title:"Web Banner Updates — QB & Pave",bu:"Web",status:"in-progress",due:null},
+       {key:"WE-787",title:"Brand + Web Refresh — Transitional Pages",bu:"Web",status:"in-progress",due:null},
+       {key:"WE-836",title:"CMS Scheduled Feed Automation",bu:"Web",status:"in-progress",due:"Jul 28"},
+       {key:"WE-363",title:"AI Initiatives",bu:"Web",status:"in-progress",due:null},
+       {key:"WE-875",title:"FF Trial Form — Multi-Step & Social Sign-In",bu:"Web",status:"planning",due:null},
+       {key:"WE-829",title:"Pave Web — Q3 2026",bu:"Web",status:"planning",due:null},
+       {key:"WE-830",title:"FF Web — Q3 2026",bu:"FF",status:"planning",due:null},
+       {key:"WE-831",title:"Core Web — Q3 2026",bu:"Core",status:"planning",due:null},
+       {key:"MKT-12856",title:"FF SEO — Use Cases & Nav Pages",bu:"SEO",status:"planning",due:null},
+       {key:"WE-504",title:"A/B Testing Framework",bu:"CRO",status:"planning",due:null},
+     ],
+     launchesLabel:"Active Programs",
+     goals:["Website refresh + CRO","Pave TOFU with ICP focus","SEO across QB Core · FF · Pave"],
      p1progs:[
-       {key:"WE-787",title:"[Cross-BU] Transitional Improvements — Brand Refresh (14 pages)",status:"in-progress"},
-       {key:"WE-782",title:"[Cross-BU] Announcement Banner Refresh",status:"in-progress"},
-       {key:"WE-810",title:"[Pave] New Solutions & Industry Pages",status:"in-progress"},
-       {key:"WE-845",title:"[Pave] Navigation Update — new Solutions pages structure",status:"in-progress"},
-       {key:"WE-849",title:"[Pave] Pricing Page A/B Test — 3 vs 4 option",status:"in-progress"},
-       {key:"WE-615",title:"[Cross-BU] A/B Testing Capability — CRO infrastructure",status:"in-progress"},
-       {key:"WE-835",title:"[Cross-BU] Navigation Research — competitor analysis & QB opportunities",status:"in-progress"},
-       {key:"MKT-12594",title:"[FF] SEO Content Program — Q3 2026",status:"in-progress"},
-       {key:"MKT-12117",title:"[Pave] SEO — Competitor Comparison Pages",status:"in-progress"},
-       {key:"MKT-12118",title:"[Pave] SEO — Industry & Use Case Pages",status:"in-progress"},
-       {key:"WE-710",title:"[Pave] ICP Conversion Tracking — Google Ads & GA4",status:"in-progress"},
-       {key:"WE-791",title:"[Cross-BU] Navigation Cleanup — reduce items, improve usability",status:"planning"},
-       {key:"MKT-12850",title:"[FF] Web — Platform Pages & Nav Build-out — Q3",status:"in-progress"},
-       {key:"MKT-12856",title:"[FF] SEO — Use Cases & Nav Pages — Q3",status:"planning"},
-       {key:"MKT-12115",title:"[Pave] SEO — Vibe Coding & No-Code Content",status:"planning"},
-       {key:"MKT-12116",title:"[Pave] SEO — AI App Builder Pages",status:"planning"},
-       {key:"MKT-12119",title:"[Pave] SEO — Enterprise & Governance Content",status:"planning"},
+       {key:"MKT-12529",title:"[Cross-BU] Web — Q3 2026",status:"planning"},
+       {key:"MKT-12530",title:"[Cross-BU] Web — Q4 2026",status:"planning"},
+       {key:"MKT-12588",title:"[Pave] SEO Content Program — Q3 2026",status:"planning"},
+       {key:"MKT-12589",title:"[Pave] SEO Content Program — Q4 2026",status:"planning"},
        {key:"MKT-12591",title:"[Core] SEO Content Program — Q3 2026",status:"planning"},
-       {key:"MKT-11822",title:"[FF] Website Migration — Marketing Readiness",status:"done"},
-       {key:"WE-632",title:"[Cross-BU] Content Hub — Pave · FF · QB Blogs",status:"done"},
-       {key:"WE-699",title:"[Cross-BU] FeedMe Plugin — SSE Streaming",status:"done"},
+       {key:"MKT-12592",title:"[Core] SEO Content Program — Q4 2026",status:"planning"},
+       {key:"MKT-12594",title:"[FF] SEO Content Program — Q3 2026",status:"in-progress"},
+       {key:"MKT-12595",title:"[FF] SEO Content Program — Q4 2026",status:"planning"},
+       {key:"MKT-12590",title:"[Core] SEO Content Program — Q2 2026",status:"in-progress"},
      ]},
-    {key:"MKT-12572",title:"Corporate Communications",sub:"PR · Social · ELT Comms",
+    {key:"MKT-12572",title:"Corporate Communications",sub:"Sr Manager, Corp Comms · Thought Leadership · AIO · Social",
      owner:"Tory Waldron",status:"on-track",pct:64,done:180,flight:99,blocked:1,total:279,color:"#0891B2",delta:+3,note:"ELT social live — weekly sends for Kim/Marcus/Kelly (MKT-12362); PR agency selection active (Isabella, MKT-12687); Social platform eval in progress (DSMN8 vs Sociabble, MKT-12688); Gray Work Survey PR blocked",
      scope:{chs:['PR & Comms','Social Media']},
      outcome:"Build PR and social agency support this summer to drive faster Pave momentum and stronger share of voice this fall.",
      execSummary:"ELT social sends live for Kim, Marcus, Kelly weekly. PR agency RFP active (Isabella). Social platform eval in progress (DSMN8 vs Sociabble). One program blocked: Gray Work Survey PR.",
-     goals:["Uplift media relations — higher-DA publications, GEO + SEO best practices, LLM licensing signal, new PR agency","Brand narrative — authentic exec + customer storytelling: bylines, speaker training, earned speaking, customer videos","PLG motion — employee advocacy program + short-form organic social video across LinkedIn, YouTube, Instagram"],
+     launches:[
+       {key:"MKT-12362",title:"ELT & Executive Social — Q3",bu:"Social",status:"in-progress",due:null},
+       {key:"MKT-12687",title:"PR Agency — Selection Complete, Onboarding",bu:"PR",status:"in-progress",due:null},
+       {key:"MKT-12688",title:"Employee Advocacy Platform — Selection Complete",bu:"Social",status:"in-progress",due:null},
+     ],
+     launchesLabel:"Active Programs",
+     goals:["Uplift media relations with GEO + SEO best practices","Bring new brand narrative to life with storytelling","Support PLG motion: employee advocacy + short-form organic social"],
      p1progs:[
-       {key:"MKT-12360",title:"[Cross-BU] PR & Media Relations — Q3",status:"in-progress"},
-       {key:"MKT-12362",title:"[Cross-BU] Executive Social — ELT Q3 (Kim/Marcus/Kelly)",status:"in-progress"},
-       {key:"MKT-12361",title:"[Cross-BU] Organic Social — Q3",status:"in-progress"},
-       {key:"MKT-12364",title:"[Cross-BU] Comms Strategy & Planning — Q3",status:"in-progress"},
-       {key:"MKT-12687",title:"[Cross-BU] PR Agency Selection — H2",status:"in-progress"},
-       {key:"MKT-12688",title:"[Cross-BU] Social Platform Eval — H2 (DSMN8 vs Sociabble)",status:"in-progress"},
+       {key:"MKT-12358",title:"[Cross-BU] External Comms & Social — Q3 2026",status:"planning"},
      ]},
-    {key:"MKT-12573",title:"Marketing Systems & AI",sub:"Ops · Automation · AI Growth",
+    {key:"MKT-12573",title:"Marketing Systems & AI",sub:"Sr Director, AI Growth Campaigns · Demand · Lifecycle · CRM · Automation",
      owner:"Lynn Tan",status:"on-track",pct:44,done:3,flight:2,blocked:0,total:6,color:"#059669",delta:+1,note:"PiperX launched June 3 (voice/video AI on QB website). Empower '26 AI content library live — GPT + Letter AI, surfaces ELT/session content to Sales & CX. FF trial nurture fully automated in Intercom. UserGems migration in progress.",
      scope:{chs:['Email & Lifecycle','Marketing Analytics']},
      outcome:"A faster, AI-powered marketing engine that does more with the same team.",
      execSummary:"Q3 active: UserGems migration validating parity vs. Vector (Sep renewal decision) · Empower '26 AI content library live (GPT + Letter AI, team rollout Jul 15) · FF Intercom trial nurture fully live — 7.7K YTD trials, ~450/wk, AE round-robin automated · Qualified campaign build for QB→Pave re-engagement in planning · Marketo Core New nurture template refresh in planning.",
-     goals:["Own all marketing systems — single-team ownership of the martech stack, backbone for every campaign and pipeline motion","GTM engineering — AI-led automation to improve how marketing and GTM operations run across all teams","Lifecycle & campaign automation — demand, CRM and lifecycle programs automated end-to-end across Core, FF and Pave"],
+     launches:[
+       {key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",bu:"Lifecycle",status:"in-progress",due:null},
+       {key:"MKT-12634",title:"Vector → UserGems Migration",bu:"AI",status:"in-progress",due:null},
+       {key:"MKT-12803",title:"Core UserGems — New & Expand Campaigns",bu:"Core",status:"in-progress",due:null},
+       {key:"MKT-12523",title:"Growth & AI Lifecycle — Intercom, Marketo & AI",bu:"Lifecycle",status:"in-progress",due:"Sep 30"},
+       {key:"MKT-12676",title:"Empower 26 Content Enablement Library",bu:"AI",status:"in-progress",due:null},
+       {key:"MKT-12802",title:"Qualified — Campaign Build & Expansion",bu:"Lifecycle",status:"planning",due:null},
+       {key:"MKT-12804",title:"Core Marketo Nurture Refresh",bu:"Lifecycle",status:"planning",due:null},
+     ],
+     launchesLabel:"Active Programs",
+     goals:["Own all marketing systems","GTM engineering: AI-led improvement","Lifecycle & campaign automation"],
      p1progs:[
-       {key:"MKT-12634",title:"[Cross-BU] UserGems Migration — replacing Vector (Sep renewal gate)",status:"in-progress"},
-       {key:"MKT-12531",title:"[FF] Intercom Trial Nurture — 7.7K trials · ~450/wk · AE RR live",status:"in-progress"},
-       {key:"MKT-12676",title:"[Cross-BU] Empower AI Content Library — GPT + Letter AI (Jul 15 rollout)",status:"in-progress"},
-       {key:"MKT-12802",title:"[Cross-BU] Qualified — QB→Pave Re-engagement & G2 Review Campaigns",status:"planning"},
-       {key:"MKT-12803",title:"[Core] UserGems ABM — New & Expand (MasTec, AT&T, ENT)",status:"planning"},
-       {key:"MKT-12804",title:"[Core] Marketo Nurture Refresh — Core New template",status:"planning"},
+       {key:"MKT-12523",title:"[Cross-BU] Growth & AI Lifecycle — Q3 2026",status:"in-progress"},
      ]},
-    {key:"MKT-12574",title:"Program Management",sub:"Delivery · Rhythm · Visibility",
+    {key:"MKT-12574",title:"Program Management",sub:"Marketing Program Manager · The efficiency lever across all of marketing",
      owner:"Luiza Rusinova",status:"on-track",pct:75,done:5,flight:3,blocked:0,total:8,color:"#10503C",delta:+2,note:"RACI hub + 7 team pages live in Confluence; validating with each team lead. Exec dashboard active.",
      scope:{chs:[]},
      outcome:"Less friction, fewer dropped balls, more output per person.",
      execSummary:"RACI hub + 7 team Confluence pages live and in validation. Jira structure standardized across all programs. Executive reporting dashboard active. This briefing.",
-     goals:["Marketing operating system — standard briefs, request guides, RACIs and Jira structure so every team knows how work flows","Cross-team program coordination — multi-team initiatives (website refresh, launches) kept on track and visible","Delivery rhythm & visibility — planning calendar and status reporting so leadership sees progress without chasing it"],
+     launches:[],
+     launchesLabel:"Active Programs",
+     goals:["Marketing operating system","Cross-team program coordination","Delivery rhythm & visibility"],
      p1progs:[
        {key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",status:"planning"},
-       {key:"MKT-12436",title:"[Cross-BU] Internal Programs — Q3 2026",status:"planning"},
      ]},
   ],
 
   programs:[
-    // MKT-12568 AWE — G1: Pave ICP · G2: FF & Pave launches · G3: Content & social engine
-    {sp:"MKT-12568",key:"MKT-11823",title:"AI Builder Trial Experience",owner:"Saeed, Hira",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"WE-810",title:"New Pave Solutions/Industry Pages",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1,due:"2026-07-29"},
-    {sp:"MKT-12568",key:"MKT-12117",title:"Pave SEO — Competitor Comparison Pages",owner:"South, Tom",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12118",title:"Pave SEO — Industry Vertical & Use Case Pages",owner:"Smyth, Gar",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12115",title:"Pave SEO — Vibe Coding & No-Code Builder Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12116",title:"Pave SEO — AI App Builder Pages",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12119",title:"Pave SEO — Enterprise & Governance Content",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-12120",title:"Pave SEO — Agency-Focused QB Page Optimizations",owner:"Smyth, Gar",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12568",key:"MKT-11852",title:"June Launches — Spreadsheet Import & Direct Edit",owner:"McPhee, Stephanie",status:"done",priority:"P1",goal:2},
-    {sp:"MKT-12568",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"done",priority:"P2",goal:1},
-    {sp:"MKT-12568",key:"MKT-11521",title:"FF AI Photo Insights — Launch T2",owner:"Saeed, Hira",status:"done",priority:"P1",goal:2},
-    {sp:"MKT-12568",key:"MKT-11522",title:"FF AI Label Scanner — Launch T2",owner:"Saeed, Hira",status:"done",priority:"P1",goal:2},
-    {sp:"MKT-12568",key:"MKT-11523",title:"FF Asset & Team Tracker — Launch T1",owner:"Saeed, Hira",status:"done",priority:"P2",goal:2},
-    {sp:"MKT-12568",key:"MKT-11658",title:"Pave Persona Pages Campaign",owner:"Young-Ward, Michael",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"MKT-11621",title:"Paveathon Campaign",owner:"Nickols, Meaghan",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12568",key:"MKT-12888",title:"[FF] AI Form Builder Launch — Q3 2026",owner:"Saeed, Hira",status:"in-progress",priority:"P1",goal:2,due:"2026-09-01"},
-    {sp:"MKT-12568",key:"MKT-12850",title:"[FF] Web — Platform Pages & Nav Build-out — Q3 2026",owner:"Saeed, Hira",status:"in-progress",priority:"P1",goal:2,due:"2026-09-01"},
-    {sp:"MKT-12568",key:"MKT-12740",title:"[Pave] Launch — Connectors, Workflows & Custom Agents",owner:"Hendley, Michelle",status:"in-progress",priority:"P1",goal:2,due:"2026-08-13"},
-    {sp:"MKT-12568",key:"MKT-13061",title:"[Pave] ICP Traffic Growth",owner:"McPhee, Stephanie",status:"planning",priority:"P1",goal:1},
-    // MKT-12569 Core BU — G1: Customer expansion & cross-sell · G2: New-logo demand · G3: Retention & at-risk
-    {sp:"MKT-12569",key:"MKT-11667",title:"QB Extensions — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12569",key:"MKT-11668",title:"QB Intelligence Package — Go-to-Market Launch",owner:"Decker, Michael",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12569",key:"MKT-12106",title:"Webinar — NCR Voyix Road Show (Jul 7 · AI Intelligence)",owner:"Kleiner, Charlie",status:"in-progress",priority:"P1",goal:2,due:"2026-07-07"},
-    {sp:"MKT-12569",key:"MKT-12186",title:"Webinar — QB Extensions: Leveraging Workflows (Jun 17)",owner:"Lynch, Emma",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12569",key:"MKT-12494",title:"Webinar — Tropicana Road Show (Jul 9 · AI Intelligence)",owner:"Kleiner, Charlie",status:"planning",priority:"P1",goal:2,due:"2026-07-09"},
-    {sp:"MKT-12569",key:"MKT-12598",title:"Webinar — Feature Focus: Summer Recap (Jul 16)",owner:"Lynch, Emma",status:"planning",priority:"P1",goal:2,due:"2026-07-16"},
-    {sp:"MKT-12569",key:"MKT-13036",title:"Webinar — From Prompt to Power: Automating Work with QB AI (Aug 4)",owner:"Lynch, Emma",status:"planning",priority:"P1",goal:2,due:"2026-08-04"},
-    {sp:"MKT-12569",key:"MKT-12825",title:"[Core] Launch — Auto-Schedule (Solvice) — Q3 2026",owner:"Decker, Michael",status:"planning",priority:"P1",due:"2026-08-24"},
-    {sp:"MKT-12569",key:"MKT-12805",title:"[Core] G2 — Always-On Activation — Q3 2026",owner:"Lynch, Emma",status:"in-progress",priority:"P1"},
-    {sp:"MKT-12569",key:"MKT-11666",title:"Grid Reports — Go-to-Market Launch",owner:"Decker, Michael",status:"done",priority:"P1",goal:2},
-    // MKT-12570 Integrated Marketing — G1: Brand refresh · G2: Content+Community+Partners · G3: Experiences+Events
-    {sp:"MKT-12570",key:"MKT-12613",title:"Brand + Web Refresh — Q2–Q4 2026",owner:"Kampf, Mirissa",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12570",key:"MKT-12615",title:"Brand Identity & Expression",owner:"Liu, Jenny",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12570",key:"MKT-12614",title:"Portfolio Architecture & Narrative",owner:"McGuire, Andy",status:"planning",priority:"P1",goal:1},
-    {sp:"MKT-12570",key:"MKT-12470",title:"Community Platform Migration — Khoros to Gainsight",owner:"Simon, Ben",status:"in-progress",priority:"P1",goal:2,due:"2026-10-30"},
-    {sp:"MKT-12570",key:"MKT-12469",title:"Pave Community Launch — H2 2026",owner:"Simon, Ben",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12471",title:"FF Community Launch — H2 2026",owner:"Simon, Ben",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12690",title:"Creative Studio Selection — H2 2026",owner:"Liu, Jenny",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12525",title:"Community Q2 RTB — Ongoing Engagement",owner:"Simon, Ben",status:"in-progress",priority:"P3",goal:2,due:"2026-06-30"},
-    {sp:"MKT-12570",key:"MKT-12386",title:"AI4 Tradeshow — Aug 4–6, Las Vegas",owner:"Speidel, Lindsey",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12570",key:"MKT-12684",title:"Gartner IT Symposium — Oct 19–22, Orlando",owner:"Gutierrez, Susana",status:"planning",priority:"P2",goal:3},
-    {sp:"MKT-12570",key:"MKT-12822",title:"[Pave] G2 — Always-On Review Activation — Q3",owner:"Englert, Caroline",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12570",key:"MKT-12820",title:"[FF] G2 — Always-On Review Activation — Q3",owner:"Englert, Caroline",status:"planning",priority:"P1",goal:2},
+    // MKT-12568 AWE
+    {sp:"MKT-12568",key:"MKT-12427",title:"[FF] Launch Program — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12431",title:"[Pave] Launch Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12445",title:"[Pave] Launch Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12441",title:"[FF] Launch Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12054",title:"[Pave] Launch Program — Q2 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",due:"2026-06-30"},
+    {sp:"MKT-12568",key:"MKT-12430",title:"[Pave] Campaigns — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12426",title:"[FF] Campaigns — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12444",title:"[Pave] Campaigns — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12440",title:"[FF] Campaigns — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12429",title:"[Pave] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12428",title:"[Pave] Webinar Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12425",title:"[FF] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12424",title:"[FF] Webinar Program — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12443",title:"[Pave] Always-On Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12442",title:"[Pave] Webinar Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12438",title:"[FF] Webinar Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-12439",title:"[FF] Always-On Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12568",key:"MKT-13061",title:"[Pave] ICP Traffic Growth",owner:"McPhee, Stephanie",status:"planning",priority:"P4"},
+    // MKT-12569 Core BU
+    {sp:"MKT-12569",key:"MKT-12434",title:"[Core] Campaigns — Q3 2026",owner:"Kleiner, Charlie",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12569",key:"MKT-12055",title:"[Core] Launch Program — Q2 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",due:"2026-06-30"},
+    {sp:"MKT-12569",key:"MKT-12435",title:"[Core] Launch Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-09-30"},
+    {sp:"MKT-12569",key:"MKT-12449",title:"[Core] Launch Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-12-31"},
+    {sp:"MKT-12569",key:"MKT-12433",title:"[Core] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12569",key:"MKT-12432",title:"[Core] Webinar Program — Q3 2026",owner:"Kleiner, Charlie",status:"in-progress",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12569",key:"MKT-12447",title:"[Core] Always-On Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12569",key:"MKT-12446",title:"[Core] Webinar Program — Q4 2026",owner:"Kleiner, Charlie",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12569",key:"MKT-12448",title:"[Core] Campaigns — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-12-31"},
+    // MKT-12570 Integrated Marketing
+    {sp:"MKT-12570",key:"MKT-12526",title:"[Cross-BU] Community — Q3 2026",owner:"",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12570",key:"MKT-12527",title:"[Cross-BU] Community — Q4 2026",owner:"",status:"planning",priority:"P2",due:"2026-12-31"},
+    {sp:"MKT-12570",key:"MKT-12613",title:"[Cross-BU] Brand + Web Refresh — Q2-Q4 2026",owner:"Kampf, Mirissa",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12570",key:"MKT-12470",title:"[Cross-BU] Community Platform Migration & Launch — 2026",owner:"Simon, Ben",status:"in-progress",priority:"P1",due:"2026-10-30"},
+    {sp:"MKT-12570",key:"MKT-12386",title:"[Events] Tradeshow: AI4 2026 — Aug 4-6",owner:"Speidel, Lindsey",status:"in-progress",priority:"P2"},
+    {sp:"MKT-12570",key:"MKT-12684",title:"[Events] Tradeshow: Gartner IT Symposium 2026 — Oct 19-22",owner:"Gutierrez, Susana",status:"in-progress",priority:"P4"},
+    {sp:"MKT-12570",key:"MKT-12690",title:"[Cross-BU] Creative Studio Selection — H2 2026",owner:"Liu, Jenny",status:"in-progress",priority:"P4"},
+    {sp:"MKT-12570",key:"MKT-12985",title:"[Events] Tradeshow: NECA 2026 — Oct 4-7",owner:"Gutierrez, Susana",status:"planning",priority:"P4"},
     // MKT-12571 Digital
-    // MKT-12571 Digital — Goal 1: Website refresh+CRO · Goal 2: Pave ICP · Goal 3: SEO
-    {sp:"MKT-12571",key:"MKT-11822",title:"FF Website Migration — Marketing Readiness & Go-Live",owner:"Young-Ward, Michael",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12571",key:"WE-632",title:"Content Hub — Pave · FF · QB Blogs",owner:"Young-Ward, Michael",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12571",key:"WE-710",title:"Pave ICP Conversion Tracking (Google Ads & GA4)",owner:"Radev, Tihomir",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12571",key:"WE-782",title:"Announcement Banner Refresh — QB & Pave",owner:"Young-Ward, Michael",status:"in-progress",priority:"P2",goal:1},
-    {sp:"MKT-12571",key:"MKT-12529",title:"Web Roadmap — Q3 2026",owner:"Young-Ward, Michael",status:"planning",priority:"P1",goal:1,due:"2026-09-30"},
-    {sp:"MKT-12571",key:"MKT-12530",title:"Web Roadmap — Q4 2026",owner:"Young-Ward, Michael",status:"planning",priority:"P2",goal:1,due:"2026-12-31"},
-    {sp:"MKT-12571",key:"WE-699",title:"FeedMe Plugin — SSE Streaming & Persistent State",owner:"Vasilev, Borislav",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12571",key:"MKT-12590",title:"Core SEO Content Program — Q3 2026",owner:"South, Tom",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"MKT-12593",title:"FF SEO Content Program — Q3 2026",owner:"South, Tom",status:"planning",priority:"P1",goal:3},
-    {sp:"MKT-12571",key:"WE-787",title:"[Cross-BU] Transitional Improvements — Brand + Web Refresh — Q3 2026",owner:"Young-Ward, Michael",status:"in-progress",priority:"P1",goal:1},
-    // MKT-12572 Corp Comms — G1: Media relations & PR · G2: Exec & customer storytelling · G3: PLG social & advocacy
-    {sp:"MKT-12572",key:"MKT-12687",title:"PR Agency Selection — H2 2026",owner:"Bolton, Isabella",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12572",key:"MKT-12688",title:"Social Platform Eval — H2 2026 (DSMN8 vs Sociabble)",owner:"Waldron, Tory",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12572",key:"MKT-12360",title:"PR & Media Relations — Q3 2026",owner:"Bolton, Isabella",status:"planning",priority:"P1",goal:1},
-    {sp:"MKT-12572",key:"MKT-12364",title:"Strategy & Planning — Q3 2026 (agency onboarding, advocacy eval)",owner:"Waldron, Tory",status:"planning",priority:"P1",goal:1},
-    {sp:"MKT-12572",key:"MKT-12362",title:"Executive Social & ELT — Q3 2026 (Kim/Marcus/Kelly)",owner:"Horgan, Colin",status:"planning",priority:"P1",goal:2},
-    {sp:"MKT-12572",key:"MKT-12361",title:"Organic Social — Q3 2026",owner:"Rich, Sarah",status:"planning",priority:"P2",goal:3},
-    {sp:"MKT-12572",key:"MKT-12363",title:"Reporting & Internal — Q3 2026",owner:"Waldron, Tory",status:"planning",priority:"P3"},
-    // MKT-12573 Systems & AI — G1: Own all martech · G2: GTM engineering + AI improvement · G3: Lifecycle & campaign automation
-    {sp:"MKT-12573",key:"MKT-12523",title:"[Cross-BU] Growth & AI Lifecycle — Q3 2026",owner:"Tan, Lynn",status:"in-progress",priority:"P1",goal:3},
-    {sp:"MKT-12573",key:"MKT-12634",title:"Vector to UserGems Migration",owner:"Tan, Lynn",status:"in-progress",priority:"P3",goal:1},
-    {sp:"MKT-12573",key:"MKT-12676",title:"Empower '26 AI Content Library (GPT + Letter AI)",owner:"Tan, Lynn",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12573",key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",owner:"Tan, Lynn",status:"in-progress",priority:"P2",goal:3},
-    {sp:"MKT-12573",key:"MKT-11888",title:"Qualified PiperX — launched June 3",owner:"Tan, Lynn",status:"done",priority:"P1",goal:2},
-    {sp:"MKT-12573",key:"MKT-12263",title:"Intel Pack Activation Campaign",owner:"Tan, Lynn",status:"done",priority:"P2",goal:2},
-    {sp:"MKT-12573",key:"MKT-12095",title:"At-Risk QB Customer Outreach Campaign",owner:"Tan, Lynn",status:"done",priority:"P2",goal:3},
-    // MKT-12574 Program Mgmt — G1: Marketing operating system · G2: Cross-team coordination · G3: Delivery rhythm & visibility
-    {sp:"MKT-12574",key:"MKT-12437",title:"Marketing Program Setup — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",goal:1},
-    {sp:"MKT-12574",key:"MKT-12436",title:"Internal Programs — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P1",goal:2},
-    {sp:"MKT-12574",key:"MKT-12078",title:"Jira & Confluence Program Structure — H2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12574",key:"MKT-12691",title:"Marketing RACI & SLA Framework — H2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",goal:1},
-    {sp:"MKT-12574",key:"MKT-12692",title:"Marketing Executive Reporting Dashboard — H2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",goal:3},
+    {sp:"MKT-12571",key:"MKT-12529",title:"[Cross-BU] Web — Q3 2026",owner:"",status:"planning",priority:"P1",due:"2026-09-30"},
+    {sp:"MKT-12571",key:"MKT-12530",title:"[Cross-BU] Web — Q4 2026",owner:"",status:"planning",priority:"P1",due:"2026-12-31"},
+    {sp:"MKT-12571",key:"MKT-12588",title:"[Pave] SEO Content Program — Q3 2026",owner:"",status:"planning",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12589",title:"[Pave] SEO Content Program — Q4 2026",owner:"",status:"planning",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12591",title:"[Core] SEO Content Program — Q3 2026",owner:"",status:"planning",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12592",title:"[Core] SEO Content Program — Q4 2026",owner:"",status:"planning",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12594",title:"[FF] SEO Content Program — Q3 2026",owner:"",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12595",title:"[FF] SEO Content Program — Q4 2026",owner:"",status:"planning",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-12590",title:"[Core] SEO Content Program — Q2 2026",owner:"",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12571",key:"MKT-13054",title:"[Cross-BU] CRO & A/B Testing Program — Q4 2026",owner:"",status:"planning",priority:"P4"},
+    {sp:"MKT-12571",key:"MKT-13053",title:"[Cross-BU] CRO & A/B Testing Program — Q3 2026",owner:"",status:"planning",priority:"P4"},
+    // MKT-12572 Corporate Communications
+    {sp:"MKT-12572",key:"MKT-12358",title:"[Cross-BU] External Comms & Social — Q3 2026",owner:"",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12572",key:"MKT-12359",title:"[Cross-BU] External Comms & Social — Q4 2026",owner:"",status:"planning",priority:"P3",due:"2026-12-31"},
+    // MKT-12573 Marketing Systems & AI
+    {sp:"MKT-12573",key:"MKT-12523",title:"[Cross-BU] Growth & AI Lifecycle — Q3 2026",owner:"",status:"in-progress",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12573",key:"MKT-12524",title:"[Cross-BU] Growth & AI Lifecycle — Q4 2026",owner:"",status:"planning",priority:"P3",due:"2026-12-31"},
+    // MKT-12574 Program Management
+    {sp:"MKT-12574",key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12574",key:"MKT-12451",title:"[Cross-BU] Marketing Program Setup — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12574",key:"MKT-12436",title:"[Cross-BU] Internal Programs — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12574",key:"MKT-12450",title:"[Cross-BU] Internal Programs — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
+    {sp:"MKT-12574",key:"MKT-13096",title:"[Cross-BU] CRO & A/B Testing Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P4"},
+    {sp:"MKT-12574",key:"MKT-13095",title:"[Cross-BU] CRO & A/B Testing Program — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P4"},
   ],
 
   channels:[
@@ -20003,1576 +20055,139 @@ const DATA = {
     }
   ],
     shipped:[
-    {
-      key:"MKT-12606",
-      title:"Customer Webinar List Upload -- Feature Focus: Summer Recap",
-      ch:"Webinars & Events",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 17, 2026"
-    },
-    {
-      key:"MKT-12414",
-      title:"Digital Experience -- Landing Page -- AI4 2026",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Task",
-      doneDate:"Jul 17, 2026"
-    },
-    {
-      key:"MKT-12956",
-      title:"Customer Webinar Salesforce Campaign Setup -- App Inheritance to App Ownership",
-      ch:"Webinars & Events",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Harati, Nicole",
-      type:"Email",
-      doneDate:"Jul 17, 2026"
-    },
-    {
-      key:"WE-779",
-      title:"Mapping Snowflake & Google Ads Fields",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Radev, Tihomir",
-      type:"Task",
-      doneDate:"Jul 17, 2026"
-    },
-    {
-      key:"WE-713",
-      title:"Connecting Snowflake with Google Ads (offline conversion tracking)",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Radev, Tihomir",
-      type:"Task",
-      doneDate:"Jul 17, 2026"
-    },
-    {
-      key:"MKT-12201",
-      title:"Blog Post (Post-Webinar) -- QB Extensions Webinar",
-      ch:"Content & SEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Patro, Shreya",
-      type:"Blog",
-      doneDate:"Jul 17, 2026"
-    },
-    {
-      key:"MKT-12608",
-      title:"Email_Customer_Feature Focus: The Quickbase Summer Drop_Follow Up 1",
-      ch:"Email & Lifecycle",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12718",
-      title:"Email_Customer_Closed Won G2 Review_Promo 1 (One Off Send)",
-      ch:"Email & Lifecycle",
-      bu:"Unknown",
-      label:"",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-11823",
-      title:"[FF] AI Builder Trial Experience - PMM Discovery & Marketing Requirements",
-      ch:"Launches & GTM",
-      bu:"Unknown",
-      label:"",
-      owner:"Saeed, Hira",
-      type:"Program",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-11831",
-      title:"Write positioning and messaging brief for FF AI Builder",
-      ch:"Content & SEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Saeed, Hira",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12851",
-      title:"[Mobile Forms] Copy & prototype -- AI Form Builder feature page",
-      ch:"Web / Digital",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Saeed, Hira",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12603",
-      title:"Webinar Resources -- Feature Focus: Summer Recap",
-      ch:"Webinars & Events",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Kleiner, Charlie",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12602",
-      title:"Content / Slide Creation -- Feature Focus: Summer Recap",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Ghosh, Soumya",
-      type:"Content",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12601",
-      title:"Pendo Guide -- Feature Focus: Summer Recap",
-      ch:"Webinars & Events",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Kleiner, Charlie",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12794",
-      title:"Flip Annual and Monthly rates on FF Pricing page so that Annual is default view",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-13089",
-      title:"[FF pricing page] Add label styling from Alternate to also be present on Default comparison toggle [pics attached]",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Vasilev, Borislav",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-13041",
-      title:"Customer Webinar Salesforce Campaign Set Up -- From Prompt to Power: Automating Work with Quickbase AI Features",
-      ch:"Webinars & Events",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Harati, Nicole",
-      type:"Email",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"WE-883",
-      title:"Board Page Update",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"WE-887",
-      title:"Build 4 additional LP clones (checklists, inspections, work orders, data collection)",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Sub-task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"WE-857",
-      title:"Build/publish - new FF PPC LP template",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Sub-task",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12693",
-      title:"Email_Pave_July_Newsletter_Prospects",
-      ch:"Email & Lifecycle",
-      bu:"Unknown",
-      label:"",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12694",
-      title:"Email_Pave_July_Newsletter_Customers_Active or Former Trialers",
-      ch:"Email & Lifecycle",
-      bu:"Unknown",
-      label:"",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 16, 2026"
-    },
-    {
-      key:"MKT-12114",
-      title:"[Pave] SEO Content Program — Q2 2026",
-      ch:"Content & SEO",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"South, Tom",
-      type:"Program",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"MKT-13040",
-      title:"Goldcast Setup — From Prompt to Power: Automating Work with Quickbase AI Features",
-      ch:"Webinars & Events",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Kleiner, Charlie",
-      type:"Task",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"MKT-12673",
-      title:"Email_Customer_Feature Focus: The Quickbase Summer Drop_Promo 3",
-      ch:"Email & Lifecycle",
-      bu:"QB-Core",
-      label:"",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"MKT-12739",
-      title:"[Design] Comparison Pages — Page Template Design",
-      ch:"Creative & Design",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Boyanova, Kristina",
-      type:"Creative",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"WE-815",
-      title:"Implement design feedback on MVP Pave solution pages",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Sub-task",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"WE-813",
-      title:"New Pave product images for new Pave solution pages",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Martinez, Evan",
-      type:"Sub-task",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"WE-812",
-      title:"Final copy for new Pave solution pages",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Hendley, Michelle",
-      type:"Sub-task",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"WE-811",
-      title:"Wireframe new Pave solution pages",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Hendley, Michelle",
-      type:"Sub-task",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"MKT-12053",
-      title:"[FF] Launch Program — Q2 2026 ",
-      ch:"Launches & GTM",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Rusinova, Luiza",
-      type:"Program",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"MKT-12528",
-      title:"[Cross-BU] Web — Q2 2026",
-      ch:"Web / Digital",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 15, 2026"
-    },
-    {
-      key:"MKT-10953",
-      title:"Knack vs Quickbase",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12415",
-      title:"Sales Outreach Campaign — AI4 2026",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"McPhee, Stephanie",
-      type:"Task",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12713",
-      title:"Demo page — BoFu content and messaging review",
-      ch:"Web / Digital",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Saari, Tim",
-      type:"Task",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12712",
-      title:"Trial page — BoFu content and messaging review",
-      ch:"Web / Digital",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Saari, Tim",
-      type:"Task",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11094",
-      title:"WorkOS vs Quickbase",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Patro, Shreya",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12978",
-      title:"Creating a Web Data Report for QB/FF/Pave + Bot Traffic Filtered",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Radev, Tihomir",
-      type:"Task",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-10865",
-      title:"BLOG: AI Is Only as Mature as the System It Runs Inside",
-      ch:"Content & SEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Blog",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11412",
-      title:"No-code Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11411",
-      title:"Agile Project Management Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Husain, Javeria",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11779",
-      title:"Best Training Management Software",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Wahl, Nathan",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11409",
-      title:"Data Visualization Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11410",
-      title:"Workflow Automation Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Patro, Shreya",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11176",
-      title:"Best Compliance Management Software",
-      ch:"Content & SEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11408",
-      title:"Enterprise Application Platform Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12517",
-      title:"Compliance Reporting Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Husain, Javeria",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12518",
-      title:"Project Dashboard Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Husain, Javeria",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12514",
-      title:"Custom Application Development Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Husain, Javeria",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12515",
-      title:"Contracts Management System Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Husain, Javeria",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12516",
-      title:"Dashboards Project Management Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Husain, Javeria",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12509",
-      title:"Business Process Automation Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12510",
-      title:"Data Synchronization Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12511",
-      title:"Project Portfolio Management Software Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12512",
-      title:"Application Development Platform Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12513",
-      title:"Workflow Automation Tool Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Sarkar, Anamika",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12560",
-      title:"Workflow Builder Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12075",
-      title:"Low Code Platform Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12076",
-      title:"Application Development Cost Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12561",
-      title:"AI Business Solutions Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12073",
-      title:"Process Improvement Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12074",
-      title:"Process Management Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12562",
-      title:"Resource Management Plan Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12071",
-      title:"Database Software Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Wahl, Nathan",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12563",
-      title:"Low Code App Development Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12072",
-      title:"Team Collaboration Glossary",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-11157",
-      title:"The Best Field Service Management (FSM) Software for 2026",
-      ch:"Content & SEO",
-      bu:"QB-Core",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Content",
-      doneDate:"Jul 14, 2026"
-    },
-    {
-      key:"MKT-12808",
-      title:"Testing Qualified email for expired QB trial users to promote Pave",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Caufield, Karen",
-      type:"Task",
-      doneDate:"Jul 9, 2026"
-    },
-    {
-      key:"MKT-12916",
-      title:"UserGems ABM — Comm Expand: Product & web signals",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 9, 2026"
-    },
-    {
-      key:"MKT-12917",
-      title:"UserGems ABM — Comm Expand: Catch All (FF, QBE, Intel Pack)",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 9, 2026"
-    },
-    {
-      key:"MKT-12791",
-      title:"Design updates — Empower off-season page",
-      ch:"Creative & Design",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Boyanova, Kristina",
-      type:"Task",
-      doneDate:"Jul 9, 2026"
-    },
-    {
-      key:"MKT-12812",
-      title:"ABM play: ATT (ENT/strat UserGems)",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Robinson, Mia",
-      type:"Task",
-      doneDate:"Jul 8, 2026"
-    },
-    {
-      key:"MKT-12813",
-      title:"ABM play: Oil & Energy industry (ENT/strat UserGems)",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Robinson, Mia",
-      type:"Task",
-      doneDate:"Jul 8, 2026"
-    },
-    {
-      key:"MKT-12924",
-      title:"ABM Expand — Airlines playbook",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 8, 2026"
-    },
-    {
-      key:"MKT-12887",
-      title:"AI4 Conference Whitepaper LP Dev",
-      ch:"Content & SEO",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Ghosh, Soumya",
-      type:"Task",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12863",
-      title:"AI4 Conference Whitepaper Marketo Form",
-      ch:"Email & Lifecycle",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Schiff, Ayva",
-      type:"Task",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12312",
-      title:"Email_Customer_7/7 Events Digest_Promo 1",
-      ch:"Email & Lifecycle",
-      bu:"Unknown",
-      label:"",
-      owner:"Schiff, Ayva",
-      type:"Email",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12410",
-      title:"Email Marketing — AI4 2026",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"McPhee, Stephanie",
-      type:"Email",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12412",
-      title:"Meeting Coordination — AI4 2026",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"McPhee, Stephanie",
-      type:"Task",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12677",
-      title:"GPT — Connect project to SharePoint (foundation build)",
-      ch:"Web / Digital",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Bogdanov, Iliyan",
-      type:"Task",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12722",
-      title:"Email Banner for G2 Review",
-      ch:"Email & Lifecycle",
-      bu:"Unknown",
-      label:"",
-      owner:"Lynch, Emma",
-      type:"Creative",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12862",
-      title:"AI4 Whitepaper Gated LP Content",
-      ch:"SEO / AEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Patro, Shreya",
-      type:"Content",
-      doneDate:"Jul 7, 2026"
-    },
-    {
-      key:"MKT-12696",
-      title:"Pave Q3 Always on Paid Social + Search Campaigns",
-      ch:"Social Media",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Martins, Raul",
-      type:"Social",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-11186",
-      title:"Tradeshow: Intersolar Midwest 2026",
-      ch:"Webinars & Events",
-      bu:"Unknown",
-      label:"",
-      owner:"Gutierrez, Susana",
-      type:"Program",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-11187",
-      title:"IESNA2026: Launch Calendar: Event ",
-      ch:"Webinars & Events",
-      bu:"Unknown",
-      label:"",
-      owner:"Gutierrez, Susana",
-      type:"Task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12402",
-      title:"Internal Communications & Slack Channel Setup — AI4 2026",
-      ch:"Webinars & Events",
-      bu:"Unknown",
-      label:"",
-      owner:"Gutierrez, Susana",
-      type:"Task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12394",
-      title:"Hotel Booking — AI4 2026",
-      ch:"Webinars & Events",
-      bu:"Unknown",
-      label:"",
-      owner:"Gutierrez, Susana",
-      type:"Task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12319",
-      title:"Register Staff & Speakers — AI4 2026",
-      ch:"Webinars & Events",
-      bu:"Unknown",
-      label:"",
-      owner:"Gutierrez, Susana",
-      type:"Task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12504",
-      title:"AI4 Conference Whitepaper Design",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"McPhee, Stephanie",
-      type:"Creative",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12409",
-      title:"Ancillary Activities — AI4 2026",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"McPhee, Stephanie",
-      type:"Task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"WE-814",
-      title:"Design feedback on dark theme Pave pages / adding accessibility to the darker page designs",
-      ch:"Web / Digital",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Boyanova, Kristina",
-      type:"Sub-task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"WE-855",
-      title:"Content review of draft copy for new FF PPC LP template",
-      ch:"SEO / AEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Saari, Tim",
-      type:"Sub-task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12254",
-      title:"(RTB) Q2 2026: Community",
-      ch:"Community",
-      bu:"Unknown",
-      label:"",
-      owner:"Simon , Ben",
-      type:"Program",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12525",
-      title:"[Cross-BU] Community — Q2 2026",
-      ch:"Community",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Marketing Initiative",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-12857",
-      title:"Creating FastField Performance Dashboard in Data Studio",
-      ch:"Web / Digital",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Radev, Tihomir",
-      type:"Task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"WE-856",
-      title:"Design - new FF PPC LP template",
-      ch:"Web / Digital",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Boyanova, Kristina",
-      type:"Sub-task",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-11666",
-      title:"[Core] Launch — Grid Reports — Q2 2026",
-      ch:"Launches & GTM",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Decker, Michael",
-      type:"Program",
-      doneDate:"Jul 6, 2026"
-    },
-    {
-      key:"MKT-11852",
-      title:"[Pave] Launch — June Launches — Spreadsheet Import & Direct Edit",
-      ch:"Demand Gen",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 3, 2026"
-    },
-    {
-      key:"MKT-12522",
-      title:"[Cross-BU] Growth & AI Lifecycle — Q2 2026",
-      ch:"Email & Lifecycle",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Tan, Lynn",
-      type:"Marketing Initiative",
-      doneDate:"Jul 3, 2026"
-    },
-    {
-      key:"MKT-11888",
-      title:"[Cross-BU] Qualified PiperX Launch & Optimization — Q2 2026",
-      ch:"Creative & Design",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Tan, Lynn",
-      type:"Program",
-      doneDate:"Jul 3, 2026"
-    },
-    {
-      key:"MKT-12792",
-      title:"QB India ID Card and Letterhead Design",
-      ch:"Creative & Design",
-      bu:"Unknown",
-      label:"",
-      owner:"Mora, Jasmin",
-      type:"Creative",
-      doneDate:"Jul 3, 2026"
-    },
-    {
-      key:"WE-699",
-      title:"FeedMe Plugin Upgrade — SSE Streaming, Persistent State & Live Progress",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Vasilev, Borislav",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-11822",
-      title:"[FF] Website Migration - Marketing Readiness & Go-Live",
-      ch:"Web / Digital",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Young-Ward, Michael",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-11841",
-      title:"Initiate post-migration FF web evolution project (nav, IA, content strategy) - post go-live",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Social",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-11531",
-      title:"[Core] Campaign — Customer Advocacy — Q2 2026",
-      ch:"Launches & GTM",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Decker, Michael",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12045",
-      title:"[Core] Always-On Program — Q2 2026",
-      ch:"Demand Gen",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Kleiner, Charlie",
-      type:"Marketing Initiative",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12257",
-      title:"[Core] Event Digest — Always-On — Q2 2026",
-      ch:"Email & Lifecycle",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Lynch, Emma",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-11933",
-      title:"[Core] Email & Newsletter — Always-On — Q2 2026",
-      ch:"Email & Lifecycle",
-      bu:"QB-Core",
-      label:"QB-Core-MKT",
-      owner:"Lynch, Emma",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12352",
-      title:"[Cross-BU] External Comms & Social — Q2 2026",
-      ch:"Social Media",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Social",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12357",
-      title:"Strategy & Planning — Q2 2026",
-      ch:"Social Media",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12385",
-      title:"Strategy — 2026 Executive Thought Leadership Plan",
-      ch:"PR & Exec Comms",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12384",
-      title:"Team Planning — Employee Advocacy Platform Vendor Process (Deciminate / Sprout / Sociabble)",
-      ch:"Community",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12383",
-      title:"Team Planning — Social & Video Agency Hunt (Pave)",
-      ch:"Social Media",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Video",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12382",
-      title:"Team Planning — Social & Video Agency Hunt (Pave)",
-      ch:"Social Media",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Video",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12381",
-      title:"Team Planning — PR Agency Hunt (Intro Calls, Early June)",
-      ch:"PR & Exec Comms",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12356",
-      title:"Reporting & Internal — Q2 2026",
-      ch:"Systems & AI",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12380",
-      title:"Reporting — May Analytics Recap + Empower Coverage Summary",
-      ch:"Systems & AI",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12355",
-      title:"Executive Thought Leadership — Q2 2026",
-      ch:"Social Media",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12354",
-      title:"Organic Social — Q2 2026",
-      ch:"Social Media",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12379",
-      title:"LinkedIn Post — Pave-a-thon (Skye Ellis Video / Demo)",
-      ch:"Social Media",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Video",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12378",
-      title:"LinkedIn Post — Pave-a-thon (Sage Hiller Video / Demo)",
-      ch:"Social Media",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Video",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12377",
-      title:"LinkedIn Post — Import a Spreadsheet (Pave Feature)",
-      ch:"Social Media",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Social",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12376",
-      title:"Executive Social Sends — ELT Weekly (W/O June 1)",
-      ch:"Social Media",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Social",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12375",
-      title:"Event Speaking Abstract — Advancing Electrical PreFab",
-      ch:"Webinars & Events",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12374",
-      title:"Media Opportunity — devrecipes.net Pave Blog (Rusev / Nathan / Niv)",
-      ch:"PR & Exec Comms",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Blog",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12373",
-      title:"Executive Byline Review — Future of 'No Collar' Work",
-      ch:"PR & Exec Comms",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12372",
-      title:"Executive Byline — AWS Pave Blog (Feedback to AWS)",
-      ch:"PR & Exec Comms",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Blog",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12371",
-      title:"Executive Byline Review — Unite.AI (Small Language Models)",
-      ch:"PR & Exec Comms",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12370",
-      title:"Executive Byline Review — For Construction Pros (Foundations)",
-      ch:"PR & Exec Comms",
-      bu:"Unknown",
-      label:"",
-      owner:"Unassigned",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12353",
-      title:"PR & Media Relations — Q2 2026",
-      ch:"PR & Exec Comms",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12077",
-      title:"[Cross-BU] Marketing Program Setup — Q2 2026",
-      ch:"Systems & AI",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Rusinova, Luiza",
-      type:"Marketing Initiative",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12692",
-      title:"Marketing Executive Reporting Dashboard — Q2 2026",
-      ch:"Systems & AI",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Rusinova, Luiza",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12691",
-      title:"Marketing RACI & SLA Framework — Q2 2026",
-      ch:"Creative & Design",
-      bu:"Cross-BU",
-      label:"CrossBU-MKT",
-      owner:"Rusinova, Luiza",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12085",
-      title:"Team Onboarding — DG & PMM Slack Comms",
-      ch:"PR & Exec Comms",
-      bu:"Unknown",
-      label:"",
-      owner:"Rusinova, Luiza",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12083",
-      title:"Brief Templates — Master, Campaign & Webinar",
-      ch:"Webinars & Events",
-      bu:"Unknown",
-      label:"",
-      owner:"Rusinova, Luiza",
-      type:"Webinar",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12044",
-      title:"[Pave] Always-On Program — Q2 2026",
-      ch:"Email & Lifecycle",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Rusinova, Luiza",
-      type:"Marketing Initiative",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12050",
-      title:"[Pave] Content — Always-On — Q2 2026",
-      ch:"SEO / AEO",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Wahl, Nathan",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12088",
-      title:"[Pave] Monthly Ad & Copy Cycle — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12408",
-      title:"Secure Speaker — AI4 2026",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"McPhee, Stephanie",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-10854",
-      title:"Quickbase Extensions Trial Launch",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"Kleiner, Charlie",
-      type:"Program",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-9806",
-      title:"P2: Empower Reg Benchmarks",
-      ch:"Demand Gen",
-      bu:"Unknown",
-      label:"",
-      owner:"Kleiner, Charlie",
-      type:"Task",
-      doneDate:"Jul 2, 2026"
-    },
-    {
-      key:"MKT-12739",
-      title:"[Design] Comparison Pages — Page Template Design",
-      ch:"Web / Digital",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Boyanova, Kristina",
-      type:"Task",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11542",
-      title:"Digital & Paid Media — LinkedIn, Meta, Retargeting",
-      ch:"Social Media",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Martins, Raul",
-      type:"Task",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-12043",
-      title:"[FF] Always-On Program — Q2 2026",
-      ch:"Demand Gen",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Marketing Initiative",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-12040",
-      title:"[Pave] Creative Requests — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11932",
-      title:"[Pave] Social — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11864",
-      title:"The Neuron Product Led Youtube Podcast",
-      ch:"Email & Lifecycle",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"Koutsoukos, Elena",
-      type:"Task",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11930",
-      title:"[Pave] Email & Newsletter — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-12267",
-      title:"[FF] Event Digest — Always-On — Q2 2026",
-      ch:"Webinars & Events",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Unassigned",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11939",
-      title:"[FF] Creative Requests — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11929",
-      title:"[FF] Social — Always-On — Q2 2026",
-      ch:"Social Media",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Koutsoukos, Elena",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11928",
-      title:"[FF] Paid Media — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11927",
-      title:"[FF] Email & Newsletter — Always-On — Q2 2026",
-      ch:"Email & Lifecycle",
-      bu:"FastField",
-      label:"FF-MKT",
-      owner:"Koutsoukos, Elena",
-      type:"Program",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"WE-824",
-      title:"Remove Shannon Bracken from BoD page",
-      ch:"Web / Digital",
-      bu:"Unknown",
-      label:"",
-      owner:"Young-Ward, Michael",
-      type:"Task",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11176",
-      title:"Best Compliance Management Software",
-      ch:"SEO / AEO",
-      bu:"Unknown",
-      label:"",
-      owner:"Mondal, Sanchita",
-      type:"Task",
-      doneDate:"Jul 1, 2026"
-    },
-    {
-      key:"MKT-11839",
-      title:"Align with Steph, Michael and Tom on priority landing pages to build post-migration",
-      ch:"Launches & GTM",
-      bu:"Unknown",
-      label:"",
-      owner:"Saeed, Hira",
-      type:"Social",
-      doneDate:"Jun 3, 2026"
-    },
-    {
-      key:"MKT-11931",
-      title:"[Pave] Paid Media — Always-On — Q2 2026",
-      ch:"Demand Gen",
-      bu:"Pave",
-      label:"Pave-MKT",
-      owner:"McPhee, Stephanie",
-      type:"Program",
-      doneDate:"Jun 3, 2026"
-    }
+    {key:"WE-926",title:"Add missing tooltip to new Pricing Cards",ch:"Web & Digital",bu:"Pave",label:"",owner:"Topozliyska, Nikol",type:"Task",doneDate:"Aug 5, 2026"},
+    {key:"WE-925",title:"Fix search button color on FF Blogs page",ch:"Web & Digital",bu:"FastField",label:"",owner:"Topozliyska, Nikol",type:"Bug",doneDate:"Aug 5, 2026"},
+    {key:"MKT-13161",title:"Email_Webinar_FastField_Forward_Promo 2",ch:"Email & Lifecycle",bu:"FastField",label:"",owner:"Caufield, Karen",type:"MOPs Email Request",doneDate:"Aug 5, 2026"},
+    {key:"MKT-12406",title:"Determine Booth Experience — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Aug 5, 2026"},
+    {key:"MKT-12958",title:"Pendo Guide — App Inheritance to App Ownership",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Aug 4, 2026"},
+    {key:"MKT-13193",title:"Paid & Organic Social",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Harati, Nicole",type:"Task",doneDate:"Aug 4, 2026"},
+    {key:"MKT-12974",title:"PMM: Soft launch — Customer communication plan for AI Form Builder",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Aug 4, 2026"},
+    {key:"MKT-12973",title:"Intercom: Trial communication series — AI Form Builder messaging update",ch:"Email & Lifecycle",bu:"FastField",label:"",owner:"Schiff, Ayva",type:"MOPs Campaign Request",doneDate:"Aug 4, 2026"},
+    {key:"MKT-13149",title:"Weekly Media Scan",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"Bolton, Isabella",type:"Task",doneDate:"Aug 4, 2026"},
+    {key:"MKT-12737",title:"[Design] Use Case Pages — Page Template Design",ch:"Creative & Design",bu:"Pave",label:"",owner:"Boyanova, Kristina",type:"Task",doneDate:"Aug 4, 2026"},
+    {key:"MKT-12314",title:"Email_Customer_8/4 Events Digest_Promo 1",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Aug 3, 2026"},
+    {key:"MKT-12963",title:"Promotional Email #2 — App Inheritance to App Ownership",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Aug 3, 2026"},
+    {key:"MKT-13039",title:"Webinar Resources — From Prompt to Power: Automating Work with QB AI",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Aug 3, 2026"},
+    {key:"MKT-13211",title:"Product Imagery — AI Form Builder LP Hero — Design",ch:"Creative & Design",bu:"FastField",label:"",owner:"Mora, Jasmin",type:"Sub-task",doneDate:"Aug 3, 2026"},
+    {key:"WE-919",title:"Publish: Extensions page copy updates",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Web Publishing",doneDate:"Jul 31, 2026"},
+    {key:"WE-918",title:"Publish: Integrations page copy updates",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Web Publishing",doneDate:"Jul 31, 2026"},
+    {key:"MKT-11250",title:"Create onsite slack channel",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 30, 2026"},
+    {key:"MKT-12864",title:"Product Updates for July Newsletter",ch:"Content",bu:"Cross-BU",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 30, 2026"},
+    {key:"WE-713",title:"Connecting Snowflake with Google Ads (offline conversion tracking)",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Radev, Tihomir",type:"Story",doneDate:"Jul 28, 2026"},
+    {key:"WE-815",title:"Implement design feedback on MVP Pave solution pages",ch:"Web & Digital",bu:"Pave",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 28, 2026"},
+    {key:"WE-860",title:"Pave Pricing Page: Build new interactive PricingPlans component",ch:"Web & Digital",bu:"Pave",label:"",owner:"Topozliyska, Nikol",type:"Story",doneDate:"Jul 28, 2026"},
+    {key:"WE-857",title:"Build/publish — new FF PPC LP template",ch:"Web & Digital",bu:"FastField",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 28, 2026"},
+    {key:"WE-813",title:"New Pave product images for new Pave solution pages",ch:"Web & Digital",bu:"Pave",label:"",owner:"Martinez, Evan",type:"Sub-task",doneDate:"Jul 28, 2026"},
+    {key:"WE-790",title:"Navigation audit — analyze user click data and map current nav items",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Radev, Tihomir",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"WE-779",title:"Mapping Snowflake & Google Ads Fields",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Radev, Tihomir",type:"Story",doneDate:"Jul 28, 2026"},
+    {key:"WE-812",title:"Final copy for new Pave solution pages",ch:"Web & Digital",bu:"Pave",label:"",owner:"Hendley, Michelle",type:"Sub-task",doneDate:"Jul 28, 2026"},
+    {key:"WE-811",title:"Wireframe new Pave solution pages",ch:"Web & Digital",bu:"Pave",label:"",owner:"Hendley, Michelle",type:"Sub-task",doneDate:"Jul 28, 2026"},
+    {key:"WE-864",title:"Build PricingCreditBundleSelect client component",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Topozliyska, Nikol",type:"Development",doneDate:"Jul 28, 2026"},
+    {key:"WE-874",title:"New Pave Pricing page layout — off-center text fix",ch:"Web & Digital",bu:"Pave",label:"",owner:"Vasilev, Borislav",type:"Bug",doneDate:"Jul 28, 2026"},
+    {key:"WE-863",title:"Build PricingCreditSlider client component",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Topozliyska, Nikol",type:"Development",doneDate:"Jul 28, 2026"},
+    {key:"WE-861",title:"Build PricingPlans Payload block schema incl. CMS-editable fields",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Topozliyska, Nikol",type:"Development",doneDate:"Jul 28, 2026"},
+    {key:"WE-862",title:"Build PricingPlans root component + PricingValueStrip",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Topozliyska, Nikol",type:"Development",doneDate:"Jul 28, 2026"},
+    {key:"MKT-13160",title:"Email_Webinar_FastField_Forward_Promo 1",ch:"Email & Lifecycle",bu:"FastField",label:"",owner:"Caufield, Karen",type:"MOPs Email Request",doneDate:"Jul 28, 2026"},
+    {key:"MKT-13126",title:"Content: Proposed Plan for content to support the launch activation",ch:"Content",bu:"FastField",label:"",owner:"Wahl, Nathan",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-11290",title:"AEP2026: Event Booth Scan list Upload",ch:"Email & Lifecycle",bu:"Cross-BU",label:"",owner:"Schiff, Ayva",type:"MOPs List Upload",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12338",title:"Onsite team enablement deck",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12393",title:"AV & Technology — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12962",title:"Promotional Email #1 — App Inheritance to App Ownership",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Jul 28, 2026"},
+    {key:"MKT-11289",title:"Email_Prospects_Event_FollowUp_AEP",ch:"Email & Lifecycle",bu:"Cross-BU",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12342",title:"Seller/SDR event enablement deck",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"McPhee, Stephanie",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-11597",title:"Build LinkedIn campaigns",ch:"Demand Gen",bu:"FastField",label:"",owner:"Martins, Raul",type:"Sub-task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12695",title:"Review Copy: July Freshly Paved Newsletter",ch:"Content",bu:"Pave",label:"",owner:"Hendley, Michelle",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12323",title:"Onsite Activation: Booth Activities and Swag — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12333",title:"Onsite Activation: Lead Retrieval Tech Rental",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12335",title:"Local Print",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12390",title:"Provide Onsite Contact Information — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12391",title:"Electrical & Internet — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12392",title:"Booth Operations — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12397",title:"Booth Layout Approval — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12400",title:"Shipping & Deadlines — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12401",title:"Booth Giveaway Submission — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12403",title:"Staffing & Scheduling — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-12405",title:"Onsite Communications Plan — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Gutierrez, Susana",type:"Task",doneDate:"Jul 28, 2026"},
+    {key:"MKT-13173",title:"Email Banner: G2 Review Request",ch:"Creative & Design",bu:"Cross-BU",label:"",owner:"Scura, Coco-Marie",type:"Task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-13163",title:"Email Banner Images for FF August Webinar Series",ch:"Creative & Design",bu:"FastField",label:"",owner:"Scura, Coco-Marie",type:"Task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-13158",title:"Campaign Request: FF August Webinar",ch:"Email & Lifecycle",bu:"FastField",label:"",owner:"Schiff, Ayva",type:"MOPs Campaign Request",doneDate:"Jul 27, 2026"},
+    {key:"MKT-13142",title:"Refresh Design on existing creatives",ch:"Creative & Design",bu:"Cross-BU",label:"",owner:"Brady, Jessica",type:"Sub-task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-13144",title:"Design v2 of the ads",ch:"Creative & Design",bu:"Cross-BU",label:"",owner:"Brady, Jessica",type:"Sub-task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-13140",title:"FastField — Ads refresh",ch:"Creative & Design",bu:"FastField",label:"",owner:"Martins, Raul",type:"Task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12979",title:"Pave - EE<20, owner/founder, and UG intent signal",ch:"Demand Gen",bu:"Pave",label:"",owner:"Caufield, Karen",type:"Task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12923",title:"Expand - FSO Strat/ENT/Comm - Family Tree 2.0 revamp",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Caufield, Karen",type:"Task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12949",title:"Email_Pave_Active_Trial_Nurture_Revamp",ch:"Email & Lifecycle",bu:"Pave",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12564",title:"Email-Pave-Former-Trialers-Re-engage-Series",ch:"Email & Lifecycle",bu:"Pave",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12788",title:"Update 3 extensions images on 3 existing pages",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12650",title:"Add Intelligence Pack and Customer Support Catalog Add-On cards",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12651",title:"Swap Add-On card rows vertically — Extensions, Intelligence Pack",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 27, 2026"},
+    {key:"MKT-12790",title:"Weekly Media Scan",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"Waldron, Tory",type:"Task",doneDate:"Jul 24, 2026"},
+    {key:"MKT-12886",title:"Weekly Media Scan",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"Waldron, Tory",type:"Task",doneDate:"Jul 24, 2026"},
+    {key:"MKT-12984",title:"Weekly Media Scan",ch:"PR & Comms",bu:"Cross-BU",label:"",owner:"Waldron, Tory",type:"Task",doneDate:"Jul 24, 2026"},
+    {key:"MKT-12404",title:"Executive Enablement — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"McPhee, Stephanie",type:"Task",doneDate:"Jul 24, 2026"},
+    {key:"MKT-12336",title:"In booth demo creation",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Hendley, Michelle",type:"Task",doneDate:"Jul 24, 2026"},
+    {key:"MKT-13038",title:"Pendo Guide — From Prompt to Power: Automating Work with QB AI",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Martinez, Evan",type:"Task",doneDate:"Jul 23, 2026"},
+    {key:"MKT-13103",title:"Copy Review — AI Form Builder Landing Page",ch:"Content",bu:"FastField",label:"",owner:"McGuire, Andy",type:"Task",doneDate:"Jul 23, 2026"},
+    {key:"MKT-13152",title:"Customer Webinar List Upload — Feature Focus: Summer Recap No Shows",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs List Upload",doneDate:"Jul 23, 2026"},
+    {key:"MKT-12909",title:"Creative: Update AI Technical Whitepaper",ch:"Creative & Design",bu:"Cross-BU",label:"",owner:"Brady, Jessica",type:"Task",doneDate:"Jul 23, 2026"},
+    {key:"MKT-12495",title:"Registration Page — Tropicana Road Show",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 23, 2026"},
+    {key:"MKT-12701",title:"Extensions page — content and messaging review",ch:"Content",bu:"Cross-BU",label:"",owner:"McGuire, Andy",type:"Task",doneDate:"Jul 22, 2026"},
+    {key:"MKT-12702",title:"Intelligence Pack page — content and messaging review",ch:"Content",bu:"Cross-BU",label:"",owner:"McGuire, Andy",type:"Task",doneDate:"Jul 22, 2026"},
+    {key:"MKT-12710",title:"Partners page — top-half content and visual refresh",ch:"Content",bu:"Cross-BU",label:"",owner:"McGuire, Andy",type:"Task",doneDate:"Jul 22, 2026"},
+    {key:"MKT-12659",title:"Soumya Ghosh Paveathon Blog Post",ch:"Content",bu:"Pave",label:"",owner:"Maganini, Joey",type:"Sub-task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-13108",title:"PMM: Messaging & Positioning Locked",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-12937",title:"PMM: Employee influencer list for LinkedIn launch posts",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-12309",title:"Email_Customer_July Newsletter_Promo 1",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Jul 21, 2026"},
+    {key:"MKT-12778",title:"[Pave] C&W — PMM: Brief shared with all partners",ch:"Demand Gen",bu:"Pave",label:"",owner:"Hendley, Michelle",type:"Task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-13146",title:"Unique (Active) Users — Investigation",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Radev, Tihomir",type:"Task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-13051",title:"Email_Customer_From Prompt to Power_Promo 2",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Jul 21, 2026"},
+    {key:"MKT-13052",title:"Email_Customer_From Prompt to Power_Promo 3",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Jul 21, 2026"},
+    {key:"MKT-12717",title:"Email_Customer_New Builder Nurture_G2 Review (One Off Send)",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 21, 2026"},
+    {key:"MKT-12971",title:"PMM: Share AI Form Builder brand narrative with broader team",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-13109",title:"PMM: Internal Demo — AI Form Builder",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-13143",title:"Provide copy for v2 of ads",ch:"Creative & Design",bu:"Cross-BU",label:"",owner:"Saari, Tim",type:"Sub-task",doneDate:"Jul 21, 2026"},
+    {key:"MKT-12952",title:"Webinar Reg Page Copy — App Inheritance to App Ownership",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 20, 2026"},
+    {key:"MKT-13047",title:"Add to Events Page — From Prompt to Power: Automating Work with QB AI",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Lynch, Emma",type:"Task",doneDate:"Jul 20, 2026"},
+    {key:"MKT-12955",title:"Goldcast Setup — App Inheritance to App Ownership",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 20, 2026"},
+    {key:"MKT-12953",title:"Add to Events Page — App Inheritance to App Ownership",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Lynch, Emma",type:"Task",doneDate:"Jul 20, 2026"},
+    {key:"MKT-13050",title:"Email_Customer_From Prompt to Power_Promo 1",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Email Request",doneDate:"Jul 20, 2026"},
+    {key:"MKT-12609",title:"Outreach Sequence — Feature Focus: Summer Recap",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs Other Project Request",doneDate:"Jul 20, 2026"},
+    {key:"MKT-13106",title:"PMM: Launch Brief Drafted",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 20, 2026"},
+    {key:"MKT-13107",title:"PMM: Launch Kickoff Call",ch:"Demand Gen",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 20, 2026"},
+    {key:"MKT-12956",title:"Customer Webinar SF Campaign Setup — App Inheritance to App Ownership",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Campaign Request",doneDate:"Jul 17, 2026"},
+    {key:"MKT-12606",title:"Customer Webinar List Upload — Feature Focus: Summer Recap",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs List Upload",doneDate:"Jul 17, 2026"},
+    {key:"MKT-12414",title:"Digital Experience — Landing Page — AI4 2026",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Task",doneDate:"Jul 17, 2026"},
+    {key:"WE-892",title:"Build 3 added LP clones (surveys, audits, field reporting)",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 17, 2026"},
+    {key:"MKT-13089",title:"[FF pricing page] Add label styling from Alternate to main",ch:"Web & Digital",bu:"FastField",label:"",owner:"Vasilev, Borislav",type:"Task",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12794",title:"Flip Annual and Monthly rates on FF Pricing page",ch:"Web & Digital",bu:"FastField",label:"",owner:"Young-Ward, Michael",type:"Task",doneDate:"Jul 16, 2026"},
+    {key:"MKT-13041",title:"Customer Webinar SF Campaign Set Up — From Prompt to Power",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Harati, Nicole",type:"MOPs Campaign Request",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12694",title:"Email_Pave_July_Newsletter_Customers_Active or Former Trialers",ch:"Email & Lifecycle",bu:"Pave",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12693",title:"Email_Pave_July_Newsletter_Prospects",ch:"Email & Lifecycle",bu:"Pave",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12608",title:"Email_Customer_Feature Focus: QB Summer Drop_Follow Up 1",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12851",title:"[Mobile Forms] Copy & prototype — AI Form Builder feature page",ch:"Content",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12601",title:"Pendo Guide — Feature Focus: Summer Recap",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 16, 2026"},
+    {key:"MKT-12603",title:"Webinar Resources — Feature Focus: Summer Recap",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 16, 2026"},
+    {key:"MKT-11831",title:"Write positioning and messaging brief for FF AI Builder",ch:"Content",bu:"FastField",label:"",owner:"Saeed, Hira",type:"Task",doneDate:"Jul 16, 2026"},
+    {key:"WE-887",title:"Build 4 additional LP clones (checklists, inspections, work orders)",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 15, 2026"},
+    {key:"MKT-13040",title:"Goldcast Setup — From Prompt to Power: Automating Work with QB AI",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Kleiner, Charlie",type:"Task",doneDate:"Jul 15, 2026"},
+    {key:"MKT-12673",title:"Email_Customer_Feature Focus: QB Summer Drop_Promo 3",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 15, 2026"},
+    {key:"MKT-12910",title:"Email_Customer_Unentitled Consumption of Premium Support_Reminder",ch:"Email & Lifecycle",bu:"Core (QB)",label:"",owner:"Schiff, Ayva",type:"MOPs Email Request",doneDate:"Jul 15, 2026"},
+    {key:"MKT-12712",title:"Trial page — BoFu content and messaging review",ch:"Content",bu:"Cross-BU",label:"",owner:"Saari, Tim",type:"Task",doneDate:"Jul 14, 2026"},
+    {key:"MKT-12713",title:"Demo page — BoFu content and messaging review",ch:"Content",bu:"Cross-BU",label:"",owner:"Saari, Tim",type:"Task",doneDate:"Jul 14, 2026"},
+    {key:"MKT-12978",title:"Creating a Web Data Report for QB/FF/Pave + Bot Traffic Filtered",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"Radev, Tihomir",type:"Task",doneDate:"Jul 14, 2026"},
+    {key:"MKT-12415",title:"Sales Outreach Campaign — AI4 2026",ch:"Demand Gen",bu:"Cross-BU",label:"",owner:"McPhee, Stephanie",type:"Task",doneDate:"Jul 14, 2026"},
+    {key:"WE-883",title:"Board Page Update",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Task",doneDate:"Jul 14, 2026"},
+    {key:"WE-872",title:"GDPR — Pull EEA/UK unique visitor data for DataRep contract renewal",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Radev, Tihomir",type:"Task",doneDate:"Jul 10, 2026"},
+    {key:"WE-851",title:"Launch initial Pave pricing page update with option 2 design",ch:"Web & Digital",bu:"Pave",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jul 9, 2026"},
+    {key:"MKT-12811",title:"ABM play: MasTec (ENT/strat Usergems)",ch:"Demand Gen",bu:"Core (QB)",label:"",owner:"Robinson, Mia",type:"Task",doneDate:"Jul 9, 2026"},
+    {key:"WE-855",title:"Content review of draft copy for new FF PPC LP template",ch:"Web & Digital",bu:"FastField",label:"",owner:"Saari, Tim",type:"Sub-task",doneDate:"Jul 6, 2026"},
+    {key:"WE-824",title:"Remove Shannon Bracken from BoD page",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Young-Ward, Michael",type:"Task",doneDate:"Jul 1, 2026"},
+    {key:"WE-817",title:"Publish MVP version of new Pave solution pages",ch:"Web & Digital",bu:"Pave",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jun 30, 2026"},
+    {key:"WE-845",title:"Update Pave Navigation to accommodate new Solution pages",ch:"Web & Digital",bu:"Pave",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jun 30, 2026"},
+    {key:"WE-809",title:"Empower On-Demand video embeds stopped showing up",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Boostrom, Max",type:"Bug",doneDate:"Jun 19, 2026"},
+    {key:"WE-781",title:"Redirect — all www.fastfieldforms.com URLs to QB.com/FF website",ch:"Web & Digital",bu:"FastField",label:"",owner:"Young-Ward, Michael",type:"Sub-task",doneDate:"Jun 16, 2026"},
+    {key:"WE-765",title:"Implement Qualified on qb.com/ff pages",ch:"Web & Digital",bu:"FastField",label:"",owner:"Topozliyska, Nikol",type:"Task",doneDate:"Jun 8, 2026"},
+    {key:"WE-764",title:"Storylane Tour iFrames won't launch",ch:"Web & Digital",bu:"Cross-BU",label:"",owner:"Georgiev, Vasil",type:"Bug",doneDate:"Jun 8, 2026"}
   ],
 };
 
@@ -21591,10 +20206,10 @@ const ROADMAP = [
   {id:'rm01',title:'Pave: Connectors, Workflows & Custom Agents — GA Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-07-09',end:'2026-08-13',qtr:'Q3',status:'confirmed',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6402506791/',jira:'MKT-12740'},
   {id:'rm03',title:'Rebrand Phase 2 – Visual Systems',             fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12613'},
   {id:'rm05',title:'Advancing ElecPreFab (Jul 22–24, Dallas)',      fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-07-22',end:'2026-07-24',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-11258'},
-  {id:'rm06',title:'Scheduler (Solvice) Open Beta',                fn:'Product Launches',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-08-03',qtr:'Q3',status:'tbc',         brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6257016930',jira:'MKT-12825'},
+  {id:'rm06',title:'Scheduler (Solvice) Open Beta',                fn:'Product Launches',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-08-03',qtr:'Q3',status:'in-progress', brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6257016930',jira:'MKT-12825'},
   {id:'rm07',title:'New CX Offerings: Health Assessments + App-athon',fn:'Product Launches',bu:'QB',  tier:'Tier 3',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   {id:'rm08',title:'IA + Nav Update (Brand Architecture)',          fn:'Web',                  bu:'All', tier:'Navigation',    owner:'Carlos',          weekOf:'2026-07-13',end:'2026-09-28',qtr:'Q3',status:'confirmed',  brief:null,jira:'WE-788'},
-  {id:'rm09',title:'Feature Focus: Summer Recap Webinar',          fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'tbc',         brief:null,jira:'MKT-12598'},
+  {id:'rm09',title:'Feature Focus: Summer Recap Webinar',          fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-07-13',end:'2026-07-20',qtr:'Q3',status:'done',        brief:null,jira:'MKT-12598'},
   {id:'rm10',title:'Empower 2026: 60-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-07-20',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
   {id:'rm11',title:'Governance Features (ALM Enhancement)',         fn:'Product Launches',    bu:'QB',  tier:'Tier 2',        owner:'Michael',         weekOf:'2026-07-20',end:'2026-08-03',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   {id:'rm_br01',title:'Brand: Design Directions – Ext. Team Review',fn:'Brand Refresh', bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-07-21',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
@@ -21609,16 +20224,16 @@ const ROADMAP = [
   {id:'rm13',title:'AI4 Conference (Aug 4–6, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-04',end:'2026-08-06',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12386'},
   {id:'rm_ent01',title:'[Core] Enterprise Plan Trial — In-Product Launch',fn:'Product Launches',bu:'QB',tier:'Tier 2',owner:'Heather',weekOf:'2026-08-05',end:'2026-08-24',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6521356312',jira:'MKT-13268'},
   {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Web',                  bu:'All', tier:'Web',           owner:'Carlos',          weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',         brief:null,jira:'WE-788'},
-  {id:'rm15',title:'App Inheritance Webinar',                      fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'tbc',         brief:null,jira:null},
+  {id:'rm15',title:'App Inheritance to App Ownership Webinar',     fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'in-progress', brief:null,jira:'MKT-12950'},
   {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
   {id:'rm_br03',title:'Brand: Final Design – Extended Team Review',fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   {id:'rm17',title:'Swag Store Launch',                            fn:'Events',          bu:'All', tier:'Activities',    owner:'Lindsey',         weekOf:'2026-08-24',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
   {id:'rm18',title:'Integration Big Brand Video',                  fn:'Brand & Creative',bu:'AWE', tier:'Video',         owner:'Jenny',           weekOf:'2026-08-31',end:'2026-10-12',qtr:'Q3',status:'tbc',         brief:null,jira:null},
   // Q3 ── September 2026 ────────────────────────────────────────────────────────────────────
   {id:'rm_br04',title:'Brand: Asset Handoff & Onboarding',         fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'planned',   brief:null,jira:'MKT-12613'},
-  {id:'rm19',title:'Scheduler (Solvice) GA',                       fn:'Product Launches',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'tbc',      brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6257016930',jira:'MKT-12825'},
-  {id:'rm20',title:'FF: AI Form Builder — GA Launch',              fn:'Product Launches',    bu:'AWE', tier:'Tier 1',        owner:'Hira',            weekOf:'2026-09-07',end:'2026-09-21',qtr:'Q3',status:'tbc',      brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6356795439/',jira:'MKT-12888'},
-  {id:'rm21',title:'Pave: Connectors, Workflows & Custom Agents — Hard Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-09-14',end:'2026-09-21',qtr:'Q3',status:'planned',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6401392662/',jira:'MKT-12740'},
+  {id:'rm19',title:'Scheduler (Solvice) GA',                       fn:'Product Launches',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'in-progress', brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6257016930',jira:'MKT-12825'},
+  {id:'rm20',title:'FF: AI Form Builder — GA Launch',              fn:'Product Launches',    bu:'AWE', tier:'Tier 1',        owner:'Hira',            weekOf:'2026-09-07',end:'2026-09-21',qtr:'Q3',status:'in-progress', brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6356795439/',jira:'MKT-12888'},
+  {id:'rm21',title:'Pave: Connectors, Workflows & Custom Agents — Hard Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-09-14',end:'2026-09-21',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6401392662/',jira:'MKT-12740'},
   {id:'rm22',title:'FF: Solvice',                                  fn:'Product Launches',    bu:'AWE', tier:'Tier 3',        owner:'Hira',            weekOf:'2026-09-07',end:'2026-09-14',qtr:'Q3',status:'tbc',      brief:null,jira:null},
   // Q3/Q4 ── Community ────────────────────────────────────────────────────────────────────
   {id:'rm_comm01',title:'Qrew Migration: Khoros → Gainsight',      fn:'Community',bu:'QB', tier:'Migration',owner:'Ben',        weekOf:'2026-06-03',end:'2026-09-21',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12463'},
@@ -23257,146 +21872,6 @@ const HISTORY = [
       "HIGH"
     ]
   ]
-},
-  {
-  d:"2026-08-04",
-  w:"Aug 4",
-  ov:22,
-  hi:3,
-  ok:3,
-  lt:16,
-  ch:[
-    [
-      "Content & SEO",
-      168,
-      "OVER"
-    ],
-    [
-      "Email & Lifecycle",
-      318,
-      "OVER"
-    ],
-    [
-      "Creative & Design",
-      318,
-      "OVER"
-    ],
-    [
-      "Demand Gen",
-      624,
-      "OVER"
-    ],
-    [
-      "Social Media",
-      36,
-      "HIGH"
-    ],
-    [
-      "PMM / Product",
-      318,
-      "OVER"
-    ],
-    [
-      "Marketing Analytics",
-      12,
-      "LIGHT"
-    ],
-    [
-      "Events & Experiences",
-      306,
-      "OVER"
-    ],
-    [
-      "Community",
-      66,
-      "OVER"
-    ],
-    [
-      "PR & Comms",
-      180,
-      "OVER"
-    ],
-    [
-      "Web & Digital",
-      822,
-      "OVER"
-    ],
-    [
-      "UX & Design",
-      36,
-      "HIGH"
-    ]
-  ]
-},
-  {
-  d:"2026-08-06",
-  w:"Aug 6",
-  ov:23,
-  hi:3,
-  ok:3,
-  lt:15,
-  ch:[
-    [
-      "Content & SEO",
-      168,
-      "OVER"
-    ],
-    [
-      "Email & Lifecycle",
-      396,
-      "OVER"
-    ],
-    [
-      "Creative & Design",
-      342,
-      "OVER"
-    ],
-    [
-      "Demand Gen",
-      648,
-      "OVER"
-    ],
-    [
-      "Social Media",
-      36,
-      "HIGH"
-    ],
-    [
-      "PMM / Product",
-      312,
-      "OVER"
-    ],
-    [
-      "Marketing Analytics",
-      12,
-      "LIGHT"
-    ],
-    [
-      "Events & Experiences",
-      306,
-      "OVER"
-    ],
-    [
-      "Community",
-      90,
-      "OVER"
-    ],
-    [
-      "PR & Comms",
-      222,
-      "OVER"
-    ],
-    [
-      "Web & Digital",
-      876,
-      "OVER"
-    ],
-    [
-      "UX & Design",
-      36,
-      "HIGH"
-    ]
-  ]
 }
 ];
 
@@ -24140,7 +22615,7 @@ function renderDeliverables(){
 
   // ── Controls ───────────────────────────────────────────────────────────
   const stCnt={'All':allItems.length,'Planning':planItems.length,'Backlog / Intake':planItems.length,'In Progress':activeItems.length,'Done':doneItemsAll.length};
-  const ST=[{k:'All',lbl:'All'},{k:'Backlog / Intake',lbl:'Backlog / Intake',dot:'#4361EE'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Done',lbl:'Done',dot:'#14A558'}];
+  const ST=[{k:'All',lbl:'All'},{k:'In Progress',lbl:'In Progress',dot:'#2C9382'},{k:'Planning',lbl:'Queued',dot:'#4361EE'},{k:'Done',lbl:'Shipped',dot:'#14A558'}];
   const seg=`<div class="dv-seg">${ST.map(s=>{const on=ofStatus===s.k;return`<button class="dv-seg-btn${on?' on':''}" onclick="setOF('status','${s.k}')" style="${on&&s.dot?`color:${s.dot}`:''}">${s.lbl}<span style="opacity:.65;font-size:10.5px;margin-left:3px">${stCnt[s.k]}</span></button>`;}).join('')}</div>`;
 
   const _owners=[...new Set(_allSrc.map(i=>i.owner).filter(o=>o&&o!=='(unassigned)'&&o!=='Unassigned'))].sort((a,b)=>(_ownerFmt(a)||a).localeCompare(_ownerFmt(b)||b));
@@ -24153,12 +22628,11 @@ function renderDeliverables(){
   const _chCnt={};allItems.forEach(i=>{if(i.ch)_chCnt[i.ch]=(_chCnt[i.ch]||0)+1;});
   const chDrop=`<select class="dv-drop${ofCh!=='All'?' active':''}" onchange="setOF('ch',this.value)"><option value="All"${ofCh==='All'?' selected':''}>Channel: All</option>${Object.keys(_chTotals).sort((a,b)=>(_chTotals[b]||0)-(_chTotals[a]||0)).map(ch=>`<option value="${ch}"${ofCh===ch?' selected':''}>${ch} (${_chCnt[ch]||0})</option>`).join('')}</select>`;
 
-  const _isBacklogOrActive=ofStatus==='Planning'||ofStatus==='Backlog / Intake'||ofStatus==='In Progress';
-  const qtrCtrl=_isBacklogOrActive?'':
+  const qtrCtrl=(ofStatus==='Planning'||ofStatus==='In Progress')?'':
     `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
 
   const PERIODS=[{k:'All',lbl:'All'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
-  const periodCtrl=(_isBacklogOrActive||delQtr==='Q2')?'':
+  const periodCtrl=(ofStatus==='Planning'||ofStatus==='In Progress'||delQtr==='Q2')?'':
     `<div class="dv-qtr">${PERIODS.map(p=>`<button class="dv-qtr-btn${ofPeriod===p.k?' on':''}" onclick="setOF('period','${p.k}')">${p.lbl}</button>`).join('')}</div>`;
 
   // ── Row builder ────────────────────────────────────────────────────────
@@ -24173,9 +22647,9 @@ function renderDeliverables(){
     const col=chColMap[i.ch]||'#94a3b8';
     const ownerFmt=_ownerFmt(i.owner);
     const dot=ST_DOT[i._st]||'#94a3b8';
-    const dateStr=i._st==='done'?(i.doneDate||''):'';
+    const dateStr=i._st==='done'?(i.doneDate||''):(i.updatedDate||'');
     const dateFmt=dateStr.replace(/, 2026$/,'').replace(/, 2025$/," '25");
-    const datePfx=i._st==='done'?'Done':'';
+    const datePfx=i._st==='done'?'Done':'Updated';
     return`<div class="dv-row" onclick="window.open('${JIRA}${i.key}','_blank')">
       <span class="dv-st-dot" style="background:${dot}" title="${ST_LBL[i._st]||''}"></span>
       <div class="dv-title-area">
@@ -24209,7 +22683,7 @@ function renderDeliverables(){
   const _anyFilter=ofBU!=='All'||ofCh!=='All'||ofPeriod!=='All'||ofStatus!=='All'||(ofOwner&&ofOwner!=='All');
   const clrLink=`<a href="#" onclick="event.preventDefault();ofBU=ofCh='All';ofPeriod='All';ofStatus='All';ofOwner='All';delPage=1;renderDeliverables()" style="font-size:11.5px;color:var(--blue);font-weight:600">Clear all ×</a>`;
   const summaryParts=[];
-  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> in backlog`);
+  if(_planningSrc.length)summaryParts.push(`<strong>${planItems.length}</strong> queued`);
   if(_activeSrc.length)summaryParts.push(`<strong>${activeItems.length}</strong> in progress`);
   summaryParts.push(`<strong>${doneItemsAll.length}</strong> shipped`);
   const pgCtrl=totalPages>1?`<div class="dv-pg"><button class="dv-pg-btn" onclick="setDelPage(${delPage-1})" ${delPage<=1?'disabled':''}>← Prev</button><span style="font-size:12.5px">Page <strong>${delPage}</strong> of <strong>${totalPages}</strong> &nbsp;·&nbsp; ${allItems.length} items</span><button class="dv-pg-btn" onclick="setDelPage(${delPage+1})" ${delPage>=totalPages?'disabled':''}>Next →</button></div>`:'';
