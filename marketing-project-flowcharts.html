@@ -64,14 +64,21 @@
     background: var(--wildsand); border-left: 3px solid var(--flamingo); font-size: 11px; color: var(--dune);
     padding: 6px 10px; border-radius: 0 4px 4px 0; max-width: 380px; margin-top: -2px; margin-bottom: 8px;
   }
+  .node-conflict {
+    background: #FFE0C2; border: 2px solid #FF9E42; color: var(--dune); font-weight: 700;
+    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+    padding: 16px 40px; min-width: 300px; max-width: 460px;
+  }
 </style>
 </head>
 <body class="viz-root">
 
 <h1>Marketing Project Flowcharts — Decision Trees by Project Type</h1>
-<div class="subtitle">Not a replacement for the RACI ownership map — this shows the branching logic: what kind of project is this, what decisions get made along the way, and which teams get pulled in at each fork. Shapes: pill = start/end, rectangle = team action, diamond = decision point.</div>
+<div class="subtitle">Not a replacement for the RACI ownership map — this shows the branching logic: what kind of project is this, what decisions get made along the way, and which teams get pulled in at each fork. Shapes: pill = start/end, rectangle = team action, diamond = decision point, hexagon (orange) = unresolved ownership question — flagged, not resolved.</div>
 <div class="assumption-note">
   <strong>Source key:</strong> "Launch" and "New Landing Page" flows are built directly from what you described (including the Andy/Brand-Creative/UX example). The other 10 are drafted from the existing RACI matrix and Jira patterns seen this session — treat those as a starting proposal to correct, not settled fact. Each flow below is tagged accordingly.
+  <br><br>
+  <strong>What's new in this pass:</strong> every flow now shows a brief-drafting step and a Jira-creation step near the start, reflecting the actual process (what goes in the brief, when the Jira issue gets made) rather than jumping straight to team hand-offs. Where the RACI matrix documents a genuine, real ownership overlap (not invented), it's called out as an orange flagged hexagon at the exact point it bites — e.g. who actually owns messaging/copy between PMM, Brand, and Content. This is the same content queued for FigJam in <code>figjam-update-guide.html</code> — this file is the visual preview so you can review before it goes live there.
 </div>
 
 <div class="layout">
@@ -84,10 +91,12 @@ const FLOWS = [
 {
   id: "launch", name: "Product/Feature Launch", source: "direct",
   steps: [
-    {type:'start', label:'Launch initiated (PMM + Product)'},
-    {type:'decision', label:'What tier — T1, T2, or T3?'},
-    {type:'process', teams:'Brand/Positioning + Creative (Jenny Louis) + Content', label:'Pre-kickoff strategy call — weigh in on positioning/approach before deliverables are scoped'},
-    {type:'process', teams:'PMM', label:'Kickoff — briefs Demand Gen, Content, Creative, Web, SEO, Social, PR, Analytics & Ops'},
+    {type:'start', label:'Launch initiated'},
+    {type:'process', teams:'PMM', label:'Drafts launch brief: tier, persona, core message, key dates'},
+    {type:'process', teams:'PM', label:'Creates Jira Marketing Initiative + Epic from the brief'},
+    {type:'decision', label:'Which tier — T1, T2, or T3?'},
+    {type:'process', teams:'Brand/Creative (Jenny Lui) + Content', label:'Pre-kickoff strategy session — shapes positioning and asset approach together with PMM, before scope is locked'},
+    {type:'process', teams:'PMM', label:'Kickoff — briefs all teams'},
     {type:'decision', label:'Needs a dedicated landing page?'},
     {type:'branches', branches:[
       {label:'Yes', steps:[{type:'process', teams:'Web + Brand (review) + Creative (imagery)', label:'See "New Landing Page" flow for the full sub-path'}]},
@@ -98,6 +107,7 @@ const FLOWS = [
       {label:'Yes', steps:[{type:'process', teams:'Paid Media + Demand Gen', label:'Ad creative + campaign setup'}]},
       {label:'No', steps:[{type:'process', teams:'—', label:'Skip paid'}]}
     ]},
+    {type:'conflict', label:'Unresolved: who owns messaging in production — PMM, Brand, or Content?'},
     {type:'process', teams:'Content, Creative, Web, SEO', label:'Production — content drafted, assets built, page built, on-page SEO applied'},
     {type:'process', teams:'PMM + Brand + SEO', label:'Review & Approval — messaging accuracy, brand voice, SEO best practice'},
     {type:'process', teams:'PMM + Program Management', label:'Launch execution — go-live coordinated across teams'},
@@ -109,9 +119,10 @@ const FLOWS = [
   steps: [
     {type:'start', label:'New page requested'},
     {type:'decision', label:'Tied to a launch, or standalone (SEO/content-driven)?'},
-    {type:'process', teams:'Content / SEO', label:'Brief drafted'},
+    {type:'process', teams:'PMM / Content', label:'Drafts page brief — positioning angle, target keyword, core message'},
+    {type:'conflict', label:'Unresolved: who writes the copy — PMM, Brand/Positioning, or Content?'},
     {type:'process', teams:'Brand / Positioning (Andy)', label:'Reviews narrative/positioning fit'},
-    {type:'process', teams:'Brand & Creative', label:'Pulled in for imagery and visual direction — UX now sits here, not with Web'},
+    {type:'process', teams:'Brand & Creative (incl. UX)', label:'Pulled in for imagery and visual direction — UX now sits here, not with Web'},
     {type:'process', teams:'Web', label:'Builds the page (technical implementation only)'},
     {type:'decision', label:'Needs an SEO optimization pass before publish?'},
     {type:'branches', branches:[
@@ -125,12 +136,15 @@ const FLOWS = [
   id: "content-only", name: "Content-Only Piece (blog / comparison / glossary)", source: "inferred",
   steps: [
     {type:'start', label:'Content idea intake'},
+    {type:'process', teams:'PMM / Content', label:'Drafts lightweight content brief — topic, target keyword, key message'},
+    {type:'process', teams:'Content', label:'Creates Jira Content Request from the brief'},
     {type:'process', teams:'PMM / Content', label:'Light-touch scoping'},
     {type:'decision', label:'Touches positioning-sensitive territory?'},
     {type:'branches', branches:[
       {label:'Yes', steps:[{type:'process', teams:'Brand / Creative', label:'Consulted on approach (per new pre-kickoff rule)'}]},
       {label:'No', steps:[{type:'process', teams:'—', label:'Skip straight to drafting'}]}
     ]},
+    {type:'conflict', label:'Unresolved: does Content have final say on wording, or can Brand/PMM override in review?'},
     {type:'process', teams:'Content / Writers', label:'Drafts the piece'},
     {type:'decision', label:'SEO-targeted?'},
     {type:'branches', branches:[
@@ -145,12 +159,16 @@ const FLOWS = [
   id: "page-update", name: "Existing Page Update (banner, pricing tweak, feature add)", source: "inferred",
   steps: [
     {type:'start', label:'Update requested'},
+    {type:'process', teams:'Requestor', label:'Creates Jira Web Page Request describing the change'},
     {type:'decision', label:'Does copy need to change?'},
     {type:'branches', branches:[
-      {label:'Yes', steps:[{type:'process', teams:'Content / Brand', label:'Reviews and updates copy'}]},
+      {label:'Yes', steps:[
+        {type:'conflict', label:'Unresolved: who writes updated copy — Content or Brand?'},
+        {type:'process', teams:'Content / Brand', label:'Reviews and updates copy'}
+      ]},
       {label:'No', steps:[{type:'process', teams:'—', label:'No content involvement needed'}]}
     ]},
-    {type:'process', teams:'Web', label:'Implements the change directly (Web Page Request)'},
+    {type:'process', teams:'Web', label:'Implements the change directly'},
     {type:'end', label:'Live — no new content pipeline needed'}
   ]
 },
@@ -158,10 +176,12 @@ const FLOWS = [
   id: "creative-only", name: "Creative-Only Request (deck refresh, one-pager)", source: "inferred",
   steps: [
     {type:'start', label:'Creative asset requested'},
-    {type:'process', teams:'Creative (Soumya / Jasmin)', label:'Requestor briefs Creative directly'},
+    {type:'process', teams:'Requestor', label:'Drafts creative brief — ask, format, deadline'},
+    {type:'process', teams:'Creative', label:'Creates Jira Marketing Creative Request from the brief'},
+    {type:'process', teams:'Creative (Soumya / Jasmin)', label:'Briefed directly'},
     {type:'decision', label:'Touches brand voice or positioning?'},
     {type:'branches', branches:[
-      {label:'Yes', steps:[{type:'process', teams:'Brand (Andy / Jenny Louis)', label:'Reviews before it ships'}]},
+      {label:'Yes', steps:[{type:'process', teams:'Brand (Andy / Jenny Lui)', label:'Reviews before it ships'}]},
       {label:'No', steps:[{type:'process', teams:'—', label:'Creative ships directly'}]}
     ]},
     {type:'end', label:'Asset delivered'}
@@ -171,10 +191,15 @@ const FLOWS = [
   id: "campaign", name: "Campaign (non-launch demand gen / paid push)", source: "inferred",
   steps: [
     {type:'start', label:'Campaign requested'},
+    {type:'process', teams:'Demand Gen / PMM', label:'Drafts campaign brief — audience, channels, goal, timeline'},
+    {type:'process', teams:'PM', label:'Creates Jira Task or Epic from the brief'},
     {type:'process', teams:'Demand Gen', label:'Scopes channels and audience'},
     {type:'decision', label:'Paid media involved?'},
     {type:'branches', branches:[
-      {label:'Yes', steps:[{type:'process', teams:'Paid Media', label:'Builds ad creative + campaign setup'}]},
+      {label:'Yes', steps:[
+        {type:'conflict', label:'Unresolved: is paid activation a Demand Gen sub-decision or owned directly by Paid Media?'},
+        {type:'process', teams:'Paid Media', label:'Builds ad creative + campaign setup'}
+      ]},
       {label:'No', steps:[{type:'process', teams:'—', label:'Skip'}]}
     ]},
     {type:'process', teams:'Creative / Content', label:'Produces campaign assets'},
@@ -190,6 +215,8 @@ const FLOWS = [
   id: "event", name: "Event / Webinar", source: "inferred",
   steps: [
     {type:'start', label:'Event requested'},
+    {type:'process', teams:'Events', label:'Drafts event brief — format, date, audience, goals'},
+    {type:'process', teams:'Events', label:'Creates Jira Events Request from the brief'},
     {type:'process', teams:'Events', label:'Scopes logistics and registration'},
     {type:'decision', label:'Tied to a product launch?'},
     {type:'branches', branches:[
@@ -204,6 +231,8 @@ const FLOWS = [
   id: "pr", name: "PR / Thought Leadership Piece", source: "inferred",
   steps: [
     {type:'start', label:'PR opportunity identified'},
+    {type:'process', teams:'PR / Comms', label:'Drafts PR brief — angle, spokesperson, timing'},
+    {type:'process', teams:'PR', label:'Creates Jira PR Request from the brief'},
     {type:'process', teams:'PR / Comms', label:'Drafts the piece'},
     {type:'process', teams:'Brand', label:'Reviews narrative framing'},
     {type:'decision', label:'Needs an exec/SME interview?'},
@@ -218,6 +247,8 @@ const FLOWS = [
   id: "community", name: "Community Platform Build/Launch", source: "inferred",
   steps: [
     {type:'start', label:'Community initiative kicked off'},
+    {type:'process', teams:'PM', label:'Drafts community launch brief — platform scope, timeline'},
+    {type:'process', teams:'PM', label:'Creates Jira Initiative + Epic from the brief'},
     {type:'process', teams:'Creative', label:'Produces design/brand asset kit (per BU)'},
     {type:'process', teams:'Content / Community', label:'Seeds guidelines, FAQs, getting-started content'},
     {type:'process', teams:'Ops / Web', label:'Handles platform config, SSO, CRM integration'},
@@ -229,10 +260,12 @@ const FLOWS = [
   id: "partner", name: "Partner Co-Marketing Asset", source: "inferred",
   steps: [
     {type:'start', label:'Partner asset requested'},
+    {type:'process', teams:'Partner Marketing', label:'Drafts partner brief — asset type, co-branding requirements, deadline'},
+    {type:'process', teams:'Partner Marketing', label:'Creates Jira Task from the brief'},
     {type:'process', teams:'Partner Marketing', label:'Scopes with the partner'},
     {type:'decision', label:'Is routing/attribution ownership clear?'},
     {type:'branches', branches:[
-      {label:'No', steps:[{type:'process', teams:'Partner Marketing / RevOps', label:'Open question — escalate before proceeding (see RACI conflict flag)'}]},
+      {label:'No', steps:[{type:'conflict', label:'Escalate — Channel Leader role not yet filled; routing/attribution ownership open (Partner Marketing vs. RevOps)'}]},
       {label:'Yes', steps:[{type:'process', teams:'—', label:'Proceed'}]}
     ]},
     {type:'process', teams:'Creative', label:'Builds co-branded asset'},
@@ -243,7 +276,8 @@ const FLOWS = [
   id: "seo-tech", name: "SEO Technical Work (schema injection, on-page optimization)", source: "inferred",
   steps: [
     {type:'start', label:'Technical SEO task identified'},
-    {type:'process', teams:'SEO (Tom South)', label:'Scopes and implements directly'},
+    {type:'process', teams:'SEO (Tom South)', label:'Scopes the task and creates a Jira Task directly'},
+    {type:'process', teams:'SEO', label:'Implements directly'},
     {type:'decision', label:'Touches a live page?'},
     {type:'branches', branches:[
       {label:'Yes', steps:[{type:'process', teams:'SEO + Web', label:'Coordinates deployment'}]},
@@ -256,6 +290,8 @@ const FLOWS = [
   id: "email", name: "Email / Lifecycle Campaign (not tied to a launch)", source: "inferred",
   steps: [
     {type:'start', label:'Lifecycle campaign requested'},
+    {type:'process', teams:'Email / Lifecycle', label:'Drafts brief — audience, sequence goal, cadence'},
+    {type:'process', teams:'Email / Lifecycle', label:'Creates Jira Task from the brief'},
     {type:'process', teams:'Email / Lifecycle', label:'Scopes audience and sequence'},
     {type:'decision', label:'Needs new creative?'},
     {type:'branches', branches:[
@@ -271,6 +307,7 @@ function renderNode(step) {
   if (step.type === 'start') return `<div class="node node-start">${step.label}</div><div class="connector"></div>`;
   if (step.type === 'end') return `<div class="node node-end">${step.label}</div>`;
   if (step.type === 'process') return `<div class="node node-process"><span class="teams">${step.teams}</span>${step.label}</div><div class="connector"></div>`;
+  if (step.type === 'conflict') return `<div class="node node-conflict">⚠ ${step.label}</div><div class="connector"></div>`;
   if (step.type === 'decision') return `<div class="node node-decision"><div class="diamond"><span>${step.label}</span></div></div><div class="connector"></div>`;
   if (step.type === 'branches') {
     const branchesHtml = step.branches.map(b => {
