@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FigJam Update Guide — Manual Changes Needed</title>
+<style>
+  .viz-root {
+    --surface-1: #fcfcfb;
+    --surface-2: #f5f5f5;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --eden-800: #082521;
+    --lochinvar: #2c9382;
+    --flamingo: #f23e30;
+    --gin: #e6eeeb;
+    --dune: #363432;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--surface-1);
+    color: var(--text-primary);
+    padding: 24px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; color: var(--eden-800); }
+  h2 { font-size: 17px; margin: 32px 0 8px; color: var(--eden-800); border-bottom: 2px solid var(--grid); padding-bottom: 6px; }
+  h3 { font-size: 14px; margin: 20px 0 6px; }
+  .subtitle { color: var(--text-secondary); font-size: 13px; margin-bottom: 8px; }
+  .done-banner {
+    background: #e8f5ea; border-left: 4px solid #2e7d32; padding: 12px 16px; border-radius: 0 6px 6px 0;
+    font-size: 13px; margin-bottom: 8px;
+  }
+  .todo-banner {
+    background: #fff8e1; border-left: 4px solid #f9a825; padding: 12px 16px; border-radius: 0 6px 6px 0;
+    font-size: 13px; margin-bottom: 8px;
+  }
+  .step { background: white; border: 1px solid var(--grid); border-radius: 8px; padding: 16px 20px; margin-bottom: 14px; }
+  .step .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .swap { display: flex; align-items: center; gap: 12px; margin: 8px 0; font-size: 13px; }
+  .swatch { width: 28px; height: 28px; border-radius: 5px; border: 1px solid rgba(0,0,0,0.12); flex-shrink: 0; }
+  .arrow { color: var(--muted); font-size: 16px; }
+  code { background: var(--surface-2); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+  .conflict-item { background: #fff8e1; border: 1px solid #ffd54f; border-radius: 6px; padding: 12px 16px; margin-bottom: 10px; }
+  .conflict-item .where { font-weight: 700; font-size: 13px; margin-bottom: 4px; }
+  .conflict-item .what { font-size: 13px; color: var(--text-secondary); }
+  .panel-text-box { background: var(--dune); color: white; padding: 16px 20px; border-radius: 8px; font-size: 13px; line-height: 1.7; white-space: pre-wrap; }
+  ul.checklist { list-style: none; padding-left: 0; }
+  ul.checklist li { padding: 6px 0 6px 26px; position: relative; font-size: 13px; }
+  ul.checklist li::before { content: "☐"; position: absolute; left: 0; color: var(--lochinvar); font-size: 16px; }
+</style>
+</head>
+<body class="viz-root">
+
+<h1>FigJam Update Guide</h1>
+<div class="subtitle">Reference for manually applying the remaining feedback in the FigJam board, since the MCP connection is rate-limited until the Figma seat is upgraded (Collab → Full/Dev). Board: <a href="https://www.figma.com/board/HPUGpme5Mi8cSKoL8Wr4sE">figma.com/board/HPUGpme5Mi8cSKoL8Wr4sE</a></div>
+
+<h2>✅ Already live on the board (nothing to do here)</h2>
+<div class="done-banner">
+These three flowcharts were rebuilt before the rate limit hit — worth a quick look to confirm they landed cleanly, but no manual edits needed:
+<ul class="checklist" style="margin-top:8px;">
+  <li><strong>Launch</strong> — now includes: PMM drafts the brief (tier, persona, core message, key dates) → Jira Initiative/Epic created from the brief → richer pre-kickoff step naming Jenny Lui, framed as her and Content <em>shaping</em> positioning/asset approach with PMM (not just being informed) → an orange flagged node right before Production: "Unresolved: who owns messaging in production — PMM, Brand, or Content?"</li>
+  <li><strong>New Landing Page</strong> — now includes: an explicit brief-drafting step (positioning angle, target keyword, core message) → an orange flagged node: "Unresolved: who writes the copy — PMM, Brand/Positioning, or Content?" → then Brand review → Creative/UX → Web build, as before.</li>
+  <li><strong>Campaign</strong> — now includes an orange flagged node right after the "paid media involved?" decision: "Unresolved: is paid activation a Demand Gen sub-decision or owned directly by Paid Media?"</li>
+</ul>
+If any of the three look like they landed overlapping another diagram or off in a strange spot, just drag them back into their place in the horizontal sequence — nothing structural should need fixing, just position.
+</div>
+
+<h2>📋 To do manually in FigJam</h2>
+
+<div class="step">
+  <div class="label">Step 1 — Desaturate the RACI table colors</div>
+  <p style="font-size:13px;">Select cells by RACI letter (the FigJam table lets you multi-select cells with Shift+click, or just go column by column) and swap each fill for its lighter counterpart. Use FigJam's built-in color picker — these are all standard palette swatches, not custom colors, so they should show up as preset options:</p>
+
+  <div class="swap"><span class="swatch" style="background:#66D575"></span><strong>R</strong> — Green (bright) <span class="arrow">→</span><span class="swatch" style="background:#CDF4D3"></span> Light green <code>#CDF4D3</code></div>
+  <div class="swap"><span class="swatch" style="background:#3DADFF"></span><strong>A</strong> — Blue (bright) <span class="arrow">→</span><span class="swatch" style="background:#C2E5FF"></span> Light blue <code>#C2E5FF</code></div>
+  <div class="swap"><span class="swatch" style="background:#C6FAF6"></span><strong>C</strong> — Light teal <span class="arrow">→</span> <em>no change — already muted</em></div>
+  <div class="swap"><span class="swatch" style="background:#D9D9D9"></span><strong>I</strong> — Light gray <span class="arrow">→</span> <em>no change — already muted</em></div>
+  <div class="swap"><span class="swatch" style="background:#F24822"></span><strong>Conflict cells (red)</strong> <span class="arrow">→</span><span class="swatch" style="background:#FFECBD"></span> Light yellow <code>#FFECBD</code></div>
+
+  <p style="font-size:13px; margin-top:10px;">When you recolor cells from light-green/light-blue to the new lighter shade, text color can stay dark (<code>#1E1E1E</code>) — it already reads fine on both. Header row (black background) stays as-is — that's structural, not a "data" color, so it doesn't need muting.</p>
+
+  <p style="font-size:13px; margin-top:10px;"><strong>On the asterisks:</strong> cells like <code>R*</code> or <code>C*</code> currently mark conflicts with a cryptic star. Once those cells are yellow, the star becomes redundant — I'd drop it and just leave the plain letter (<code>R</code>, <code>C</code>, <code>?</code>) since the yellow fill alone now signals "needs discussion," and the Open Conflicts panel below spells out exactly what's unresolved. Simpler to read at a glance.</p>
+</div>
+
+<div class="step">
+  <div class="label">Step 2 — Fix the legend text</div>
+  <p style="font-size:13px;">Find the legend text block above the table. It currently ends with something like <em>"Red = flagged conflict (see companion HTML/CSV for full notes)"</em> — delete that trailing reference. Replace with something like:</p>
+  <div class="panel-text-box">Marketing Ownership Map — RACI Matrix
+R = Responsible (light green)   A = Accountable (light blue)   C = Consulted (light teal)   I = Informed (light gray)   ? = unresolved   Yellow = flagged, needs discussion — see "Open Conflicts" panel below</div>
+</div>
+
+<div class="step">
+  <div class="label">Step 3 — Add the "Open Conflicts — Needs Discussion" panel</div>
+  <p style="font-size:13px;">Add a new text block or sticky note near the RACI table (below it works well) with this content, written out in full so nothing points back to an external file:</p>
+
+  <div class="conflict-item">
+    <div class="where">1. Activation Planning — PMM vs. Demand Gen</div>
+    <div class="what">Both PMM and Demand Gen show "R" (Responsible) at this stage. No agreed Accountable — unclear who has final say when the two disagree on activation direction.</div>
+  </div>
+
+  <div class="conflict-item">
+    <div class="where">2. Production — PMM vs. Brand/Positioning vs. Content</div>
+    <div class="what">The single biggest open question on this board. PMM (C), Brand/Positioning (R), and Content/Writers (R) all show ownership at the Production stage. In practice: how much does the PMM brief pin down vs. what's left to the writer's interpretation, and where does Brand's messaging/voice ownership end and Content's drafting begin? Nobody currently owns "final say" on copy in the draft.</div>
+  </div>
+
+  <div class="conflict-item">
+    <div class="where">3. Paid Media vs. Demand Gen</div>
+    <div class="what">Unclear whether paid activation is a Demand Gen sub-decision (Demand Gen scopes channel strategy, Paid Media just executes) or owned directly by Paid Media (Paid Media decides paid approach independently). Both currently show involvement without a clear boundary.</div>
+  </div>
+
+  <div class="conflict-item">
+    <div class="where">4. Partner Marketing — routing &amp; attribution ownership</div>
+    <div class="what">Two related open questions: (a) Partner-routing/activation ownership is unresolved because the Channel Leader role hasn't been filled yet. (b) Post-launch, partner-lead attribution and reporting ownership is unresolved between Lynn Tan/RevOps and Partner Marketing.</div>
+  </div>
+</div>
+
+<h2>Optional — if you want to go further</h2>
+<p style="font-size:13px; color:var(--text-secondary);">These weren't explicitly requested but came up as themes in your feedback — flag if you want them tackled once the Figma seat is upgraded:</p>
+<ul class="checklist">
+  <li>Extend the same "unresolved ownership" flag pattern to the other 9 flowcharts wherever PMM/Brand/Content overlap could plausibly arise (most don't touch this — Content-Only, Creative-Only, and PR do to some degree).</li>
+  <li>Confirm whether the RACI conflicts above should stay open questions on the board indefinitely, or whether you want a "proposed resolution" column once you've actually talked it through with PMM/Brand/Content leads.</li>
+  <li>Fill in the remaining "who" names for the 13 teams still blank in the matrix (PMM, Demand Gen, Content/Writers, SEO, Social, Community, PR/Comms, Email/Lifecycle, Paid Media, Events, Customer Marketing, Partner Marketing, Program Management).</li>
+</ul>
+
+</body>
+</html>
