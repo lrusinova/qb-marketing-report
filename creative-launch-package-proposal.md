@@ -18,6 +18,23 @@ Same source as the original tier package analysis — the 20 launch epics scanne
 
 ---
 
+## What Creative Usually Gets Asked For (Across All Launches)
+
+Before breaking this down by tier, here's the aggregate pattern first — looking across the 9 launch epics with any Creative signal (the Community Build brand kit is excluded here since it's a distinct recurring pattern of its own, covered separately below), ranked by how often each asset category shows up at all, regardless of tier:
+
+| Asset Category | Appeared in | Notes |
+|---|---|---|
+| **Video** (brand/style, teaser, how-to, sizzle, thought-leadership) | 4 of 9 launches | The single most common ask when Creative is involved at all — though *which kind* of video varies a lot from launch to launch |
+| **Social & paid graphics** (organic social + paid ad creative) | 3 of 9 launches | Almost always paired with video when both appear on the same launch |
+| **Email / banner creative** (email graphics, Intercom banners) | 3 of 9 launches | Frequently bundled with social/paid graphics into a single multi-channel request rather than logged separately |
+| **Sales collateral refresh** (deck, one-pager, customer slide) | 2 of 9 launches | Always a *refresh* of existing collateral — never new production from scratch |
+| **Website / landing imagery** (product imagery, hero visuals, landing/login-page graphics) | 2 of 9 launches | Tied closely to whether the launch has a dedicated landing page |
+| **Newsletter / webinar graphics** | 1 of 9 launches | Only seen bundled into Auto-Schedule's multi-channel request — one data point, not enough to call this a real pattern yet |
+
+**Reading this:** video and social/paid graphics are the backbone of what Creative gets asked for whenever they're involved in a launch at all — not sales collateral, which shows up less often and is always a light touch-up rather than new work. This is worth setting as the baseline expectation before the tier-specific breakdown below, which shows how far this bundle scales up (Tier 1), thins out (Tier 2), or disappears entirely (Tier 3).
+
+---
+
 ## Proposed Tier 1 — Major / Flagship Launch
 
 *Evidence: MKT-12888 (FF AI Form Builder, "Tier 1" per epic description) — 8 distinct Creative Requests; MKT-12740 (Pave Connectors & Workflows, largest dataset, 2 phases) — 8 Creative Requests; MKT-12825 (Core Auto-Schedule, Tier 1 per child issue) — 2 bundled multi-channel creative-asset requests; MKT-10401/10543 (Vibe GA, cross-BU flagship) — 2 Creative Requests.*
