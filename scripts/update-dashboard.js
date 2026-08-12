@@ -27,8 +27,8 @@ const fs     = require('fs');
 const path   = require('path');
 
 const DRY_RUN    = process.argv.includes('--dry-run');
-const HTML_PATH  = path.resolve(__dirname, '..', 'marketing-report', 'index.html');
-const ROOT_PATH  = path.resolve(__dirname, '..', 'index.html');
+const HTML_PATH  = path.resolve(__dirname, '..', 'index.html');
+const ROOT_PATH  = path.resolve(__dirname, '..', 'marketing-report', 'index.html');
 const JSON_PATH  = path.resolve(__dirname, '..', 'marketing-report', 'strategic-data.json');
 const REVIEW_PATH = path.resolve(__dirname, '..', 'marketing-report', 'deliverables-review.json');
 
@@ -1118,11 +1118,11 @@ async function main() {
 
   fs.writeFileSync(HTML_PATH, html, 'utf8');
 
-  // Sync root index.html so GitHub Pages serves the latest version
+  // Keep marketing-report/index.html in sync with root
   fs.copyFileSync(HTML_PATH, ROOT_PATH);
 
-  console.log(`\n✓  marketing-report/index.html updated`);
-  console.log(`✓  index.html synced (GitHub Pages)`);
+  console.log(`\n✓  index.html updated (GitHub Pages source)`);
+  console.log(`✓  marketing-report/index.html synced`);
   console.log(`   CAP_DATA refreshed · HISTORY entry added · pulledAt → ${fmtDate(today)}\n`);
 }
 
