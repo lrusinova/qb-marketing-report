@@ -29,7 +29,7 @@ jobs:
 
       - name: Run dashboard update
         working-directory: scripts
-        run: node update-dashboard.js
+        run: node --max-old-space-size=4096 update-dashboard.js
         env:
           JIRA_EMAIL:        ${{ secrets.JIRA_EMAIL }}
           JIRA_TOKEN:        ${{ secrets.JIRA_TOKEN }}
