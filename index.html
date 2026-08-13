@@ -21946,6 +21946,15 @@ function renderBriefing(){
   ];
   const _sigCls={'on-track':'ok','watch':'watch','at-risk':'risk'};
   const _sigLbl={'on-track':'On track','watch':'Watch','at-risk':'At risk'};
+  const _nsMap={
+    'MKT-12568':{ns:['Growth'],                  mos:['MO-02','MO-03']},
+    'MKT-12569':{ns:['Growth','Retention'],       mos:['MO-01','MO-05','MO-06']},
+    'MKT-12570':{ns:['Retention'],                mos:['MO-04','MO-07','MO-09']},
+    'MKT-12571':{ns:['Expansion'],                mos:['MO-01','MO-02']},
+    'MKT-12572':{ns:['Expansion'],                mos:['MO-04','MO-08']},
+    'MKT-12573':{ns:['Innovation','Efficiency'],  mos:['MO-10']},
+    'MKT-12574':{ns:['Efficiency'],               mos:['MO-13']},
+  };
   const _nsCardsHtml=_nsKpi.map(function(n){
     const _nsMos=_tgData.filter(function(m){return m.ns===n.label;});
     const _nsContrib=inits.filter(function(i){return (_nsMap[i.key]||{ns:[]}).ns.indexOf(n.label)!==-1;});
@@ -22072,15 +22081,6 @@ function renderBriefing(){
     return {cls:'is-ok',icon:'↑',txt:`Q3 execution underway — <strong>${ipCount} programs in flight</strong> across 7 goal areas. ${totalDoneAll} of ${totalAll} tasks complete coming out of Q2.`};
   })();
 
-  const _nsMap={
-    'MKT-12568':{ns:['Growth'],                  mos:['MO-02','MO-03']},
-    'MKT-12569':{ns:['Growth','Retention'],       mos:['MO-01','MO-05','MO-06']},
-    'MKT-12570':{ns:['Retention'],                mos:['MO-04','MO-07','MO-09']},
-    'MKT-12571':{ns:['Expansion'],                mos:['MO-01','MO-02']},
-    'MKT-12572':{ns:['Expansion'],                mos:['MO-04','MO-08']},
-    'MKT-12573':{ns:['Innovation','Efficiency'],  mos:['MO-10']},
-    'MKT-12574':{ns:['Efficiency'],               mos:['MO-13']},
-  };
   const _nsStyleDark={
     'ARR Growth': 'background:rgba(21,128,61,.1);color:#15803d;border:1px solid rgba(21,128,61,.28)',
     'NRR':        'background:rgba(8,145,178,.1);color:#0e7490;border:1px solid rgba(8,145,178,.28)',
