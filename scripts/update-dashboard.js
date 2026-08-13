@@ -96,7 +96,8 @@ async function jiraSearch(jql, fields = 'summary,status,issuetype,subtasks') {
     const url = `/rest/api/3/search/jql?jql=${encodeURIComponent(jql)}&startAt=${start}&maxResults=100&fields=${fields}`;
     const data = await jiraFetch(url);
     issues.push(...data.issues);
-    if (data.isLast || data.issues.length === 0) break;
+    const total = data.total || 0;
+    if (data.isLast || data.issues.length === 0 || issues.length >= total) break;
     start += 100;
   }
   return issues;
@@ -365,7 +366,8 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
   const jql = `project in (MKT, WE) AND status CHANGED TO (${GENUINE_LIST}) DURING ("${q2Start}","${q2End}") ORDER BY updated DESC`;
   const fields = 'summary,assignee,issuetype,labels,components,description,resolutiondate,status,updated,parent';
 
-  // Paginate through every result
+  // Paginate through every result — cap at 20k items to prevent OOM
+  const MAX_ITEMS = 20000;
   const issues = [];
   let start = 0;
   process.stdout.write('  Fetching Q2 completions ');
@@ -374,7 +376,8 @@ async function fetchAllQ2Shipped(team, q2Start, q2End) {
     const data = await jiraFetch(url);
     issues.push(...data.issues);
     process.stdout.write('.');
-    if (data.isLast || data.issues.length === 0) break;
+    const total = data.total || 0;
+    if (data.isLast || data.issues.length === 0 || issues.length >= total || issues.length >= MAX_ITEMS) break;
     start += 100;
   }
   console.log(` ${issues.length} raw`);
