@@ -169,14 +169,20 @@ button{font-family:inherit;cursor:pointer}
 .ns-card-kpi{font-size:22px;font-weight:800;letter-spacing:-.5px;line-height:1.05;margin-bottom:2px}
 .ns-card-kpisub{font-size:9.5px;font-weight:500;color:var(--g400);margin-bottom:7px;line-height:1.35}
 .ns-card-target{font-size:10px;color:var(--g300);font-style:italic;margin-top:4px;line-height:1.4}
-.ns-mo-list{margin-top:6px;display:flex;flex-direction:column;gap:3px;}
-.ns-mo-row{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-size:10px;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.05);}
-.ns-mo-row:last-child{border-bottom:none;}
-.ns-mo-desc{color:var(--g500);flex:1;line-height:1.3;}
-.ns-mo-nums{display:flex;align-items:center;gap:4px;flex-shrink:0;white-space:nowrap;}
-.ns-mo-curr{font-weight:700;color:var(--g500);}
-.ns-mo-arr{color:var(--g300);font-size:9px;}
-.ns-mo-tgt{font-weight:700;color:var(--g600);}
+.ns-mo-list{margin-top:10px;display:flex;flex-direction:column;gap:0}
+.ns-mo-entry{padding:4px 0 2px;border-bottom:1px solid rgba(0,0,0,.05)}
+.ns-mo-entry:last-child{border-bottom:none;padding-bottom:0}
+.ns-mo-row{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:10px}
+.ns-mo-desc{color:var(--g600);flex:1;line-height:1.35;display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-width:0}
+.ns-mo-code{font-size:8px;font-weight:900;padding:1px 5px;border-radius:3px;letter-spacing:.3px;flex-shrink:0;white-space:nowrap}
+.ns-mo-name{font-size:10px;color:var(--g700);font-weight:600}
+.ns-mo-owner{font-size:9px;color:var(--g400);font-style:italic;white-space:nowrap;flex-shrink:0}
+.ns-mo-nums{display:flex;align-items:center;gap:4px;flex-shrink:0;white-space:nowrap}
+.ns-mo-curr{font-weight:700;color:var(--g600)}
+.ns-mo-arr{color:var(--g300);font-size:9px}
+.ns-mo-tgt{font-weight:700;color:var(--g800)}
+.ns-mo-bar{height:3px;background:rgba(0,0,0,.05);border-radius:2px;margin:3px 0 3px;overflow:hidden}
+.ns-mo-bar-fill{height:3px;border-radius:2px;animation:spBarFill 1.2s cubic-bezier(.4,0,.2,1) both}
 .ns-signal{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:8px}
 .ns-signal.ok{background:#dcfce7;color:#15803d}
 .ns-signal.watch{background:#fef3c7;color:#b45309}
@@ -21955,25 +21961,44 @@ function renderBriefing(){
     'MKT-12573':{ns:['Innovation','Efficiency'],  mos:['MO-10']},
     'MKT-12574':{ns:['Efficiency'],               mos:['MO-13']},
   };
+  // MO code → NS color (derived from _tgData so it's always consistent)
+  const _moNsClr={};
+  _tgData.forEach(function(m){const _nk=_nsKpi.find(function(n){return n.label===m.ns;});if(_nk)_moNsClr[m.mo]=_nk.color;});
   const _nsCardsHtml=_nsKpi.map(function(n){
     const _nsMos=_tgData.filter(function(m){return m.ns===n.label;});
-    const _nsContrib=inits.filter(function(i){return (_nsMap[i.key]||{ns:[]}).ns.indexOf(n.label)!==-1;});
+    // Derive contributing initiatives by checking if their MOs belong to this NS (via _tgData)
+    const _nsContrib=inits.filter(function(i){
+      return (_nsMap[i.key]||{mos:[]}).mos.some(function(mc){
+        const t=_tgData.find(function(d){return d.mo===mc;});
+        return t&&t.ns===n.label;
+      });
+    });
     const _nsInitDotsHtml=_nsContrib.map(function(i){
       const _short=i.title.includes('(')?i.title.split('(')[0].trim():i.title.split(' ').slice(0,2).join(' ');
       return '<span class="ns-ini-dot" style="background:'+i.color+'14;color:'+i.color+';border:1px solid '+i.color+'40">'+_short+'</span>';
     }).join('');
     return '<div class="ns-card" style="border-top-color:'+n.color+'">'
-      +'<div class="ns-card-metric" style="color:'+n.color+';opacity:.75">'+n.label+'</div>'
-      +'<div class="ns-card-kpi" style="color:'+n.color+'">'+n.kpi+'</div>'
-      +'<div class="ns-card-kpisub">'+n.kpiSub+'</div>'
-      +'<span class="ns-signal '+(_sigCls[n.signal]||'ok')+'" style="margin-bottom:8px">'
+      +'<div class="ns-card-metric" style="color:'+n.color+';opacity:.8;font-size:10px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;margin-bottom:3px">'+n.label+'</div>'
+      +'<div class="ns-card-kpi" style="color:'+n.color+';font-size:18px">'+n.kpi+'</div>'
+      +'<div class="ns-card-kpisub" style="margin-bottom:6px">'+n.kpiSub+'</div>'
+      +'<span class="ns-signal '+(_sigCls[n.signal]||'ok')+'">'
       +'<span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;flex-shrink:0"></span>&nbsp;'
       +(_sigLbl[n.signal]||'On track')+'</span>'
       +'<div class="ns-mo-list">'+_nsMos.map(function(m){
         const _rl=inits.filter(function(i){return (_nsMap[i.key]||{mos:[]}).mos.indexOf(m.mo)!==-1;});
         const _ap=_rl.length?Math.round(_rl.reduce(function(s,i){return s+i.pct;},0)/_rl.length):0;
-        return '<div class="ns-mo-row"><span class="ns-mo-desc">'+m.moD+'</span><span class="ns-mo-nums"><span class="ns-mo-curr">'+m.curr+'</span><span class="ns-mo-arr">→</span><span class="ns-mo-tgt">'+m.tgt+'</span></span></div>'
-          +'<div style="height:2px;background:rgba(0,0,0,.05);border-radius:1px;margin:0 0 5px;overflow:hidden"><div style="height:2px;width:'+_ap+'%;background:'+n.color+';border-radius:1px;animation:spBarFill 1.2s cubic-bezier(.4,0,.2,1) both"></div></div>';
+        const _ownerFirst=m.owner?(m.owner.indexOf(', ')!==-1?m.owner.split(', ')[1].split(' ')[0]:m.owner.split(' ')[0]):'';
+        return '<div class="ns-mo-entry">'
+          +'<div class="ns-mo-row">'
+          +'<span class="ns-mo-desc">'
+          +'<span class="ns-mo-code" style="background:'+n.color+'15;color:'+n.color+'">'+m.mo+'</span>'
+          +'<span class="ns-mo-name">'+m.moD+'</span>'
+          +(_ownerFirst?'<span class="ns-mo-owner">'+_ownerFirst+'</span>':'')
+          +'</span>'
+          +'<span class="ns-mo-nums"><span class="ns-mo-curr">'+m.curr+'</span><span class="ns-mo-arr"> → </span><span class="ns-mo-tgt">'+m.tgt+'</span></span>'
+          +'</div>'
+          +'<div class="ns-mo-bar"><div class="ns-mo-bar-fill" style="width:'+_ap+'%;background:'+n.color+'"></div></div>'
+          +'</div>';
       }).join('')+'</div>'
       +(_nsInitDotsHtml?'<div class="ns-ini-row">'+_nsInitDotsHtml+'</div>':'')
       +'</div>';
@@ -22202,8 +22227,15 @@ function renderBriefing(){
       }
       return '<div class="sp-bu-scope"><span class="sp-bu-tag sp-bu-cross">Cross-BU</span></div>';
     })();
-    const _moTagsHtml=_nsD.mos.map(function(m){const d=_moDesc[m];return '<span class="sp-mo-tag" title="'+m+'">'+(d?'<span style="font-size:9px;opacity:.6;margin-right:3px">'+m+'</span>'+d:m)+'</span>';}).join('');
-    const moRowHtml=_moTagsHtml?'<div class="sp-mo-row"><span style="font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-right:4px;flex-shrink:0">Delivers</span>'+_moTagsHtml+'</div>':'';
+    const _moTagsHtml=_nsD.mos.map(function(m){
+      const d=_moDesc[m];
+      const mc=_moNsClr[m]||'var(--g400)';
+      return '<span class="sp-mo-tag" style="background:'+mc+'12;border-color:'+mc+'35;color:'+mc+'" title="'+m+': '+(d||'')+('; click to see in North Stars')+'">'
+        +'<span style="font-size:8px;font-weight:900;opacity:.9;margin-right:3px;letter-spacing:.3px">'+m+'</span>'
+        +(d?'<span style="font-size:10px;font-weight:600;color:var(--g700)">'+d+'</span>':'')
+        +'</span>';
+    }).join('');
+    const moRowHtml=_moTagsHtml?'<div class="sp-mo-row"><span style="font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-right:6px;flex-shrink:0">Delivers</span>'+_moTagsHtml+'</div>':'';
     const execHtml=ini.execSummary?'<div class="sp-exec">'+ini.execSummary+'</div>':'';
 
     // Owner goals from Goal Cascade matched to this card's MOs
