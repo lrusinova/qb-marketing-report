@@ -191,6 +191,13 @@ button{font-family:inherit;cursor:pointer}
 .ns-kpi-chip.ok strong{color:#15803d}
 /* exec summary on cards */
 .sp-exec{font-size:11px;color:var(--g600);line-height:1.55;padding:10px 18px 10px;border-bottom:1px solid var(--g100);background:#fafafa}
+/* Initiative header progress bar */
+.sp-hdr-bar-wrap{height:4px;background:rgba(0,0,0,.06);overflow:hidden;margin:10px -18px -12px}
+.sp-hdr-bar-fill{height:4px;will-change:width;animation:spBarFill 1.4s cubic-bezier(.4,0,.2,1) both}
+@keyframes spBarFill{from{width:0}}
+/* NS card — contributing initiative dots */
+.ns-ini-row{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.07)}
+.ns-ini-dot{font-size:8.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
 
 /* ── PROGRAMS TAB ───────────────────────────────────── */
 .prog-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
@@ -21940,6 +21947,12 @@ function renderBriefing(){
   const _sigCls={'on-track':'ok','watch':'watch','at-risk':'risk'};
   const _sigLbl={'on-track':'On track','watch':'Watch','at-risk':'At risk'};
   const _nsCardsHtml=_nsKpi.map(function(n){
+    const _nsMos=_tgData.filter(function(m){return m.ns===n.label;});
+    const _nsContrib=inits.filter(function(i){return (_nsMap[i.key]||{ns:[]}).ns.indexOf(n.label)!==-1;});
+    const _nsInitDotsHtml=_nsContrib.map(function(i){
+      const _short=i.title.includes('(')?i.title.split('(')[0].trim():i.title.split(' ').slice(0,2).join(' ');
+      return '<span class="ns-ini-dot" style="background:'+i.color+'14;color:'+i.color+';border:1px solid '+i.color+'40">'+_short+'</span>';
+    }).join('');
     return '<div class="ns-card" style="border-top-color:'+n.color+'">'
       +'<div class="ns-card-metric" style="color:'+n.color+';opacity:.75">'+n.label+'</div>'
       +'<div class="ns-card-kpi" style="color:'+n.color+'">'+n.kpi+'</div>'
@@ -21947,7 +21960,13 @@ function renderBriefing(){
       +'<span class="ns-signal '+(_sigCls[n.signal]||'ok')+'" style="margin-bottom:8px">'
       +'<span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;flex-shrink:0"></span>&nbsp;'
       +(_sigLbl[n.signal]||'On track')+'</span>'
-      +'<div class="ns-mo-list">'+_tgData.filter(function(m){return m.ns===n.label;}).map(function(m){return'<div class="ns-mo-row"><span class="ns-mo-desc">'+m.moD+'</span><span class="ns-mo-nums"><span class="ns-mo-curr">'+m.curr+'</span><span class="ns-mo-arr">→</span><span class="ns-mo-tgt">'+m.tgt+'</span></span></div>';}).join('')+'</div>'
+      +'<div class="ns-mo-list">'+_nsMos.map(function(m){
+        const _rl=inits.filter(function(i){return (_nsMap[i.key]||{mos:[]}).mos.indexOf(m.mo)!==-1;});
+        const _ap=_rl.length?Math.round(_rl.reduce(function(s,i){return s+i.pct;},0)/_rl.length):0;
+        return '<div class="ns-mo-row"><span class="ns-mo-desc">'+m.moD+'</span><span class="ns-mo-nums"><span class="ns-mo-curr">'+m.curr+'</span><span class="ns-mo-arr">→</span><span class="ns-mo-tgt">'+m.tgt+'</span></span></div>'
+          +'<div style="height:2px;background:rgba(0,0,0,.05);border-radius:1px;margin:0 0 5px;overflow:hidden"><div style="height:2px;width:'+_ap+'%;background:'+n.color+';border-radius:1px;animation:spBarFill 1.2s cubic-bezier(.4,0,.2,1) both"></div></div>';
+      }).join('')+'</div>'
+      +(_nsInitDotsHtml?'<div class="ns-ini-row">'+_nsInitDotsHtml+'</div>':'')
       +'</div>';
   }).join('');
   const _kpiChips=(onTrack===7
@@ -22216,25 +22235,14 @@ function renderBriefing(){
         ${subHtml}
         ${buScopeHtml}
         ${nsRowHtml}
+        ${moRowHtml}
+        <div class="sp-hdr-bar-wrap"><div class="sp-hdr-bar-fill" style="width:${_pct||0}%;background:${ini.color}"></div></div>
       </div>
       <div class="sp-card-body">
-        ${(ini.launches && ini.launches.length ?
-  '<div class="sp-launches">'
-  +'<div class="sp-launches-hdr">'+(ini.launchesLabel||'Active Programs')+'</div>'
-  +ini.launches.map(function(l){
-    var _lc = l.status==='in-progress' ? '#0066D6' : l.status==='planning' ? '#b45309' : '#6b7280';
-    var _ls = l.status==='in-progress' ? 'In Flight' : l.status==='planning' ? 'Planning' : l.status;
-    return '<a class="sp-launch-chip" href="'+JIRA+l.key+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">'
-      +'<span class="sp-bu-tag sp-bu-'+(_lcBuCls[l.bu]||'cross')+'">'+l.bu+'</span>'
-      +'<span class="sp-lc-title">'+l.title+'</span>'
-      +(l.due ? '<span class="sp-lc-due">'+l.due+'</span>' : '')
-      +'<span class="sp-lc-status" style="color:'+_lc+'">'+_ls+'</span>'
-      +'<span class="sp-lc-key">'+l.key+' ↗</span>'
-      +'</a>';
-  }).join('')
-  +'</div>'
-: '')}
-        ${ini.goals && ini.goals.length ? '<div class="sp-goals-list">'+ini.goals.map(function(g){ return '<div class="sp-goal-item"><span class="sp-goal-dot">▸</span>'+g+'</div>'; }).join('')+'</div>' : ''}
+        ${cardGoalsHtml}
+        ${goalProgSection}
+        ${progsHtml}
+        ${p2Html}
       </div>
       <button class="sp-copy-btn" onclick="event.stopPropagation();getStatusUpdate('${ini.key}',this)">⚡ Get status update</button>
     </div>`;
