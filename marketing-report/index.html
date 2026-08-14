@@ -24217,9 +24217,15 @@ function renderAnalytics(){
    TEAMS DASHBOARD — one tailored widget per channel
 ══════════════════════════════════════════════════════ */
 function renderTeamsDashboard(){
-  const CH_COLOR={'Content & SEO':'#0891B2','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777',
+  const CH_COLOR={'Content':'#0066D6','SEO':'#0891B2','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777',
     'Demand Gen':'#F59E0B','Social Media':'#9333EA','PMM / Product':'#7C3AED','Marketing Analytics':'#059669',
     'Events & Experiences':'#E53935','Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6','UX & Design':'#EC4899'};
+  // Same title-pattern heuristic renderDeliverables()/renderAnalytics() already use to split the
+  // combined "Content & SEO" Jira channel into Content vs SEO sub-buckets for their own views.
+  const _isSeo=title=>{const s=(title||'').toLowerCase();
+    return s.endsWith('glossary')||/^(the )?best\b/.test(s)||s.includes(' vs ')||
+      /\buse case page/i.test(s)||/\bcomparison page/i.test(s)||/^top\b/.test(s)||
+      s.includes('seo')||s.includes('aeo')||s.includes('entity cluster');};
   // update-dashboard.js relabels some channels for display in shipped/planning/active items
   // (e.g. "SEO / AEO", "Web / Digital") — normalize back to the 12 canonical CAP_DATA channel names.
   const CH_ALIAS={'SEO / AEO':'Content & SEO','Content':'Content & SEO',
@@ -24233,6 +24239,16 @@ function renderTeamsDashboard(){
     ...(DATA.shipped ||[]).map(i=>({...i,ch:_norm(i.ch),_st:'done'})),
   ];
   const byCh=ch=>_all.filter(i=>i.ch===ch);
+  // Content & SEO render as two separate widgets; both draw from the same combined channel pool,
+  // split by _isSeo() rather than a Jira field (Content & SEO is one team/channel in Jira).
+  const itemsForWidget=c=>{
+    if(c.ch==='Content')return byCh('Content & SEO').filter(i=>!_isSeo(i.title));
+    if(c.ch==='SEO')return byCh('Content & SEO').filter(i=>_isSeo(i.title));
+    return byCh(c.ch);
+  };
+  const _expandChannels=channels=>channels.flatMap(c=>c.ch==='Content & SEO'
+    ?[{...c,ch:'Content'},{...c,ch:'SEO'}]
+    :[c]);
   const _typeCounts=(items,n)=>{
     const c={};items.forEach(i=>{c[i.type]=(c[i.type]||0)+1;});
     return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n);
@@ -24278,7 +24294,7 @@ function renderTeamsDashboard(){
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
     switch(c.ch){
-      case 'Content & SEO':    return _seoSignal(items,col);
+      case 'SEO':              return _seoSignal(items,col);
       case 'Web & Digital':    return _webSignal(items,col);
       case 'Creative & Design':return _creativeSignal(items);
       case 'PMM / Product':    return _pmmSignal(items,col);
@@ -24331,18 +24347,24 @@ function renderTeamsDashboard(){
   const _card=c=>{
     const lb=_LBADGE[c.load]||_LBADGE.GAP;
     const col=CH_COLOR[c.ch]||'#64748B';
-    const items=byCh(c.ch);
+    const items=itemsForWidget(c);
     const {blockedItems,overdueItems}=_attentionFor(items);
     const attnBlock=hasAttentionData?_attnHtml(blockedItems,overdueItems):'';
     const inflightBlock=_inFlightHtml(items);
     const divider=(attnBlock||inflightBlock)?'<div class="tw-divider"></div>':'';
+    // Content & SEO share one Jira channel/team — capacity (items/hours/load) can't be split without
+    // per-item hour data, so show the real split item count but label hours/load as shared team capacity.
+    const isSplit=c.ch==='Content'||c.ch==='SEO';
+    const spineLine=isSplit
+      ?items.length+' active items &middot; '+c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ '+(c.ch==='Content'?'SEO':'Content')+')</span>'
+      :c.items+' active items &middot; '+c.hours+'h estimated';
     return '<div class="tw-card">'
       +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-dot" style="background:'+col+'"></span>'+c.ch+'</span>'
       +'<span class="tw-badge" style="background:'+lb.bg+';color:'+lb.color+'">'+lb.label+'</span></div>'
       +attnBlock
       +inflightBlock
       +divider
-      +'<div class="tw-signal-lbl">'+c.items+' active items &middot; '+c.hours+'h estimated</div>'
+      +'<div class="tw-signal-lbl">'+spineLine+'</div>'
       +_signalFor(c,items)
       +'</div>';
   };
@@ -24353,7 +24375,7 @@ function renderTeamsDashboard(){
     +'📋 <strong>One widget per team</strong> — each shaped for what that channel actually needs to check today: what\'s blocked, what\'s overdue, what\'s in flight, plus capacity/type context.'
     +'</div>'
     +noDataBanner
-    +'<div class="tw-grid">'+CAP_DATA.channels.map(_card).join('')+'</div>';
+    +'<div class="tw-grid">'+_expandChannels(CAP_DATA.channels).map(_card).join('')+'</div>';
 }
 
 /* ══════════════════════════════════════════════════════
