@@ -647,6 +647,23 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 @media(max-width:900px){.cap-ch-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ── TEAMS DASHBOARD (one tailored widget per channel) ──────────── */
+/* SEO spotlight — full-width, real Jira-pulled data (not the client-side heuristic split) */
+.tw-spot{background:linear-gradient(135deg,#0891B20d 0%,#fff 55%);border:1px solid #0891B233;border-top:4px solid #0891B2;border-radius:16px;padding:20px 22px;margin-bottom:18px;box-shadow:var(--sh)}
+.tw-spot-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.tw-spot-title{font-size:16px;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:9px}
+.tw-spot-sub{font-size:11px;color:var(--g500);margin-top:3px}
+.tw-spot-pulled{font-size:10px;font-weight:700;color:#0891B2;background:#0891B214;border:1px solid #0891B233;border-radius:20px;padding:4px 12px;white-space:nowrap}
+.tw-spot-bu-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.tw-spot-bu-row{grid-template-columns:1fr}}
+.tw-spot-bu{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:14px 16px}
+.tw-spot-bu-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tw-spot-bu-name{font-size:12.5px;font-weight:800;color:var(--navy)}
+.tw-spot-bu-total{font-size:10.5px;color:var(--g400)}
+.tw-spot-lbl{font-size:9px;font-weight:800;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin:8px 0 4px}
+.tw-spot-mini-row{display:flex;gap:2px;height:9px;border-radius:5px;overflow:hidden;background:var(--g100);margin-bottom:5px}
+.tw-spot-mini-seg{height:100%}
+.tw-spot-mini-legend{font-size:9.5px;color:var(--g500);line-height:1.5}
+.tw-spot-empty{font-size:10.5px;color:var(--g400);font-style:italic;padding:4px 0}
 .tw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
 @media(max-width:1200px){.tw-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.tw-grid{grid-template-columns:1fr}}
@@ -23408,6 +23425,54 @@ function renderBriefing(){
   };
   // done/total label shown below % (clarifies what the % counts)
   const _iniDT=function(k){const i=inits.find(function(x){return x.key===k;})||{};return i.total?i.done+' / '+i.total+' programs done':'';};
+  // ── Task-level BU data (from DATA.active / shipped / planning) ──────────
+  const _tAct=DATA.active||[];const _tSht=DATA.shipped||[];const _tPln=DATA.planning||[];
+  const _ddK=function(a){const s=new Set();return a.filter(function(t){return s.has(t.key)?false:(s.add(t.key),true);});};
+  const _isFFT=function(t){return t.label==='FF-MKT'||t.bu==='FastField';};
+  const _isPvT=function(t){return t.label==='Pave-MKT'||t.bu==='Pave';};
+  const _isCrT=function(t){return t.label==='QB-Core-MKT'||t.bu==='QB-Core';};
+  const _ffTSht=_ddK(_tSht.filter(_isFFT));const _ffTAct=_ddK(_tAct.filter(_isFFT));const _ffTPln=_ddK(_tPln.filter(_isFFT));
+  const _pvTSht=_ddK(_tSht.filter(_isPvT));const _pvTAct=_ddK(_tAct.filter(_isPvT));const _pvTPln=_ddK(_tPln.filter(_isPvT));
+  const _crTSht=_ddK(_tSht.filter(_isCrT));const _crTAct=_ddK(_tAct.filter(_isCrT));const _crTPln=_ddK(_tPln.filter(_isCrT));
+  const _tBuPct=function(sh,ac,pl){const t=sh+ac+pl;return t?Math.round(sh/t*100):null;};
+  const _tBuDt=function(sh,ac,pl){const t=sh+ac+pl;return sh+' / '+t+' tasks done';};
+  const _ffTPct=_tBuPct(_ffTSht.length,_ffTAct.length,_ffTPln.length);
+  const _pvTPct=_tBuPct(_pvTSht.length,_pvTAct.length,_pvTPln.length);
+  const _crTPct=_tBuPct(_crTSht.length,_crTAct.length,_crTPln.length);
+  const _aweTSh=_ffTSht.length+_pvTSht.length;
+  const _aweTTot=_aweTSh+_ffTAct.length+_pvTAct.length+_ffTPln.length+_pvTPln.length;
+  const _aweTPct=_aweTTot?Math.round(_aweTSh/_aweTTot*100):null;
+  // Channel activity strip — pill row showing active + done per channel
+  const _chStrip=function(shtItems,actItems,color){
+    const m={};
+    actItems.forEach(function(t){const c=t.ch||'Other';if(!m[c])m[c]={ac:0,sh:0};m[c].ac++;});
+    shtItems.forEach(function(t){const c=t.ch||'Other';if(!m[c])m[c]={ac:0,sh:0};m[c].sh++;});
+    const chs=Object.keys(m).sort(function(a,b){return(m[b].ac+m[b].sh)-(m[a].ac+m[a].sh);});
+    if(!chs.length)return'';
+    return'<div style="display:flex;flex-wrap:wrap;background:var(--g50);border-top:1px solid var(--g100);padding:8px 10px;gap:5px">'
+      +chs.map(function(c){const d=m[c];
+        return'<div style="display:inline-flex;align-items:center;gap:4px;background:white;border:1px solid var(--g100);border-radius:20px;padding:3px 10px">'
+          +'<span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--g600)">'+c+'</span>'
+          +(d.ac?'<span style="font-size:8.5px;font-weight:800;color:'+color+'"> '+d.ac+'</span>':'')
+          +(d.sh?'<span style="font-size:8.5px;font-weight:800;color:#16a34a"> ✓'+d.sh+'</span>':'')
+          +'</div>';
+      }).join('')
+      +'</div>';
+  };
+  // Recently shipped strip — last N completed tasks
+  const _recentShip=function(shtItems,max){
+    const items=shtItems.slice(0,max||8);
+    if(!items.length)return'';
+    return'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);padding:8px 14px 4px;background:var(--g50);border-top:1px solid var(--g100)">✓ Recently Shipped</div>'
+      +items.map(function(t){
+        return'<div style="display:flex;align-items:flex-start;gap:7px;padding:5px 14px;border-bottom:1px solid var(--g50)">'
+          +'<span style="font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:8px;background:#16a34a18;color:#16a34a;white-space:nowrap;flex-shrink:0;margin-top:2px">'+(t.type||'Task')+'</span>'
+          +'<span style="flex:1;min-width:0;font-size:11px;color:var(--g700);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden">'+t.title+'</span>'
+          +'<span style="font-size:9.5px;color:var(--g400);flex-shrink:0;white-space:nowrap">'+t.doneDate+'</span>'
+          +'</div>';
+      }).join('')
+      +'</div>';
+  };
   // Epic row
   const _buEpRow=function(l){
     const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
@@ -23459,12 +23524,13 @@ function renderBriefing(){
       +'</div>';
   };
   // Product sub-panel (FF or Pave inside AWE) — big stat numbers
-  const _buProdPanel=function(label,color,epics,stats){
+  const _buProdPanel=function(label,color,epics,stats,td){
     const rows=_srt2(epics);
     const stP=[];
-    if(stats.ip)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:'+color+'">'+stats.ip+'</div><div class="bu-ps-lbl">active</div></div>');
-    if(stats.dn)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:#16a34a">'+stats.dn+'</div><div class="bu-ps-lbl">done</div></div>');
+    if(stats.ip)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:'+color+'">'+stats.ip+'</div><div class="bu-ps-lbl">active progs</div></div>');
+    if(stats.dn)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:#16a34a">'+stats.dn+'</div><div class="bu-ps-lbl">done progs</div></div>');
     if(stats.pl)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:#94a3b8">'+stats.pl+'</div><div class="bu-ps-lbl">planning</div></div>');
+    if(td&&td.pct!=null)stP.push('<div class="bu-prod-stat" style="margin-left:auto;border-left:1px solid var(--g100);padding-left:12px"><div class="bu-ps-num" style="color:'+color+'">'+td.pct+'%</div><div class="bu-ps-lbl">Q3 tasks</div></div>');
     const statBar=stP.length?'<div class="bu-prod-stat-row">'+stP.join('')+'</div>':'';
     return'<div class="bu-prod-panel">'
       +'<div class="bu-prod-hdr" style="border-top-color:'+color+'">'
@@ -23473,6 +23539,8 @@ function renderBriefing(){
       +'</div>'
       +statBar
       +(rows.length?'<div>'+rows.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
+      +(td?_chStrip(td.sht,td.act,color):'')
+      +(td&&td.sht.length?_recentShip(td.sht,6):'')
       +'</div>';
   };
   // AWE card — spans 2 columns; FF + Pave sub-panels side by side
@@ -23480,11 +23548,11 @@ function renderBriefing(){
   const _aweGoals=_iniGoals2('MKT-12568');
   const _aweDT=_iniDT('MKT-12568');
   const _aweCard='<div class="sp-card sp-card-awe" data-key="bu-AWE">'
-    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',_aweGoals,_awePct,_nsChipHtml(['ARR Growth']),_aweDT)
+    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',_aweGoals,_aweTPct,_nsChipHtml(['ARR Growth']),_tBuDt(_aweTSh,_ffTAct.length+_pvTAct.length,_ffTPln.length+_pvTPln.length))
     +'<div class="sp-card-body" style="padding:0">'
     +'<div class="bu-products-row">'
-    +_buProdPanel('FastField','#ea580c',_ffL,_ffSt)
-    +_buProdPanel('Pave','#2563eb',_paveL,_paveSt)
+    +_buProdPanel('FastField','#ea580c',_ffL,_ffSt,{pct:_ffTPct,sht:_ffTSht,act:_ffTAct})
+    +_buProdPanel('Pave','#2563eb',_paveL,_paveSt,{pct:_pvTPct,sht:_pvTSht,act:_pvTAct})
     +'</div>'
     +'</div></div>';
   // Core card — 1 column
@@ -23493,10 +23561,12 @@ function renderBriefing(){
   const _coreDT=_iniDT('MKT-12569');
   const _coreSorted=_srt2(_coreL);
   const _coreCard='<div class="sp-card" data-key="bu-Core">'
-    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',_coreGoals,_corePct,_nsChipHtml(['ARR Growth','NRR']),_coreDT)
+    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',_coreGoals,_crTPct,_nsChipHtml(['ARR Growth','NRR']),_tBuDt(_crTSht.length,_crTAct.length,_crTPln.length))
     +'<div class="sp-card-body" style="padding:0">'
     +_buStats(_coreSt,'#10503C')
     +(_coreSorted.length?'<div>'+_coreSorted.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
+    +_chStrip(_crTSht,_crTAct,'#10503C')
+    +_recentShip(_crTSht,8)
     +'</div></div>';
   // Cross-BU card — spans 3 columns; one panel per strategic project (team owner)
   const _xSpGrps={};
@@ -24373,13 +24443,9 @@ function renderTeamsDashboard(){
     if(c.ch==='SEO')return byCh('Content & SEO').filter(i=>_isSeo(i.title));
     return byCh(c.ch);
   };
-  const _expandChannels=channels=>channels.flatMap(c=>c.ch==='Content & SEO'
-    ?[{...c,ch:'Content'},{...c,ch:'SEO'}]
-    :[c]);
-  const _typeCounts=(items,n)=>{
-    const c={};items.forEach(i=>{c[i.type]=(c[i.type]||0)+1;});
-    return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n);
-  };
+  // SEO gets pulled out of this grid entirely into a full-width spotlight (real Jira-pulled
+  // pipeline data, built below) — that also makes the remaining count divide evenly into 3 columns.
+  const _expandChannels=channels=>channels.flatMap(c=>c.ch==='Content & SEO'?[{...c,ch:'Content'}]:[c]);
   // Pipeline — Briefed (planning) → In progress (active) → Published (done): the universal
   // first block on every widget. These are Jira statusCategory buckets (already fetched),
   // NOT a dedicated "brief submitted" tracker — see the SEO footnote for that distinction.
@@ -24403,16 +24469,12 @@ function renderTeamsDashboard(){
       '<span class="tw-seg-chip"><span class="tw-seg-chip-dot" style="background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'"></span>'+label+' <b>'+n+'</b></span>').join('');
     return '<div class="tw-seg-wrap"><div class="tw-seg-bar">'+bar+'</div><div class="tw-seg-legend">'+legend+'</div></div>';
   };
-  const _typeSegHtml=(items,col,n)=>{
-    const types=_typeCounts(items,n);
-    return types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized items yet</div>';
-  };
   const _buSegHtml=(items,col)=>{
     const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
     const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
     return pairs.length?_segBarHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>';
   };
-  // Meter — a single ratio against a whole (e.g. SEO's share of the combined Content+SEO team's work).
+  // Meter — a single ratio against a whole (e.g. Content's share of the combined Content+SEO team's work).
   const _meterHtml=(pct,col,label)=>
     '<div class="tw-meter-wrap"><div class="tw-meter-lbl"><span>'+label+'</span><b>'+pct+'%</b></div>'
     +'<div class="tw-meter-track"><div class="tw-meter-fill" style="width:'+pct+'%;background:'+col+'"></div></div></div>';
@@ -24422,35 +24484,15 @@ function renderTeamsDashboard(){
     return _meterHtml(pct,col,label);
   };
 
-  // ── per-channel tailored signal builders — every widget leads with the pipeline,
-  //    then a channel-specific second layer (BU split, type-mix, or nothing extra) ──
+  // ── every widget: pipeline, then BU split (answers "divide by business unit" universally) ──
   const _contentSignal=(items,col)=>
     _pipelineHtml(items)
-    +_contentSeoShare(items,col,'Share of Content + SEO capacity')
+    +_contentSeoShare(items,col,'Share of Content + SEO capacity (rest is the SEO spotlight above)')
     +_buSegHtml(items,col);
-  const _seoSignal=(items,col)=>
-    _pipelineHtml(items)
-    +_contentSeoShare(items,col,'Share of Content + SEO capacity')
-    +_buSegHtml(items,col)
-    +'<div class="tw-foot">Stages above are Jira status buckets, not a dedicated brief tracker &mdash; and keyword/ranking/traffic data isn\'t wired to Jira, so this is coverage, not SERP performance.</div>';
-  const _webSignal=(items,col)=>
-    _pipelineHtml(items)+_typeSegHtml(items,col,4);
-  const _creativeSignal=items=>
-    _pipelineHtml(items);
-  const _pmmSignal=(items,col)=>
-    _pipelineHtml(items)+_buSegHtml(items,col);
-  const _defaultSignal=(items,col)=>
-    _pipelineHtml(items)+_typeSegHtml(items,col,3);
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
-    switch(c.ch){
-      case 'Content':          return _contentSignal(items,col);
-      case 'SEO':              return _seoSignal(items,col);
-      case 'Web & Digital':    return _webSignal(items,col);
-      case 'Creative & Design':return _creativeSignal(items);
-      case 'PMM / Product':    return _pmmSignal(items,col);
-      default:                 return _defaultSignal(items,col);
-    }
+    if(c.ch==='Content')return _contentSignal(items,col);
+    return _pipelineHtml(items)+_buSegHtml(items,col);
   };
   const CH_ICON={'Content':'📝','SEO':'🔍','Email & Lifecycle':'✉️','Creative & Design':'🎨',
     'Demand Gen':'📣','Social Media':'💬','PMM / Product':'🚀','Marketing Analytics':'📊',
@@ -24498,6 +24540,57 @@ function renderTeamsDashboard(){
       +top.map(i=>'<span class="tw-inflight-item">'+jl(i.key,i.title)+'</span>').join('');
   };
 
+  // ── SEO Content Program spotlight — pulled directly from Jira (parent in <the 11 SEO epics>),
+  // NOT derived from the client-side heuristic/DATA-array split used by every other widget.
+  // Content stage = Content Request status (idea → Briefed → Drafting → In review → Written).
+  // Web publish stage = the separate Web Page Request ticket's own status (Briefed → QA → Live).
+  // Re-pull manually (or via update-dashboard.js once it can reach Jira) to refresh these counts.
+  const SEO_PIPELINE={
+    pulledAt:'Aug 14, 2026',
+    epicCount:11,
+    byBU:{
+      FastField:{content:{idea:14,brief:0,drafting:0,review:0,done:0},blocked:0,web:{brief:0,qa:0,live:0}},
+      Pave:     {content:{idea:0, brief:0,drafting:0,review:0,done:22},blocked:1,web:{brief:10,qa:4,live:6}},
+      Core:     {content:{idea:8, brief:8,drafting:4,review:8,done:0}, blocked:1,web:{brief:0,qa:0,live:0}},
+    },
+  };
+  const _SEO_BU_COLOR={FastField:'#D97706',Pave:'#2C9382',Core:'#10503C'};
+  const _seoMiniStrip=(stages,col)=>{
+    const total=stages.reduce((s,p)=>s+p[1],0);
+    if(!total)return '<div class="tw-spot-empty">Nothing here yet</div>';
+    // Stages are in fixed pipeline order (not size-ranked), so opacity is a progress
+    // gradient — later stage = further along = fuller color — not a size ranking.
+    const n=stages.length;
+    const bar=stages.map(([label,cnt],i)=>cnt?'<div class="tw-spot-mini-seg" style="flex:'+cnt+' '+cnt+' 0%;background:'+col+';opacity:'+(0.35+0.65*(n>1?i/(n-1):1))+'" title="'+label+': '+cnt+'"></div>':'').join('');
+    const legend=stages.filter(([,cnt])=>cnt>0).map(([label,cnt])=>label+' <b>'+cnt+'</b>').join(' &middot; ');
+    return '<div class="tw-spot-mini-row">'+bar+'</div><div class="tw-spot-mini-legend">'+legend+'</div>';
+  };
+  const _seoBuCard=(buName,data)=>{
+    const c=data.content;
+    const contentStages=[['Idea',c.idea],['Briefed',c.brief],['Drafting',c.drafting],['In review',c.review],['Written',c.done]];
+    const webStages=[['Briefed',data.web.brief],['QA',data.web.qa],['Live',data.web.live]];
+    const total=contentStages.reduce((s,p)=>s+p[1],0)+(data.blocked||0);
+    const col=_SEO_BU_COLOR[buName]||'#64748B';
+    const blockedChip=data.blocked?'<div style="margin-top:6px"><span class="tw-attn-chip blocked">⛔ '+data.blocked+' blocked</span></div>':'';
+    return '<div class="tw-spot-bu">'
+      +'<div class="tw-spot-bu-hd"><span class="tw-spot-bu-name">'+buName+'</span><span class="tw-spot-bu-total">'+total+' pages</span></div>'
+      +'<div class="tw-spot-lbl">Content &mdash; written by Content team</div>'
+      +_seoMiniStrip(contentStages,col)
+      +'<div class="tw-spot-lbl">Web publish &mdash; built by Web team</div>'
+      +_seoMiniStrip(webStages,col)
+      +blockedChip
+      +'</div>';
+  };
+  const _seoSpotlightHtml=()=>
+    '<div class="tw-spot">'
+    +'<div class="tw-spot-hd">'
+    +'<div><div class="tw-spot-title">🔍 SEO Content Program</div>'
+    +'<div class="tw-spot-sub">'+SEO_PIPELINE.epicCount+' SEO-labeled epics (SEO lead: Tom South / Tony Ruiz) across FastField, Pave &amp; Core &mdash; content is written by Nathan Wahl\'s team, then published separately by the Web team via its own Web Page Request ticket</div></div>'
+    +'<span class="tw-spot-pulled">Pulled directly from Jira &middot; '+SEO_PIPELINE.pulledAt+'</span>'
+    +'</div>'
+    +'<div class="tw-spot-bu-row">'+Object.keys(SEO_PIPELINE.byBU).map(bu=>_seoBuCard(bu,SEO_PIPELINE.byBU[bu])).join('')+'</div>'
+    +'</div>';
+
   const _card=c=>{
     const lb=_LBADGE[c.load]||_LBADGE.GAP;
     const col=CH_COLOR[c.ch]||'#64748B';
@@ -24506,12 +24599,10 @@ function renderTeamsDashboard(){
     const attnBlock=hasAttentionData?_attnHtml(blockedItems,overdueItems):'';
     const inflightBlock=_inFlightHtml(items);
     const divider=(attnBlock||inflightBlock)?'<div class="tw-divider"></div>':'';
-    // Content & SEO share one Jira channel/team — capacity (hours/load) can't be split without
-    // per-item hour data, so the item count comes from the real split (in the hero tile below)
-    // and this caption only speaks to the shared hours/load estimate.
-    const isSplit=c.ch==='Content'||c.ch==='SEO';
-    const capLine=isSplit
-      ?c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ '+(c.ch==='Content'?'SEO':'Content')+')</span>'
+    // Content shares its Jira channel/team capacity with SEO (see the spotlight above) — capacity
+    // (hours/load) can't be split without per-item hour data, so this caption flags it as shared.
+    const capLine=c.ch==='Content'
+      ?c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ SEO)</span>'
       :c.hours+'h estimated capacity';
     return '<div class="tw-card" style="--tw-accent:'+col+'">'
       +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-icon">'+(CH_ICON[c.ch]||'📌')+'</span>'+c.ch+'</span>'
@@ -24527,8 +24618,9 @@ function renderTeamsDashboard(){
   document.getElementById('teams').innerHTML=
     '<div class="sec-hd"><h2>Teams Dashboard</h2><p>Updated '+CAP_DATA.pulledAt+'</p></div>'
     +'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 14px;margin-bottom:18px;font-size:12px;color:#78350f;line-height:1.5">'
-    +'📋 <strong>One widget per team</strong> — each leads with a Briefed &rarr; In progress &rarr; Published pipeline (Jira status buckets), then what\'s blocked/overdue/in flight, then channel-specific context (BU split or type mix).'
+    +'📋 <strong>One widget per team</strong> — each leads with a Briefed &rarr; In progress &rarr; Published pipeline (Jira status buckets), then what\'s blocked/overdue/in flight, then a BU split (FastField/Pave/Core/Cross-BU).'
     +'</div>'
+    +_seoSpotlightHtml()
     +noDataBanner
     +'<div class="tw-grid">'+_expandChannels(CAP_DATA.channels).map(_card).join('')+'</div>';
 }
