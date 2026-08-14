@@ -23987,13 +23987,20 @@ function renderDeliverables(){
     const t=i.title||'';
     if(/^\[Pave\]/i.test(t)||/\bpaveathon\b/i.test(t))return 'Pave';
     if(/^\[FF\]/i.test(t)||/\bfastfield\b/i.test(t)||/\bfso\b/i.test(t)||/field service/i.test(t)||/smarter services/i.test(t))return 'FastField';
-    if(/^\[Core\]/i.test(t))return 'Core (QB)';
+    if(/^\[Core\]/i.test(t))return 'QB-Core';
     if(/^\[Cross-BU\]/i.test(t)||/\bempower\b/i.test(t))return 'Cross-BU';
-    if(i.ch==='Content & SEO'||i.ch==='Content'||i.ch==='SEO')return 'Core (QB)';
+    if(i.ch==='Content & SEO'||i.ch==='Content'||i.ch==='SEO')return 'QB-Core';
     return 'Unknown';};
-  const _norm=i=>({...i,
-    ch:i.ch==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):i.ch,
-    bu:_inferBU(i)});
+  // update-dashboard.js relabels some channels for display (e.g. "SEO / AEO", "Web / Digital")
+  // — same alias map renderTeamsDashboard() uses, so a channel value valid there is valid here too.
+  const CH_ALIAS={'SEO / AEO':'Content & SEO','Content':'Content & SEO',
+    'Web / Digital':'Web & Digital','Launches & GTM':'PMM / Product',
+    'Webinars & Events':'Events & Experiences','PR & Exec Comms':'PR & Comms',
+    'Systems & AI':'Marketing Analytics','Paid Media':'Demand Gen'};
+  const _norm=i=>{const ch0=CH_ALIAS[i.ch]||i.ch;
+    return {...i,
+      ch:ch0==='Content & SEO'?(_isSeo(i.title)?'SEO':'Content'):ch0,
+      bu:_inferBU(i)};};
 
   // ── Color maps ─────────────────────────────────────────────────────────
   const CH_COLOR_MAP={'Content':'#0066D6','SEO':'#0891B2','Email & Lifecycle':'#14A558',
@@ -24003,7 +24010,7 @@ function renderDeliverables(){
   const _chFallback=['#0066D6','#7C3AED','#14A558','#DB2777','#F59E0B','#0891B2','#059669','#E53935'];
   let _chFbIdx=0;
   const chColMap={};
-  const BU_COLS={'FastField':'#D97706','Pave':'#2C9382','Core (QB)':'#10503C','Cross-BU':'#6d28d9'};
+  const BU_COLS={'FastField':'#D97706','Pave':'#2C9382','QB-Core':'#10503C','Cross-BU':'#6d28d9'};
 
   // ── Build sources ──────────────────────────────────────────────────────
   const _planningSrc=(DATA.planning||[]).map(i=>({..._norm(i),_st:'planning'}));
@@ -24058,7 +24065,7 @@ function renderDeliverables(){
   const ownerDrop=`<select class="dv-drop${ofOwner&&ofOwner!=='All'?' active':''}" onchange="setOF('owner',this.value)"><option value="All"${!ofOwner||ofOwner==='All'?' selected':''}>👤 All people</option>${_owners.map(n=>`<option value="${n}"${ofOwner===n?' selected':''}>${_ownerFmt(n)||n}</option>`).join('')}</select>`;
 
   const _buCnt={};allItems.forEach(i=>_buCnt[i.bu]=(_buCnt[i.bu]||0)+1);
-  const buDrop=`<select class="dv-drop${ofBU!=='All'?' active':''}" onchange="setOF('bu',this.value)"><option value="All"${ofBU==='All'?' selected':''}>BU: All</option>${['FastField','Pave','Core (QB)','Cross-BU'].map(b=>`<option value="${b}"${ofBU===b?' selected':''}>${b} (${_buCnt[b]||0})</option>`).join('')}</select>`;
+  const buDrop=`<select class="dv-drop${ofBU!=='All'?' active':''}" onchange="setOF('bu',this.value)"><option value="All"${ofBU==='All'?' selected':''}>BU: All</option>${['FastField','Pave','QB-Core','Cross-BU'].map(b=>`<option value="${b}"${ofBU===b?' selected':''}>${b} (${_buCnt[b]||0})</option>`).join('')}</select>`;
 
   const _chTotals={};_allSrc.forEach(i=>{if(i.ch)_chTotals[i.ch]=(_chTotals[i.ch]||0)+1;});
   const _chCnt={};allItems.forEach(i=>{if(i.ch)_chCnt[i.ch]=(_chCnt[i.ch]||0)+1;});
@@ -24151,6 +24158,23 @@ function setOF(w,v){
   renderDeliverables();
 }
 function pickCh(i){const n=window._chNames[i];setOF('ch',ofCh===n?'All':n);}
+// Jump from a Teams Dashboard number/chip straight into a pre-filtered Deliverables list,
+// in-app, instead of leaving to an external Jira search. Pass 'All' (or omit) to leave a
+// given filter untouched — e.g. jumpToDeliverables('SEO') only sets the channel.
+function jumpToDeliverables(ch,bu,status){
+  if(ch!==undefined)ofCh=ch;
+  if(bu!==undefined)ofBU=bu;
+  if(status!==undefined)ofStatus=status;
+  ofOwner='All';ofPeriod='All';ofLbl='All';delPage=1;
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('deliverables').classList.add('on');
+  const btn=Array.from(document.querySelectorAll('.tbtn')).find(b=>b.textContent.includes('Deliverables'));
+  if(btn)btn.classList.add('on');
+  document.getElementById('deliverables').innerHTML='';
+  renderDeliverables();
+  window.scrollTo({top:0,behavior:'instant'});
+}
 function applyDelFilters(){
   const titleTerm=((document.getElementById('del-title-input')||{}).value||'').toLowerCase().trim();
   document.querySelectorAll('#del3-feed .dv-row').forEach(r=>{
@@ -24492,13 +24516,9 @@ function renderTeamsDashboard(){
     'Webinars & Events':'Events & Experiences','PR & Exec Comms':'PR & Comms',
     'Systems & AI':'Marketing Analytics','Paid Media':'Demand Gen'};
   const _norm=ch=>CH_ALIAS[ch]||ch;
-  // Deep-links — turn numbers/chips into real Jira searches instead of dead-end stats.
-  // Best-effort JQL: assignee-list + status/label match the same signals the client-side
-  // heuristic uses to build the number, not a literal reproduction of the heuristic itself.
+  // SEO's BU headers still deep-link to an external Jira search (parent in <epic keys>) since
+  // that's more precise than Deliverables' filters can express; everything else jumps in-app.
   const _jqlUrl=jql=>'https://quickbase.atlassian.net/issues/?jql='+encodeURIComponent(jql);
-  const _STATUS_CAT={planning:'To Do',active:'In Progress',done:'Done'};
-  const _BU_LABEL={'FastField':'FF-MKT','Pave':'Pave-MKT','QB-Core':'QB-Core-MKT','Cross-BU':'CrossBU-MKT'};
-  const _peopleJql=people=>'assignee in ('+people.map(p=>'"'+p.replace(/"/g,'\\"')+'"').join(',')+')';
   const _all=[
     ...(DATA.planning||[]).map(i=>({...i,ch:_norm(i.ch),_st:'planning'})),
     ...(DATA.active  ||[]).map(i=>({...i,ch:_norm(i.ch),_st:'active'})),
@@ -24525,43 +24545,44 @@ function renderTeamsDashboard(){
   const _PIPE_COLOR={planning:'#4361EE',active:'#2C9382',done:'#14A558'};
   const _PIPE_LABEL={planning:'Briefed',active:'In progress',done:'Published'};
   const _PIPE_ICON={planning:'📋',active:'⚙️',done:'✅'};
-  const _pipelineFromCounts=(counts,labels,people)=>{
+  // Deep-links now jump in-app to a pre-filtered Deliverables view (jumpToDeliverables, wired
+  // near setOF()) instead of opening an external Jira search — same channel names and BU values
+  // (QB-Core/FastField/Pave/Cross-BU) that Deliverables' own filters already use.
+  const _STATUS_FOR_DEL={planning:'Planning',active:'In Progress',done:'Done'};
+  const _pipelineFromCounts=(counts,labels,ch)=>{
     const lbl=labels||_PIPE_LABEL;
     return '<div class="tw-pipe-row">'+['planning','active','done'].map((st,i)=>{
       const inner='<div class="tw-pipe-icon">'+_PIPE_ICON[st]+'</div>'
         +'<div class="tw-pipe-n" style="color:'+_PIPE_COLOR[st]+'">'+(counts[st]||0)+'</div><div class="tw-pipe-l">'+lbl[st]+'</div>';
-      const stage=(people&&people.length)
-        ?'<a class="tw-pipe-stage" style="background:'+_PIPE_COLOR[st]+'0d" target="_blank" rel="noopener" title="Open in Jira" href="'+_jqlUrl('project in (MKT, WE) AND '+_peopleJql(people)+' AND statusCategory = "'+_STATUS_CAT[st]+'"')+'">'+inner+'</a>'
+      const stage=ch
+        ?'<a class="tw-pipe-stage" style="background:'+_PIPE_COLOR[st]+'0d" href="#" title="View in Deliverables" onclick="jumpToDeliverables(\''+ch+'\',\'All\',\''+_STATUS_FOR_DEL[st]+'\');return false;">'+inner+'</a>'
         :'<div class="tw-pipe-stage" style="background:'+_PIPE_COLOR[st]+'0d">'+inner+'</div>';
       return (i>0?'<span class="tw-pipe-arrow">&rarr;</span>':'')+stage;
     }).join('')+'</div>';
   };
-  const _pipelineHtml=(items,people)=>{
+  const _pipelineHtml=(items,ch)=>{
     const counts={planning:0,active:0,done:0};
     items.forEach(i=>{counts[i._st]=(counts[i._st]||0)+1;});
-    return _pipelineFromCounts(counts,null,people);
+    return _pipelineFromCounts(counts,null,ch);
   };
   // Part-to-whole as ONE segmented strip (sequential: one hue, opacity-ranked) + a chip legend,
   // instead of a stack of near-identical horizontal bar rows.
   const _SEG_OPACITY=[1,.72,.5,.34];
-  const _segBarHtml=(pairs,col,people)=>{
+  const _segBarHtml=(pairs,col,ch)=>{
     const bar=pairs.map(([label,n],i)=>
       '<div class="tw-seg" style="flex:'+n+' '+n+' 0%;background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'" title="'+label+': '+n+'"></div>').join('');
     const legend=pairs.map(([label,n],i)=>{
       const inner='<span class="tw-seg-chip-dot" style="background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'"></span>'+label+' <b>'+n+'</b>';
-      if(people&&people.length){
-        let jql='project in (MKT, WE) AND '+_peopleJql(people);
-        if(_BU_LABEL[label])jql+=' AND labels = "'+_BU_LABEL[label]+'"';
-        return '<a class="tw-seg-chip" target="_blank" rel="noopener" title="Open in Jira" href="'+_jqlUrl(jql)+'">'+inner+'</a>';
-      }
-      return '<span class="tw-seg-chip">'+inner+'</span>';
+      return ch
+        ?'<a class="tw-seg-chip" href="#" title="View in Deliverables" onclick="jumpToDeliverables(\''+ch+'\',\''+label+'\',\'All\');return false;">'+inner+'</a>'
+        :'<span class="tw-seg-chip">'+inner+'</span>';
     }).join('');
     return '<div class="tw-seg-wrap"><div class="tw-seg-bar">'+bar+'</div><div class="tw-seg-legend">'+legend+'</div></div>';
   };
-  const _buSegHtml=(items,col,people)=>{
+  const _buSegHtml=(items,col,ch)=>{
     const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
     const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
-    return pairs.length?_segBarHtml(pairs,col,people):'<div class="tw-foot">No BU-tagged items</div>';
+    return pairs.length?_segBarHtml(pairs,col,ch):'<div class="tw-foot">No BU-tagged items</div>';
   };
   // Meter — a single ratio against a whole (e.g. Content's share of the combined Content+SEO team's work).
   const _meterHtml=(pct,col,label)=>
@@ -24574,14 +24595,14 @@ function renderTeamsDashboard(){
   };
 
   // ── every widget: pipeline, then BU split (answers "divide by business unit" universally) ──
-  const _contentSignal=(items,col,people)=>
-    _pipelineHtml(items,people)
+  const _contentSignal=(items,col,ch)=>
+    _pipelineHtml(items,ch)
     +_contentSeoShare(items,col,'Share of Content + SEO capacity')
-    +_buSegHtml(items,col,people);
+    +_buSegHtml(items,col,ch);
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
-    if(c.ch==='Content')return _contentSignal(items,col,c.people);
-    return _pipelineHtml(items,c.people)+_buSegHtml(items,col,c.people);
+    if(c.ch==='Content')return _contentSignal(items,col,c.ch);
+    return _pipelineHtml(items,c.ch)+_buSegHtml(items,col,c.ch);
   };
   const CH_ICON={'Content':'📝','SEO':'🔍','Email & Lifecycle':'✉️','Creative & Design':'🎨',
     'Demand Gen':'📣','Social Media':'💬','PMM / Product':'🚀','Marketing Analytics':'📊',
