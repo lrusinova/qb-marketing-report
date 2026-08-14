@@ -24010,7 +24010,7 @@ function renderDeliverables(){
   const _activeSrc=(DATA.active||[]).map(i=>({..._norm(i),_st:'in-progress'}));
   const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
   const _shippedSrc=_raw.map(i=>({..._norm(i),_st:'done'}));
-  const _allSrc=[..._planningSrc,..._activeSrc,..._shippedSrc];
+  const _allSrc=(()=>{const _seen=new Set();return[..._activeSrc,..._planningSrc,..._shippedSrc].filter(i=>_seen.has(i.key)?false:(_seen.add(i.key),true));})();
   _allSrc.forEach(i=>{if(i.ch&&!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];});
 
   // ── Owner helper ───────────────────────────────────────────────────────
