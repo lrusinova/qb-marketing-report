@@ -695,6 +695,10 @@ function jsLit(val, depth = 0) {
 }
 
 // ── Shared helper: categorize a list of issues into deliverable objects ───────
+// Same status-name set syncProgStatuses() already uses to mean "blocked" at the
+// program level — kept consistent so task-level and program-level "blocked" agree.
+const BLOCKED_STATUS_NAMES = new Set(['blocked', 'on hold']);
+
 function categorizeIssues(issues, personChannel) {
   const results = [];
   for (const issue of issues) {
@@ -710,6 +714,10 @@ function categorizeIssues(issues, personChannel) {
     const updatedDate = rawDate
       ? new Date(rawDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
       : '';
+    const statusName = issue.fields.status?.name || '';
+    const due        = issue.fields.duedate || null;
+    const priority    = issue.fields.priority?.name || null;
+    const blocked     = BLOCKED_STATUS_NAMES.has(statusName.toLowerCase());
 
     const buResult = detectBU(labels, allText, components);
     let channel    = detectChannel(assignee, issuetype, summary, allText, personChannel);
@@ -723,6 +731,7 @@ function categorizeIssues(issues, personChannel) {
       label: buResult ? buResult.label : '',
       owner: assignee || 'Unassigned',
       type:  detectType(issuetype, summary), updatedDate,
+      due, statusName, priority, blocked,
       _parentKey: buResult ? null : parentKey,
     });
   }
@@ -742,7 +751,7 @@ async function fetchActiveDeliverables(team, cutoff) {
   const assignees = team.map(p => `"${p.jiraName}"`).join(',');
   // Scope to items updated within the last 90 days to avoid ancient stale items
   const jql = `project in (MKT, WE) AND statusCategory = "In Progress" AND assignee in (${assignees}) AND updated >= "${cutoff}" AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project") ORDER BY updated DESC`;
-  const fields = 'summary,assignee,issuetype,labels,components,description,updated,parent';
+  const fields = 'summary,assignee,issuetype,labels,components,description,updated,parent,duedate,status,priority';
 
   const issues = [];
   let start = 0;
@@ -770,7 +779,7 @@ async function fetchPlanningDeliverables(team, cutoff) {
 
   const assignees = team.map(p => `"${p.jiraName}"`).join(',');
   const jql = `project in (MKT, WE) AND statusCategory = "To Do" AND assignee in (${assignees}) AND updated >= "${cutoff}" AND issuetype not in (Epic, "Marketing Initiative", "Strategic Project") ORDER BY updated DESC`;
-  const fields = 'summary,assignee,issuetype,labels,components,description,updated,parent';
+  const fields = 'summary,assignee,issuetype,labels,components,description,updated,parent,duedate,status,priority';
 
   const issues = [];
   let start = 0;
