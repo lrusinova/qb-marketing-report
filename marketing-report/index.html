@@ -253,6 +253,8 @@ button{font-family:inherit;cursor:pointer}
 .bu-ep-pill{font-size:9px;font-weight:700;padding:2px 7px;border-radius:12px;flex-shrink:0;white-space:nowrap;letter-spacing:.2px;margin-top:3px}
 .bu-ep-done .bu-ep-title{color:var(--g400);text-decoration:line-through;text-decoration-color:var(--g300)}
 .bu-ep-done .bu-ep-pill{opacity:.4}
+a.bu-ep-title{color:inherit;text-decoration:none}
+a.bu-ep-title:hover{text-decoration:underline;opacity:.85}
 .bu-no-epics{font-size:11px;color:var(--g400);padding:10px 16px;font-style:italic}
 .bu-prod-stat-row{display:flex;gap:16px;padding:10px 16px 8px;background:var(--g50);border-bottom:1px solid var(--g100)}
 .bu-prod-stat{display:flex;flex-direction:column;align-items:flex-start}
@@ -657,7 +659,9 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 @media(max-width:900px){.tw-spot-bu-row{grid-template-columns:1fr}}
 .tw-spot-bu{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:14px 16px}
 .tw-spot-bu-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.tw-spot-bu-name{font-size:12.5px;font-weight:800;color:var(--navy)}
+.tw-spot-bu-name{font-size:12.5px;font-weight:800;color:var(--navy);text-decoration:none}
+a.tw-spot-bu-name{cursor:pointer}
+a.tw-spot-bu-name:hover{text-decoration:underline}
 .tw-spot-bu-total{font-size:10.5px;color:var(--g400)}
 .tw-spot-lbl{font-size:9px;font-weight:800;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin:8px 0 4px}
 .tw-spot-mini-row{display:flex;gap:2px;height:9px;border-radius:5px;overflow:hidden;background:var(--g100);margin-bottom:5px}
@@ -679,8 +683,9 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .tw-signal-lbl{font-size:10.5px;color:var(--g500);margin-top:auto;padding-top:6px}
 /* Pipeline — Briefed → In progress → Published, the universal first block on every widget */
 .tw-pipe-row{display:flex;align-items:center;gap:2px}
-.tw-pipe-stage{flex:1;text-align:center;background:var(--g50);border-radius:12px;padding:10px 6px;transition:transform .15s ease}
-.tw-pipe-stage:hover{transform:translateY(-1px)}
+.tw-pipe-stage{flex:1;text-align:center;background:var(--g50);border-radius:12px;padding:10px 6px;transition:transform .15s ease,box-shadow .15s ease;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center}
+a.tw-pipe-stage{cursor:pointer}
+a.tw-pipe-stage:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(15,23,42,.1)}
 .tw-pipe-icon{font-size:12px;line-height:1;margin-bottom:3px;opacity:.75}
 .tw-pipe-n{font-size:22px;font-weight:900;line-height:1;letter-spacing:-.5px}
 .tw-pipe-l{font-size:8.5px;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.35px;margin-top:3px;white-space:nowrap}
@@ -691,7 +696,9 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .tw-seg-bar{display:flex;gap:2px;height:11px;border-radius:6px;overflow:hidden;background:var(--g100)}
 .tw-seg{height:100%;min-width:3px}
 .tw-seg-legend{display:flex;flex-wrap:wrap;gap:6px}
-.tw-seg-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--g600);white-space:nowrap;background:var(--g50);border:1px solid var(--g100);border-radius:20px;padding:3px 9px 3px 7px}
+.tw-seg-chip{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:var(--g600);white-space:nowrap;background:var(--g50);border:1px solid var(--g100);border-radius:20px;padding:3px 9px 3px 7px;text-decoration:none;transition:background .12s ease,border-color .12s ease}
+a.tw-seg-chip{cursor:pointer}
+a.tw-seg-chip:hover{background:#fff;border-color:var(--g300)}
 .tw-seg-chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .tw-seg-chip b{color:var(--g800);font-weight:800}
 /* Meter — single ratio against a whole (e.g. SEO share of shared team capacity) */
@@ -1482,7 +1489,7 @@ const DATA = {
      outcome:"Compounding, ICP-quality growth for the next-gen portfolio.",
      execSummary:"Pave Tier 1 launch: Connectors, Workflows & Custom Agents — soft launch Aug 18, hard launch Sep 16 (theme: 'Don't build an app. Run an operation.'). FF AI Form Builder in-flight, due Sep 1. Marketplace & App Gallery active. Post-Paveathon GTM content activation in planning.",
      launches:[
-       {key:"MKT-12740",title:"Connectors, Workflows & Custom Agents",bu:"Pave",status:"in-progress",due:"Sep 16"},
+       {key:"MKT-12740",title:"Connectors & Workflows",bu:"Pave",status:"in-progress",due:"Sep 16"},
        {key:"MKT-12888",title:"AI Form Builder",bu:"FF",status:"in-progress",due:"Sep 1"},
        {key:"MKT-12850",title:"FF Web — Platform Pages & Nav",bu:"FF",status:"in-progress",due:null},
        {key:"MKT-11797",title:"Marketplace & App Gallery",bu:"Pave",status:"in-progress",due:null},
@@ -21152,7 +21159,7 @@ const ROADMAP = [
   {id:'rm_pa01',   title:'Portfolio Architecture & Narrative',       fn:'Brand Refresh',bu:'All',tier:'Brand Refresh',owner:'Andy',       weekOf:'2026-07-06',end:'2026-09-07',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   // Q3 ── July 2026 ─────────────────────────────────────────────────────────────────────────
   // end = null → point-in-time milestone (diamond); end = date → duration bar
-  {id:'rm01',title:'Pave: Connectors, Workflows & Custom Agents — GA Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-07-09',end:'2026-08-13',qtr:'Q3',status:'confirmed',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6402506791/',jira:'MKT-12740'},
+  {id:'rm01',title:'Pave: Connectors & Workflows — Soft Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-07-09',end:'2026-08-13',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6402506791/',jira:'MKT-12740'},
   {id:'rm03',title:'Rebrand Phase 2 – Visual Systems',             fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-07-06',end:'2026-09-28',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12613'},
   {id:'rm05',title:'Advancing ElecPreFab (Jul 22–24, Dallas)',      fn:'Events',          bu:'All', tier:'Sponsored T2',  owner:'Susana',          weekOf:'2026-07-22',end:'2026-07-24',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-11258'},
   {id:'rm06',title:'Scheduler (Solvice) Open Beta',                fn:'Product Launches',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-07-13',end:'2026-08-03',qtr:'Q3',status:'in-progress', brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6257016930',jira:'MKT-12825'},
@@ -21182,7 +21189,7 @@ const ROADMAP = [
   {id:'rm_br04',title:'Brand: Asset Handoff & Onboarding',         fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'planned',   brief:null,jira:'MKT-12613'},
   {id:'rm19',title:'Scheduler (Solvice) GA',                       fn:'Product Launches',    bu:'QB',  tier:'Tier 1',        owner:'Michael',         weekOf:'2026-09-07',end:'2026-09-28',qtr:'Q3',status:'in-progress', brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6257016930',jira:'MKT-12825'},
   {id:'rm20',title:'FF: AI Form Builder — GA Launch',              fn:'Product Launches',    bu:'AWE', tier:'Tier 1',        owner:'Hira',            weekOf:'2026-09-07',end:'2026-09-21',qtr:'Q3',status:'in-progress', brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6356795439/',jira:'MKT-12888'},
-  {id:'rm21',title:'Pave: Connectors, Workflows & Custom Agents — Hard Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-09-14',end:'2026-09-21',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6401392662/',jira:'MKT-12740'},
+  {id:'rm21',title:'Pave: Connectors & Workflows — Hard Launch',fn:'Product Launches',bu:'AWE',tier:'Tier 1',owner:'Michelle',weekOf:'2026-09-14',end:'2026-09-21',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/PMM/pages/6401392662/',jira:'MKT-12740'},
   {id:'rm22',title:'FF: Solvice',                                  fn:'Product Launches',    bu:'AWE', tier:'Tier 3',        owner:'Hira',            weekOf:'2026-09-07',end:'2026-09-14',qtr:'Q3',status:'tbc',      brief:null,jira:null},
   // Q3/Q4 ── Community ────────────────────────────────────────────────────────────────────
   {id:'rm_comm01',title:'Qrew Migration: Khoros → Gainsight',      fn:'Community',bu:'QB', tier:'Migration',owner:'Ben',        weekOf:'2026-06-03',end:'2026-09-21',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12463'},
@@ -23401,12 +23408,14 @@ function renderBriefing(){
   const _isFF2=function(l){const b=(l.bu||'').toLowerCase();const t=(l.title||'');return b==='ff'||b==='fastfield'||/^FF[\s\-:\/]/i.test(t)||/^\[FF[\]\ :]/i.test(t);};
   const _isPave2=function(l){const b=(l.bu||'').toLowerCase();const t=(l.title||'');return b==='pave'||/^Pave[\s\-:\/]/i.test(t)||/^\[Pave[\]\ :]/i.test(t);};
   const _isCoreL=function(l){const b=(l.bu||'').toLowerCase();return l._sp==='MKT-12569'||b==='core'||b==='qb'||b==='launch';};
-  const _ffL=_taggedL.filter(_isFF2);
+  const _ffLBase=_taggedL.filter(_isFF2);
+  const _ffLBaseKeys=new Set(_ffLBase.map(function(l){return l.key;}));
+  const _ffL=_ffLBase.concat([{key:'MKT-13305',title:'FF SEO Use Cases — Entity Cluster',bu:'FF',status:'planning',due:null,_sp:'MKT-12570'},{key:'MKT-13212',title:'FF SEO Comparisons — Entity Cluster',bu:'FF',status:'planning',due:null,_sp:'MKT-12570'}].filter(function(l){return !_ffLBaseKeys.has(l.key);}));
   const _paveL=_taggedL.filter(_isPave2);
   const _coreLBase=_taggedL.filter(function(l){return !_isFF2(l)&&!_isPave2(l)&&_isCoreL(l);});
   // Supplement Core with roadmap items the bot didn't pull into initiatives (e.g. MKT-13268 Enterprise Plan Trial)
   const _coreRmKeys=new Set(_coreLBase.map(function(l){return l.key;}));
-  const _coreRmExtra=(DATA.roadmap||[]).filter(function(rm){
+  const _coreRmExtra=(ROADMAP||[]).filter(function(rm){
     return(rm.bu==='QB'||/^\[Core\]/i.test(rm.title||''))&&rm.status!=='tbc'&&!_coreRmKeys.has(rm.jira||rm.id);
   }).map(function(rm){
     return{key:rm.jira||rm.id,title:(rm.title||'').replace(/^\[Core\]\s*/i,''),bu:'Core',status:rm.status==='in-progress'?'in-progress':rm.status,due:rm.end,_sp:'MKT-12569'};
@@ -23527,9 +23536,10 @@ function renderBriefing(){
     const isActive=l.status==='in-progress'||l.status==='confirmed';
     const isPlan=l.status==='planning'||l.status==='intake';
     const shadow=isBlocked?'box-shadow:inset 3px 0 0 #dc2626;background:#dc262607':isActive?'box-shadow:inset 3px 0 0 '+sc+';background:'+sc+'07':isPlan?'box-shadow:inset 3px 0 0 #1d4ed8;background:#1d4ed807':'';
+    const _jHref=l.key?'https://quickbase.atlassian.net/browse/'+l.key:'';
     return'<div class="bu-ep-row'+(done?' bu-ep-done':'')+'"'+(shadow?' style="'+shadow+'"':'')+'>'
       +'<span class="bu-ep-dot" style="background:'+sc+'"></span>'
-      +'<span class="bu-ep-title">'+l.title+'</span>'
+      +(_jHref?'<a class="bu-ep-title" href="'+_jHref+'" target="_blank" rel="noopener">'+l.title+'</a>':'<span class="bu-ep-title">'+l.title+'</span>')
       +'<span class="bu-ep-pill" style="background:'+sc+'15;color:'+sc+'">'+sl+'</span>'
       +'</div>';
   };
@@ -23574,7 +23584,7 @@ function renderBriefing(){
   };
   // Product sub-panel (FF or Pave inside AWE) — big stat numbers
   const _buProdPanel=function(label,color,epics,stats,td){
-    const rows=_srt2(epics).slice(0,10);
+    const rows=_srt2(epics).filter(function(l){return !/Web — Q[234] 20\d\d/.test(l.title||'');}).slice(0,12);
     const pct=td&&td.pct!=null?td.pct:null;
     const sParts=[];
     if(stats.ip)sParts.push('<span style="font-weight:700;color:'+color+'">'+stats.ip+' active</span>');
@@ -23607,7 +23617,7 @@ function renderBriefing(){
   const _corePct=_iniPct2('MKT-12569');
   const _coreGoals=_iniGoals2('MKT-12569');
   const _coreDT=_iniDT('MKT-12569');
-  const _coreSorted=_srt2(_coreL).slice(0,12);
+  const _coreSorted=_srt2(_coreL).filter(function(l){return !/Web — Q[234] 20\d\d/.test(l.title||'');}).slice(0,14);
   const _coreCard='<div class="sp-card" data-key="bu-Core">'
     +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',['MKT-01','MKT-05','MKT-06','MKT-07','MKT-08'],_crTPct,_nsChipHtml(['ARR Growth','NRR']),_tBuDt(_crTSht.length,_crTAct.length,_crTPln.length))
     +'<div class="sp-card-body" style="padding:0">'
@@ -24480,6 +24490,13 @@ function renderTeamsDashboard(){
     'Webinars & Events':'Events & Experiences','PR & Exec Comms':'PR & Comms',
     'Systems & AI':'Marketing Analytics','Paid Media':'Demand Gen'};
   const _norm=ch=>CH_ALIAS[ch]||ch;
+  // Deep-links — turn numbers/chips into real Jira searches instead of dead-end stats.
+  // Best-effort JQL: assignee-list + status/label match the same signals the client-side
+  // heuristic uses to build the number, not a literal reproduction of the heuristic itself.
+  const _jqlUrl=jql=>'https://quickbase.atlassian.net/issues/?jql='+encodeURIComponent(jql);
+  const _STATUS_CAT={planning:'To Do',active:'In Progress',done:'Done'};
+  const _BU_LABEL={'FastField':'FF-MKT','Pave':'Pave-MKT','QB-Core':'QB-Core-MKT','Cross-BU':'CrossBU-MKT'};
+  const _peopleJql=people=>'assignee in ('+people.map(p=>'"'+p.replace(/"/g,'\\"')+'"').join(',')+')';
   const _all=[
     ...(DATA.planning||[]).map(i=>({...i,ch:_norm(i.ch),_st:'planning'})),
     ...(DATA.active  ||[]).map(i=>({...i,ch:_norm(i.ch),_st:'active'})),
@@ -24506,34 +24523,43 @@ function renderTeamsDashboard(){
   const _PIPE_COLOR={planning:'#4361EE',active:'#2C9382',done:'#14A558'};
   const _PIPE_LABEL={planning:'Briefed',active:'In progress',done:'Published'};
   const _PIPE_ICON={planning:'📋',active:'⚙️',done:'✅'};
-  const _pipelineFromCounts=(counts,labels)=>{
+  const _pipelineFromCounts=(counts,labels,people)=>{
     const lbl=labels||_PIPE_LABEL;
-    return '<div class="tw-pipe-row">'+['planning','active','done'].map((st,i)=>
-      (i>0?'<span class="tw-pipe-arrow">&rarr;</span>':'')
-      +'<div class="tw-pipe-stage" style="background:'+_PIPE_COLOR[st]+'0d">'
-      +'<div class="tw-pipe-icon">'+_PIPE_ICON[st]+'</div>'
-      +'<div class="tw-pipe-n" style="color:'+_PIPE_COLOR[st]+'">'+(counts[st]||0)+'</div><div class="tw-pipe-l">'+lbl[st]+'</div></div>'
-    ).join('')+'</div>';
+    return '<div class="tw-pipe-row">'+['planning','active','done'].map((st,i)=>{
+      const inner='<div class="tw-pipe-icon">'+_PIPE_ICON[st]+'</div>'
+        +'<div class="tw-pipe-n" style="color:'+_PIPE_COLOR[st]+'">'+(counts[st]||0)+'</div><div class="tw-pipe-l">'+lbl[st]+'</div>';
+      const stage=(people&&people.length)
+        ?'<a class="tw-pipe-stage" style="background:'+_PIPE_COLOR[st]+'0d" target="_blank" rel="noopener" title="Open in Jira" href="'+_jqlUrl('project in (MKT, WE) AND '+_peopleJql(people)+' AND statusCategory = "'+_STATUS_CAT[st]+'"')+'">'+inner+'</a>'
+        :'<div class="tw-pipe-stage" style="background:'+_PIPE_COLOR[st]+'0d">'+inner+'</div>';
+      return (i>0?'<span class="tw-pipe-arrow">&rarr;</span>':'')+stage;
+    }).join('')+'</div>';
   };
-  const _pipelineHtml=items=>{
+  const _pipelineHtml=(items,people)=>{
     const counts={planning:0,active:0,done:0};
     items.forEach(i=>{counts[i._st]=(counts[i._st]||0)+1;});
-    return _pipelineFromCounts(counts);
+    return _pipelineFromCounts(counts,null,people);
   };
   // Part-to-whole as ONE segmented strip (sequential: one hue, opacity-ranked) + a chip legend,
   // instead of a stack of near-identical horizontal bar rows.
   const _SEG_OPACITY=[1,.72,.5,.34];
-  const _segBarHtml=(pairs,col)=>{
+  const _segBarHtml=(pairs,col,people)=>{
     const bar=pairs.map(([label,n],i)=>
       '<div class="tw-seg" style="flex:'+n+' '+n+' 0%;background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'" title="'+label+': '+n+'"></div>').join('');
-    const legend=pairs.map(([label,n],i)=>
-      '<span class="tw-seg-chip"><span class="tw-seg-chip-dot" style="background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'"></span>'+label+' <b>'+n+'</b></span>').join('');
+    const legend=pairs.map(([label,n],i)=>{
+      const inner='<span class="tw-seg-chip-dot" style="background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'"></span>'+label+' <b>'+n+'</b>';
+      if(people&&people.length){
+        let jql='project in (MKT, WE) AND '+_peopleJql(people);
+        if(_BU_LABEL[label])jql+=' AND labels = "'+_BU_LABEL[label]+'"';
+        return '<a class="tw-seg-chip" target="_blank" rel="noopener" title="Open in Jira" href="'+_jqlUrl(jql)+'">'+inner+'</a>';
+      }
+      return '<span class="tw-seg-chip">'+inner+'</span>';
+    }).join('');
     return '<div class="tw-seg-wrap"><div class="tw-seg-bar">'+bar+'</div><div class="tw-seg-legend">'+legend+'</div></div>';
   };
-  const _buSegHtml=(items,col)=>{
+  const _buSegHtml=(items,col,people)=>{
     const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
     const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
-    return pairs.length?_segBarHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>';
+    return pairs.length?_segBarHtml(pairs,col,people):'<div class="tw-foot">No BU-tagged items</div>';
   };
   // Meter — a single ratio against a whole (e.g. Content's share of the combined Content+SEO team's work).
   const _meterHtml=(pct,col,label)=>
@@ -24546,14 +24572,14 @@ function renderTeamsDashboard(){
   };
 
   // ── every widget: pipeline, then BU split (answers "divide by business unit" universally) ──
-  const _contentSignal=(items,col)=>
-    _pipelineHtml(items)
+  const _contentSignal=(items,col,people)=>
+    _pipelineHtml(items,people)
     +_contentSeoShare(items,col,'Share of Content + SEO capacity')
-    +_buSegHtml(items,col);
+    +_buSegHtml(items,col,people);
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
-    if(c.ch==='Content')return _contentSignal(items,col);
-    return _pipelineHtml(items)+_buSegHtml(items,col);
+    if(c.ch==='Content')return _contentSignal(items,col,c.people);
+    return _pipelineHtml(items,c.people)+_buSegHtml(items,col,c.people);
   };
   const CH_ICON={'Content':'📝','SEO':'🔍','Email & Lifecycle':'✉️','Creative & Design':'🎨',
     'Demand Gen':'📣','Social Media':'💬','PMM / Product':'🚀','Marketing Analytics':'📊',
@@ -24605,6 +24631,13 @@ function renderTeamsDashboard(){
     },
   };
   const _SEO_BU_COLOR={FastField:'#D97706',Pave:'#2C9382',Core:'#10503C'};
+  // The exact SEO-labeled epics per BU, from the same live Jira pull as SEO_PIPELINE — lets the
+  // BU header link straight to "everything under this BU's content clusters" in Jira.
+  const SEO_BU_EPICS={
+    FastField:['MKT-13305','MKT-13212'],
+    Pave:['MKT-13065','MKT-12120','MKT-12119','MKT-12118','MKT-12117','MKT-12116','MKT-12115'],
+    Core:['MKT-12940','MKT-13253'],
+  };
   const _seoMiniStrip=(stages,col)=>{
     const total=stages.reduce((s,p)=>s+p[1],0);
     if(!total)return '<div class="tw-spot-empty">Nothing here yet</div>';
@@ -24622,8 +24655,12 @@ function renderTeamsDashboard(){
     const total=contentStages.reduce((s,p)=>s+p[1],0)+(data.blocked||0);
     const col=_SEO_BU_COLOR[buName]||'#64748B';
     const blockedChip=data.blocked?'<div style="margin-top:6px"><span class="tw-attn-chip blocked">⛔ '+data.blocked+' blocked</span></div>':'';
+    const epics=SEO_BU_EPICS[buName]||[];
+    const buNameHtml=epics.length
+      ?'<a class="tw-spot-bu-name" style="color:'+col+'" target="_blank" rel="noopener" title="Open in Jira" href="'+_jqlUrl('parent in ('+epics.join(',')+')')+'">'+buName+'</a>'
+      :'<span class="tw-spot-bu-name" style="color:'+col+'">'+buName+'</span>';
     return '<div class="tw-spot-bu" style="border-top:3px solid '+col+'">'
-      +'<div class="tw-spot-bu-hd"><span class="tw-spot-bu-name" style="color:'+col+'">'+buName+'</span><span class="tw-spot-bu-total">'+total+' pages</span></div>'
+      +'<div class="tw-spot-bu-hd">'+buNameHtml+'<span class="tw-spot-bu-total">'+total+' pages</span></div>'
       +'<div class="tw-spot-lbl">Content &mdash; written by Content team</div>'
       +_seoMiniStrip(contentStages,col)
       +'<div class="tw-spot-lbl">Web publish &mdash; built by Web team</div>'
