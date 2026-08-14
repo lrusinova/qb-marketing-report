@@ -668,12 +668,13 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
    responsively — and a partial last row stretches to fill the width instead of sitting narrow. */
 .tw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:14px;align-items:stretch}
 .tw-card-wide{grid-column:1/-1}
-.tw-card{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);border-top:4px solid var(--tw-accent,var(--g300));padding:16px 18px;display:flex;flex-direction:column;gap:10px;height:100%}
+.tw-card{background:#fff;border-radius:16px;box-shadow:var(--sh);border:1px solid var(--g200);border-top:4px solid var(--tw-accent,var(--g300));padding:17px 19px;display:flex;flex-direction:column;gap:11px;height:100%;transition:transform .16s ease,box-shadow .16s ease}
+.tw-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,23,42,.1)}
 .tw-card-hd{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.tw-card-title{font-size:13.5px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px}
-.tw-icon{font-size:15px;line-height:1;flex-shrink:0}
+.tw-card-title{font-size:13.5px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:9px}
+.tw-icon{font-size:14px;line-height:1;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:color-mix(in srgb,var(--tw-accent,var(--g300)) 14%,white);display:inline-flex;align-items:center;justify-content:center}
 .tw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:none}
-.tw-badge{font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
+.tw-badge{font-size:9px;font-weight:800;padding:3px 9px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
 .tw-signal-lbl{font-size:10.5px;color:var(--g500);margin-top:auto;padding-top:6px}
 /* Pipeline — Briefed → In progress → Published, the universal first block on every widget */
 .tw-pipe-row{display:flex;align-items:center;gap:2px}
@@ -23398,12 +23399,20 @@ function renderBriefing(){
   const _stL2={'in-progress':'In progress','planning':'Planning','intake':'Intake','blocked':'Blocked','on-hold':'On hold','confirmed':'Confirmed','done':'Done'};
   const _lOrd2={'blocked':0,'in-progress':1,'confirmed':2,'planning':3,'intake':4,'on-hold':5,'done':6};
   const _taggedL=inits.reduce(function(acc,ini){return acc.concat((ini.launches||[]).map(function(l){return Object.assign({},l,{_sp:ini.key});}));  },[]);
-  const _isFF2=function(l){const b=(l.bu||'').toLowerCase();return b==='ff'||b==='fastfield';};
-  const _isPave2=function(l){return(l.bu||'').toLowerCase()==='pave';};
+  const _isFF2=function(l){const b=(l.bu||'').toLowerCase();const t=(l.title||'');return b==='ff'||b==='fastfield'||/^FF[\s\-:\/]/i.test(t)||/^\[FF[\]\ :]/i.test(t);};
+  const _isPave2=function(l){const b=(l.bu||'').toLowerCase();const t=(l.title||'');return b==='pave'||/^Pave[\s\-:\/]/i.test(t)||/^\[Pave[\]\ :]/i.test(t);};
   const _isCoreL=function(l){const b=(l.bu||'').toLowerCase();return l._sp==='MKT-12569'||b==='core'||b==='qb'||b==='launch';};
   const _ffL=_taggedL.filter(_isFF2);
   const _paveL=_taggedL.filter(_isPave2);
-  const _coreL=_taggedL.filter(function(l){return !_isFF2(l)&&!_isPave2(l)&&_isCoreL(l);});
+  const _coreLBase=_taggedL.filter(function(l){return !_isFF2(l)&&!_isPave2(l)&&_isCoreL(l);});
+  // Supplement Core with roadmap items the bot didn't pull into initiatives (e.g. MKT-13268 Enterprise Plan Trial)
+  const _coreRmKeys=new Set(_coreLBase.map(function(l){return l.key;}));
+  const _coreRmExtra=(DATA.roadmap||[]).filter(function(rm){
+    return(rm.bu==='QB'||/^\[Core\]/i.test(rm.title||''))&&rm.status!=='tbc'&&!_coreRmKeys.has(rm.jira||rm.id);
+  }).map(function(rm){
+    return{key:rm.jira||rm.id,title:(rm.title||'').replace(/^\[Core\]\s*/i,''),bu:'Core',status:rm.status==='in-progress'?'in-progress':rm.status,due:rm.end,_sp:'MKT-12569'};
+  });
+  const _coreL=_coreLBase.concat(_coreRmExtra);
   const _usedKeys=new Set([].concat(_ffL,_paveL,_coreL).map(function(l){return l._sp+'|'+l.key;}));
   const _crossL=_taggedL.filter(function(l){return !_usedKeys.has(l._sp+'|'+l.key)&&l._sp!=='MKT-12568';});
   const _allP2=DATA.programs||[];
@@ -23533,13 +23542,15 @@ function renderBriefing(){
     if(st.pl)p.push('<span class="bu-stat" style="background:var(--g100);color:var(--g500)">'+st.pl+' planning</span>');
     return p.length?'<div class="bu-stats-row">'+p.join('')+'</div>':'';
   };
-  // Goal chips for card header
-  const _buGoals=function(goals,color){
-    if(!goals||!goals.length)return '';
+  // MO → short label map for goal chips
+  const _buMoMap={'MKT-01':'QCP New Logo Pipeline','MKT-02':'Pave ICP Trial Demand','MKT-03':'FF Organic Funnel','MKT-04':'Partner New Logos','MKT-05':'Multi-Product X-Sell','MKT-06':'Whitespace Expansion','MKT-07':'Customer Adoption','MKT-08':'Product Launch Content','MKT-09':'AI Feature Adoption','MKT-10':'Customer Retention','MKT-11':'Marketing Operating System'};
+  // Goal chips — accepts MO code array (e.g. ['MKT-02','MKT-03'])
+  const _buGoals=function(mos,color){
+    if(!mos||!mos.length)return '';
     return'<div class="bu-goal-chips">'
-      +goals.map(function(g,i){
-        const lbl=g.split('—')[0].replace(/\s*·.*/,'').trim().substring(0,50);
-        return'<span class="bu-goal-chip" style="background:'+color+'12;color:'+color+'"><strong>G'+(i+1)+'</strong>&nbsp;'+lbl+'</span>';
+      +mos.map(function(mo){
+        const lbl=_buMoMap[mo]||mo;
+        return'<span class="bu-goal-chip" style="background:'+color+'12;color:'+color+'"><strong>'+mo+'</strong>&nbsp;\xb7&nbsp;'+lbl+'</span>';
       }).join('')
       +'</div>';
   };
@@ -23564,14 +23575,12 @@ function renderBriefing(){
   };
   // Product sub-panel (FF or Pave inside AWE) — big stat numbers
   const _buProdPanel=function(label,color,epics,stats,td){
-    const actEps=epics.filter(function(e){return e.status!=='planning'&&e.status!=='intake';});
-    const planCnt=epics.length-actEps.length;
-    const rows=_srt2(actEps).slice(0,9);
+    const rows=_srt2(epics).slice(0,10);
     const pct=td&&td.pct!=null?td.pct:null;
     const sParts=[];
     if(stats.ip)sParts.push('<span style="font-weight:700;color:'+color+'">'+stats.ip+' active</span>');
     if(stats.dn)sParts.push('<span style="font-weight:700;color:#16a34a">'+stats.dn+' done</span>');
-    if(planCnt)sParts.push('<span style="color:var(--g400)">'+planCnt+' in planning</span>');
+    if(stats.pl)sParts.push('<span style="color:var(--g400)">'+stats.pl+' planning</span>');
     return'<div class="bu-prod-panel">'
       +'<div class="bu-prod-hdr" style="border-top-color:'+color+'">'
       +'<span class="bu-prod-dot" style="background:'+color+'"></span>'
@@ -23581,7 +23590,6 @@ function renderBriefing(){
       +(pct!=null?'<div style="height:3px;background:rgba(0,0,0,.06)"><div style="height:100%;width:'+pct+'%;background:'+color+';transition:width 1.2s cubic-bezier(.4,0,.2,1)"></div></div>':'')
       +(sParts.length?'<div style="font-size:10px;padding:5px 14px;background:var(--g50);border-bottom:1px solid var(--g100)">'+sParts.join(' \xb7 ')+'</div>':'')
       +(rows.length?'<div>'+rows.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active programs yet</div>')
-      +(planCnt?'<div style="font-size:9.5px;color:var(--g400);padding:5px 14px;font-style:italic;background:var(--g50);border-top:1px solid var(--g100)">+'+planCnt+' programs in planning</div>':'')
       +'</div>';
   };
   // AWE card — spans 2 columns; FF + Pave sub-panels side by side
@@ -23589,7 +23597,7 @@ function renderBriefing(){
   const _aweGoals=_iniGoals2('MKT-12568');
   const _aweDT=_iniDT('MKT-12568');
   const _aweCard='<div class="sp-card sp-card-awe" data-key="bu-AWE">'
-    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',_aweGoals,_aweTPct,_nsChipHtml(['ARR Growth']),_tBuDt(_aweTSh,_ffTAct.length+_pvTAct.length,_ffTPln.length+_pvTPln.length))
+    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',['MKT-02','MKT-03'],_aweTPct,_nsChipHtml(['ARR Growth']),_tBuDt(_aweTSh,_ffTAct.length+_pvTAct.length,_ffTPln.length+_pvTPln.length))
     +'<div class="sp-card-body" style="padding:0">'
     +'<div class="bu-products-row">'
     +_buProdPanel('FastField','#ea580c',_ffL,_ffSt,{pct:_ffTPct,sht:_ffTSht,act:_ffTAct})
@@ -23600,15 +23608,12 @@ function renderBriefing(){
   const _corePct=_iniPct2('MKT-12569');
   const _coreGoals=_iniGoals2('MKT-12569');
   const _coreDT=_iniDT('MKT-12569');
-  const _coreActEps=_coreL.filter(function(e){return e.status!=='planning'&&e.status!=='intake';});
-  const _corePlanCnt=_coreL.length-_coreActEps.length;
-  const _coreSorted=_srt2(_coreActEps).slice(0,10);
+  const _coreSorted=_srt2(_coreL).slice(0,12);
   const _coreCard='<div class="sp-card" data-key="bu-Core">'
-    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',_coreGoals,_crTPct,_nsChipHtml(['ARR Growth','NRR']),_tBuDt(_crTSht.length,_crTAct.length,_crTPln.length))
+    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',['MKT-01','MKT-05','MKT-06','MKT-07','MKT-08'],_crTPct,_nsChipHtml(['ARR Growth','NRR']),_tBuDt(_crTSht.length,_crTAct.length,_crTPln.length))
     +'<div class="sp-card-body" style="padding:0">'
     +_buStats(_coreSt,'#10503C')
     +(_coreSorted.length?'<div>'+_coreSorted.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active programs yet</div>')
-    +(_corePlanCnt?'<div style="font-size:9.5px;color:var(--g400);padding:5px 14px;font-style:italic;background:var(--g50);border-top:1px solid var(--g100)">+'+_corePlanCnt+' programs in planning</div>':'')
     +'</div></div>';
   // Cross-BU card — spans 3 columns; one panel per strategic project (team owner)
   const _xSpGrps={};
@@ -24489,11 +24494,12 @@ function renderTeamsDashboard(){
     if(c.ch==='SEO')return byCh('Content & SEO').filter(i=>_isSeo(i.title));
     return byCh(c.ch);
   };
-  // SEO is back as its own equal-size card (epic/cluster status — real data, see SEO_EPICS
-  // below), alongside Content. The page-level Content→Web handoff lives in the separate
-  // cross-team pipeline section, not on SEO's own card.
+  // SEO's wide card must come BEFORE Content in the flow, not after — a full-width card
+  // breaks the row, and if it follows Content, Content is left alone with an empty gap
+  // beside it. Leading with SEO means the remaining 12 regular cards (a multiple of 3)
+  // pack into clean, even rows with nothing orphaned.
   const _expandChannels=channels=>channels.flatMap(c=>c.ch==='Content & SEO'
-    ?[{...c,ch:'Content'},{...c,ch:'SEO'}]
+    ?[{...c,ch:'SEO'},{...c,ch:'Content'}]
     :[c]);
   // Pipeline — Briefed (planning) → In progress (active) → Published (done): the universal
   // first block on every widget. These are Jira statusCategory buckets (already fetched),
@@ -24625,8 +24631,8 @@ function renderTeamsDashboard(){
     const total=contentStages.reduce((s,p)=>s+p[1],0)+(data.blocked||0);
     const col=_SEO_BU_COLOR[buName]||'#64748B';
     const blockedChip=data.blocked?'<div style="margin-top:6px"><span class="tw-attn-chip blocked">⛔ '+data.blocked+' blocked</span></div>':'';
-    return '<div class="tw-spot-bu">'
-      +'<div class="tw-spot-bu-hd"><span class="tw-spot-bu-name">'+buName+'</span><span class="tw-spot-bu-total">'+total+' pages</span></div>'
+    return '<div class="tw-spot-bu" style="border-top:3px solid '+col+'">'
+      +'<div class="tw-spot-bu-hd"><span class="tw-spot-bu-name" style="color:'+col+'">'+buName+'</span><span class="tw-spot-bu-total">'+total+' pages</span></div>'
       +'<div class="tw-spot-lbl">Content &mdash; written by Content team</div>'
       +_seoMiniStrip(contentStages,col)
       +'<div class="tw-spot-lbl">Web publish &mdash; built by Web team</div>'
