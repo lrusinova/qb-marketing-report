@@ -664,9 +664,9 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .tw-spot-mini-seg{height:100%}
 .tw-spot-mini-legend{font-size:9.5px;color:var(--g500);line-height:1.5}
 .tw-spot-empty{font-size:10.5px;color:var(--g400);font-style:italic;padding:4px 0}
-.tw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
-@media(max-width:1200px){.tw-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.tw-grid{grid-template-columns:1fr}}
+/* auto-fit + minmax: reliably 3 columns at this dashboard's ~1520px max-width, tapering down
+   responsively — and a partial last row stretches to fill the width instead of sitting narrow. */
+.tw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:14px;align-items:stretch}
 .tw-card{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);border-top:4px solid var(--tw-accent,var(--g300));padding:16px 18px;display:flex;flex-direction:column;gap:10px;height:100%}
 .tw-card-hd{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .tw-card-title{font-size:13.5px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px}
@@ -23473,6 +23473,44 @@ function renderBriefing(){
       }).join('')
       +'</div>';
   };
+  // Active deliverables — grouped by channel, shows what is actually in flight
+  const _activeWork=function(actItems,color,maxTotal){
+    if(!actItems||!actItems.length)return'';
+    const cap=maxTotal||15;
+    const m={};
+    actItems.forEach(function(t){const c=t.ch||'Other';if(!m[c])m[c]=[];m[c].push(t);});
+    const chs=Object.keys(m).sort(function(a,b){return m[b].length-m[a].length;});
+    let shown=0;let body='';
+    chs.forEach(function(c){
+      if(shown>=cap)return;
+      const perCh=Math.min(m[c].length,cap-shown,4);
+      const tasks=m[c].slice(0,perCh);shown+=perCh;
+      const overflow=m[c].length-perCh;
+      body+='<div style="border-bottom:1px solid var(--g100)">'
+        +'<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 14px 3px;background:'+color+'08">'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--g500)">'+c+'</span>'
+        +'<span style="font-size:8.5px;font-weight:700;padding:1px 6px;border-radius:12px;background:'+color+'18;color:'+color+'">'+m[c].length+'</span>'
+        +'</div>'
+        +tasks.map(function(t){
+          const ln=t.owner?(t.owner.split(',')[0]||''):'';
+          return'<div style="display:flex;align-items:center;gap:7px;padding:4px 14px 4px 18px;border-bottom:1px solid var(--g50)">'
+            +'<span style="font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;background:'+color+'15;color:'+color+';white-space:nowrap;flex-shrink:0">'+(t.type||'Task')+'</span>'
+            +'<span style="flex:1;min-width:0;font-size:11px;color:var(--g800);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+t.title+'</span>'
+            +(ln?'<span style="font-size:9.5px;color:var(--g400);flex-shrink:0">'+ln+'</span>':'')
+            +'</div>';
+        }).join('')
+        +(overflow?'<div style="font-size:9.5px;color:var(--g400);padding:3px 14px 5px 18px;font-style:italic">+'+overflow+' more</div>':'')
+        +'</div>';
+    });
+    if(!body)return'';
+    return'<div style="border-top:1px solid var(--g100)">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px 6px;background:'+color+'05;border-bottom:1px solid var(--g100)">'
+      +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:'+color+'">In Progress</span>'
+      +'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:12px;background:'+color+'18;color:'+color+'">'+actItems.length+'</span>'
+      +'</div>'
+      +body
+      +'</div>';
+  };
   // Epic row
   const _buEpRow=function(l){
     const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
@@ -23539,8 +23577,7 @@ function renderBriefing(){
       +'</div>'
       +statBar
       +(rows.length?'<div>'+rows.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
-      +(td?_chStrip(td.sht,td.act,color):'')
-      +(td&&td.sht.length?_recentShip(td.sht,6):'')
+      +(td?_activeWork(td.act,color,12):'')
       +'</div>';
   };
   // AWE card — spans 2 columns; FF + Pave sub-panels side by side
@@ -23565,8 +23602,7 @@ function renderBriefing(){
     +'<div class="sp-card-body" style="padding:0">'
     +_buStats(_coreSt,'#10503C')
     +(_coreSorted.length?'<div>'+_coreSorted.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
-    +_chStrip(_crTSht,_crTAct,'#10503C')
-    +_recentShip(_crTSht,8)
+    +_activeWork(_crTAct,'#10503C',15)
     +'</div></div>';
   // Cross-BU card — spans 3 columns; one panel per strategic project (team owner)
   const _xSpGrps={};
@@ -24443,21 +24479,28 @@ function renderTeamsDashboard(){
     if(c.ch==='SEO')return byCh('Content & SEO').filter(i=>_isSeo(i.title));
     return byCh(c.ch);
   };
-  // SEO gets pulled out of this grid entirely into a full-width spotlight (real Jira-pulled
-  // pipeline data, built below) — that also makes the remaining count divide evenly into 3 columns.
-  const _expandChannels=channels=>channels.flatMap(c=>c.ch==='Content & SEO'?[{...c,ch:'Content'}]:[c]);
+  // SEO is back as its own equal-size card (epic/cluster status — real data, see SEO_EPICS
+  // below), alongside Content. The page-level Content→Web handoff lives in the separate
+  // cross-team pipeline section, not on SEO's own card.
+  const _expandChannels=channels=>channels.flatMap(c=>c.ch==='Content & SEO'
+    ?[{...c,ch:'Content'},{...c,ch:'SEO'}]
+    :[c]);
   // Pipeline — Briefed (planning) → In progress (active) → Published (done): the universal
   // first block on every widget. These are Jira statusCategory buckets (already fetched),
-  // NOT a dedicated "brief submitted" tracker — see the SEO footnote for that distinction.
+  // NOT a dedicated "brief submitted" tracker.
   const _PIPE_COLOR={planning:'#4361EE',active:'#2C9382',done:'#14A558'};
   const _PIPE_LABEL={planning:'Briefed',active:'In progress',done:'Published'};
+  const _pipelineFromCounts=(counts,labels)=>{
+    const lbl=labels||_PIPE_LABEL;
+    return '<div class="tw-pipe-row">'+['planning','active','done'].map((st,i)=>
+      (i>0?'<span class="tw-pipe-arrow">&rarr;</span>':'')
+      +'<div class="tw-pipe-stage"><div class="tw-pipe-n" style="color:'+_PIPE_COLOR[st]+'">'+(counts[st]||0)+'</div><div class="tw-pipe-l">'+lbl[st]+'</div></div>'
+    ).join('')+'</div>';
+  };
   const _pipelineHtml=items=>{
     const counts={planning:0,active:0,done:0};
     items.forEach(i=>{counts[i._st]=(counts[i._st]||0)+1;});
-    return '<div class="tw-pipe-row">'+['planning','active','done'].map((st,i)=>
-      (i>0?'<span class="tw-pipe-arrow">&rarr;</span>':'')
-      +'<div class="tw-pipe-stage"><div class="tw-pipe-n" style="color:'+_PIPE_COLOR[st]+'">'+counts[st]+'</div><div class="tw-pipe-l">'+_PIPE_LABEL[st]+'</div></div>'
-    ).join('')+'</div>';
+    return _pipelineFromCounts(counts);
   };
   // Part-to-whole as ONE segmented strip (sequential: one hue, opacity-ranked) + a chip legend,
   // instead of a stack of near-identical horizontal bar rows.
@@ -24487,11 +24530,23 @@ function renderTeamsDashboard(){
   // ── every widget: pipeline, then BU split (answers "divide by business unit" universally) ──
   const _contentSignal=(items,col)=>
     _pipelineHtml(items)
-    +_contentSeoShare(items,col,'Share of Content + SEO capacity (rest is the SEO spotlight above)')
+    +_contentSeoShare(items,col,'Share of Content + SEO capacity')
     +_buSegHtml(items,col);
+  // SEO's own card is about SEO's own work — its 11 entity-cluster epics (Tom South/Tony Ruiz) —
+  // not the downstream Content/Web execution, which lives in the cross-team pipeline section
+  // below. Real counts, pulled directly from Jira the same way as SEO_PIPELINE.
+  const SEO_EPICS={pulledAt:'Aug 14, 2026',epicCount:11,byStatus:{planning:8,active:3,done:0},byBU:{Pave:7,FastField:2,Core:2},blocked:0};
+  const _seoEpicSignal=col=>{
+    const blockedChip=SEO_EPICS.blocked?'<div class="tw-attn-row"><span class="tw-attn-chip blocked">⛔ '+SEO_EPICS.blocked+' epic blocked</span></div>':'';
+    return blockedChip
+      +_pipelineFromCounts(SEO_EPICS.byStatus,{planning:'Planning',active:'In progress',done:'Complete'})
+      +_segBarHtml(Object.entries(SEO_EPICS.byBU),col)
+      +'<div class="tw-foot">'+SEO_EPICS.epicCount+' active content clusters &mdash; page-level Content&rarr;Web progress is in the Content Pipeline section below.</div>';
+  };
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
     if(c.ch==='Content')return _contentSignal(items,col);
+    if(c.ch==='SEO')return _seoEpicSignal(col);
     return _pipelineHtml(items)+_buSegHtml(items,col);
   };
   const CH_ICON={'Content':'📝','SEO':'🔍','Email & Lifecycle':'✉️','Creative & Design':'🎨',
@@ -24581,11 +24636,14 @@ function renderTeamsDashboard(){
       +blockedChip
       +'</div>';
   };
+  // This is a CROSS-TEAM handoff view (SEO originates → Content writes → Web publishes) — not
+  // "SEO's card" (that's the compact SEO widget in the grid below, on equal footing with everyone
+  // else). Framed and labeled as a shared pipeline so it doesn't read as SEO getting special billing.
   const _seoSpotlightHtml=()=>
     '<div class="tw-spot">'
     +'<div class="tw-spot-hd">'
-    +'<div><div class="tw-spot-title">🔍 SEO Content Program</div>'
-    +'<div class="tw-spot-sub">'+SEO_PIPELINE.epicCount+' SEO-labeled epics (SEO lead: Tom South / Tony Ruiz) across FastField, Pave &amp; Core &mdash; content is written by Nathan Wahl\'s team, then published separately by the Web team via its own Web Page Request ticket</div></div>'
+    +'<div><div class="tw-spot-title">🔄 Content Pipeline &mdash; SEO &rarr; Content &rarr; Web</div>'
+    +'<div class="tw-spot-sub">Cross-team handoff view for the '+SEO_PIPELINE.epicCount+' SEO-originated content clusters: SEO (Tom South/Tony Ruiz) scopes them, Nathan Wahl\'s Content team writes the pages, then Web publishes each one via its own Web Page Request ticket</div></div>'
     +'<span class="tw-spot-pulled">Pulled directly from Jira &middot; '+SEO_PIPELINE.pulledAt+'</span>'
     +'</div>'
     +'<div class="tw-spot-bu-row">'+Object.keys(SEO_PIPELINE.byBU).map(bu=>_seoBuCard(bu,SEO_PIPELINE.byBU[bu])).join('')+'</div>'
@@ -24599,10 +24657,10 @@ function renderTeamsDashboard(){
     const attnBlock=hasAttentionData?_attnHtml(blockedItems,overdueItems):'';
     const inflightBlock=_inFlightHtml(items);
     const divider=(attnBlock||inflightBlock)?'<div class="tw-divider"></div>':'';
-    // Content shares its Jira channel/team capacity with SEO (see the spotlight above) — capacity
-    // (hours/load) can't be split without per-item hour data, so this caption flags it as shared.
-    const capLine=c.ch==='Content'
-      ?c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ SEO)</span>'
+    // Content & SEO share one Jira channel/team's capacity (hours/load can't be split without
+    // per-item hour data), so this caption flags it as shared rather than showing a fabricated split.
+    const capLine=(c.ch==='Content'||c.ch==='SEO')
+      ?c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ '+(c.ch==='Content'?'SEO':'Content')+')</span>'
       :c.hours+'h estimated capacity';
     return '<div class="tw-card" style="--tw-accent:'+col+'">'
       +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-icon">'+(CH_ICON[c.ch]||'📌')+'</span>'+c.ch+'</span>'
