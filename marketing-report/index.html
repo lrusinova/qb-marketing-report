@@ -263,6 +263,11 @@ button{font-family:inherit;cursor:pointer}
 .bu-ch-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .bu-ch-name{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--g500)}
 .bu-ch-badge{font-size:9px;font-weight:800;padding:1px 6px;border-radius:10px;background:#0891b215;color:#0891b2}
+.bu-ns-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.bu-ns-chip{font-size:9px;font-weight:700;padding:2px 9px;border-radius:20px;white-space:nowrap}
+.bu-xsp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));border-top:1px solid var(--g100);background:var(--g100);gap:1px}
+.bu-xsp-sec{background:white;display:flex;flex-direction:column;min-width:0}
+.bu-xsp-hdr{padding:10px 16px 8px;border-bottom:1px solid var(--g100)}
 
 /* ── PROGRAMS TAB ───────────────────────────────────── */
 .prog-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
@@ -642,19 +647,22 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 @media(max-width:900px){.cap-ch-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ── TEAMS DASHBOARD (one tailored widget per channel) ──────────── */
-.tw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
 @media(max-width:1200px){.tw-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.tw-grid{grid-template-columns:1fr}}
-.tw-card{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.tw-card{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);border-top:4px solid var(--tw-accent,var(--g300));padding:16px 18px;display:flex;flex-direction:column;gap:10px;height:100%}
 .tw-card-hd{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.tw-card-title{font-size:13px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:7px}
-.tw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tw-card-title{font-size:13.5px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:8px}
+.tw-icon{font-size:15px;line-height:1;flex-shrink:0}
+.tw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:none}
 .tw-badge{font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
-.tw-signal-lbl{font-size:10.5px;color:var(--g500)}
-.tw-kpi-row{display:flex;gap:10px}
-.tw-kpi{flex:1;background:var(--g50);border-radius:10px;padding:10px 12px;text-align:center}
-.tw-kpi-n{font-size:24px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.5px}
-.tw-kpi-l{font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-top:4px}
+.tw-signal-lbl{font-size:10.5px;color:var(--g500);margin-top:auto;padding-top:6px}
+/* Pipeline — Briefed → In progress → Published, the universal first block on every widget */
+.tw-pipe-row{display:flex;align-items:center;gap:2px}
+.tw-pipe-stage{flex:1;text-align:center;background:var(--g50);border-radius:10px;padding:9px 6px}
+.tw-pipe-n{font-size:22px;font-weight:900;line-height:1;letter-spacing:-.5px}
+.tw-pipe-l{font-size:8.5px;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.35px;margin-top:3px;white-space:nowrap}
+.tw-pipe-arrow{color:var(--g300);font-size:13px;flex-shrink:0}
 .tw-foot{font-size:10.5px;color:var(--g400);line-height:1.4}
 /* Segmented strip — one hue, sequential (opacity-ranked), replaces per-type bar rows */
 .tw-seg-wrap{display:flex;flex-direction:column;gap:7px}
@@ -23390,6 +23398,16 @@ function renderBriefing(){
   const _srt2=function(arr){return arr.slice().sort(function(a,b){return(_lOrd2[a.status]||9)-(_lOrd2[b.status]||9);});};
   const _iniPct2=function(k){const i=inits.find(function(x){return x.key===k;})||{};return i.total?Math.round((i.done||0)/i.total*100):(i.pct!=null?i.pct:null);};
   const _iniGoals2=function(k){return(inits.find(function(x){return x.key===k;})||{}).goals||[];};
+  // North Star color map (used by header chips + Cross-BU SP sections)
+  const _nc={'ARR Growth':'#16a34a','NRR':'#1d4ed8','AI Adoption':'#7c3aed','AEBITDA':'#d97706'};
+  const _nsChipHtml=function(nsArr){
+    if(!nsArr||!nsArr.length)return '';
+    return'<div class="bu-ns-chips">'
+      +nsArr.map(function(ns){const c=_nc[ns]||'#64748b';return'<span class="bu-ns-chip" style="background:'+c+'15;color:'+c+'">'+ns+'</span>';}).join('')
+      +'</div>';
+  };
+  // done/total label shown below % (clarifies what the % counts)
+  const _iniDT=function(k){const i=inits.find(function(x){return x.key===k;})||{};return i.total?i.done+' / '+i.total+' programs done':'';};
   // Epic row
   const _buEpRow=function(l){
     const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
@@ -23421,10 +23439,10 @@ function renderBriefing(){
       }).join('')
       +'</div>';
   };
-  // Premium BU card header: colored top border + gradient bg + badge pill + goals + progress bar
-  const _buHdr3=function(badge,color,title,sub,goals,pct){
+  // Premium BU card header: colored top border + gradient bg + badge pill + goals + NS chips + progress bar
+  const _buHdr3=function(badge,color,title,sub,goals,pct,nsChips,dt){
     const pctBlock=pct!=null
-      ?'<div style="text-align:right;flex-shrink:0"><div style="font-size:26px;font-weight:900;color:'+color+';letter-spacing:-1.5px;line-height:1">'+pct+'%</div><div style="font-size:9px;color:var(--g400);font-weight:600;margin-top:1px;text-transform:uppercase;letter-spacing:.5px">complete</div></div>'
+      ?'<div style="text-align:right;flex-shrink:0"><div style="font-size:26px;font-weight:900;color:'+color+';letter-spacing:-1.5px;line-height:1">'+pct+'%</div><div style="font-size:9px;color:var(--g400);font-weight:600;margin-top:1px;letter-spacing:.3px">'+(dt||'complete')+'</div></div>'
       :'<span class="sp-chevron">▾</span>';
     return'<div class="sp-card-hdr" style="border-left:none;border-top:4px solid '+color+';padding:16px 20px 14px;background:linear-gradient(135deg,'+color+'0b 0%,white 60%);border-bottom:1px solid '+color+'1a" onclick="toggleCard(this)">'
       +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">'
@@ -23436,6 +23454,7 @@ function renderBriefing(){
       +pctBlock
       +'</div>'
       +_buGoals(goals,color)
+      +(nsChips||'')
       +'<div style="height:4px;background:rgba(0,0,0,.07);border-radius:2px;overflow:hidden;margin-top:12px"><div style="height:100%;width:'+(pct||0)+'%;background:'+color+';border-radius:2px;animation:spBarFill 1.4s cubic-bezier(.4,0,.2,1) both"></div></div>'
       +'</div>';
   };
@@ -23459,8 +23478,9 @@ function renderBriefing(){
   // AWE card — spans 2 columns; FF + Pave sub-panels side by side
   const _awePct=_iniPct2('MKT-12568');
   const _aweGoals=_iniGoals2('MKT-12568');
+  const _aweDT=_iniDT('MKT-12568');
   const _aweCard='<div class="sp-card sp-card-awe" data-key="bu-AWE">'
-    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',_aweGoals,_awePct)
+    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',_aweGoals,_awePct,_nsChipHtml(['ARR Growth']),_aweDT)
     +'<div class="sp-card-body" style="padding:0">'
     +'<div class="bu-products-row">'
     +_buProdPanel('FastField','#ea580c',_ffL,_ffSt)
@@ -23470,28 +23490,50 @@ function renderBriefing(){
   // Core card — 1 column
   const _corePct=_iniPct2('MKT-12569');
   const _coreGoals=_iniGoals2('MKT-12569');
+  const _coreDT=_iniDT('MKT-12569');
   const _coreSorted=_srt2(_coreL);
   const _coreCard='<div class="sp-card" data-key="bu-Core">'
-    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',_coreGoals,_corePct)
+    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',_coreGoals,_corePct,_nsChipHtml(['ARR Growth','NRR']),_coreDT)
     +'<div class="sp-card-body" style="padding:0">'
     +_buStats(_coreSt,'#10503C')
     +(_coreSorted.length?'<div>'+_coreSorted.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
     +'</div></div>';
-  // Cross-BU card — spans 3 columns; channel grid
-  const _chGrps={};
-  _crossL.forEach(function(l){const ch=l.bu||'Other';if(!_chGrps[ch])_chGrps[ch]=[];_chGrps[ch].push(l);});
-  const _chOrd=['Brand','Events','Community','Creative','Social','PR','Web','SEO','Paid','CRO','Lifecycle','AI','Webinar','Other'];
-  const _chKeys=Object.keys(_chGrps).sort(function(a,b){const ai=_chOrd.indexOf(a);const bi=_chOrd.indexOf(b);return(ai<0?99:ai)-(bi<0?99:bi);});
-  const _chCells=_chKeys.map(function(ch){
-    const rows=_srt2(_chGrps[ch]);
-    const actCnt=rows.filter(function(l){return l.status==='in-progress'||l.status==='blocked';}).length;
-    return'<div class="bu-ch-cell"><div class="bu-ch-hdr"><span class="bu-ch-name">'+ch+'</span>'+(actCnt?'<span class="bu-ch-badge">'+actCnt+'</span>':'')+'</div>'+rows.map(_buEpRow).join('')+'</div>';
+  // Cross-BU card — spans 3 columns; one panel per strategic project (team owner)
+  const _xSpGrps={};
+  _crossL.forEach(function(l){if(!_xSpGrps[l._sp])_xSpGrps[l._sp]=[];_xSpGrps[l._sp].push(l);});
+  const _xSpOrd=['MKT-12570','MKT-12571','MKT-12572','MKT-12573','MKT-12574'];
+  const _xNsMo={
+    'MKT-12570':{ns:['ARR Growth','NRR'],mos:['MKT-04','MKT-07','MKT-10']},
+    'MKT-12571':{ns:['ARR Growth'],mos:['MKT-01']},
+    'MKT-12572':{ns:['ARR Growth','NRR'],mos:[]},
+    'MKT-12573':{ns:['AI Adoption','AEBITDA'],mos:['MKT-09']},
+    'MKT-12574':{ns:['AEBITDA'],mos:['MKT-11']},
+  };
+  const _xSpSecs=_xSpOrd.filter(function(sp){return _xSpGrps[sp]&&_xSpGrps[sp].length;}).map(function(sp){
+    const ini=inits.find(function(i){return i.key===sp;})||{};
+    const meta=_xNsMo[sp]||{};
+    const color=ini.color||'#6366f1';
+    const rows=_srt2(_xSpGrps[sp]);
+    const actCnt=rows.filter(function(l){return l.status==='in-progress'||l.status==='confirmed';}).length;
+    const nsH=(meta.ns||[]).map(function(ns){const c=_nc[ns]||'#64748b';return'<span style="font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px;background:'+c+'15;color:'+c+'">'+ns+'</span>';}).join('');
+    const moH=(meta.mos||[]).map(function(mo){return'<span style="font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;background:var(--g100);color:var(--g500)">'+mo+'</span>';}).join('');
+    return'<div class="bu-xsp-sec"'+(sp==='MKT-12573'?' style="background:#05966906"':'')+'>'
+      +'<div class="bu-xsp-hdr" style="border-left:3px solid '+color+'">'
+      +'<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">'
+      +'<span style="font-size:12px;font-weight:800;color:var(--g900)">'+(ini.title||sp)+'</span>'
+      +(ini.owner?'<span style="font-size:10px;color:var(--g500);font-weight:500">'+ini.owner+'</span>':'')
+      +(actCnt?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:'+color+'18;color:'+color+'">'+actCnt+' active</span>':'')
+      +'</div>'
+      +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:5px">'+nsH+moH+'</div>'
+      +'</div>'
+      +'<div>'+rows.map(_buEpRow).join('')+'</div>'
+      +'</div>';
   }).join('');
   const _crossCard='<div class="sp-card sp-card-xbu" data-key="bu-XBU">'
-    +_buHdr3('Cross-BU','#0891b2','Cross-BU Programs','Brand \xb7 Digital \xb7 Comms \xb7 Systems',[],null)
+    +_buHdr3('Cross-BU','#0891b2','Cross-BU Programs','Integrated Mktg \xb7 Digital \xb7 Comms \xb7 AI \xb7 PM',[],null,_nsChipHtml(['ARR Growth','NRR','AI Adoption','AEBITDA']))
     +'<div class="sp-card-body" style="padding:0">'
     +_buStats(_crossSt,'#0891b2')
-    +(_chKeys.length?'<div class="bu-ch-grid">'+_chCells+'</div>':'<div class="bu-no-epics">No cross-BU epics</div>')
+    +(_xSpSecs.length?'<div class="bu-xsp-grid">'+_xSpSecs+'</div>':'<div class="bu-no-epics">No cross-BU epics</div>')
     +'</div></div>';
   const buCardsHtml=_aweCard+_coreCard+_crossCard;
 
@@ -24338,9 +24380,19 @@ function renderTeamsDashboard(){
     const c={};items.forEach(i=>{c[i.type]=(c[i.type]||0)+1;});
     return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n);
   };
-  // One hero stat row per widget — the bold headline number(s), not a bar.
-  const _heroRow=tiles=>'<div class="tw-kpi-row">'+tiles.map(t=>
-    '<div class="tw-kpi"><div class="tw-kpi-n">'+t.n+'</div><div class="tw-kpi-l">'+t.l+'</div></div>').join('')+'</div>';
+  // Pipeline — Briefed (planning) → In progress (active) → Published (done): the universal
+  // first block on every widget. These are Jira statusCategory buckets (already fetched),
+  // NOT a dedicated "brief submitted" tracker — see the SEO footnote for that distinction.
+  const _PIPE_COLOR={planning:'#4361EE',active:'#2C9382',done:'#14A558'};
+  const _PIPE_LABEL={planning:'Briefed',active:'In progress',done:'Published'};
+  const _pipelineHtml=items=>{
+    const counts={planning:0,active:0,done:0};
+    items.forEach(i=>{counts[i._st]=(counts[i._st]||0)+1;});
+    return '<div class="tw-pipe-row">'+['planning','active','done'].map((st,i)=>
+      (i>0?'<span class="tw-pipe-arrow">&rarr;</span>':'')
+      +'<div class="tw-pipe-stage"><div class="tw-pipe-n" style="color:'+_PIPE_COLOR[st]+'">'+counts[st]+'</div><div class="tw-pipe-l">'+_PIPE_LABEL[st]+'</div></div>'
+    ).join('')+'</div>';
+  };
   // Part-to-whole as ONE segmented strip (sequential: one hue, opacity-ranked) + a chip legend,
   // instead of a stack of near-identical horizontal bar rows.
   const _SEG_OPACITY=[1,.72,.5,.34];
@@ -24351,56 +24403,44 @@ function renderTeamsDashboard(){
       '<span class="tw-seg-chip"><span class="tw-seg-chip-dot" style="background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'"></span>'+label+' <b>'+n+'</b></span>').join('');
     return '<div class="tw-seg-wrap"><div class="tw-seg-bar">'+bar+'</div><div class="tw-seg-legend">'+legend+'</div></div>';
   };
+  const _typeSegHtml=(items,col,n)=>{
+    const types=_typeCounts(items,n);
+    return types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized items yet</div>';
+  };
+  const _buSegHtml=(items,col)=>{
+    const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
+    const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
+    return pairs.length?_segBarHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>';
+  };
   // Meter — a single ratio against a whole (e.g. SEO's share of the combined Content+SEO team's work).
   const _meterHtml=(pct,col,label)=>
     '<div class="tw-meter-wrap"><div class="tw-meter-lbl"><span>'+label+'</span><b>'+pct+'%</b></div>'
     +'<div class="tw-meter-track"><div class="tw-meter-fill" style="width:'+pct+'%;background:'+col+'"></div></div></div>';
-
-  // ── per-channel tailored signal builders ─────────────────────────
   const _contentSeoShare=(items,col,label)=>{
     const combinedTotal=byCh('Content & SEO').length||1;
     const pct=Math.round(items.length/combinedTotal*100);
     return _meterHtml(pct,col,label);
   };
-  const _contentSignal=(items,col)=>{
-    const shipped=items.filter(i=>i._st==='done').length;
-    const types=_typeCounts(items,3);
-    return _heroRow([{n:items.length,l:'Active items'},{n:shipped,l:'Shipped this quarter'}])
-      +_contentSeoShare(items,col,'Share of Content + SEO capacity')
-      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized items yet</div>');
-  };
-  const _seoSignal=(items,col)=>{
-    const shipped=items.filter(i=>i._st==='done').length;
-    const types=_typeCounts(items,4);
-    return _heroRow([{n:items.length,l:'SEO items in pipeline'},{n:shipped,l:'Shipped this quarter'}])
-      +_contentSeoShare(items,col,'Share of Content + SEO capacity')
-      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized content items yet</div>')
-      +'<div class="tw-foot">Keyword-level ranking/traffic tracking isn\'t wired to Jira — this is content-volume coverage, not SERP performance.</div>';
-  };
-  const _webSignal=(items,col)=>{
-    const shipped=items.filter(i=>i._st==='done').length;
-    const types=_typeCounts(items,4);
-    return _heroRow([{n:items.length,l:'Active dev items'},{n:shipped,l:'Shipped this quarter'}])
-      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized dev items</div>');
-  };
-  const _creativeSignal=items=>{
-    const inFlight=items.filter(i=>i._st!=='done').length;
-    const done=items.filter(i=>i._st==='done').length;
-    return _heroRow([{n:inFlight,l:'In flight'},{n:done,l:'Completed Q'}]);
-  };
-  const _pmmSignal=(items,col)=>{
-    const shipped=items.filter(i=>i._st==='done').length;
-    const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
-    const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
-    return _heroRow([{n:items.length,l:'Active items'},{n:shipped,l:'Shipped this quarter'}])
-      +(pairs.length?_segBarHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>');
-  };
-  const _defaultSignal=(items,col)=>{
-    const shipped=items.filter(i=>i._st==='done').length;
-    const types=_typeCounts(items,3);
-    return _heroRow([{n:items.length,l:'Active items'},{n:shipped,l:'Shipped this quarter'}])
-      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized items yet</div>');
-  };
+
+  // ── per-channel tailored signal builders — every widget leads with the pipeline,
+  //    then a channel-specific second layer (BU split, type-mix, or nothing extra) ──
+  const _contentSignal=(items,col)=>
+    _pipelineHtml(items)
+    +_contentSeoShare(items,col,'Share of Content + SEO capacity')
+    +_buSegHtml(items,col);
+  const _seoSignal=(items,col)=>
+    _pipelineHtml(items)
+    +_contentSeoShare(items,col,'Share of Content + SEO capacity')
+    +_buSegHtml(items,col)
+    +'<div class="tw-foot">Stages above are Jira status buckets, not a dedicated brief tracker &mdash; and keyword/ranking/traffic data isn\'t wired to Jira, so this is coverage, not SERP performance.</div>';
+  const _webSignal=(items,col)=>
+    _pipelineHtml(items)+_typeSegHtml(items,col,4);
+  const _creativeSignal=items=>
+    _pipelineHtml(items);
+  const _pmmSignal=(items,col)=>
+    _pipelineHtml(items)+_buSegHtml(items,col);
+  const _defaultSignal=(items,col)=>
+    _pipelineHtml(items)+_typeSegHtml(items,col,3);
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
     switch(c.ch){
@@ -24412,6 +24452,9 @@ function renderTeamsDashboard(){
       default:                 return _defaultSignal(items,col);
     }
   };
+  const CH_ICON={'Content':'📝','SEO':'🔍','Email & Lifecycle':'✉️','Creative & Design':'🎨',
+    'Demand Gen':'📣','Social Media':'💬','PMM / Product':'🚀','Marketing Analytics':'📊',
+    'Events & Experiences':'🎪','Community':'🤝','PR & Comms':'📰','Web & Digital':'🖥️','UX & Design':'✏️'};
   const _LBADGE={
     'OVER':{label:'Full queue', bg:'rgba(245,158,11,.12)',color:'#92400E'},
     'HIGH':{label:'High load',  bg:'rgba(245,158,11,.08)',color:'#92400E'},
@@ -24470,8 +24513,8 @@ function renderTeamsDashboard(){
     const capLine=isSplit
       ?c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ '+(c.ch==='Content'?'SEO':'Content')+')</span>'
       :c.hours+'h estimated capacity';
-    return '<div class="tw-card">'
-      +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-dot" style="background:'+col+'"></span>'+c.ch+'</span>'
+    return '<div class="tw-card" style="--tw-accent:'+col+'">'
+      +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-icon">'+(CH_ICON[c.ch]||'📌')+'</span>'+c.ch+'</span>'
       +'<span class="tw-badge" style="background:'+lb.bg+';color:'+lb.color+'">'+lb.label+'</span></div>'
       +attnBlock
       +inflightBlock
@@ -24480,11 +24523,11 @@ function renderTeamsDashboard(){
       +'<div class="tw-signal-lbl">'+capLine+'</div>'
       +'</div>';
   };
-  const noDataBanner=hasAttentionData?'':'<div class="tw-nodata-banner">⏳ Blocked/overdue/priority signal will populate after the next Jira sync — showing capacity and type-mix only for now.</div>';
+  const noDataBanner=hasAttentionData?'':'<div class="tw-nodata-banner">⏳ Blocked/overdue/priority signal will populate after the next Jira sync — showing capacity and pipeline stage only for now.</div>';
   document.getElementById('teams').innerHTML=
     '<div class="sec-hd"><h2>Teams Dashboard</h2><p>Updated '+CAP_DATA.pulledAt+'</p></div>'
     +'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 14px;margin-bottom:18px;font-size:12px;color:#78350f;line-height:1.5">'
-    +'📋 <strong>One widget per team</strong> — each shaped for what that channel actually needs to check today: what\'s blocked, what\'s overdue, what\'s in flight, plus capacity/type context.'
+    +'📋 <strong>One widget per team</strong> — each leads with a Briefed &rarr; In progress &rarr; Published pipeline (Jira status buckets), then what\'s blocked/overdue/in flight, then channel-specific context (BU split or type mix).'
     +'</div>'
     +noDataBanner
     +'<div class="tw-grid">'+_expandChannels(CAP_DATA.channels).map(_card).join('')+'</div>';
