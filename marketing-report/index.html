@@ -1538,7 +1538,7 @@ const DATA = {
      outcome:"A unified brand. A unified story. A unified + integrated marketing engine.",
      execSummary:"Brand architecture (Andy) + identity expression (Jenny) both in flight — connecting QB, FF, Pave into one visual identity. Community migrating Khoros→Gainsight. Creative Studio selection underway. AI4 conference Aug 4–6 active.",
      launches:[
-       {key:"MKT-12613",title:"Brand + Web Refresh",bu:"Brand",status:"in-progress",due:null},
+       {key:"MKT-12613",title:"Quickbase Rebrand & Rollout",bu:"Brand",status:"in-progress",due:null},
        {key:"MKT-12470",title:"Community Platform Migration",bu:"Community",status:"in-progress",due:"Oct 30"},
        {key:"MKT-12386",title:"AI4 Conference",bu:"Events",status:"in-progress",due:"Aug 6"},
        {key:"MKT-12690",title:"Creative Studio Selection",bu:"Creative",status:"in-progress",due:null},
@@ -1548,7 +1548,7 @@ const DATA = {
      launchesLabel:"Active Programs",
      goals:["Brand refresh: architecture, narrative, and visual overhaul","Content (SEO, AEO) + Studio + Community + Partner","Integrated Planning + Experiences"],
      p1progs:[
-       {key:"MKT-12613",title:"[Cross-BU] Brand + Web Refresh — Q2-Q4 2026",status:"in-progress"},
+       {key:"MKT-12613",title:"[Cross-BU] Quickbase Rebrand & Rollout — Q2-Q4 2026",status:"in-progress"},
        {key:"MKT-12470",title:"[Cross-BU] Community Platform Migration & Launch — 2026",status:"in-progress"},
        {key:"MKT-12386",title:"[Events] Tradeshow: AI4 2026 — Aug 4-6",status:"in-progress"},
        {key:"MKT-12526",title:"[Cross-BU] Community — Q3 2026",status:"planning"},
@@ -1566,7 +1566,7 @@ const DATA = {
        {key:"MKT-12588",title:"Pave SEO Content Program Q3",bu:"SEO",status:"in-progress",due:null},
        {key:"WE-458",title:"Paid Landing Pages Framework",bu:"Paid",status:"in-progress",due:null},
        {key:"WE-782",title:"Web Banner Updates — QB & Pave",bu:"Web",status:"in-progress",due:null},
-       {key:"WE-787",title:"Brand + Web Refresh — Transitional Pages",bu:"Web",status:"in-progress",due:null},
+       {key:"WE-787",title:"Transitional Improvements — Rebrand & Rollout",bu:"Web",status:"in-progress",due:null},
        {key:"WE-836",title:"CMS Scheduled Feed Automation",bu:"Web",status:"in-progress",due:"Jul 28"},
        {key:"WE-363",title:"AI Initiatives",bu:"Web",status:"in-progress",due:null},
        {key:"WE-875",title:"FF Trial Form — Multi-Step & Social Sign-In",bu:"Web",status:"planning",due:null},
@@ -1669,7 +1669,7 @@ const DATA = {
     // MKT-12570 Integrated Marketing
     {sp:"MKT-12570",key:"MKT-12526",title:"[Cross-BU] Community — Q3 2026",owner:"",status:"planning",priority:"P2",due:"2026-09-30"},
     {sp:"MKT-12570",key:"MKT-12527",title:"[Cross-BU] Community — Q4 2026",owner:"",status:"planning",priority:"P2",due:"2026-12-31"},
-    {sp:"MKT-12570",key:"MKT-12613",title:"[Cross-BU] Brand + Web Refresh — Q2-Q4 2026",owner:"Kampf, Mirissa",status:"in-progress",priority:"P1"},
+    {sp:"MKT-12570",key:"MKT-12613",title:"[Cross-BU] Quickbase Rebrand & Rollout — Q2-Q4 2026",owner:"Kampf, Mirissa",status:"in-progress",priority:"P1"},
     {sp:"MKT-12570",key:"MKT-12470",title:"[Cross-BU] Community Platform Migration & Launch — 2026",owner:"Simon, Ben",status:"in-progress",priority:"P1",due:"2026-10-30"},
     {sp:"MKT-12570",key:"MKT-12386",title:"[Events] Tradeshow: AI4 2026 — Aug 4-6",owner:"Speidel, Lindsey",status:"in-progress",priority:"P2"},
     {sp:"MKT-12570",key:"MKT-12684",title:"[Events] Tradeshow: Gartner IT Symposium 2026 — Oct 19-22",owner:"Gutierrez, Susana",status:"in-progress",priority:"P4"},
@@ -23422,7 +23422,9 @@ function renderBriefing(){
   });
   const _coreL=_coreLBase.concat(_coreRmExtra);
   const _usedKeys=new Set([].concat(_ffL,_paveL,_coreL).map(function(l){return l._sp+'|'+l.key;}));
-  const _crossL=_taggedL.filter(function(l){return !_usedKeys.has(l._sp+'|'+l.key)&&l._sp!=='MKT-12568';});
+  const _crossLBase=_taggedL.filter(function(l){return !_usedKeys.has(l._sp+'|'+l.key)&&l._sp!=='MKT-12568'&&l.key!=='MKT-12613';});
+  const _crossLBaseKeys=new Set(_crossLBase.map(function(l){return l.key;}));
+  const _crossL=_crossLBase.concat([{key:'MKT-12614',title:'Portfolio Architecture & Narrative',bu:'Cross-BU',status:'in-progress',due:null,_sp:'MKT-12570'},{key:'MKT-12615',title:'Brand Identity & Expression',bu:'Cross-BU',status:'in-progress',due:null,_sp:'MKT-12570'},{key:'WE-788',title:'Website Strategy & Experience',bu:'Cross-BU',status:'in-progress',due:null,_sp:'MKT-12571'},{key:'WE-948',title:'Navigation Redesign (Option C)',bu:'Cross-BU',status:'planning',due:null,_sp:'MKT-12571'},{key:'WE-949',title:'Solutions Page Redesign & Cross-Sell',bu:'Cross-BU',status:'planning',due:null,_sp:'MKT-12571'}].filter(function(l){return !_crossLBaseKeys.has(l.key);}));
   const _allP2=DATA.programs||[];
   const _pStat=function(fn){const p=_allP2.filter(fn);return{dn:p.filter(function(x){return x.status==='done';}).length,ip:p.filter(function(x){return x.status==='in-progress'||x.status==='blocked';}).length,pl:p.filter(function(x){return['planning','intake'].includes(x.status);}).length};};
   const _ffSt=_pStat(function(p){return /^\[FF\]/i.test(p.title||'');});
@@ -24081,9 +24083,9 @@ function renderDeliverables(){
     const col=chColMap[i.ch]||'#94a3b8';
     const ownerFmt=_ownerFmt(i.owner);
     const dot=ST_DOT[i._st]||'#94a3b8';
-    const dateStr=i._st==='done'?(i.doneDate||''):(i.updatedDate||'');
+    const dateStr=i._st==='done'?(i.doneDate||''):'';
     const dateFmt=dateStr.replace(/, 2026$/,'').replace(/, 2025$/," '25");
-    const datePfx=i._st==='done'?'Done':'Updated';
+    const datePfx='Done';
     return`<div class="dv-row" onclick="window.open('${JIRA}${i.key}','_blank')">
       <span class="dv-st-dot" style="background:${dot}" title="${ST_LBL[i._st]||''}"></span>
       <div class="dv-title-area">
