@@ -230,6 +230,39 @@ button{font-family:inherit;cursor:pointer}
 .sp-l2-done .sp-l2-title{color:var(--g400);text-decoration:line-through;text-decoration-color:var(--g300)}
 .sp-l2-done .sp-l2-status{opacity:.5}
 .sp-l2-done .sp-bu-tag{opacity:.5}
+/* ── BU TOGGLE VIEW ─────────────────────────────── */
+.sp-card-awe{grid-column:span 2}
+.sp-card-xbu{grid-column:span 3}
+.sp-view-toggle{display:flex;gap:6px}
+.bu-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:8px}
+.bu-goal-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.bu-goal-chip{font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.bu-products-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--g100)}
+.bu-prod-panel{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--g100)}
+.bu-prod-panel:last-child{border-right:none}
+.bu-prod-hdr{display:flex;align-items:center;gap:9px;padding:11px 16px 9px;border-top:3px solid transparent;border-bottom:1px solid var(--g100)}
+.bu-prod-name{font-size:13px;font-weight:800}
+.bu-prod-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.bu-stats-row{display:flex;gap:6px;align-items:center;padding:6px 16px;background:var(--g50);border-bottom:1px solid var(--g100);flex-wrap:wrap}
+.bu-stat{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px}
+.bu-ep-row{display:flex;align-items:flex-start;gap:8px;padding:7px 16px;font-size:11.5px;border-bottom:1px solid var(--g50);min-width:0;transition:background .1s}
+.bu-ep-row:last-child{border-bottom:none}
+.bu-ep-row:hover{background:var(--g50)}
+.bu-ep-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.bu-ep-title{flex:1;min-width:0;color:var(--g800);font-weight:500;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bu-ep-pill{font-size:9px;font-weight:700;padding:2px 7px;border-radius:12px;flex-shrink:0;white-space:nowrap;letter-spacing:.2px;margin-top:3px}
+.bu-ep-done .bu-ep-title{color:var(--g400);text-decoration:line-through;text-decoration-color:var(--g300)}
+.bu-ep-done .bu-ep-pill{opacity:.4}
+.bu-no-epics{font-size:11px;color:var(--g400);padding:10px 16px;font-style:italic}
+.bu-prod-stat-row{display:flex;gap:16px;padding:10px 16px 8px;background:var(--g50);border-bottom:1px solid var(--g100)}
+.bu-prod-stat{display:flex;flex-direction:column;align-items:flex-start}
+.bu-ps-num{font-size:20px;font-weight:900;line-height:1;letter-spacing:-.5px}
+.bu-ps-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--g400);margin-top:1px}
+.bu-ch-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--g100);gap:1px}
+.bu-ch-cell{background:white;padding:10px 14px 8px}
+.bu-ch-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.bu-ch-name{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--g500)}
+.bu-ch-badge{font-size:9px;font-weight:800;padding:1px 6px;border-radius:10px;background:#0891b215;color:#0891b2}
 
 /* ── PROGRAMS TAB ───────────────────────────────────── */
 .prog-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
@@ -618,16 +651,25 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .tw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .tw-badge{font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
 .tw-signal-lbl{font-size:10.5px;color:var(--g500)}
-.tw-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.tw-bar-name{font-size:11px;color:var(--g600);width:96px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tw-bar-wrap{flex:1;background:var(--g100);border-radius:5px;height:7px;overflow:hidden}
-.tw-bar-fill{height:100%;border-radius:5px}
-.tw-bar-n{font-size:10.5px;font-weight:700;color:var(--g600);width:18px;text-align:right;flex-shrink:0}
 .tw-kpi-row{display:flex;gap:10px}
 .tw-kpi{flex:1;background:var(--g50);border-radius:10px;padding:10px 12px;text-align:center}
-.tw-kpi-n{font-size:20px;font-weight:900;color:var(--navy);line-height:1}
-.tw-kpi-l{font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.tw-kpi-n{font-size:24px;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-.5px}
+.tw-kpi-l{font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-top:4px}
 .tw-foot{font-size:10.5px;color:var(--g400);line-height:1.4}
+/* Segmented strip — one hue, sequential (opacity-ranked), replaces per-type bar rows */
+.tw-seg-wrap{display:flex;flex-direction:column;gap:7px}
+.tw-seg-bar{display:flex;gap:2px;height:11px;border-radius:6px;overflow:hidden;background:var(--g100)}
+.tw-seg{height:100%;min-width:3px}
+.tw-seg-legend{display:flex;flex-wrap:wrap;gap:5px 10px}
+.tw-seg-chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--g600);white-space:nowrap}
+.tw-seg-chip-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.tw-seg-chip b{color:var(--g800);font-weight:800}
+/* Meter — single ratio against a whole (e.g. SEO share of shared team capacity) */
+.tw-meter-wrap{display:flex;flex-direction:column;gap:5px}
+.tw-meter-lbl{font-size:10.5px;color:var(--g500);display:flex;justify-content:space-between}
+.tw-meter-lbl b{color:var(--g800);font-weight:800}
+.tw-meter-track{height:8px;border-radius:5px;background:var(--g100);overflow:hidden}
+.tw-meter-fill{height:100%;border-radius:5px}
 .tw-attn-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px}
 .tw-attn-chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
 .tw-attn-chip.blocked{background:var(--red-lt);color:var(--red)}
@@ -23325,7 +23367,7 @@ function renderBriefing(){
     </div>`;
   }).join('');
 
-  // ── BU card view (FF · Pave · Core · Cross-BU by channel) ─────────
+  // ── BU card view — redesigned (AWE · Core · Cross-BU) ──────────────
   const _stC2={'in-progress':'#16a34a','planning':'#1d4ed8','intake':'#6366f1','blocked':'#dc2626','on-hold':'#94a3b8','confirmed':'#0d9488','done':'#94a3b8'};
   const _stL2={'in-progress':'In progress','planning':'Planning','intake':'Intake','blocked':'Blocked','on-hold':'On hold','confirmed':'Confirmed','done':'Done'};
   const _lOrd2={'blocked':0,'in-progress':1,'confirmed':2,'planning':3,'intake':4,'on-hold':5,'done':6};
@@ -23346,53 +23388,96 @@ function renderBriefing(){
   const _cxSps=['MKT-12570','MKT-12571','MKT-12572','MKT-12573','MKT-12574'];
   const _crossSt=_pStat(function(p){return _cxSps.indexOf(p.sp)!==-1&&!/^\[(FF|Pave|Core)\]/i.test(p.title||'');});
   const _srt2=function(arr){return arr.slice().sort(function(a,b){return(_lOrd2[a.status]||9)-(_lOrd2[b.status]||9);});};
-  const _eRow=function(l){
-    const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
-    return'<div class="sp-ep-row'+(done?' sp-ep-done':'')+'"><span class="sp-ep-dot2" style="background:'+sc+'"></span><span class="sp-ep-title2" title="'+l.title.replace(/"/g,'&quot;')+'">'+l.title+'</span><span class="sp-ep-status" style="background:'+sc+'15;color:'+sc+'">'+sl+'</span></div>';
-  };
-  const _sBr2=function(st,color){
-    const c=color||'#1d4ed8';const p=[];
-    if(st.dn)p.push('<span class="sp-stat-chip" style="background:#16a34a15;color:#16a34a">✓ '+st.dn+' done</span>');
-    if(st.ip)p.push('<span class="sp-stat-chip" style="background:'+c+'15;color:'+c+'">'+st.ip+' active</span>');
-    if(st.pl)p.push('<span class="sp-stat-chip" style="background:var(--g100);color:var(--g500)">'+st.pl+' planning</span>');
-    return p.length?'<div class="sp-prod-stats-row">'+p.join('')+'</div>':'';
-  };
   const _iniPct2=function(k){const i=inits.find(function(x){return x.key===k;})||{};return i.total?Math.round((i.done||0)/i.total*100):(i.pct!=null?i.pct:null);};
-  const _buHdr2=function(badge,color,sub,pct){
-    return'<div class="sp-card-hdr" style="border-left:5px solid '+color+'" onclick="toggleCard(this)">'
-      +'<div class="sp-card-hdr-row">'
-      +'<div style="display:flex;align-items:center;gap:8px">'
-      +'<span class="sp-bu-hdr-badge" style="color:'+color+';background:'+color+'14">'+badge+'</span>'
-      +(sub?'<span style="font-size:11px;color:var(--g400);font-weight:400">'+sub+'</span>':'')
-      +'</div>'
-      +(pct!=null?'<div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px;font-weight:900;color:'+color+';letter-spacing:-1px">'+pct+'%</span><span class="sp-chevron">▾</span></div>':'<span class="sp-chevron">▾</span>')
-      +'</div>'
-      +'<div class="sp-hdr-bar-wrap"><div class="sp-hdr-bar-fill" style="width:'+(pct||0)+'%;background:'+color+'"></div></div>'
+  const _iniGoals2=function(k){return(inits.find(function(x){return x.key===k;})||{}).goals||[];};
+  // Epic row
+  const _buEpRow=function(l){
+    const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
+    const isBlocked=l.status==='blocked';
+    const isActive=l.status==='in-progress'||l.status==='confirmed';
+    const isPlan=l.status==='planning'||l.status==='intake';
+    const shadow=isBlocked?'box-shadow:inset 3px 0 0 #dc2626;background:#dc262607':isActive?'box-shadow:inset 3px 0 0 '+sc+';background:'+sc+'07':isPlan?'box-shadow:inset 3px 0 0 #1d4ed8;background:#1d4ed807':'';
+    return'<div class="bu-ep-row'+(done?' bu-ep-done':'')+'"'+(shadow?' style="'+shadow+'"':'')+'>'
+      +'<span class="bu-ep-dot" style="background:'+sc+'"></span>'
+      +'<span class="bu-ep-title">'+l.title+'</span>'
+      +'<span class="bu-ep-pill" style="background:'+sc+'15;color:'+sc+'">'+sl+'</span>'
       +'</div>';
   };
-  const _prodPanel=function(label,color,epics,stats){
+  // Stats chips
+  const _buStats=function(st,color){
+    const c=color||'#1d4ed8';const p=[];
+    if(st.dn)p.push('<span class="bu-stat" style="background:#16a34a12;color:#16a34a">✓ '+st.dn+' done</span>');
+    if(st.ip)p.push('<span class="bu-stat" style="background:'+c+'12;color:'+c+'">'+st.ip+' active</span>');
+    if(st.pl)p.push('<span class="bu-stat" style="background:var(--g100);color:var(--g500)">'+st.pl+' planning</span>');
+    return p.length?'<div class="bu-stats-row">'+p.join('')+'</div>':'';
+  };
+  // Goal chips for card header
+  const _buGoals=function(goals,color){
+    if(!goals||!goals.length)return '';
+    return'<div class="bu-goal-chips">'
+      +goals.map(function(g,i){
+        const lbl=g.split('—')[0].replace(/\s*·.*/,'').trim().substring(0,50);
+        return'<span class="bu-goal-chip" style="background:'+color+'12;color:'+color+'"><strong>G'+(i+1)+'</strong>&nbsp;'+lbl+'</span>';
+      }).join('')
+      +'</div>';
+  };
+  // Premium BU card header: colored top border + gradient bg + badge pill + goals + progress bar
+  const _buHdr3=function(badge,color,title,sub,goals,pct){
+    const pctBlock=pct!=null
+      ?'<div style="text-align:right;flex-shrink:0"><div style="font-size:26px;font-weight:900;color:'+color+';letter-spacing:-1.5px;line-height:1">'+pct+'%</div><div style="font-size:9px;color:var(--g400);font-weight:600;margin-top:1px;text-transform:uppercase;letter-spacing:.5px">complete</div></div>'
+      :'<span class="sp-chevron">▾</span>';
+    return'<div class="sp-card-hdr" style="border-left:none;border-top:4px solid '+color+';padding:16px 20px 14px;background:linear-gradient(135deg,'+color+'0b 0%,white 60%);border-bottom:1px solid '+color+'1a" onclick="toggleCard(this)">'
+      +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px">'
+      +'<div style="min-width:0">'
+      +'<div class="bu-badge" style="color:'+color+';background:'+color+'18">'+badge+'</div>'
+      +'<div style="font-size:15px;font-weight:800;color:var(--g900);line-height:1.2;margin-bottom:2px;letter-spacing:-.2px">'+title+'</div>'
+      +'<div style="font-size:11px;color:var(--g400);margin-top:1px">'+sub+'</div>'
+      +'</div>'
+      +pctBlock
+      +'</div>'
+      +_buGoals(goals,color)
+      +'<div style="height:4px;background:rgba(0,0,0,.07);border-radius:2px;overflow:hidden;margin-top:12px"><div style="height:100%;width:'+(pct||0)+'%;background:'+color+';border-radius:2px;animation:spBarFill 1.4s cubic-bezier(.4,0,.2,1) both"></div></div>'
+      +'</div>';
+  };
+  // Product sub-panel (FF or Pave inside AWE) — big stat numbers
+  const _buProdPanel=function(label,color,epics,stats){
     const rows=_srt2(epics);
-    return'<div class="sp-prod-panel">'
-      +'<div class="sp-prod-hdr"><span class="sp-prod-dot" style="background:'+color+'"></span><span class="sp-prod-name" style="color:'+color+'">'+label+'</span></div>'
-      +_sBr2(stats,color)
-      +(rows.length?'<div>'+rows.map(_eRow).join('')+'</div>':'<div class="sp-no-epics">No active epics yet</div>')
+    const stP=[];
+    if(stats.ip)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:'+color+'">'+stats.ip+'</div><div class="bu-ps-lbl">active</div></div>');
+    if(stats.dn)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:#16a34a">'+stats.dn+'</div><div class="bu-ps-lbl">done</div></div>');
+    if(stats.pl)stP.push('<div class="bu-prod-stat"><div class="bu-ps-num" style="color:#94a3b8">'+stats.pl+'</div><div class="bu-ps-lbl">planning</div></div>');
+    const statBar=stP.length?'<div class="bu-prod-stat-row">'+stP.join('')+'</div>':'';
+    return'<div class="bu-prod-panel">'
+      +'<div class="bu-prod-hdr" style="border-top-color:'+color+'">'
+      +'<span class="bu-prod-dot" style="background:'+color+'"></span>'
+      +'<span class="bu-prod-name" style="color:'+color+'">'+label+'</span>'
+      +'</div>'
+      +statBar
+      +(rows.length?'<div>'+rows.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
       +'</div>';
   };
+  // AWE card — spans 2 columns; FF + Pave sub-panels side by side
   const _awePct=_iniPct2('MKT-12568');
+  const _aweGoals=_iniGoals2('MKT-12568');
   const _aweCard='<div class="sp-card sp-card-awe" data-key="bu-AWE">'
-    +_buHdr2('AWE','#7c3aed','FastField \xb7 Pave \xb7 PLG',_awePct)
-    +'<div class="sp-card-body" style="padding:0"><div class="sp-awe-panels">'
-    +_prodPanel('FastField','#ea580c',_ffL,_ffSt)
-    +_prodPanel('Pave','#2563eb',_paveL,_paveSt)
-    +'</div></div></div>';
+    +_buHdr3('AWE','#7c3aed','Agentic Work Evolution','FastField \xb7 Pave \xb7 PLG',_aweGoals,_awePct)
+    +'<div class="sp-card-body" style="padding:0">'
+    +'<div class="bu-products-row">'
+    +_buProdPanel('FastField','#ea580c',_ffL,_ffSt)
+    +_buProdPanel('Pave','#2563eb',_paveL,_paveSt)
+    +'</div>'
+    +'</div></div>';
+  // Core card — 1 column
   const _corePct=_iniPct2('MKT-12569');
+  const _coreGoals=_iniGoals2('MKT-12569');
   const _coreSorted=_srt2(_coreL);
   const _coreCard='<div class="sp-card" data-key="bu-Core">'
-    +_buHdr2('CORE','#10503C','Enterprise \xb7 sales-led',_corePct)
+    +_buHdr3('CORE','#10503C','Quickbase Core','Enterprise \xb7 sales-led',_coreGoals,_corePct)
     +'<div class="sp-card-body" style="padding:0">'
-    +_sBr2(_coreSt,'#10503C')
-    +(_coreSorted.length?'<div>'+_coreSorted.map(_eRow).join('')+'</div>':'<div class="sp-no-epics">No active epics yet</div>')
+    +_buStats(_coreSt,'#10503C')
+    +(_coreSorted.length?'<div>'+_coreSorted.map(_buEpRow).join('')+'</div>':'<div class="bu-no-epics">No active epics yet</div>')
     +'</div></div>';
+  // Cross-BU card — spans 3 columns; channel grid
   const _chGrps={};
   _crossL.forEach(function(l){const ch=l.bu||'Other';if(!_chGrps[ch])_chGrps[ch]=[];_chGrps[ch].push(l);});
   const _chOrd=['Brand','Events','Community','Creative','Social','PR','Web','SEO','Paid','CRO','Lifecycle','AI','Webinar','Other'];
@@ -23400,13 +23485,13 @@ function renderBriefing(){
   const _chCells=_chKeys.map(function(ch){
     const rows=_srt2(_chGrps[ch]);
     const actCnt=rows.filter(function(l){return l.status==='in-progress'||l.status==='blocked';}).length;
-    return'<div class="sp-ch-cell"><div class="sp-ch-cell-hdr"><span class="sp-ch-name">'+ch+'</span>'+(actCnt?'<span class="sp-ch-badge">'+actCnt+'</span>':'')+'</div>'+rows.map(_eRow).join('')+'</div>';
+    return'<div class="bu-ch-cell"><div class="bu-ch-hdr"><span class="bu-ch-name">'+ch+'</span>'+(actCnt?'<span class="bu-ch-badge">'+actCnt+'</span>':'')+'</div>'+rows.map(_buEpRow).join('')+'</div>';
   }).join('');
   const _crossCard='<div class="sp-card sp-card-xbu" data-key="bu-XBU">'
-    +_buHdr2('Cross-BU','#0891b2','Brand \xb7 Digital \xb7 Comms \xb7 Systems',null)
+    +_buHdr3('Cross-BU','#0891b2','Cross-BU Programs','Brand \xb7 Digital \xb7 Comms \xb7 Systems',[],null)
     +'<div class="sp-card-body" style="padding:0">'
-    +_sBr2(_crossSt,'#0891b2')
-    +(_chKeys.length?'<div class="sp-ch-grid">'+_chCells+'</div>':'<div class="sp-no-epics">No cross-BU epics</div>')
+    +_buStats(_crossSt,'#0891b2')
+    +(_chKeys.length?'<div class="bu-ch-grid">'+_chCells+'</div>':'<div class="bu-no-epics">No cross-BU epics</div>')
     +'</div></div>';
   const buCardsHtml=_aweCard+_coreCard+_crossCard;
 
@@ -24253,47 +24338,73 @@ function renderTeamsDashboard(){
     const c={};items.forEach(i=>{c[i.type]=(c[i.type]||0)+1;});
     return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n);
   };
-  const _barsHtml=(pairs,col)=>{
-    const max=Math.max(1,...pairs.map(p=>p[1]));
-    return pairs.map(([label,n])=>
-      '<div class="tw-bar-row"><span class="tw-bar-name" title="'+label+'">'+label+'</span>'
-      +'<div class="tw-bar-wrap"><div class="tw-bar-fill" style="width:'+Math.round(n/max*100)+'%;background:'+col+'"></div></div>'
-      +'<span class="tw-bar-n">'+n+'</span></div>').join('');
+  // One hero stat row per widget — the bold headline number(s), not a bar.
+  const _heroRow=tiles=>'<div class="tw-kpi-row">'+tiles.map(t=>
+    '<div class="tw-kpi"><div class="tw-kpi-n">'+t.n+'</div><div class="tw-kpi-l">'+t.l+'</div></div>').join('')+'</div>';
+  // Part-to-whole as ONE segmented strip (sequential: one hue, opacity-ranked) + a chip legend,
+  // instead of a stack of near-identical horizontal bar rows.
+  const _SEG_OPACITY=[1,.72,.5,.34];
+  const _segBarHtml=(pairs,col)=>{
+    const bar=pairs.map(([label,n],i)=>
+      '<div class="tw-seg" style="flex:'+n+' '+n+' 0%;background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'" title="'+label+': '+n+'"></div>').join('');
+    const legend=pairs.map(([label,n],i)=>
+      '<span class="tw-seg-chip"><span class="tw-seg-chip-dot" style="background:'+col+';opacity:'+(_SEG_OPACITY[i]||.25)+'"></span>'+label+' <b>'+n+'</b></span>').join('');
+    return '<div class="tw-seg-wrap"><div class="tw-seg-bar">'+bar+'</div><div class="tw-seg-legend">'+legend+'</div></div>';
   };
+  // Meter — a single ratio against a whole (e.g. SEO's share of the combined Content+SEO team's work).
+  const _meterHtml=(pct,col,label)=>
+    '<div class="tw-meter-wrap"><div class="tw-meter-lbl"><span>'+label+'</span><b>'+pct+'%</b></div>'
+    +'<div class="tw-meter-track"><div class="tw-meter-fill" style="width:'+pct+'%;background:'+col+'"></div></div></div>';
 
   // ── per-channel tailored signal builders ─────────────────────────
-  const _seoSignal=(items,col)=>{
-    const types=_typeCounts(items,4);
+  const _contentSeoShare=(items,col,label)=>{
+    const combinedTotal=byCh('Content & SEO').length||1;
+    const pct=Math.round(items.length/combinedTotal*100);
+    return _meterHtml(pct,col,label);
+  };
+  const _contentSignal=(items,col)=>{
     const shipped=items.filter(i=>i._st==='done').length;
-    return (types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized content items</div>')
-      +'<div class="tw-foot">'+shipped+' shipped this quarter &middot; keyword-level tracking not yet wired to Jira</div>';
+    const types=_typeCounts(items,3);
+    return _heroRow([{n:items.length,l:'Active items'},{n:shipped,l:'Shipped this quarter'}])
+      +_contentSeoShare(items,col,'Share of Content + SEO capacity')
+      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized items yet</div>');
+  };
+  const _seoSignal=(items,col)=>{
+    const shipped=items.filter(i=>i._st==='done').length;
+    const types=_typeCounts(items,4);
+    return _heroRow([{n:items.length,l:'SEO items in pipeline'},{n:shipped,l:'Shipped this quarter'}])
+      +_contentSeoShare(items,col,'Share of Content + SEO capacity')
+      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized content items yet</div>')
+      +'<div class="tw-foot">Keyword-level ranking/traffic tracking isn\'t wired to Jira — this is content-volume coverage, not SERP performance.</div>';
   };
   const _webSignal=(items,col)=>{
+    const shipped=items.filter(i=>i._st==='done').length;
     const types=_typeCounts(items,4);
-    return types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized dev items</div>';
+    return _heroRow([{n:items.length,l:'Active dev items'},{n:shipped,l:'Shipped this quarter'}])
+      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized dev items</div>');
   };
   const _creativeSignal=items=>{
     const inFlight=items.filter(i=>i._st!=='done').length;
     const done=items.filter(i=>i._st==='done').length;
-    return '<div class="tw-kpi-row">'
-      +'<div class="tw-kpi"><div class="tw-kpi-n">'+inFlight+'</div><div class="tw-kpi-l">In flight</div></div>'
-      +'<div class="tw-kpi"><div class="tw-kpi-n">'+done+'</div><div class="tw-kpi-l">Completed Q</div></div>'
-      +'</div>';
+    return _heroRow([{n:inFlight,l:'In flight'},{n:done,l:'Completed Q'}]);
   };
   const _pmmSignal=(items,col)=>{
+    const shipped=items.filter(i=>i._st==='done').length;
     const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
     const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
-    return pairs.length?_barsHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>';
+    return _heroRow([{n:items.length,l:'Active items'},{n:shipped,l:'Shipped this quarter'}])
+      +(pairs.length?_segBarHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>');
   };
   const _defaultSignal=(items,col)=>{
     const shipped=items.filter(i=>i._st==='done').length;
     const types=_typeCounts(items,3);
-    return (types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized items yet</div>')
-      +'<div class="tw-foot">'+shipped+' shipped this quarter</div>';
+    return _heroRow([{n:items.length,l:'Active items'},{n:shipped,l:'Shipped this quarter'}])
+      +(types.length?_segBarHtml(types,col):'<div class="tw-foot">No categorized items yet</div>');
   };
   const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
     switch(c.ch){
+      case 'Content':          return _contentSignal(items,col);
       case 'SEO':              return _seoSignal(items,col);
       case 'Web & Digital':    return _webSignal(items,col);
       case 'Creative & Design':return _creativeSignal(items);
@@ -24352,20 +24463,21 @@ function renderTeamsDashboard(){
     const attnBlock=hasAttentionData?_attnHtml(blockedItems,overdueItems):'';
     const inflightBlock=_inFlightHtml(items);
     const divider=(attnBlock||inflightBlock)?'<div class="tw-divider"></div>':'';
-    // Content & SEO share one Jira channel/team — capacity (items/hours/load) can't be split without
-    // per-item hour data, so show the real split item count but label hours/load as shared team capacity.
+    // Content & SEO share one Jira channel/team — capacity (hours/load) can't be split without
+    // per-item hour data, so the item count comes from the real split (in the hero tile below)
+    // and this caption only speaks to the shared hours/load estimate.
     const isSplit=c.ch==='Content'||c.ch==='SEO';
-    const spineLine=isSplit
-      ?items.length+' active items &middot; '+c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ '+(c.ch==='Content'?'SEO':'Content')+')</span>'
-      :c.items+' active items &middot; '+c.hours+'h estimated';
+    const capLine=isSplit
+      ?c.hours+'h team capacity <span style="color:var(--g400)">(shared w/ '+(c.ch==='Content'?'SEO':'Content')+')</span>'
+      :c.hours+'h estimated capacity';
     return '<div class="tw-card">'
       +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-dot" style="background:'+col+'"></span>'+c.ch+'</span>'
       +'<span class="tw-badge" style="background:'+lb.bg+';color:'+lb.color+'">'+lb.label+'</span></div>'
       +attnBlock
       +inflightBlock
       +divider
-      +'<div class="tw-signal-lbl">'+spineLine+'</div>'
       +_signalFor(c,items)
+      +'<div class="tw-signal-lbl">'+capLine+'</div>'
       +'</div>';
   };
   const noDataBanner=hasAttentionData?'':'<div class="tw-nodata-banner">⏳ Blocked/overdue/priority signal will populate after the next Jira sync — showing capacity and type-mix only for now.</div>';
