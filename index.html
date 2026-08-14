@@ -204,6 +204,32 @@ button{font-family:inherit;cursor:pointer}
 /* NS card — contributing initiative dots */
 .ns-ini-row{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.07)}
 .ns-ini-dot{font-size:8.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+/* Initiative card — launches & recent tasks sections */
+.sp-sec-hdr{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--g400);padding:7px 18px 5px;background:var(--g50);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--g100)}
+.sp-launches2{}
+.sp-launch2{display:flex;align-items:center;gap:7px;padding:6px 18px;border-bottom:1px solid var(--g50);font-size:11.5px;min-width:0}
+.sp-launch2:last-child{border-bottom:none}
+.sp-l2-title{flex:1;color:var(--g800);font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-l2-due{font-size:10px;color:var(--g400);flex-shrink:0}
+.sp-l2-status{font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:10px;flex-shrink:0}
+.sp-l2-key{font-size:9px;font-family:monospace;color:var(--g300);text-decoration:none;flex-shrink:0}
+.sp-l2-key:hover{color:var(--blue)}
+.sp-rt-wrap{padding:10px 18px 8px}
+.sp-rt-group{margin-bottom:9px}
+.sp-rt-group:last-child{margin-bottom:0}
+.sp-rt-grp-hdr{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.sp-rt-grp-name{font-size:10px;font-weight:800;color:var(--g600);text-transform:uppercase;letter-spacing:.4px}
+.sp-rt-grp-count{font-size:9px;font-weight:800;padding:1px 6px;border-radius:20px;background:var(--g100);color:var(--g500)}
+.sp-rt-task{font-size:11px;color:var(--g600);padding:2px 0 2px 10px;border-left:2px solid var(--g200);margin-bottom:2px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.sp-rt-more{font-size:10px;color:var(--g400);padding:2px 0 2px 10px;font-style:italic}
+.sp-mini-stats{display:flex;align-items:center;gap:6px;padding:6px 18px;background:var(--g50);border-bottom:1px solid var(--g100);flex-wrap:wrap}
+.sp-ms-dn{font-size:10.5px;font-weight:700;color:#16a34a}
+.sp-ms-ip{font-size:10.5px;font-weight:700;color:#1d4ed8}
+.sp-ms-pl{font-size:10.5px;font-weight:600;color:var(--g400)}
+.sp-ms-sep{font-size:10px;color:var(--g300)}
+.sp-l2-done .sp-l2-title{color:var(--g400);text-decoration:line-through;text-decoration-color:var(--g300)}
+.sp-l2-done .sp-l2-status{opacity:.5}
+.sp-l2-done .sp-bu-tag{opacity:.5}
 
 /* ── PROGRAMS TAB ───────────────────────────────────── */
 .prog-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
@@ -581,6 +607,27 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .cap-ch-note{font-size:10px;color:var(--g400);margin-top:5px;font-style:italic;line-height:1.35}
 @media(max-width:1200px){.cap-ch-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){.cap-ch-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── TEAMS DASHBOARD (one tailored widget per channel) ──────────── */
+.tw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:1200px){.tw-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.tw-grid{grid-template-columns:1fr}}
+.tw-card{background:#fff;border-radius:14px;box-shadow:var(--sh);border:1px solid var(--g200);padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.tw-card-hd{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tw-card-title{font-size:13px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:7px}
+.tw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tw-badge{font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap;flex-shrink:0}
+.tw-signal-lbl{font-size:10.5px;color:var(--g500)}
+.tw-bar-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.tw-bar-name{font-size:11px;color:var(--g600);width:96px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tw-bar-wrap{flex:1;background:var(--g100);border-radius:5px;height:7px;overflow:hidden}
+.tw-bar-fill{height:100%;border-radius:5px}
+.tw-bar-n{font-size:10.5px;font-weight:700;color:var(--g600);width:18px;text-align:right;flex-shrink:0}
+.tw-kpi-row{display:flex;gap:10px}
+.tw-kpi{flex:1;background:var(--g50);border-radius:10px;padding:10px 12px;text-align:center}
+.tw-kpi-n{font-size:20px;font-weight:900;color:var(--navy);line-height:1}
+.tw-kpi-l{font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.tw-foot{font-size:10.5px;color:var(--g400);line-height:1.4}
 
 /* ── SHARED TAGS ────────────────────────────────────── */
 .tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap}
@@ -997,6 +1044,10 @@ window.addEventListener('load',function(){
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
     Analytics
   </button>
+  <button class="tbtn" onclick="go('teams',this)">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    Teams
+  </button>
 </nav>
 
 <div id="brief"        class="pane on"></div>
@@ -1004,6 +1055,7 @@ window.addEventListener('load',function(){
 <div id="deliverables" class="pane"></div>
 <div id="roadmap"      class="pane"></div>
 <div id="analytics"    class="pane"></div>
+<div id="teams"        class="pane"></div>
 
 <!-- Roadmap side panel -->
 <div id="rm-panel" aria-hidden="true">
@@ -21422,6 +21474,7 @@ function go(id,btn){
   if(id==='deliverables' && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
   if(id==='roadmap'       && !document.querySelector('#roadmap .rm-ctrl'))          renderRoadmap();
   if(id==='analytics'     && !document.querySelector('#analytics .an-card'))        renderAnalytics();
+  if(id==='teams'         && !document.querySelector('#teams .tw-card'))            renderTeamsDashboard();
 }
 
 /* ══════════════════════════════════════════════════════
@@ -23183,6 +23236,44 @@ function renderBriefing(){
     const moRowHtml=_moTagsHtml?'<div class="sp-mo-row"><span style="font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-right:6px;flex-shrink:0">Delivers</span>'+_moTagsHtml+'</div>':'';
     const execHtml=ini.execSummary?'<div class="sp-exec">'+ini.execSummary+'</div>':'';
 
+    // Epics (launches) — include all statuses so done work shows
+    const _lStCol={'in-progress':'#16a34a','planning':'#1d4ed8','intake':'#6366f1','blocked':'#dc2626','on-hold':'#94a3b8','confirmed':'#0d9488','done':'#94a3b8'};
+    const _lStLbl={'in-progress':'In progress','planning':'Planning','intake':'Intake','blocked':'Blocked','on-hold':'On hold','confirmed':'Confirmed','done':'Done'};
+    const _allLaunches=(ini.launches||[]);
+    // Status counts across all programs for this initiative
+    const _allProgsI=(DATA.programs||[]).filter(function(p){return p.sp===ini.key;});
+    const _dnCntI=_allProgsI.filter(function(p){return p.status==='done';}).length;
+    const _ipCntI=_allProgsI.filter(function(p){return p.status==='in-progress'||p.status==='blocked';}).length;
+    const _plCntI=_allProgsI.filter(function(p){return ['planning','intake'].includes(p.status);}).length;
+    // Mini stats bar
+    const _msParts=[];
+    if(_dnCntI>0)_msParts.push('<span class="sp-ms-dn">✓ '+_dnCntI+' done</span>');
+    if(_ipCntI>0)_msParts.push('<span class="sp-ms-ip">'+_ipCntI+' active</span>');
+    if(_plCntI>0)_msParts.push('<span class="sp-ms-pl">'+_plCntI+' planning</span>');
+    const miniStatsHtml=_msParts.length?'<div class="sp-mini-stats">'+_msParts.join('<span class="sp-ms-sep">·</span>')+'</div>':'';
+    // Epic list — sort: blocked first, then in-progress, then planning, then done
+    const _lOrd={'blocked':0,'in-progress':1,'confirmed':2,'planning':3,'intake':4,'on-hold':5,'done':6};
+    const _sortedLaunches=_allLaunches.slice().sort(function(a,b){return (_lOrd[a.status]||9)-(_lOrd[b.status]||9);});
+    const _buTagCls=function(bu){if(!bu)return 'cross';const b=bu.toLowerCase();if(b==='fastfield'||b==='ff')return 'ff';if(b==='pave')return 'pave';if(b==='core'||b==='qb'||b==='quickbase')return 'core';return 'cross';};
+    const _buTagLbl=function(bu){if(!bu)return null;const b=bu.toLowerCase();if(b==='fastfield')return 'FF';if(b==='qb'||b==='quickbase')return 'Core';return bu;};
+    const launchesHtml=_sortedLaunches.length?
+      '<div class="sp-launches2">'
+      +_sortedLaunches.map(function(l){
+        const isDone=l.status==='done';
+        const sc=_lStCol[l.status]||'#94a3b8';
+        const sl=_lStLbl[l.status]||l.status;
+        const buLbl=_buTagLbl(l.bu);
+        const buBadge=buLbl?'<span class="sp-bu-tag sp-bu-'+_buTagCls(l.bu)+'">'+buLbl+'</span>':'';
+        return '<div class="sp-launch2'+(isDone?' sp-l2-done':'')+'">'
+          +buBadge
+          +'<span class="sp-l2-title" title="'+l.title+'">'+l.title+'</span>'
+          +'<span class="sp-l2-status" style="background:'+sc+'18;color:'+sc+'">'+sl+'</span>'
+          +'</div>';
+      }).join('')
+      +'</div>'
+    :'';
+    const recentTasksHtml='';
+
     // Owner goals from Goal Cascade matched to this card's MOs
     const _cardGoals=_tgData.filter(function(g){return _nsD.mos.indexOf(g.mo)!==-1;});
     const _gcSigMap={'on-track':'ok','watch':'watch','at-risk':'risk'};
@@ -23216,10 +23307,8 @@ function renderBriefing(){
         <div class="sp-hdr-bar-wrap"><div class="sp-hdr-bar-fill" style="width:${_pct||0}%;background:${ini.color}"></div></div>
       </div>
       <div class="sp-card-body">
-        ${cardGoalsHtml}
-        ${goalProgSection}
-        ${progsHtml}
-        ${p2Html}
+        ${miniStatsHtml}
+        ${launchesHtml}
       </div>
       <button class="sp-copy-btn" onclick="event.stopPropagation();getStatusUpdate('${ini.key}',this)">⚡ Get status update</button>
     </div>`;
@@ -24019,6 +24108,104 @@ function renderAnalytics(){
     ${_trendHtml}
 
     `;
+}
+
+/* ══════════════════════════════════════════════════════
+   TEAMS DASHBOARD — one tailored widget per channel
+══════════════════════════════════════════════════════ */
+function renderTeamsDashboard(){
+  const CH_COLOR={'Content & SEO':'#0891B2','Email & Lifecycle':'#14A558','Creative & Design':'#DB2777',
+    'Demand Gen':'#F59E0B','Social Media':'#9333EA','PMM / Product':'#7C3AED','Marketing Analytics':'#059669',
+    'Events & Experiences':'#E53935','Community':'#D97706','PR & Comms':'#6366F1','Web & Digital':'#14B8A6','UX & Design':'#EC4899'};
+  // update-dashboard.js relabels some channels for display in shipped/planning/active items
+  // (e.g. "SEO / AEO", "Web / Digital") — normalize back to the 12 canonical CAP_DATA channel names.
+  const CH_ALIAS={'SEO / AEO':'Content & SEO','Content':'Content & SEO',
+    'Web / Digital':'Web & Digital','Launches & GTM':'PMM / Product',
+    'Webinars & Events':'Events & Experiences','PR & Exec Comms':'PR & Comms',
+    'Systems & AI':'Marketing Analytics','Paid Media':'Demand Gen'};
+  const _norm=ch=>CH_ALIAS[ch]||ch;
+  const _all=[
+    ...(DATA.planning||[]).map(i=>({...i,ch:_norm(i.ch),_st:'planning'})),
+    ...(DATA.active  ||[]).map(i=>({...i,ch:_norm(i.ch),_st:'active'})),
+    ...(DATA.shipped ||[]).map(i=>({...i,ch:_norm(i.ch),_st:'done'})),
+  ];
+  const byCh=ch=>_all.filter(i=>i.ch===ch);
+  const _typeCounts=(items,n)=>{
+    const c={};items.forEach(i=>{c[i.type]=(c[i.type]||0)+1;});
+    return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,n);
+  };
+  const _barsHtml=(pairs,col)=>{
+    const max=Math.max(1,...pairs.map(p=>p[1]));
+    return pairs.map(([label,n])=>
+      '<div class="tw-bar-row"><span class="tw-bar-name" title="'+label+'">'+label+'</span>'
+      +'<div class="tw-bar-wrap"><div class="tw-bar-fill" style="width:'+Math.round(n/max*100)+'%;background:'+col+'"></div></div>'
+      +'<span class="tw-bar-n">'+n+'</span></div>').join('');
+  };
+
+  // ── per-channel tailored signal builders ─────────────────────────
+  const _seoSignal=(items,col)=>{
+    const types=_typeCounts(items,4);
+    const shipped=items.filter(i=>i._st==='done').length;
+    return (types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized content items</div>')
+      +'<div class="tw-foot">'+shipped+' shipped this quarter &middot; keyword-level tracking not yet wired to Jira</div>';
+  };
+  const _webSignal=(items,col)=>{
+    const types=_typeCounts(items,4);
+    return types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized dev items</div>';
+  };
+  const _creativeSignal=items=>{
+    const inFlight=items.filter(i=>i._st!=='done').length;
+    const done=items.filter(i=>i._st==='done').length;
+    return '<div class="tw-kpi-row">'
+      +'<div class="tw-kpi"><div class="tw-kpi-n">'+inFlight+'</div><div class="tw-kpi-l">In flight</div></div>'
+      +'<div class="tw-kpi"><div class="tw-kpi-n">'+done+'</div><div class="tw-kpi-l">Completed Q</div></div>'
+      +'</div>';
+  };
+  const _pmmSignal=(items,col)=>{
+    const bu={};items.forEach(i=>{const b=i.bu||'Unknown';bu[b]=(bu[b]||0)+1;});
+    const pairs=Object.entries(bu).sort((a,b)=>b[1]-a[1]).slice(0,4);
+    return pairs.length?_barsHtml(pairs,col):'<div class="tw-foot">No BU-tagged items</div>';
+  };
+  const _defaultSignal=(items,col)=>{
+    const shipped=items.filter(i=>i._st==='done').length;
+    const types=_typeCounts(items,3);
+    return (types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized items yet</div>')
+      +'<div class="tw-foot">'+shipped+' shipped this quarter</div>';
+  };
+  const _signalFor=c=>{
+    const items=byCh(c.ch);
+    const col=CH_COLOR[c.ch]||'#64748B';
+    switch(c.ch){
+      case 'Content & SEO':    return _seoSignal(items,col);
+      case 'Web & Digital':    return _webSignal(items,col);
+      case 'Creative & Design':return _creativeSignal(items);
+      case 'PMM / Product':    return _pmmSignal(items,col);
+      default:                 return _defaultSignal(items,col);
+    }
+  };
+  const _LBADGE={
+    'OVER':{label:'Full queue', bg:'rgba(245,158,11,.12)',color:'#92400E'},
+    'HIGH':{label:'High load',  bg:'rgba(245,158,11,.08)',color:'#92400E'},
+    'OK':  {label:'Healthy',    bg:'rgba(20,165,88,.1)',  color:'var(--green)'},
+    'LIGHT':{label:'Light load',bg:'var(--g100)',         color:'var(--g500)'},
+    'GAP': {label:'No data',    bg:'var(--g100)',         color:'var(--g400)'},
+  };
+  const _card=c=>{
+    const lb=_LBADGE[c.load]||_LBADGE.GAP;
+    const col=CH_COLOR[c.ch]||'#64748B';
+    return '<div class="tw-card">'
+      +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-dot" style="background:'+col+'"></span>'+c.ch+'</span>'
+      +'<span class="tw-badge" style="background:'+lb.bg+';color:'+lb.color+'">'+lb.label+'</span></div>'
+      +'<div class="tw-signal-lbl">'+c.items+' active items &middot; '+c.hours+'h estimated</div>'
+      +_signalFor(c)
+      +'</div>';
+  };
+  document.getElementById('teams').innerHTML=
+    '<div class="sec-hd"><h2>Teams Dashboard</h2><p>Updated '+CAP_DATA.pulledAt+'</p></div>'
+    +'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 14px;margin-bottom:18px;font-size:12px;color:#78350f;line-height:1.5">'
+    +'📋 <strong>One widget per team</strong> — each shaped for what that channel actually tracks in Jira today. Capacity/load figures reuse the same data as the Analytics tab.'
+    +'</div>'
+    +'<div class="tw-grid">'+CAP_DATA.channels.map(_card).join('')+'</div>';
 }
 
 /* ══════════════════════════════════════════════════════
