@@ -628,6 +628,17 @@ code.snap{background:var(--g100);padding:1px 6px;border-radius:3px;font-size:10.
 .tw-kpi-n{font-size:20px;font-weight:900;color:var(--navy);line-height:1}
 .tw-kpi-l{font-size:9px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
 .tw-foot{font-size:10.5px;color:var(--g400);line-height:1.4}
+.tw-attn-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2px}
+.tw-attn-chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.tw-attn-chip.blocked{background:var(--red-lt);color:var(--red)}
+.tw-attn-chip.overdue{background:var(--amber-lt);color:#92400E}
+.tw-attn-clean{font-size:11px;color:var(--green);font-weight:600}
+.tw-attn-item,.tw-inflight-item{font-size:11px;color:var(--g600);line-height:1.5;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tw-attn-item a,.tw-inflight-item a{color:inherit;text-decoration:none}
+.tw-attn-item a:hover,.tw-inflight-item a:hover{text-decoration:underline}
+.tw-inflight-lbl{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);margin-top:2px}
+.tw-divider{border-top:1px solid var(--g100);margin:2px 0}
+.tw-nodata-banner{background:var(--g50);border:1px dashed var(--g200);border-radius:8px;padding:8px 14px;margin-bottom:18px;font-size:11.5px;color:var(--g500);line-height:1.5}
 
 /* ── SHARED TAGS ────────────────────────────────────── */
 .tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap}
@@ -23314,6 +23325,91 @@ function renderBriefing(){
     </div>`;
   }).join('');
 
+  // ── BU card view (FF · Pave · Core · Cross-BU by channel) ─────────
+  const _stC2={'in-progress':'#16a34a','planning':'#1d4ed8','intake':'#6366f1','blocked':'#dc2626','on-hold':'#94a3b8','confirmed':'#0d9488','done':'#94a3b8'};
+  const _stL2={'in-progress':'In progress','planning':'Planning','intake':'Intake','blocked':'Blocked','on-hold':'On hold','confirmed':'Confirmed','done':'Done'};
+  const _lOrd2={'blocked':0,'in-progress':1,'confirmed':2,'planning':3,'intake':4,'on-hold':5,'done':6};
+  const _taggedL=inits.reduce(function(acc,ini){return acc.concat((ini.launches||[]).map(function(l){return Object.assign({},l,{_sp:ini.key});}));  },[]);
+  const _isFF2=function(l){const b=(l.bu||'').toLowerCase();return b==='ff'||b==='fastfield';};
+  const _isPave2=function(l){return(l.bu||'').toLowerCase()==='pave';};
+  const _isCoreL=function(l){const b=(l.bu||'').toLowerCase();return l._sp==='MKT-12569'||b==='core'||b==='qb'||b==='launch';};
+  const _ffL=_taggedL.filter(_isFF2);
+  const _paveL=_taggedL.filter(_isPave2);
+  const _coreL=_taggedL.filter(function(l){return !_isFF2(l)&&!_isPave2(l)&&_isCoreL(l);});
+  const _usedKeys=new Set([].concat(_ffL,_paveL,_coreL).map(function(l){return l._sp+'|'+l.key;}));
+  const _crossL=_taggedL.filter(function(l){return !_usedKeys.has(l._sp+'|'+l.key)&&l._sp!=='MKT-12568';});
+  const _allP2=DATA.programs||[];
+  const _pStat=function(fn){const p=_allP2.filter(fn);return{dn:p.filter(function(x){return x.status==='done';}).length,ip:p.filter(function(x){return x.status==='in-progress'||x.status==='blocked';}).length,pl:p.filter(function(x){return['planning','intake'].includes(x.status);}).length};};
+  const _ffSt=_pStat(function(p){return /^\[FF\]/i.test(p.title||'');});
+  const _paveSt=_pStat(function(p){return /^\[Pave\]/i.test(p.title||'');});
+  const _coreSt=_pStat(function(p){return p.sp==='MKT-12569'||(/^\[Core\]/i.test(p.title||'')&&p.sp!=='MKT-12569');});
+  const _cxSps=['MKT-12570','MKT-12571','MKT-12572','MKT-12573','MKT-12574'];
+  const _crossSt=_pStat(function(p){return _cxSps.indexOf(p.sp)!==-1&&!/^\[(FF|Pave|Core)\]/i.test(p.title||'');});
+  const _srt2=function(arr){return arr.slice().sort(function(a,b){return(_lOrd2[a.status]||9)-(_lOrd2[b.status]||9);});};
+  const _eRow=function(l){
+    const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
+    return'<div class="sp-ep-row'+(done?' sp-ep-done':'')+'"><span class="sp-ep-dot2" style="background:'+sc+'"></span><span class="sp-ep-title2" title="'+l.title.replace(/"/g,'&quot;')+'">'+l.title+'</span><span class="sp-ep-status" style="background:'+sc+'15;color:'+sc+'">'+sl+'</span></div>';
+  };
+  const _sBr2=function(st,color){
+    const c=color||'#1d4ed8';const p=[];
+    if(st.dn)p.push('<span class="sp-stat-chip" style="background:#16a34a15;color:#16a34a">✓ '+st.dn+' done</span>');
+    if(st.ip)p.push('<span class="sp-stat-chip" style="background:'+c+'15;color:'+c+'">'+st.ip+' active</span>');
+    if(st.pl)p.push('<span class="sp-stat-chip" style="background:var(--g100);color:var(--g500)">'+st.pl+' planning</span>');
+    return p.length?'<div class="sp-prod-stats-row">'+p.join('')+'</div>':'';
+  };
+  const _iniPct2=function(k){const i=inits.find(function(x){return x.key===k;})||{};return i.total?Math.round((i.done||0)/i.total*100):(i.pct!=null?i.pct:null);};
+  const _buHdr2=function(badge,color,sub,pct){
+    return'<div class="sp-card-hdr" style="border-left:5px solid '+color+'" onclick="toggleCard(this)">'
+      +'<div class="sp-card-hdr-row">'
+      +'<div style="display:flex;align-items:center;gap:8px">'
+      +'<span class="sp-bu-hdr-badge" style="color:'+color+';background:'+color+'14">'+badge+'</span>'
+      +(sub?'<span style="font-size:11px;color:var(--g400);font-weight:400">'+sub+'</span>':'')
+      +'</div>'
+      +(pct!=null?'<div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px;font-weight:900;color:'+color+';letter-spacing:-1px">'+pct+'%</span><span class="sp-chevron">▾</span></div>':'<span class="sp-chevron">▾</span>')
+      +'</div>'
+      +'<div class="sp-hdr-bar-wrap"><div class="sp-hdr-bar-fill" style="width:'+(pct||0)+'%;background:'+color+'"></div></div>'
+      +'</div>';
+  };
+  const _prodPanel=function(label,color,epics,stats){
+    const rows=_srt2(epics);
+    return'<div class="sp-prod-panel">'
+      +'<div class="sp-prod-hdr"><span class="sp-prod-dot" style="background:'+color+'"></span><span class="sp-prod-name" style="color:'+color+'">'+label+'</span></div>'
+      +_sBr2(stats,color)
+      +(rows.length?'<div>'+rows.map(_eRow).join('')+'</div>':'<div class="sp-no-epics">No active epics yet</div>')
+      +'</div>';
+  };
+  const _awePct=_iniPct2('MKT-12568');
+  const _aweCard='<div class="sp-card sp-card-awe" data-key="bu-AWE">'
+    +_buHdr2('AWE','#7c3aed','FastField \xb7 Pave \xb7 PLG',_awePct)
+    +'<div class="sp-card-body" style="padding:0"><div class="sp-awe-panels">'
+    +_prodPanel('FastField','#ea580c',_ffL,_ffSt)
+    +_prodPanel('Pave','#2563eb',_paveL,_paveSt)
+    +'</div></div></div>';
+  const _corePct=_iniPct2('MKT-12569');
+  const _coreSorted=_srt2(_coreL);
+  const _coreCard='<div class="sp-card" data-key="bu-Core">'
+    +_buHdr2('CORE','#10503C','Enterprise \xb7 sales-led',_corePct)
+    +'<div class="sp-card-body" style="padding:0">'
+    +_sBr2(_coreSt,'#10503C')
+    +(_coreSorted.length?'<div>'+_coreSorted.map(_eRow).join('')+'</div>':'<div class="sp-no-epics">No active epics yet</div>')
+    +'</div></div>';
+  const _chGrps={};
+  _crossL.forEach(function(l){const ch=l.bu||'Other';if(!_chGrps[ch])_chGrps[ch]=[];_chGrps[ch].push(l);});
+  const _chOrd=['Brand','Events','Community','Creative','Social','PR','Web','SEO','Paid','CRO','Lifecycle','AI','Webinar','Other'];
+  const _chKeys=Object.keys(_chGrps).sort(function(a,b){const ai=_chOrd.indexOf(a);const bi=_chOrd.indexOf(b);return(ai<0?99:ai)-(bi<0?99:bi);});
+  const _chCells=_chKeys.map(function(ch){
+    const rows=_srt2(_chGrps[ch]);
+    const actCnt=rows.filter(function(l){return l.status==='in-progress'||l.status==='blocked';}).length;
+    return'<div class="sp-ch-cell"><div class="sp-ch-cell-hdr"><span class="sp-ch-name">'+ch+'</span>'+(actCnt?'<span class="sp-ch-badge">'+actCnt+'</span>':'')+'</div>'+rows.map(_eRow).join('')+'</div>';
+  }).join('');
+  const _crossCard='<div class="sp-card sp-card-xbu" data-key="bu-XBU">'
+    +_buHdr2('Cross-BU','#0891b2','Brand \xb7 Digital \xb7 Comms \xb7 Systems',null)
+    +'<div class="sp-card-body" style="padding:0">'
+    +_sBr2(_crossSt,'#0891b2')
+    +(_chKeys.length?'<div class="sp-ch-grid">'+_chCells+'</div>':'<div class="sp-no-epics">No cross-BU epics</div>')
+    +'</div></div>';
+  const buCardsHtml=_aweCard+_coreCard+_crossCard;
+
   // Full-year timeline bar gradient
   const _barGrad=`linear-gradient(90deg,
     #94a3b8 0%,#94a3b8 ${_q3Pct}%,
@@ -23407,7 +23503,7 @@ function renderBriefing(){
       +'<div class="bu-card-body">'+(rows||'<div class="bu-item-empty">No active P1 programs</div>')+'</div>'
       +'</div>';
   });
-  const buCardsHtml='<div class="sec-hd" style="margin-top:6px;margin-bottom:14px"><h2>Business Unit Snapshot</h2>'
+  const _buSnapHtml='<div class="sec-hd" style="margin-top:6px;margin-bottom:14px"><h2>Business Unit Snapshot</h2>'
     +'<p>P1 programs · active &amp; planning · live from Jira</p></div>'
     +'<div class="bu-grid">'+_buCardsInner+'</div>';
 
@@ -23476,11 +23572,18 @@ function renderBriefing(){
 
       ${winsHtml}
     </div>
-    <div class="sec-hd">
-      <h2>Strategic Initiatives</h2>
-      <p>${jl('MKT-12568','MKT-12568')}–${jl('MKT-12574','12574')} · 7 strategic projects · owners + goals + active programs</p>
+    <div class="sec-hd" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <h2>Strategic Initiatives</h2>
+        <p>${jl('MKT-12568','MKT-12568')}–${jl('MKT-12574','12574')} · 7 strategic projects</p>
+      </div>
+      <div class="sp-view-toggle">
+        <button class="pf-btn" id="sp-view-ini" onclick="spToggleView('ini')">By Initiative</button>
+        <button class="pf-btn on" id="sp-view-bu" onclick="spToggleView('bu')">By Business Unit</button>
+      </div>
     </div>
-    <div class="sp-grid">${initCards}</div>
+    <div id="sp-ini-view" class="sp-grid" style="display:none">${initCards}</div>
+    <div id="sp-bu-view" class="sp-grid">${buCardsHtml}</div>
     ${capStripHtml}`;
 }
 
@@ -24172,8 +24275,7 @@ function renderTeamsDashboard(){
     return (types.length?_barsHtml(types,col):'<div class="tw-foot">No categorized items yet</div>')
       +'<div class="tw-foot">'+shipped+' shipped this quarter</div>';
   };
-  const _signalFor=c=>{
-    const items=byCh(c.ch);
+  const _signalFor=(c,items)=>{
     const col=CH_COLOR[c.ch]||'#64748B';
     switch(c.ch){
       case 'Content & SEO':    return _seoSignal(items,col);
@@ -24190,21 +24292,67 @@ function renderTeamsDashboard(){
     'LIGHT':{label:'Light load',bg:'var(--g100)',         color:'var(--g500)'},
     'GAP': {label:'No data',    bg:'var(--g100)',         color:'var(--g400)'},
   };
+
+  // ── attention (blocked/overdue) + in-flight-now, from real Jira status/duedate/priority ──
+  // Only present on items pulled through the updated categorizeIssues() in update-dashboard.js —
+  // guarded by hasAttentionData below so stale pre-refresh data doesn't render a false "all clear".
+  const hasAttentionData=[...(DATA.planning||[]),...(DATA.active||[])].some(i=>i.blocked!==undefined||i.due!==undefined);
+  const _today=new Date();_today.setHours(0,0,0,0);
+  const _isOverdue=i=>!!i.due&&new Date(i.due+'T12:00:00')<_today;
+  const _attentionFor=items=>{
+    const openItems=items.filter(i=>i._st!=='done');
+    const blockedItems=openItems.filter(i=>i.blocked);
+    const overdueItems=openItems.filter(i=>!i.blocked&&_isOverdue(i)).sort((a,b)=>new Date(a.due)-new Date(b.due));
+    return {blockedItems,overdueItems};
+  };
+  const _attnItemLine=i=>'<span class="tw-attn-item">'+jl(i.key,i.title)+'</span>';
+  const _attnHtml=(blockedItems,overdueItems)=>{
+    if(!blockedItems.length&&!overdueItems.length)return '<div class="tw-attn-clean">✓ Nothing blocked or overdue</div>';
+    let out='<div class="tw-attn-row">';
+    if(blockedItems.length)out+='<span class="tw-attn-chip blocked">⛔ '+blockedItems.length+' blocked</span>';
+    if(overdueItems.length)out+='<span class="tw-attn-chip overdue">⏰ '+overdueItems.length+' overdue</span>';
+    out+='</div>';
+    out+=blockedItems.slice(0,2).map(_attnItemLine).join('');
+    out+=overdueItems.slice(0,2).map(_attnItemLine).join('');
+    return out;
+  };
+  const _PRIORITY_RANK={highest:0,high:1,medium:2,low:3,lowest:4};
+  const _prioRank=p=>_PRIORITY_RANK[(p||'').toLowerCase()]??5;
+  const _inFlightHtml=items=>{
+    const top=items.filter(i=>i._st==='active').slice().sort((a,b)=>{
+      const pr=_prioRank(a.priority)-_prioRank(b.priority);
+      return pr!==0?pr:new Date(b.updatedDate||0)-new Date(a.updatedDate||0);
+    }).slice(0,3);
+    if(!top.length)return '';
+    return '<div class="tw-inflight-lbl">In flight now</div>'
+      +top.map(i=>'<span class="tw-inflight-item">'+jl(i.key,i.title)+'</span>').join('');
+  };
+
   const _card=c=>{
     const lb=_LBADGE[c.load]||_LBADGE.GAP;
     const col=CH_COLOR[c.ch]||'#64748B';
+    const items=byCh(c.ch);
+    const {blockedItems,overdueItems}=_attentionFor(items);
+    const attnBlock=hasAttentionData?_attnHtml(blockedItems,overdueItems):'';
+    const inflightBlock=_inFlightHtml(items);
+    const divider=(attnBlock||inflightBlock)?'<div class="tw-divider"></div>':'';
     return '<div class="tw-card">'
       +'<div class="tw-card-hd"><span class="tw-card-title"><span class="tw-dot" style="background:'+col+'"></span>'+c.ch+'</span>'
       +'<span class="tw-badge" style="background:'+lb.bg+';color:'+lb.color+'">'+lb.label+'</span></div>'
+      +attnBlock
+      +inflightBlock
+      +divider
       +'<div class="tw-signal-lbl">'+c.items+' active items &middot; '+c.hours+'h estimated</div>'
-      +_signalFor(c)
+      +_signalFor(c,items)
       +'</div>';
   };
+  const noDataBanner=hasAttentionData?'':'<div class="tw-nodata-banner">⏳ Blocked/overdue/priority signal will populate after the next Jira sync — showing capacity and type-mix only for now.</div>';
   document.getElementById('teams').innerHTML=
     '<div class="sec-hd"><h2>Teams Dashboard</h2><p>Updated '+CAP_DATA.pulledAt+'</p></div>'
     +'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 14px;margin-bottom:18px;font-size:12px;color:#78350f;line-height:1.5">'
-    +'📋 <strong>One widget per team</strong> — each shaped for what that channel actually tracks in Jira today. Capacity/load figures reuse the same data as the Analytics tab.'
+    +'📋 <strong>One widget per team</strong> — each shaped for what that channel actually needs to check today: what\'s blocked, what\'s overdue, what\'s in flight, plus capacity/type context.'
     +'</div>'
+    +noDataBanner
     +'<div class="tw-grid">'+CAP_DATA.channels.map(_card).join('')+'</div>';
 }
 
