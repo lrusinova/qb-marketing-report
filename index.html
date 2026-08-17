@@ -714,6 +714,15 @@ a.tw-seg-chip:hover{background:#fff;border-color:var(--g300)}
 .tw-attn-clean{font-size:11px;color:var(--green);font-weight:600}
 .tw-divider{border-top:1px solid var(--g100);margin:2px 0}
 .tw-nodata-banner{background:var(--g50);border:1px dashed var(--g200);border-radius:8px;padding:8px 14px;margin-bottom:18px;font-size:11.5px;color:var(--g500);line-height:1.5}
+.tw-cap-strip{background:#fff;border:1px solid var(--g200);border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh)}
+.tw-cap-hd{font-size:12px;font-weight:800;color:var(--navy)}
+.tw-cap-as{font-size:10px;font-weight:400;color:var(--g400);margin-left:6px}
+.tw-cap-row{display:flex;flex-wrap:wrap;gap:7px}
+.tw-cap-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:10px;border:1px solid transparent;font-size:11px;cursor:default}
+.tw-cap-ch{font-weight:700;color:var(--g800);white-space:nowrap}
+.tw-cap-items{font-weight:900;font-size:14px}
+.tw-cap-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap}
+.tw-cap-summary{font-size:10.5px;color:var(--g500)}
 
 /* ── SHARED TAGS ────────────────────────────────────── */
 .tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap}
@@ -1126,10 +1135,6 @@ window.addEventListener('load',function(){
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
     Roadmap
   </button>
-  <button class="tbtn" onclick="go('analytics',this)">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    Analytics
-  </button>
   <button class="tbtn" onclick="go('teams',this)">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
     Teams
@@ -1140,7 +1145,6 @@ window.addEventListener('load',function(){
 <div id="programs"     class="pane"></div>
 <div id="deliverables" class="pane"></div>
 <div id="roadmap"      class="pane"></div>
-<div id="analytics"    class="pane"></div>
 <div id="teams"        class="pane"></div>
 
 <!-- Roadmap side panel -->
@@ -21559,7 +21563,6 @@ function go(id,btn){
   if(id==='programs'     && !document.querySelector('#programs .prog-sp-group')) renderPrograms();
   if(id==='deliverables' && !document.querySelector('#deliverables .del3-summary')) renderDeliverables();
   if(id==='roadmap'       && !document.querySelector('#roadmap .rm-ctrl'))          renderRoadmap();
-  if(id==='analytics'     && !document.querySelector('#analytics .an-card'))        renderAnalytics();
   if(id==='teams'         && !document.querySelector('#teams .tw-card'))            renderTeamsDashboard();
 }
 
@@ -23688,7 +23691,6 @@ function renderBriefing(){
   const capStripHtml='<div class="tl-strip" style="flex-direction:column;align-items:flex-start;gap:9px;padding:14px 20px">'
     +'<div style="display:flex;align-items:center;justify-content:space-between;width:100%">'
     +'<span class="tl-strip-lbl">Team Load &mdash; '+CAP_DATA.pulledAt+' &nbsp;<span style="font-size:9px;font-weight:400;color:var(--g400)">· planned workload in Jira (not overdue) · hover for detail</span></span>'
-    +'<button class="tl-strip-link" onclick="go(\'analytics\',document.querySelector(\'.tbtn[onclick*=analytics]\'))">Full view &rarr;</button>'
     +'</div>'
     +'<div class="ch-chips">'
     +CAP_DATA.channels.map(c=>{const cl=_cCl(c.load);const nP=Math.max(1,c.people.length);const wk=c.hours/(40*nP);const wkTxt=wk<=0?'—':wk<0.2?'<1d':wk<0.5?Math.max(1,Math.round(wk*5))+'d':wk<1?Math.round(wk*5)+'d':wk.toFixed(1)+'wk';return '<span class="ch-chip" style="background:'+cl.bg+';border-color:'+cl.bc+'" title="'+c.hours+'h &middot; '+nP+' people &middot; ~'+wkTxt+' to clear all active work"><span style="width:6px;height:6px;border-radius:50%;background:'+cl.dot+';display:inline-block;flex-shrink:0"></span><span style="color:var(--g800)">'+(_cSh[c.ch]||c.ch)+'</span><span style="color:'+cl.dot+';font-size:10px;font-weight:800">&nbsp;~'+wkTxt+'</span></span>';}).join('')
@@ -24726,11 +24728,13 @@ function renderTeamsDashboard(){
       +'</div>';
   };
   const noDataBanner=hasAttentionData?'':'<div class="tw-nodata-banner">⏳ Blocked/overdue/priority signal will populate after the next Jira sync — showing capacity and pipeline stage only for now.</div>';
+  const _tcSh={'Content & SEO':'Content+SEO','Email & Lifecycle':'Email','Creative & Design':'Creative','Demand Gen':'DG','Social Media':'Social','PMM / Product':'PMM','Marketing Analytics':'Analytics','Events & Experiences':'Events','Community':'Community','PR & Comms':'PR & Comms','Web & Digital':'Web','UX & Design':'UX'};
+  const _tcCl=l=>l==='OVER'?{bg:'rgba(220,38,38,.07)',bc:'rgba(220,38,38,.2)',dot:'#DC2626',tx:'#991B1B'}:l==='HIGH'?{bg:'rgba(245,158,11,.08)',bc:'rgba(245,158,11,.25)',dot:'#D97706',tx:'#92400E'}:l==='GAP'?{bg:'var(--g100)',bc:'var(--g200)',dot:'var(--g400)',tx:'var(--g500)'}:{bg:'rgba(20,165,88,.07)',bc:'rgba(20,165,88,.22)',dot:'#16A34A',tx:'#15803D'};
+  const _capChips=CAP_DATA.channels.map(c=>{const cl=_tcCl(c.load);const nP=Math.max(1,c.people.length);const wk=c.hours/(40*nP);const wkTxt=wk<=0?'—':wk<0.2?'<1d':wk<0.5?Math.round(wk*5)+'d':wk.toFixed(1)+'wk';return'<div class="tw-cap-chip" style="background:'+cl.bg+';border-color:'+cl.bc+'" title="'+c.items+' active tasks · '+nP+' people · ~'+wkTxt+'/person to clear">'+'<span class="tw-cap-ch">'+(_tcSh[c.ch]||c.ch)+'</span>'+'<span class="tw-cap-items" style="color:'+cl.dot+'">'+c.items+'</span>'+'<span class="tw-cap-badge" style="background:'+cl.dot+'20;color:'+cl.tx+'">~'+wkTxt+'</span>'+'</div>';}).join('');
+  const capStripHtml='<div class="tw-cap-strip">'+'<div class="tw-cap-hd">Team Capacity <span class="tw-cap-as">'+CAP_DATA.pulledAt+' · active tasks only · 40h/wk assumed</span></div>'+'<div class="tw-cap-row">'+_capChips+'</div>'+'<div class="tw-cap-summary">'+'<span style="color:#DC2626;font-weight:700">'+CAP_DATA.channels.filter(c=>c.load==='OVER').length+' full queue</span>'+' · '+CAP_DATA.channels.filter(c=>c.load==='HIGH').length+' high load'+' · '+CAP_DATA.channels.filter(c=>c.load==='OK').length+' healthy'+' · '+CAP_DATA.channels.filter(c=>c.load==='LIGHT').length+' light'+'</div>'+'</div>';
   document.getElementById('teams').innerHTML=
     '<div class="sec-hd"><h2>Teams Dashboard</h2><p>Updated '+CAP_DATA.pulledAt+'</p></div>'
-    +'<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:9px 14px;margin-bottom:18px;font-size:12px;color:#78350f;line-height:1.5">'
-    +'📋 <strong>One widget per team</strong> — each leads with a Briefed &rarr; In progress &rarr; Published pipeline (Jira status buckets), then what\'s blocked/overdue, then a BU split (FastField/Pave/Core/Cross-BU).'
-    +'</div>'
+    +capStripHtml
     +noDataBanner
     +'<div class="tw-grid">'+_expandChannels(CAP_DATA.channels).map(_card).join('')+'</div>';
 }
