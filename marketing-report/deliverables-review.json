@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Aug 17, 2026",
-  "total": 11,
+  "generatedAt": "Aug 18, 2026",
+  "total": 10,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -90,15 +90,6 @@
       "type": "Sub-task",
       "assignee": "(unassigned)",
       "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-11699",
-      "title": "Pricing Page Update — Add Intelligence Package to Add-ons Tab",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "QB-Core",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
