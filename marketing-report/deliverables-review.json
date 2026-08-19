@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Aug 18, 2026",
-  "total": 10,
+  "generatedAt": "Aug 19, 2026",
+  "total": 9,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -81,15 +81,6 @@
       "type": "Epic",
       "assignee": "Harati, Nicole",
       "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-853",
-      "title": "Development of new elements for Pave Pricing page",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
