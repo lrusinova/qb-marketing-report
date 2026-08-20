@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Aug 19, 2026",
-  "total": 9,
+  "generatedAt": "Aug 20, 2026",
+  "total": 10,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-12926",
+      "title": "Digital: Search: New ad group — AI Form Builder keywords in Digital Forms campaign",
+      "type": "Task",
+      "assignee": "Martins, Raul",
+      "partialBU": "FastField",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13272",
       "title": "Enterprise Plan Trial — External FAQ",
