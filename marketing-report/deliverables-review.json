@@ -1,8 +1,35 @@
 {
-  "generatedAt": "Aug 24, 2026",
-  "total": 10,
+  "generatedAt": "Aug 25, 2026",
+  "total": 11,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13577",
+      "title": "PO Requests",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13576",
+      "title": "Contract Approval from Legal",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13575",
+      "title": "P2P Set-up",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-12926",
       "title": "Digital: Search: New ad group — AI Form Builder keywords in Digital Forms campaign",
@@ -72,24 +99,6 @@
       "type": "Task",
       "assignee": "McGuire, Andy",
       "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13347",
-      "title": "Tool selection: finalize Lemlist + Clay stack",
-      "type": "Task",
-      "assignee": "Tan, Lynn",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13192",
-      "title": "AI Form Builder Launch - tasks",
-      "type": "Epic",
-      "assignee": "Harati, Nicole",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
