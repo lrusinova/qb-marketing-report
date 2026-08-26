@@ -1,8 +1,26 @@
 {
-  "generatedAt": "Aug 25, 2026",
+  "generatedAt": "Aug 26, 2026",
   "total": 11,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-12539",
+      "title": "[FF Intercom] Build CS and QB Onboarding Series in Intercom (post-paid conversion)",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": "FastField",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12710",
+      "title": "Partners page — top-half content and visual refresh",
+      "type": "Task",
+      "assignee": "McGuire, Andy",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13577",
       "title": "PO Requests",
@@ -67,15 +85,6 @@
       "note": "Could not determine channel from labels, summary, description, or comments"
     },
     {
-      "key": "MKT-12710",
-      "title": "Partners page — top-half content and visual refresh",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
       "key": "WE-801",
       "title": "Search functionality — confirm technical feasibility with Web/Eng",
       "type": "Task",
@@ -90,15 +99,6 @@
       "type": "Task",
       "assignee": "McGuire, Andy",
       "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12617",
-      "title": "Brand architecture decision — define house of brands vs. branded house approach",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
-      "partialBU": "Pave",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
