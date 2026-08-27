@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Aug 26, 2026",
-  "total": 11,
+  "generatedAt": "Aug 27, 2026",
+  "total": 6,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -53,51 +53,6 @@
       "title": "Digital: Search: New ad group — AI Form Builder keywords in Digital Forms campaign",
       "type": "Task",
       "assignee": "Martins, Raul",
-      "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13272",
-      "title": "Enterprise Plan Trial — External FAQ",
-      "type": "Task",
-      "assignee": "Pepe, Heather",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13270",
-      "title": "Enterprise Plan Trial — Sales deck slide (review)",
-      "type": "Task",
-      "assignee": "Pepe, Heather",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13269",
-      "title": "Enterprise Plan Trial — Internal FAQ",
-      "type": "Task",
-      "assignee": "Pepe, Heather",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-801",
-      "title": "Search functionality — confirm technical feasibility with Web/Eng",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13374",
-      "title": "Finalize FastField project architecture structure",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
       "partialBU": "FastField",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
