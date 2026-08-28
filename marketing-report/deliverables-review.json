@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Aug 27, 2026",
-  "total": 6,
+  "generatedAt": "Aug 28, 2026",
+  "total": 7,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13493",
+      "title": "High Level Session Agenda for Registration Launch",
+      "type": "Task",
+      "assignee": "Pepe, Heather",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-12539",
       "title": "[FF Intercom] Build CS and QB Onboarding Series in Intercom (post-paid conversion)",
