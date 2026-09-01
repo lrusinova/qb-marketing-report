@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Aug 31, 2026",
-  "total": 7,
+  "generatedAt": "Sep 1, 2026",
+  "total": 6,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -54,15 +54,6 @@
       "type": "Task",
       "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12926",
-      "title": "Digital: Search: New ad group — AI Form Builder keywords in Digital Forms campaign",
-      "type": "Task",
-      "assignee": "Martins, Raul",
-      "partialBU": "FastField",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
