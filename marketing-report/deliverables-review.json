@@ -1,58 +1,22 @@
 {
-  "generatedAt": "Sep 1, 2026",
-  "total": 6,
+  "generatedAt": "Sep 2, 2026",
+  "total": 2,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13843",
+      "title": "(Closed Beta) Customer-facing Getting Started Guide",
+      "type": "Sub-task",
+      "assignee": "Trachy, Samuel",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13493",
       "title": "High Level Session Agenda for Registration Launch",
       "type": "Task",
       "assignee": "Pepe, Heather",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12539",
-      "title": "[FF Intercom] Build CS and QB Onboarding Series in Intercom (post-paid conversion)",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12710",
-      "title": "Partners page — top-half content and visual refresh",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13577",
-      "title": "PO Requests",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13576",
-      "title": "Contract Approval from Legal",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13575",
-      "title": "P2P Set-up",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
