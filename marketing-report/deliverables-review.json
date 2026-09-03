@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Sep 2, 2026",
-  "total": 2,
+  "generatedAt": "Sep 3, 2026",
+  "total": 3,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -13,11 +13,20 @@
       "note": "Could not determine channel from labels, summary, description, or comments"
     },
     {
-      "key": "MKT-13493",
-      "title": "High Level Session Agenda for Registration Launch",
-      "type": "Task",
+      "key": "MKT-13073",
+      "title": "(Closed Beta) One-Pager",
+      "type": "Sub-task",
+      "assignee": "Nielson, Alaina",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13070",
+      "title": "(Closed Beta) Internal FAQ",
+      "type": "Sub-task",
       "assignee": "Pepe, Heather",
-      "partialBU": "Cross-BU",
+      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
