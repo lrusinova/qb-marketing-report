@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Sep 7, 2026",
-  "total": 3,
+  "generatedAt": "Sep 8, 2026",
+  "total": 4,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13578",
+      "title": "Deposit Invoice",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13843",
       "title": "(Closed Beta) Customer-facing Getting Started Guide",
