@@ -1,41 +1,86 @@
 {
-  "generatedAt": "Sep 8, 2026",
-  "total": 4,
+  "generatedAt": "Sep 9, 2026",
+  "total": 9,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-800",
+      "title": "IA & navigation v1 — deliver structural IA and nav update",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-363",
+      "title": "AI Initiatives ",
+      "type": "Epic",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12631",
+      "title": "Brand tone of voice guidelines",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13376",
+      "title": "Internal Values, Mission & Vision synthesis (with HR)",
+      "type": "Task",
+      "assignee": "McGuire, Andy",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13375",
+      "title": "Present QCP Narrative to Aly for feedback, then Kelly/Heather",
+      "type": "Task",
+      "assignee": "McGuire, Andy",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12621",
+      "title": "Corporate and portfolio narrative — company story and innovation angle",
+      "type": "Task",
+      "assignee": "McGuire, Andy",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13387",
+      "title": "Get go/no-go decision from Mirissa, Jenny, MYW, Neil",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-902",
+      "title": "Audit Goldcast embed URLs on website ahead of Aug 17, 2026 deprecation",
+      "type": "Task",
+      "assignee": "Boostrom , Max",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13578",
       "title": "Deposit Invoice",
       "type": "Task",
       "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13843",
-      "title": "(Closed Beta) Customer-facing Getting Started Guide",
-      "type": "Sub-task",
-      "assignee": "Trachy, Samuel",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13073",
-      "title": "(Closed Beta) One-Pager",
-      "type": "Sub-task",
-      "assignee": "Nielson, Alaina",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13070",
-      "title": "(Closed Beta) Internal FAQ",
-      "type": "Sub-task",
-      "assignee": "Pepe, Heather",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
