@@ -1580,7 +1580,6 @@ const DATA = {
        {key:"WE-782",title:"Web Banner Updates — QB & Pave",bu:"Web",status:"in-progress",due:null},
        {key:"WE-787",title:"Transitional Improvements — Rebrand & Rollout",bu:"Web",status:"in-progress",due:null},
        {key:"WE-836",title:"CMS Scheduled Feed Automation",bu:"Web",status:"in-progress",due:"Jul 28"},
-       {key:"WE-363",title:"AI Initiatives",bu:"Web",status:"in-progress",due:null},
        {key:"WE-875",title:"FF Trial Form — Multi-Step & Social Sign-In",bu:"Web",status:"planning",due:null},
        {key:"WE-829",title:"Pave Web — Q3 2026",bu:"Web",status:"planning",due:null},
        {key:"WE-830",title:"FF Web — Q3 2026",bu:"FF",status:"planning",due:null},
@@ -28503,7 +28502,7 @@ function renderBriefing(){
     + (planningCount>0?`<div class="sp-prog-more">+ ${planningCount} in planning</div>`:'')
     : (planningCount>0?`<div class="sp-prog-more">+ ${planningCount} in planning</div>`:'<div class="sp-active-empty">No P1 programs yet</div>');
 
-    const _pct = (ini.done != null && ini.total) ? Math.round(ini.done/ini.total*100) : ini.pct;
+    const _pct = ini.pct != null ? ini.pct : (ini.done != null && ini.total) ? Math.round(ini.done/ini.total*100) : null;
     const ownerHtml = ini.owner ? `<span class="sp-card-owner-name" style="color:${ini.color}">${ini.owner}</span>` : '';
     const subHtml = ini.sub ? `<div class="sp-card-meta">${ini.sub}</div>` : '';
     const deltaHdrHtml = ini.delta>0
