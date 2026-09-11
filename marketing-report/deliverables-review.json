@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Sep 10, 2026",
+  "generatedAt": "Sep 11, 2026",
   "total": 9,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13713",
+      "title": "Internal Slack: Migration FAQs",
+      "type": "Task",
+      "assignee": "Englert , Caroline",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "WE-800",
       "title": "IA & navigation v1 — deliver structural IA and nav update",
@@ -72,15 +81,6 @@
       "type": "Task",
       "assignee": "Boostrom , Max",
       "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13578",
-      "title": "Deposit Invoice",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
