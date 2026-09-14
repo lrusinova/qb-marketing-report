@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Sep 11, 2026",
-  "total": 9,
+  "generatedAt": "Sep 14, 2026",
+  "total": 8,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -71,15 +71,6 @@
       "title": "Get go/no-go decision from Mirissa, Jenny, MYW, Neil",
       "type": "Task",
       "assignee": "Rusinova, Luiza",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-902",
-      "title": "Audit Goldcast embed URLs on website ahead of Aug 17, 2026 deprecation",
-      "type": "Task",
-      "assignee": "Boostrom , Max",
       "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
