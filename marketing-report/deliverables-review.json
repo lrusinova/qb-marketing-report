@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Sep 15, 2026",
-  "total": 8,
+  "generatedAt": "Sep 16, 2026",
+  "total": 2,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -17,60 +17,6 @@
       "title": "IA & navigation v1 — deliver structural IA and nav update",
       "type": "Task",
       "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-363",
-      "title": "AI Initiatives ",
-      "type": "Epic",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12631",
-      "title": "Brand tone of voice guidelines",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13376",
-      "title": "Internal Values, Mission & Vision synthesis (with HR)",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13375",
-      "title": "Present QCP Narrative to Aly for feedback, then Kelly/Heather",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12621",
-      "title": "Corporate and portfolio narrative — company story and innovation angle",
-      "type": "Task",
-      "assignee": "McGuire, Andy",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13387",
-      "title": "Get go/no-go decision from Mirissa, Jenny, MYW, Neil",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
       "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
