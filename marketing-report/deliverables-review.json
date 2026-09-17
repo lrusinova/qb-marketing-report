@@ -1,23 +1,50 @@
 {
-  "generatedAt": "Sep 16, 2026",
-  "total": 2,
+  "generatedAt": "Sep 17, 2026",
+  "total": 5,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
-      "key": "MKT-13713",
-      "title": "Internal Slack: Migration FAQs",
+      "key": "MKT-13601",
+      "title": "Staffing List & Assignments for Location - Boston",
       "type": "Task",
-      "assignee": "Englert , Caroline",
+      "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     },
     {
-      "key": "WE-800",
-      "title": "IA & navigation v1 — deliver structural IA and nav update",
+      "key": "MKT-13447",
+      "title": "[Pave] C&W Content: Publish \"12 processes you can automate\" Blog",
       "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
+      "assignee": "Holmgreen, Mikala",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13129",
+      "title": "[Pave] C&W Content: Publish POV Blog",
+      "type": "Task",
+      "assignee": "Holmgreen, Mikala",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13123",
+      "title": "[Pave] C&W Content: Publish Connectors & Workflow Feature Blog ",
+      "type": "Task",
+      "assignee": "Holmgreen, Mikala",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13494",
+      "title": "Session Titles & Abstracts LOCKED",
+      "type": "Task",
+      "assignee": "Pepe, Heather",
+      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
