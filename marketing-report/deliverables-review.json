@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Sep 17, 2026",
-  "total": 5,
+  "generatedAt": "Sep 18, 2026",
+  "total": 6,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13333",
+      "title": "[Empower Pro] Website & Registration — Camp Quickbase — Q3-Q4 2026",
+      "type": "Epic",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13601",
       "title": "Staffing List & Assignments for Location - Boston",
