@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Sep 24, 2026",
-  "total": 6,
+  "generatedAt": "Sep 25, 2026",
+  "total": 5,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -45,15 +45,6 @@
       "type": "Task",
       "assignee": "Holmgreen, Mikala",
       "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13494",
-      "title": "Session Titles & Abstracts LOCKED",
-      "type": "Task",
-      "assignee": "Pepe, Heather",
-      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
