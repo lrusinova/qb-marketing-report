@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Sep 28, 2026",
-  "total": 5,
+  "generatedAt": "Sep 29, 2026",
+  "total": 1,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -9,42 +9,6 @@
       "type": "Epic",
       "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13601",
-      "title": "Staffing List & Assignments for Location - Boston",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13447",
-      "title": "[Pave] C&W Content: Publish \"12 processes you can automate\" Blog",
-      "type": "Task",
-      "assignee": "Holmgreen, Mikala",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13129",
-      "title": "[Pave] C&W Content: Publish POV Blog",
-      "type": "Task",
-      "assignee": "Holmgreen, Mikala",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13123",
-      "title": "[Pave] C&W Content: Publish Connectors & Workflow Feature Blog ",
-      "type": "Task",
-      "assignee": "Holmgreen, Mikala",
-      "partialBU": "Pave",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
