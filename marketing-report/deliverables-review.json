@@ -1,5 +1,34 @@
 {
-  "generatedAt": "Oct 1, 2026",
-  "total": 0,
-  "items": []
+  "generatedAt": "Oct 2, 2026",
+  "total": 3,
+  "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
+  "items": [
+    {
+      "key": "MKT-12300",
+      "title": "[Pave] Paid Media — Always-On — Q3 2026",
+      "type": "Epic",
+      "assignee": "(unassigned)",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12299",
+      "title": "[Pave] Monthly Ad & Copy Cycle — Always-On — Q3 2026",
+      "type": "Epic",
+      "assignee": "(unassigned)",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12295",
+      "title": "[Pave] Content — Always-On — Q3 2026",
+      "type": "Epic",
+      "assignee": "(unassigned)",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    }
+  ]
 }
