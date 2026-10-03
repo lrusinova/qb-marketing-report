@@ -1364,8 +1364,8 @@ const PROG_STATUSES = {
   "MKT-13061":"planning",
   "MKT-13036":"done",
   "MKT-12985":"planning",
-  "MKT-12888":"in-progress",
-  "MKT-12850":"in-progress",
+  "MKT-12888":"done",
+  "MKT-12850":"done",
   "MKT-12825":"in-progress",
   "MKT-12822":"done",
   "MKT-12820":"done",
@@ -29145,9 +29145,9 @@ function renderBriefing(){
     const launchesHtml=_sortedLaunches.length?
       '<div class="sp-launches2">'
       +_sortedLaunches.map(function(l){
-        const isDone=l.status==='done';
-        const sc=_lStCol[l.status]||'#94a3b8';
-        const sl=_lStLbl[l.status]||l.status;
+        const isDone=l.status==='done';const isOverdue=l.status==='in-progress'&&l.due&&/overdue/i.test(String(l.due));
+        const sc=isOverdue?'#d97706':(_lStCol[l.status]||'#94a3b8');
+        const sl=isOverdue?'Post-launch':(_lStLbl[l.status]||l.status);
         const buLbl=_buTagLbl(l.bu);
         const buBadge=buLbl?'<span class="sp-bu-tag sp-bu-'+_buTagCls(l.bu)+'">'+buLbl+'</span>':'';
         return '<div class="sp-launch2'+(isDone?' sp-l2-done':'')+'">'
@@ -29333,7 +29333,7 @@ function renderBriefing(){
   };
   // Epic row
   const _buEpRow=function(l){
-    const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
+    const done=l.status==='done';const isOverdue=l.status==='in-progress'&&l.due&&/overdue/i.test(String(l.due));const sc=isOverdue?'#d97706':(_stC2[l.status]||'#94a3b8');const sl=isOverdue?'Post-launch':(_stL2[l.status]||l.status);
     const isBlocked=l.status==='blocked';
     const isActive=l.status==='in-progress'||l.status==='confirmed';
     const isPlan=l.status==='planning'||l.status==='intake';
