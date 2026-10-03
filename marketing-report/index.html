@@ -1471,6 +1471,11 @@ const _q3s=new Date(_n.getFullYear(),6,1),_q3e=new Date(_n.getFullYear(),8,30,23
 const Q3_PCT=Math.min(100,Math.max(0,Math.round((_n-_q3s)/(_q3e-_q3s)*100)));
 const _weekInQ3=Math.min(13,Math.max(1,Math.ceil((_n-_q3s)/6048e5)));
 const _daysToQ3End=Math.max(0,Math.ceil((_q3e-_n)/864e5));
+// Q4 2026 (Oct – Dec)
+const _q4s=new Date(_n.getFullYear(),9,1),_q4e=new Date(_n.getFullYear(),11,31,23,59);
+const Q4_PCT=Math.min(100,Math.max(0,Math.round((_n-_q4s)/(_q4e-_q4s)*100)));
+const _weekInQ4=Math.min(13,Math.max(1,Math.ceil((_n-_q4s)/6048e5)));
+const _daysToQ4End=Math.max(0,Math.ceil((_q4e-_n)/864e5));
 const _todayFmt=_n.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 const _lastUpd=_n.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 // Year-position percentages for the full-year timeline bar
@@ -24641,8 +24646,8 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
 /* ══════════════════════════════════════════════════════
    TAB
 ══════════════════════════════════════════════════════ */
-let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
-let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
+let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q4', delPage=1;
+let rmQtr='Q4', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
 let _rmCollapsed=new Set();
 let _rmFocusMode=false;
 function setRM(w,v){
@@ -24983,16 +24988,16 @@ function genInsight(ini){
   const willSlip=Math.max(0,ini.total-projDone);
   if(ini.status==='off-track'){
     const blkStr=blkCnt>0?` ${blkCnt} program${blkCnt>1?'s':''} blocked.`:'';
-    return `<div class="sp-insight sp-insight-risk"><span class="sp-i-icon">⚠</span><span>${Math.abs(behind)}pts behind Q3 pace.${blkStr} At current velocity: ${projDone} of ${ini.total} tasks close by Q3 — <strong>${willSlip} tasks may carry to Q4.</strong></span></div>`;
+    return `<div class="sp-insight sp-insight-risk"><span class="sp-i-icon">⚠</span><span>${Math.abs(behind)}pts behind Q4 pace.${blkStr} At current velocity: ${projDone} of ${ini.total} tasks close by Q4 end — <strong>${willSlip} tasks may carry beyond Q4.</strong></span></div>`;
   }
   if(ini.status==='at-risk'){
     const blkStr=blkCnt>0?`${blkCnt} program${blkCnt>1?'s':''} blocked · `:'';
-    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>${blkStr}Projecting ${projDone} of ${ini.total} tasks by Q3 end — <strong>${willSlip} task${willSlip===1?'':'s'} may carry to Q4.</strong></span></div>`;
+    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>${blkStr}Projecting ${projDone} of ${ini.total} tasks by Q4 end — <strong>${willSlip} task${willSlip===1?'':'s'} may carry beyond Q4.</strong></span></div>`;
   }
   const ip=(ini.p1progs||[]).filter(p=>p.status==='in-progress').length;
   if(ip>0)
     return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↑</span><span>${ip} program${ip>1?'s':''} actively in execution — on track for Q3.</span></div>`;
-  return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↗</span><span>Q3 underway — planning active across ${ini.total} tasks through Sep 30.</span></div>`;
+  return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↗</span><span>Q4 underway — planning active across ${ini.total} tasks through Sep 30.</span></div>`;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -28795,7 +28800,7 @@ function renderBriefing(){
   const _h2Active = inits.filter(i=>(i.p1progs||[]).some(p=>['in-progress','planning'].includes(p.status))).length;
   const _riskItems = inits.filter(i=>i.status==='at-risk'||i.status==='off-track');
 
-  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track. We're in <strong>Q3 week ${_weekInQ3} of 13</strong> with <strong>${_p1Running} P1 programs</strong> in active execution.`;
+  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track. We're in <strong>Q4 week ${_weekInQ4} of 13</strong> with <strong>${_p1Running} P1 programs</strong> in active execution.`;
   const _bs2 = _activeSps.length
     ? `The most active areas are ${_activeSps.map(x=>`<strong>${_sn(x.ini)}</strong>`).join(', ')} — together running <strong>${_activeSps.reduce((s,x)=>s+x.n,0)} programs</strong> in parallel.`
     : '';
@@ -28957,7 +28962,7 @@ function renderBriefing(){
       <span>${_winsIsQ2Fallback?'Q2 Highlights':'Recently shipped'}</span>
       <a href="#" onclick="event.preventDefault();go('deliverables',document.querySelector('.tbtn[onclick*=deliverables]'))">${_winsIsQ2Fallback?`View Q2 archive (${_q2Wins.length}+) →`:`View all ${DATA.shipped.length} →`}</a>
     </span>
-    ${_winsIsQ2Fallback?`<div style="font-size:11px;color:var(--g500);padding:0 0 8px 2px;font-style:italic">Q3 items will appear here as they ship · ${_q2Dels.toLocaleString()} deliverables shipped in Q2</div>`:''}
+    ${_winsIsQ2Fallback?`<div style="font-size:11px;color:var(--g500);padding:0 0 8px 2px;font-style:italic">Q4 items will appear here as they ship · ${_q2Dels.toLocaleString()} deliverables shipped in Q2</div>`:''}
     ${_statsHtml}
     <div class="wins-scroll">
       ${_winsItems.map(s=>{
@@ -28983,7 +28988,7 @@ function renderBriefing(){
       const wname=worst.title.split('—').pop().trim();
       const blk=worst.blocked>0?` ${worst.blocked} programs blocked.`:'';
       const others=atRiskInits.length>1?` ${atRiskInits.length} initiatives at risk total.`:'';
-      return {cls:'is-risk',icon:'⚠',txt:`<strong>${wname}</strong> is the critical Q3 risk — ${worst.pct}% of tasks complete with ${_daysToQ3End} day${_daysToQ3End===1?'':'s'} remaining in Q3.${blk}${slip>0?` At current pace, ~${slip} tasks will carry into Q4.`:''}${others}`};
+      return {cls:'is-risk',icon:'⚠',txt:`<strong>${wname}</strong> is the critical Q4 risk — ${worst.pct}% of tasks complete with ${_daysToQ4End} day${_daysToQ3End===1?'':'s'} remaining in Q3.${blk}${slip>0?` At current pace, ~${slip} tasks will carry into Q4.`:''}${others}`};
     }
     const totalDoneAll=inits.reduce((s,i)=>s+i.done,0),totalAll=inits.reduce((s,i)=>s+i.total,0);
     const ipCount=(DATA.programs||[]).filter(p=>p.status==='in-progress').length;
@@ -29814,7 +29819,7 @@ function renderDeliverables(){
   // ── Build sources ──────────────────────────────────────────────────────
   const _planningSrc=(DATA.planning||[]).map(i=>({..._norm(i),_st:'planning'}));
   const _activeSrc=(DATA.active||[]).map(i=>({..._norm(i),_st:'in-progress'}));
-  const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
+  const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):delQtr==='Q4'?DATA.shipped.filter(i=>i.doneDate&&new Date(i.doneDate)>=_q4s):DATA.shipped.filter(i=>!i.doneDate||new Date(i.doneDate)<_q4s);
   const _shippedSrc=_raw.map(i=>({..._norm(i),_st:'done'}));
   const _allSrc=(()=>{const _seen=new Set();return[..._activeSrc,..._planningSrc,..._shippedSrc].filter(i=>_seen.has(i.key)?false:(_seen.add(i.key),true));})();
   _allSrc.forEach(i=>{if(i.ch&&!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];});
@@ -29871,7 +29876,7 @@ function renderDeliverables(){
   const chDrop=`<select class="dv-drop${ofCh!=='All'?' active':''}" onchange="setOF('ch',this.value)"><option value="All"${ofCh==='All'?' selected':''}>Channel: All</option>${Object.keys(_chTotals).sort((a,b)=>(_chTotals[b]||0)-(_chTotals[a]||0)).map(ch=>`<option value="${ch}"${ofCh===ch?' selected':''}>${ch} (${_chCnt[ch]||0})</option>`).join('')}</select>`;
 
   const qtrCtrl=(ofStatus==='Planning'||ofStatus==='In Progress')?'':
-    `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
+    `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q4'?' on':''}" onclick="setDelQtr('Q4')">Q4 2026</button><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
 
   const PERIODS=[{k:'All',lbl:'All'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
   const periodCtrl=(ofStatus==='Planning'||ofStatus==='In Progress'||delQtr==='Q2')?'':
@@ -30143,7 +30148,7 @@ function renderAnalytics(){
     +'<div style="display:flex;align-items:center;gap:8px;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:8px 14px"><span style="font-size:22px;font-weight:900;color:var(--g400);line-height:1">'+_aLt.length+'</span><div><div style="font-size:11px;font-weight:700;color:var(--g500)">Light load</div><div style="font-size:10px;color:var(--g500)">&lt;16h &middot; '+_ltChs.length+' channels</div></div></div>'
     +'<div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--g500);padding-right:4px"><span style="background:var(--g100);border-radius:6px;padding:4px 10px;font-weight:600">'+CAP_DATA.pulledAt+'</span></div>'
     +'</div>'
-    +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:#92400E;margin-bottom:7px">&#128204;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' with a full Q3 queue &mdash; work is assigned and sequenced</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
+    +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:#92400E;margin-bottom:7px">&#128204;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' with a full Q4 queue &mdash; work is assigned and sequenced</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
     +'<div class="cap-seg-wrap">'
     +'<div style="font-size:11px;font-weight:700;color:var(--g500);margin-bottom:6px">Channel health distribution &mdash; '+CAP_DATA.channels.length+' teams</div>'
     +'<div class="cap-seg">'
@@ -30182,7 +30187,7 @@ function renderAnalytics(){
     +'</div>'
     +'</div>'
     +'<div style="margin-top:14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--g700);line-height:1.65">'
-    +'<strong style="color:#92400E">&#128204; Workload snapshot:</strong> <strong>Michael Young-Ward</strong> has the largest queue (~828h planned) as primary WE developer across all 3 BU web streams. <strong>Soumya Ghosh</strong> ~378h &middot; <strong>Stephanie McPhee</strong> ~266h &middot; <strong>Nikol Topozliyska</strong> ~242h. All channels are fully loaded for Q3 &mdash; work is assigned, sequenced, and actively in progress. This is planned capacity, not overdue work.'
+    +'<strong style="color:#92400E">&#128204; Workload snapshot:</strong> <strong>Michael Young-Ward</strong> has the largest queue (~828h planned) as primary WE developer across all 3 BU web streams. <strong>Soumya Ghosh</strong> ~378h &middot; <strong>Stephanie McPhee</strong> ~266h &middot; <strong>Nikol Topozliyska</strong> ~242h. All channels are fully loaded for Q4 &mdash; work is assigned, sequenced, and actively in progress. This is planned capacity, not overdue work.'
     +'</div>'
     +'<div class="cap-insights-row">'
     +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
@@ -30193,7 +30198,7 @@ function renderAnalytics(){
     +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
     +'<div class="cap-ins-icon">&#128336;</div>'
     +'<div class="cap-ins-title">Q3 queue</div>'
-    +'<div class="cap-ins-body">Most channels are fully loaded for Q3 &mdash; work is assigned, sequenced, and in progress. Highest queues: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics has the lightest load (32h).</div>'
+    +'<div class="cap-ins-body">Most channels are fully loaded for Q4 &mdash; work is assigned, sequenced, and in progress. Highest queues: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics has the lightest load (32h).</div>'
     +'</div>'
     +'<div class="cap-ins" style="border-top:3px solid var(--green)">'
     +'<div class="cap-ins-icon">&#9989;</div>'
