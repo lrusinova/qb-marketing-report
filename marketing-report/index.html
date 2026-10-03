@@ -1379,7 +1379,7 @@ const PROG_STATUSES = {
   "MKT-12687":"done",
   "MKT-12684":"in-progress",
   "MKT-12676":"done",
-  "MKT-12634":"in-progress",
+  "MKT-12634":"done",
   "MKT-12613":"in-progress",
   "MKT-12595":"planning",
   "MKT-12594":"in-progress",
@@ -1579,7 +1579,7 @@ const DATA = {
        {key:"WE-782",title:"Web Banner Updates — QB & Pave",bu:"Web",status:"in-progress",due:null},
        {key:"WE-787",title:"Transitional Improvements — Rebrand & Rollout",bu:"Web",status:"in-progress",due:null},
        {key:"WE-836",title:"CMS Scheduled Feed Automation",bu:"Web",status:"in-progress",due:"Jul 28 (overdue)"},
-       {key:"WE-1052",title:"Partner Directory & Program Pages Redesign",bu:"Web",status:"in-progress",due:null},
+       {key:"WE-1052",title:"Partner Directory & Program Pages Redesign",bu:"Web",status:"planning",due:null},
        {key:"MKT-13305",title:"FF SEO — Use Cases Entity Cluster",bu:"SEO",status:"in-progress",due:"Sep 30"},
        {key:"MKT-13212",title:"FF SEO — Comparisons Entity Cluster",bu:"SEO",status:"in-progress",due:"Sep 17"},
        {key:"WE-829",title:"Pave Web — Q3 2026",bu:"Web",status:"planning",due:null},
@@ -1621,7 +1621,7 @@ const DATA = {
      execSummary:"Q3 active: UserGems migration validating parity vs. Vector (Sep renewal decision) · Empower '26 AI content library live (GPT + Letter AI, team rollout Jul 15) · FF Intercom trial nurture fully live — 7.7K YTD trials, ~450/wk, AE round-robin automated · Qualified campaign build for QB→Pave re-engagement in planning · Marketo Core New nurture template refresh in planning.",
      launches:[
        {key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",bu:"Lifecycle",status:"in-progress",due:null},
-       {key:"MKT-12634",title:"Vector → UserGems Migration",bu:"AI",status:"in-progress",due:null},
+       {key:"MKT-12634",title:"✅ Vector → UserGems Migration",bu:"AI",status:"in-progress",due:null},
        {key:"MKT-12803",title:"Core UserGems — New & Expand Campaigns",bu:"Core",status:"in-progress",due:null},
        {key:"MKT-12523",title:"Growth & AI Lifecycle — Intercom, Marketo & AI",bu:"Lifecycle",status:"in-progress",due:"Sep 30"},
        {key:"MKT-12676",title:"Empower 26 Content Enablement Library",bu:"AI",status:"done",due:null},
@@ -24982,8 +24982,8 @@ function toggleP1Overflow(btn, count) {
 ══════════════════════════════════════════════════════ */
 function genInsight(ini){
   const blkCnt=(ini.p1progs||[]).filter(p=>p.status==='blocked').length;
-  const behind=Q3_PCT-ini.pct;
-  const projPct=Q3_PCT>0?Math.min(100,Math.round(ini.pct/Q3_PCT*100)):ini.pct;
+  const behind=Q4_PCT-ini.pct;
+  const projPct=Q4_PCT>0?Math.min(100,Math.round(ini.pct/Q4_PCT*100)):ini.pct;
   const projDone=Math.round(ini.total*projPct/100);
   const willSlip=Math.max(0,ini.total-projDone);
   if(ini.status==='off-track'){
@@ -28914,7 +28914,7 @@ function renderBriefing(){
   // ── Needs-attention items ────────────────────────────
   const attItems = [];
   atRiskInits.forEach(ini=>{
-    const proj=Q3_PCT>0?Math.round(ini.pct/Q3_PCT*100):ini.pct;
+    const proj=Q4_PCT>0?Math.round(ini.pct/Q4_PCT*100):ini.pct;
     const slip=Math.max(0,ini.total-Math.round(ini.total*proj/100));
     const blkStr=ini.blocked>0?` · ${ini.blocked} blocked`:'';
     const nm=ini.title.split('—').pop().trim();
@@ -28983,7 +28983,7 @@ function renderBriefing(){
   const tl2Insight = (()=>{
     if(atRiskInits.length>0){
       const worst=atRiskInits.reduce((a,b)=>a.pct<b.pct?a:b);
-      const proj=Q3_PCT>0?Math.min(100,Math.round(worst.pct/Q3_PCT*100)):worst.pct;
+      const proj=Q4_PCT>0?Math.min(100,Math.round(worst.pct/Q4_PCT*100)):worst.pct;
       const slip=Math.max(0,worst.total-Math.round(worst.total*proj/100));
       const wname=worst.title.split('—').pop().trim();
       const blk=worst.blocked>0?` ${worst.blocked} programs blocked.`:'';
@@ -29476,9 +29476,9 @@ function renderBriefing(){
 
   // Full-year timeline bar gradient
   const _barGrad=`linear-gradient(90deg,
-    #94a3b8 0%,#94a3b8 ${_q3Pct}%,
-    #22c55e ${_q3Pct}%,#16a34a ${_q4Pct}%,
-    #cbd5e1 ${_q4Pct}%,#cbd5e1 100%)`;
+    #94a3b8 0%,#94a3b8 ${_q4Pct}%,
+    #22c55e ${_q4Pct}%,#22c55e ${_yearPct}%,
+    #cbd5e1 ${_yearPct}%,#cbd5e1 100%)`;
 
   // ── Team Load strip (from CAP_DATA) ─────────────────
   const _pSn=n=>{const p=n.split(', ');return p.length>1?p[1].trim().split(' ')[0]+' '+p[0]:n;};
@@ -29628,9 +29628,9 @@ function renderBriefing(){
       </div>
       <div class="tl2-qlabels">
         <div class="tl2-ql" style="width:${_q2Pct}%">Q1 · Jan–Mar</div>
-        <div class="tl2-ql is-active" style="width:${_q3Pct-_q2Pct}%">Q2 · Apr–Jun</div>
-        <div class="tl2-ql is-h2" style="width:${_q4Pct-_q3Pct}%">Q3 · Jul–Sep</div>
-        <div class="tl2-ql is-h2" style="flex:1">Q4 · Oct–Dec</div>
+        <div class="tl2-ql" style="width:${_q3Pct-_q2Pct}%">Q2 · Apr–Jun</div>
+        <div class="tl2-ql" style="width:${_q4Pct-_q3Pct}%">Q3 · Jul–Sep</div>
+        <div class="tl2-ql is-h2 is-active" style="flex:1">Q4 · Oct–Dec</div>
       </div>
 
       ${winsHtml}
