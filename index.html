@@ -1364,22 +1364,22 @@ const PROG_STATUSES = {
   "MKT-13061":"planning",
   "MKT-13036":"done",
   "MKT-12985":"planning",
-  "MKT-12888":"in-progress",
-  "MKT-12850":"in-progress",
+  "MKT-12888":"done",
+  "MKT-12850":"done",
   "MKT-12825":"in-progress",
   "MKT-12822":"done",
-  "MKT-12820":"planning",
-  "MKT-12805":"in-progress",
+  "MKT-12820":"done",
+  "MKT-12805":"done",
   "MKT-12804":"planning",
   "MKT-12803":"in-progress",
   "MKT-12802":"planning",
   "MKT-12740":"in-progress",
-  "MKT-12690":"in-progress",
+  "MKT-12690":"done",
   "MKT-12688":"done",
   "MKT-12687":"done",
   "MKT-12684":"in-progress",
-  "MKT-12676":"in-progress",
-  "MKT-12634":"in-progress",
+  "MKT-12676":"done",
+  "MKT-12634":"done",
   "MKT-12613":"in-progress",
   "MKT-12595":"planning",
   "MKT-12594":"in-progress",
@@ -1399,7 +1399,7 @@ const PROG_STATUSES = {
   "MKT-12530":"planning",
   "MKT-12529":"planning",
   "MKT-12527":"planning",
-  "MKT-12526":"planning",
+  "MKT-12526":"done",
   "MKT-12523":"in-progress",
   "MKT-12470":"in-progress",
   "MKT-12449":"planning",
@@ -1408,18 +1408,18 @@ const PROG_STATUSES = {
   "MKT-12444":"planning",
   "MKT-12441":"planning",
   "MKT-12440":"planning",
-  "MKT-12437":"planning",
+  "MKT-12437":"done",
   "MKT-12435":"planning",
   "MKT-12434":"planning",
   "MKT-12431":"in-progress",
-  "MKT-12430":"planning",
+  "MKT-12430":"done",
   "MKT-12427":"in-progress",
-  "MKT-12426":"planning",
+  "MKT-12426":"done",
   "MKT-12386":"in-progress",
-  "MKT-12362":"planning",
-  "MKT-12358":"planning",
+  "MKT-12362":"done",
+  "MKT-12358":"done",
   "MKT-12055":"in-progress",
-  "MKT-11667":"in-progress"
+  "MKT-11667":"done"
 };
 /* END:PROG_STATUSES */
 
@@ -1471,6 +1471,11 @@ const _q3s=new Date(_n.getFullYear(),6,1),_q3e=new Date(_n.getFullYear(),8,30,23
 const Q3_PCT=Math.min(100,Math.max(0,Math.round((_n-_q3s)/(_q3e-_q3s)*100)));
 const _weekInQ3=Math.min(13,Math.max(1,Math.ceil((_n-_q3s)/6048e5)));
 const _daysToQ3End=Math.max(0,Math.ceil((_q3e-_n)/864e5));
+// Q4 2026 (Oct – Dec)
+const _q4s=new Date(_n.getFullYear(),9,1),_q4e=new Date(_n.getFullYear(),11,31,23,59);
+const Q4_PCT=Math.min(100,Math.max(0,Math.round((_n-_q4s)/(_q4e-_q4s)*100)));
+const _weekInQ4=Math.min(13,Math.max(1,Math.ceil((_n-_q4s)/6048e5)));
+const _daysToQ4End=Math.max(0,Math.ceil((_q4e-_n)/864e5));
 const _todayFmt=_n.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 const _lastUpd=_n.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 // Year-position percentages for the full-year timeline bar
@@ -1489,17 +1494,17 @@ const DATA = {
 
   initiatives:[
     {key:"MKT-12568",title:"Agentic Workflow Evolution (AWE)",sub:"VP, AWE Marketing · FastField + Pave GTM · SDR",
-     owner:"Gar Smyth",status:"on-track",pct:81,done:407,flight:87,blocked:6,total:500,color:"#0066D6",delta:0,note:"AI Form Builder (FF) overdue since Aug 28, still In Progress — watch. Marketplace & App Gallery cancelled.",
+     owner:"Gar Smyth",status:"on-track",pct:81,done:407,flight:87,blocked:6,total:500,color:"#0066D6",delta:0,note:"FF AI Form Builder DONE. FF Web Platform Pages DONE. FF G2 + Pave G2 Always-On DONE. Pave C&W in-flight past Sep 21. Q4: 3 Pave whitepapers + Research Report (Dec 1) + Webinar pipeline active.",pulledAt:"Oct 2, 2026",
      scope:{bus:['FastField','Pave']},
      outcome:"Compounding, ICP-quality growth for the next-gen portfolio.",
-     execSummary:"Pave Tier 1 launch: Connectors, Workflows & Custom Agents — hard launch due today, Sep 16 (theme: 'Don't build an app. Run an operation.'); Tier 2/3 Pave feature launches already shipped. FF AI Form Builder in-flight, past its Aug 28 due date but still active. Marketplace & App Gallery cancelled. Pave ICP Traffic Growth workstream (SEO, paid, social, web) mixed in-progress/planning.",
+     execSummary:"Q3 closes strong: FF AI Form Builder GA done. FF Web Platform Pages done. FF G2 + Pave G2 Always-On done. Pave C&W (Connectors & Workflows) closing out past Sep 21. Q4 AWE pipeline: 3 Pave Whitepapers (AI Adoption & IT, Operational Intrapreneur, AI Perfection Problem), Pave Research Report Launch (Dec 1, Nathan Wahl), Pave Webinar â€” One View of Everything (Nov 18, Stephanie McPhee), FF Customer Story Collection in-progress (Alissa McCawley), FF Solutions Page Redesign planning (Hira)",
      launches:[
-       {key:"MKT-12740",title:"Connectors & Workflows",bu:"Pave",status:"in-progress",due:"Sep 16"},
-       {key:"MKT-12888",title:"AI Form Builder",bu:"FF",status:"in-progress",due:"Aug 28 (overdue)"},
-       {key:"MKT-12850",title:"FF Web — Platform Pages & Nav",bu:"FF",status:"in-progress",due:null},
+       {key:"MKT-12740",title:"Connectors & Workflows",bu:"Pave",status:"in-progress",due:"Sep 21"},
+       {key:"MKT-12888",title:"✅ AI Form Builder",bu:"FF",status:"done",due:"Aug 28"},
+       {key:"MKT-12850",title:"✅ FF Web — Platform Pages & Nav",bu:"FF",status:"done",due:null},
        {key:"MKT-13061",title:"Pave ICP Traffic Growth",bu:"Pave",status:"in-progress",due:null},
-       {key:"MKT-12820",title:"FF G2 — Always-On Activation",bu:"FF",status:"planning",due:null},
-       {key:"MKT-12822",title:"Pave G2 — Always-On Activation",bu:"Pave",status:"planning",due:null},
+       {key:"MKT-12820",title:"FF G2 — Always-On Activation",bu:"FF",status:"done",due:null},
+       {key:"MKT-12822",title:"Pave G2 — Always-On Activation",bu:"Pave",status:"done",due:null},
      ],
      launchesLabel:"Active Launches",
      goals:["Focus on our Pave ICP — Field & Business Ops","Focus on critical FF & Pave launches","Ramp our content & social engine"],
@@ -1508,22 +1513,26 @@ const DATA = {
        {key:"MKT-12431",title:"[Pave] Launch Program — Q3 2026",status:"in-progress"},
        {key:"MKT-12445",title:"[Pave] Launch Program — Q4 2026",status:"planning"},
        {key:"MKT-12441",title:"[FF] Launch Program — Q4 2026",status:"planning"},
-       {key:"MKT-12430",title:"[Pave] Campaigns — Q3 2026",status:"planning"},
-       {key:"MKT-12426",title:"[FF] Campaigns — Q3 2026",status:"planning"},
+       {key:"MKT-12430",title:"[Pave] Campaigns — Q3 2026",status:"done"},
+       {key:"MKT-12426",title:"[FF] Campaigns — Q3 2026",status:"done"},
        {key:"MKT-12444",title:"[Pave] Campaigns — Q4 2026",status:"planning"},
        {key:"MKT-12440",title:"[FF] Campaigns — Q4 2026",status:"planning"},
      ]},
     {key:"MKT-12569",title:"Core BU Marketing",sub:"Sr Director, Core BU Marketing · QB Core revenue & customer growth",
-     owner:"Heather Pepe",status:"on-track",pct:73,done:194,flight:70,blocked:1,total:265,color:"#14A558",delta:0,note:"Sr Director of Core Marketing role in hiring — risk to Q3 program ownership.",
+     owner:"Heather Pepe",status:"on-track",pct:73,done:194,flight:70,blocked:1,total:265,color:"#14A558",delta:0,note:"QB Extensions DONE. G2 Always-On DONE. Webinar: Connect & Collaborate DONE. Smart Scheduler past Sep 30 — still In Progress Oct 2. Q4 webinars: Build-Along (Oct 29), ALM/Gov (Nov 12), NECA (Dec 2), YIR (Dec 15).",pulledAt:"Oct 2, 2026",
      scope:{bus:['Core (QB)']},
      outcome:"Protected and growing Core revenue while Pave scales.",
-     execSummary:"Smart Scheduler (powered by Solvice) in-flight — GA due Sep 29. Grid Reports and QB Intelligence Package already shipped. QB Extensions launch in-flight. Webinar program active — App Inheritance to App Ownership already done; Prompt to Power and Connect & Collaborate both in motion. Sr. Director of Core Marketing role open — Q3 ownership risk.",
+     execSummary:"Smart Scheduler GA past due Sep 30 — final wrap-up in progress as of Oct 2. Q3 wins: Prompt to Power webinar done (Aug 4), App Inheritance webinar done (Aug 13), Enterprise Trial launch done. Q4 webinar pipeline: Build-Along (Oct 29), ALM/Governance (Nov 12), Form Overview with NECA (Dec 2), Year in Review (Dec 15) â€” all Planning, assigned to Charlie Kleiner. Customer Advocacy Q3 initiative in-progress",
      launches:[
-       {key:"MKT-12825",title:"Smart Scheduler (Solvice)",bu:"Launch",status:"in-progress",due:"Sep 29"},
-       {key:"MKT-11667",title:"QB Extensions",bu:"Launch",status:"in-progress",due:null},
-       {key:"MKT-12805",title:"G2 — Always-On Activation",bu:"Core",status:"in-progress",due:null},
-       {key:"MKT-13036",title:"Webinar: From Prompt to Power — AI Features",bu:"Webinar",status:"in-progress",due:null},
-       {key:"MKT-13770",title:"Webinar: Connect & Collaborate",bu:"Webinar",status:"planning",due:"Sep 17"},
+       {key:"MKT-12825",title:"Smart Scheduler",bu:"Launch",status:"in-progress",due:"Sep 29"},
+       {key:"MKT-11667",title:"QB Extensions",bu:"Launch",status:"done",due:null},
+       {key:"MKT-12805",title:"G2 — Always-On Activation",bu:"Core",status:"done",due:null},
+       {key:"MKT-13036",title:"✅ Webinar: From Prompt to Power — AI Features",bu:"Webinar",status:"done",due:"Aug 4"},
+       {key:"MKT-13770",title:"Webinar: Connect & Collaborate",bu:"Webinar",status:"done",due:"Sep 17"},
+       {key:"MKT-14012",title:"Webinar: Smart Scheduler Build Along",bu:"Webinar",status:"planning",due:"Oct 29"},
+       {key:"MKT-14013",title:"Webinar: ALM/Governance",bu:"Webinar",status:"planning",due:"Nov 12"},
+       {key:"MKT-14014",title:"Webinar: Form Overview with NECA",bu:"Webinar",status:"planning",due:"Dec 2"},
+       {key:"MKT-14015",title:"Webinar: Year in Review",bu:"Webinar",status:"planning",due:"Dec 15"},
      ],
      launchesLabel:"Active Programs",
      goals:["Customer expansion & cross-sell","Core new-logo demand","Retention & at-risk plays"],
@@ -1542,7 +1551,7 @@ const DATA = {
      launches:[
        {key:"MKT-12613",title:"Quickbase Rebrand & Rollout",bu:"Brand",status:"in-progress",due:null},
        {key:"MKT-12470",title:"Community Platform Migration",bu:"Community",status:"in-progress",due:"Oct 30"},
-       {key:"MKT-12690",title:"Creative Studio Selection",bu:"Creative",status:"in-progress",due:null},
+       {key:"MKT-12690",title:"✅ Creative Studio Selection",bu:"Creative",status:"done",due:null},
        {key:"MKT-12684",title:"Gartner IT Symposium",bu:"Events",status:"in-progress",due:"Oct 22"},
        {key:"MKT-12985",title:"NECA 2026",bu:"Events",status:"planning",due:"Oct 4"},
        {key:"MKT-13324",title:"Empower Pro 26 — Virtual Product Showcase",bu:"Events",status:"in-progress",due:"Oct 14"},
@@ -1553,8 +1562,8 @@ const DATA = {
      p1progs:[
        {key:"MKT-12613",title:"[Cross-BU] Quickbase Rebrand & Rollout — Q2-Q4 2026",status:"in-progress"},
        {key:"MKT-12470",title:"[Cross-BU] Community Platform Migration & Launch — 2026",status:"in-progress"},
-       {key:"MKT-12386",title:"[Events] Tradeshow: AI4 2026 — Aug 4-6",status:"in-progress"},
-       {key:"MKT-12526",title:"[Cross-BU] Community — Q3 2026",status:"planning"},
+       {key:"MKT-12386",title:"✅ [Events] Tradeshow: AI4 2026 — Aug 4-6",status:"done"},
+       {key:"MKT-12526",title:"✅ [Cross-BU] Community — Q3 2026",status:"done"},
        {key:"MKT-12527",title:"[Cross-BU] Community — Q4 2026",status:"planning"},
      ]},
     {key:"MKT-12571",title:"Digital",sub:"Sr Director, Digital · Web · SEO · Paid Media · Web Analytics",
@@ -1570,7 +1579,7 @@ const DATA = {
        {key:"WE-782",title:"Web Banner Updates — QB & Pave",bu:"Web",status:"in-progress",due:null},
        {key:"WE-787",title:"Transitional Improvements — Rebrand & Rollout",bu:"Web",status:"in-progress",due:null},
        {key:"WE-836",title:"CMS Scheduled Feed Automation",bu:"Web",status:"in-progress",due:"Jul 28 (overdue)"},
-       {key:"WE-1052",title:"Partner Directory & Program Pages Redesign",bu:"Web",status:"in-progress",due:null},
+       {key:"WE-1052",title:"Partner Directory & Program Pages Redesign",bu:"Web",status:"planning",due:null},
        {key:"MKT-13305",title:"FF SEO — Use Cases Entity Cluster",bu:"SEO",status:"in-progress",due:"Sep 30"},
        {key:"MKT-13212",title:"FF SEO — Comparisons Entity Cluster",bu:"SEO",status:"in-progress",due:"Sep 17"},
        {key:"WE-829",title:"Pave Web — Q3 2026",bu:"Web",status:"planning",due:null},
@@ -1591,12 +1600,12 @@ const DATA = {
        {key:"MKT-12590",title:"[Core] SEO Content Program — Q2 2026",status:"in-progress"},
      ]},
     {key:"MKT-12572",title:"Corporate Communications",sub:"Sr Manager, Corp Comms · Thought Leadership · AIO · Social",
-     owner:"Tory Waldron",status:"on-track",pct:100,done:16,flight:0,blocked:0,total:16,color:"#0891B2",delta:0,note:"All Q2 comms deliverables done. Q3/Q4 epics (PR, Social, Exec/ELT, Reporting, Strategy) still in Planning — no tasks broken out yet.",
+     owner:"Tory Waldron",status:"on-track",pct:100,done:16,flight:0,blocked:0,total:16,color:"#0891B2",delta:0,note:"Q2 + Q3 External Comms DONE. ELT Social Q3 DONE. Construction Dive byline Published. PR agency onboarded. Employee Advocacy platform selected. Q4 comms in Planning.",pulledAt:"Oct 2, 2026",
      scope:{chs:['PR & Comms','Social Media']},
      outcome:"Build PR and social agency support this summer to drive faster Pave momentum and stronger share of voice this fall.",
-     execSummary:"PR Agency selection complete, onboarding done (Isabella). Employee Advocacy platform evaluation complete (DSMN8 vs Sociabble). ELT & Executive Social — Q3 program still in Planning, not yet broken into tasks.",
+     execSummary:"Q3 wrap: External Comms + ELT Social Q3 DONE. Construction Dive byline Published (promoted). PR agency onboarded (Isabella). Employee Advocacy platform selected (DSMN8). Q4 comms program in Planning with Tory Waldron.",
      launches:[
-       {key:"MKT-12362",title:"ELT & Executive Social — Q3",bu:"Social",status:"planning",due:null},
+       {key:"MKT-12362",title:"ELT & Executive Social — Q3",bu:"Social",status:"done",due:null},
        {key:"MKT-12687",title:"PR Agency Selection",bu:"PR",status:"done",due:null},
        {key:"MKT-12688",title:"Employee Advocacy Platform Evaluation",bu:"Social",status:"done",due:"Aug 31"},
      ],
@@ -1606,16 +1615,16 @@ const DATA = {
        {key:"MKT-12358",title:"[Cross-BU] External Comms & Social — Q3 2026",status:"planning"},
      ]},
     {key:"MKT-12573",title:"Marketing Systems & AI",sub:"Sr Director, AI Growth Campaigns · Demand · Lifecycle · CRM · Automation",
-     owner:"Lynn Tan",status:"on-track",pct:54,done:44,flight:37,blocked:0,total:81,color:"#059669",delta:0,note:"PiperX launched June 3 (voice/video AI on QB website). Empower '26 AI content library live — GPT + Letter AI, surfaces ELT/session content to Sales & CX. FF trial nurture fully automated in Intercom. UserGems migration in progress. 25 tasks still sitting in Intake — biggest drag on completion.",
+     owner:"Lynn Tan",status:"on-track",pct:54,done:44,flight:37,blocked:0,total:81,color:"#059669",delta:0,note:"Growth & AI Lifecycle Q3 past Sep 30 â€” close-out in progress. FF trial nurture live. UserGems migration active. PiperX live on website. 25 tasks in Intake still biggest drag on completion.",
      scope:{chs:['Email & Lifecycle','Marketing Analytics']},
      outcome:"A faster, AI-powered marketing engine that does more with the same team.",
      execSummary:"Q3 active: UserGems migration validating parity vs. Vector (Sep renewal decision) · Empower '26 AI content library live (GPT + Letter AI, team rollout Jul 15) · FF Intercom trial nurture fully live — 7.7K YTD trials, ~450/wk, AE round-robin automated · Qualified campaign build for QB→Pave re-engagement in planning · Marketo Core New nurture template refresh in planning.",
      launches:[
        {key:"MKT-12531",title:"FF Intercom Trial Nurture Optimization",bu:"Lifecycle",status:"in-progress",due:null},
-       {key:"MKT-12634",title:"Vector → UserGems Migration",bu:"AI",status:"in-progress",due:null},
+       {key:"MKT-12634",title:"✅ Vector → UserGems Migration",bu:"AI",status:"in-progress",due:null},
        {key:"MKT-12803",title:"Core UserGems — New & Expand Campaigns",bu:"Core",status:"in-progress",due:null},
        {key:"MKT-12523",title:"Growth & AI Lifecycle — Intercom, Marketo & AI",bu:"Lifecycle",status:"in-progress",due:"Sep 30"},
-       {key:"MKT-12676",title:"Empower 26 Content Enablement Library",bu:"AI",status:"in-progress",due:null},
+       {key:"MKT-12676",title:"Empower 26 Content Enablement Library",bu:"AI",status:"done",due:null},
        {key:"MKT-12802",title:"Qualified — Campaign Build & Expansion",bu:"Lifecycle",status:"planning",due:null},
        {key:"MKT-12804",title:"Core Marketo Nurture Refresh",bu:"Lifecycle",status:"planning",due:null},
      ],
@@ -1633,7 +1642,7 @@ const DATA = {
      launchesLabel:"Active Programs",
      goals:["Marketing operating system","Cross-team program coordination","Delivery rhythm & visibility"],
      p1progs:[
-       {key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",status:"planning"},
+       {key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",status:"done"},
      ]},
   ],
 
@@ -1644,13 +1653,13 @@ const DATA = {
     {sp:"MKT-12568",key:"MKT-12445",title:"[Pave] Launch Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-12-31"},
     {sp:"MKT-12568",key:"MKT-12441",title:"[FF] Launch Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P1",due:"2026-12-31"},
     {sp:"MKT-12568",key:"MKT-12054",title:"[Pave] Launch Program — Q2 2026",owner:"Rusinova, Luiza",status:"done",priority:"P1",due:"2026-06-30"},
-    {sp:"MKT-12568",key:"MKT-12430",title:"[Pave] Campaigns — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-09-30"},
-    {sp:"MKT-12568",key:"MKT-12426",title:"[FF] Campaigns — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12430",title:"[Pave] Campaigns — Q3 2026",owner:"Rusinova, Luiza",status:"done",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12426",title:"[FF] Campaigns — Q3 2026",owner:"Rusinova, Luiza",status:"done",priority:"P2",due:"2026-09-30"},
     {sp:"MKT-12568",key:"MKT-12444",title:"[Pave] Campaigns — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-12-31"},
     {sp:"MKT-12568",key:"MKT-12440",title:"[FF] Campaigns — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-12-31"},
-    {sp:"MKT-12568",key:"MKT-12429",title:"[Pave] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P3",due:"2026-09-30"},
-    {sp:"MKT-12568",key:"MKT-12428",title:"[Pave] Webinar Program — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P3",due:"2026-09-30"},
-    {sp:"MKT-12568",key:"MKT-12425",title:"[FF] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12429",title:"[Pave] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"done",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12428",title:"[Pave] Webinar Program — Q3 2026",owner:"Rusinova, Luiza",status:"done",priority:"P3",due:"2026-09-30"},
+    {sp:"MKT-12568",key:"MKT-12425",title:"[FF] Always-On Program — Q3 2026",owner:"Rusinova, Luiza",status:"done",priority:"P3",due:"2026-09-30"},
     {sp:"MKT-12568",key:"MKT-12424",title:"[FF] Webinar Program — Q3 2026",owner:"Rusinova, Luiza",status:"in-progress",priority:"P3",due:"2026-09-30"},
     {sp:"MKT-12568",key:"MKT-12443",title:"[Pave] Always-On Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
     {sp:"MKT-12568",key:"MKT-12442",title:"[Pave] Webinar Program — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
@@ -1687,7 +1696,7 @@ const DATA = {
     {sp:"MKT-12571",key:"MKT-12595",title:"[FF] SEO Content Program — Q4 2026",owner:"",status:"planning",priority:"P1"},
     {sp:"MKT-12571",key:"MKT-12590",title:"[Core] SEO Content Program — Q2 2026",owner:"",status:"in-progress",priority:"P1"},
     {sp:"MKT-12571",key:"MKT-13054",title:"[Cross-BU] CRO & A/B Testing Program — Q4 2026",owner:"",status:"planning",priority:"P4"},
-    {sp:"MKT-12571",key:"MKT-13053",title:"[Cross-BU] CRO & A/B Testing Program — Q3 2026",owner:"",status:"planning",priority:"P4"},
+    {sp:"MKT-12571",key:"MKT-13053",title:"[Cross-BU] CRO & A/B Testing Program — Q3 2026",owner:"",status:"done",priority:"P4"},
     // MKT-12572 Corporate Communications
     {sp:"MKT-12572",key:"MKT-12358",title:"[Cross-BU] External Comms & Social — Q3 2026",owner:"",status:"planning",priority:"P2",due:"2026-09-30"},
     {sp:"MKT-12572",key:"MKT-12359",title:"[Cross-BU] External Comms & Social — Q4 2026",owner:"",status:"planning",priority:"P3",due:"2026-12-31"},
@@ -1695,7 +1704,7 @@ const DATA = {
     {sp:"MKT-12573",key:"MKT-12523",title:"[Cross-BU] Growth & AI Lifecycle — Q3 2026",owner:"",status:"in-progress",priority:"P2",due:"2026-09-30"},
     {sp:"MKT-12573",key:"MKT-12524",title:"[Cross-BU] Growth & AI Lifecycle — Q4 2026",owner:"",status:"planning",priority:"P3",due:"2026-12-31"},
     // MKT-12574 Program Management
-    {sp:"MKT-12574",key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P2",due:"2026-09-30"},
+    {sp:"MKT-12574",key:"MKT-12437",title:"[Cross-BU] Marketing Program Setup — Q3 2026",owner:"Rusinova, Luiza",status:"done",priority:"P2",due:"2026-09-30"},
     {sp:"MKT-12574",key:"MKT-12451",title:"[Cross-BU] Marketing Program Setup — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
     {sp:"MKT-12574",key:"MKT-12436",title:"[Cross-BU] Internal Programs — Q3 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-09-30"},
     {sp:"MKT-12574",key:"MKT-12450",title:"[Cross-BU] Internal Programs — Q4 2026",owner:"Rusinova, Luiza",status:"planning",priority:"P3",due:"2026-12-31"},
@@ -18587,7 +18596,7 @@ const DATA = {
     },
     {
       key:"MKT-14115",
-      title:"Strat Outreach Template - Did not participate in beta, Solvice API alternative",
+      title:"Strat Outreach Template - Did not participate in beta, Smart Scheduler API alternative",
       ch:"Email & Lifecycle",
       bu:"QB-Core",
       label:"QB-Core-MKT",
@@ -18811,7 +18820,7 @@ const DATA = {
     },
     {
       key:"MKT-14115",
-      title:"Strat Outreach Template - Did not participate in beta, Solvice API alternative",
+      title:"Strat Outreach Template - Did not participate in beta, Smart Scheduler API alternative",
       ch:"Email & Lifecycle",
       bu:"QB-Core",
       label:"QB-Core-MKT",
@@ -19035,7 +19044,7 @@ const DATA = {
     },
     {
       key:"MKT-14115",
-      title:"Strat Outreach Template - Did not participate in beta, Solvice API alternative",
+      title:"Strat Outreach Template - Did not participate in beta, Smart Scheduler API alternative",
       ch:"Email & Lifecycle",
       bu:"QB-Core",
       label:"QB-Core-MKT",
@@ -19259,7 +19268,7 @@ const DATA = {
     },
     {
       key:"MKT-14115",
-      title:"Strat Outreach Template - Did not participate in beta, Solvice API alternative",
+      title:"Strat Outreach Template - Did not participate in beta, Smart Scheduler API alternative",
       ch:"Email & Lifecycle",
       bu:"QB-Core",
       label:"QB-Core-MKT",
@@ -19483,7 +19492,7 @@ const DATA = {
     },
     {
       key:"MKT-14115",
-      title:"Strat Outreach Template - Did not participate in beta, Solvice API alternative",
+      title:"Strat Outreach Template - Did not participate in beta, Smart Scheduler API alternative",
       ch:"Email & Lifecycle",
       bu:"QB-Core",
       label:"QB-Core-MKT",
@@ -24499,7 +24508,7 @@ const ROADMAP = [
   // Q3 ── August 2026 ───────────────────────────────────────────────────────────────────────
   {id:'rm_br02',title:'Brand: Refined Design Review (Core Team)',  fn:'Brand Refresh',  bu:'All', tier:'Brand Refresh', owner:'Jenny',           weekOf:'2026-08-06',end:null,          qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12613'},
   {id:'rm13',title:'AI4 Conference (Aug 4–6, Las Vegas)',          fn:'Events',          bu:'All', tier:'Sponsored T1',  owner:'Lindsey, Susana', weekOf:'2026-08-04',end:'2026-08-06',qtr:'Q3',status:'confirmed',  brief:null,jira:'MKT-12386'},
-  {id:'rm_ent01',title:'[Core] Enterprise Plan Trial — In-Product Launch',fn:'Product Launches',bu:'QB',tier:'Tier 2',owner:'Heather',weekOf:'2026-08-05',end:'2026-08-24',qtr:'Q3',status:'in-progress',brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6521356312',jira:'MKT-13268'},
+  {id:'rm_ent01',title:'[Core] Enterprise Plan Trial — In-Product Launch',fn:'Product Launches',bu:'QB',tier:'Tier 2',owner:'Heather',weekOf:'2026-08-05',end:'2026-08-24',qtr:'Q3',status:'done',brief:'https://quickbase.atlassian.net/wiki/spaces/QBM/pages/6521356312',jira:'MKT-13268'},
   {id:'rm14',title:'Wireframing + Templates for New Pages',        fn:'Web',                  bu:'All', tier:'Web',           owner:'Carlos',          weekOf:'2026-08-10',end:'2026-09-07',qtr:'Q3',status:'tbc',         brief:null,jira:'WE-788'},
   {id:'rm15',title:'App Inheritance to App Ownership Webinar',     fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Charlie',         weekOf:'2026-08-10',end:'2026-08-17',qtr:'Q3',status:'in-progress', brief:null,jira:'MKT-12950'},
   {id:'rm16',title:'Empower 2026: 90-Day Report',                  fn:'Events',          bu:'All', tier:'Empower 2026',  owner:'Bridgette, Lilly',weekOf:'2026-08-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:null},
@@ -24531,7 +24540,7 @@ const ROADMAP = [
   {id:'rm_crv03',title:'Pave Brand Visual System (ICP-Aligned)',                    fn:'Brand & Creative',bu:'AWE', tier:'Brand Creative',owner:'Jenny',   weekOf:'2026-07-20',end:'2026-08-31',qtr:'Q3',status:'planned',  brief:null,jira:null},
   {id:'rm_crv04',title:'Email Template Refresh (Rebrand-Ready)',                    fn:'Brand & Creative',bu:'All', tier:'Email Creative',owner:'Jenny',   weekOf:'2026-08-03',end:'2026-09-14',qtr:'Q3',status:'planned',  brief:null,jira:null},
   // Q3 ── Web ─────────────────────────────────────────────────────────────────────────────────
-  {id:'rm_web05',title:'FF Web: Platform Pages & Nav Build-out (AI Form Builder, AI Form Converter, Offline Capture)',fn:'Web',bu:'AWE',tier:'Platform Pages',owner:'Michael YW / Hira / Kristina',weekOf:'2026-07-13',end:'2026-08-31',qtr:'Q3',status:'in-progress',brief:null,jira:'MKT-12850'},
+  {id:'rm_web05',title:'FF Web: Platform Pages & Nav Build-out (AI Form Builder, AI Form Converter, Offline Capture)',fn:'Web',bu:'AWE',tier:'Platform Pages',owner:'Michael YW / Hira / Kristina',weekOf:'2026-07-13',end:'2026-08-31',qtr:'Q3',status:'done',brief:null,jira:'MKT-12850'},
   // WE WebEx-Sprint-12 — Jun 30–Jul 14
   {id:'rm_we_s12',  title:'WE Sprint 12: Pave Pricing · IA/Nav · Snowflake Ads · CSS Arch',fn:'Web',bu:'All',tier:'Sprint',owner:'WE Team',    weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:null},
   {id:'rm_we_s12a', title:'Pave Pricing Page: New Interactive PricingPlans Component',      fn:'Web',bu:'AWE',tier:'Sprint',owner:'Nikol',      weekOf:'2026-06-29',end:'2026-07-14',qtr:'Q3',status:'in-progress',brief:null,jira:'WE-860'},
@@ -24557,12 +24566,27 @@ const ROADMAP = [
   {id:'rm_epp02c',title:'Camp Quickbase: Ft. Lauderdale',          fn:'Events',          bu:'All', tier:'Empower Pro',   owner:'Bridgette',       weekOf:'2026-11-11',end:null,          qtr:'Q4',status:'planned',   brief:null,jira:'MKT-13339'},
   {id:'rm_epp02d',title:'Camp Quickbase: Dallas',                  fn:'Events',          bu:'All', tier:'Empower Pro',   owner:'Bridgette',       weekOf:'2026-12-01',end:null,          qtr:'Q4',status:'planned',   brief:null,jira:'MKT-13338'},
   {id:'rm_epp02e',title:'Camp Quickbase: San Diego',                fn:'Events',          bu:'All', tier:'Empower Pro',   owner:'Bridgette',       weekOf:'2026-12-08',end:null,          qtr:'Q4',status:'planned',   brief:null,jira:'MKT-13340'},
-  {id:'rm_dem07',title:'[Core] Webinar — Connect & Collaborate',   fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Emma',            weekOf:'2026-09-17',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:'MKT-13770'},
+  {id:'rm_dem07',title:'[Core] Webinar — Connect & Collaborate',   fn:'Demand',          bu:'QB',  tier:'Webinar',       owner:'Emma',            weekOf:'2026-09-17',end:null,          qtr:'Q3',status:'done',   brief:null,jira:'MKT-13770'},
   {id:'rm_dem08',title:'[FF] Webinar — You Built the Form...',     fn:'Demand',          bu:'AWE', tier:'Webinar',       owner:'Stephanie',       weekOf:'2026-09-30',end:null,          qtr:'Q3',status:'planned',   brief:null,jira:'MKT-13827'},
   {id:'rm_dem09',title:'[Cross-BU] Airtable Opportunity — Two-Track Campaign',fn:'Demand',bu:'All',tier:'Tier 1',        owner:'Lynn',            weekOf:'2026-09-01',end:'2026-12-31',qtr:'Q4',status:'in-progress',brief:null,jira:'MKT-13902'},
   {id:'rm_dem10',title:'[Pave] Airtable Campaign — Launch Webinar',fn:'Demand',          bu:'AWE', tier:'Webinar',       owner:'Stephanie',       weekOf:'2026-10-07',end:null,          qtr:'Q4',status:'planned',   brief:null,jira:'MKT-13910'},
   {id:'rm_comm04',title:'[Cross-BU] Community Platform Migration & Launch — Program',fn:'Community',bu:'All',tier:'Program',owner:'Luiza',      weekOf:'2026-07-06',end:'2026-10-30',qtr:'Q4',status:'in-progress',brief:null,jira:'MKT-12470'},
-];
+
+  // Q4 ── Core Webinar Series (added Oct 2 2026) ─────────────────────────────────────────
+  {id:'rm_dem11',title:'[Core] Webinar — Smart Scheduler: Build Along',fn:'Demand',bu:'QB',tier:'Webinar',owner:'Charlie',weekOf:'2026-10-20',end:'2026-10-29',qtr:'Q4',status:'planning',brief:null,jira:'MKT-14012'},
+  {id:'rm_dem12',title:'[Core] Webinar — ALM/Governance',              fn:'Demand',bu:'QB',tier:'Webinar',owner:'Charlie',weekOf:'2026-11-05',end:'2026-11-12',qtr:'Q4',status:'planning',brief:null,jira:'MKT-14013'},
+  {id:'rm_dem13',title:'[Core] Webinar — Form Overview with NECA',     fn:'Demand',bu:'QB',tier:'Webinar',owner:'Charlie',weekOf:'2026-11-25',end:'2026-12-02',qtr:'Q4',status:'planning',brief:null,jira:'MKT-14014'},
+  {id:'rm_dem14',title:'[Core] Webinar — Year in Review',              fn:'Demand',bu:'QB',tier:'Webinar',owner:'Charlie',weekOf:'2026-12-08',end:'2026-12-15',qtr:'Q4',status:'planning',brief:null,jira:'MKT-14015'},
+  // Q4 ── AWE / Pave Content (added Oct 2 2026) ────────────────────────────────────────────
+  {id:'rm_pave_wp1',title:'[Pave] Whitepaper 1: AI Adoption and IT',          fn:'Content & SEO',bu:'AWE',tier:'Whitepaper',  owner:'Pave PMM', weekOf:'2026-10-06',end:'2026-12-01',qtr:'Q4',status:'planning',brief:null,jira:'MKT-13961'},
+  {id:'rm_pave_wp2',title:'[Pave] Whitepaper 2: Operational Intrapreneur',    fn:'Content & SEO',bu:'AWE',tier:'Whitepaper',  owner:'Pave PMM', weekOf:'2026-10-06',end:'2026-12-01',qtr:'Q4',status:'planning',brief:null,jira:'MKT-13964'},
+  {id:'rm_pave_wp3',title:'[Pave] Whitepaper 3: AI Perfection Problem',       fn:'Content & SEO',bu:'AWE',tier:'Whitepaper',  owner:'Pave PMM', weekOf:'2026-10-06',end:'2026-12-01',qtr:'Q4',status:'planning',brief:null,jira:'MKT-13966'},
+  {id:'rm_pave_rr', title:'Pave Research Report Launch',                       fn:'Content & SEO',bu:'AWE',tier:'Tier 2',      owner:'Nathan',   weekOf:'2026-10-06',end:'2026-12-01',qtr:'Q4',status:'in-progress',brief:null,jira:'MKT-14148'},
+  {id:'rm_pave_wb1',title:'Pave Webinar — One View of Everything (Nov 18)',    fn:'Demand',       bu:'AWE',tier:'Webinar',     owner:'Stephanie',weekOf:'2026-11-11',end:'2026-11-18',qtr:'Q4',status:'planning',brief:null,jira:'MKT-14164'},
+  {id:'rm_pave_seo1',title:'[Pave SEO] Comparisons Entity Cluster',            fn:'Content & SEO',bu:'AWE',tier:'SEO',         owner:'Pave SEO', weekOf:'2026-10-06',end:'2026-10-30',qtr:'Q4',status:'planning',brief:null,jira:'MKT-14177'},
+  // Q4 ── FF Content & Web (added Oct 2 2026) ──────────────────────────────────────────────
+  {id:'rm_ff_cs1',  title:'[FF] Customer Story Collection',                     fn:'Content & SEO',bu:'AWE',tier:'Customer Story',owner:'Alissa',weekOf:'2026-09-09',end:'2026-12-01',qtr:'Q4',status:'in-progress',brief:null,jira:'MKT-13950'},
+  {id:'rm_ff_sp1',  title:'[FF] Solutions Page Redesign and Cross-Sell Review', fn:'Web',          bu:'AWE',tier:'Web',          owner:'Hira',  weekOf:'2026-09-09',end:'2026-12-01',qtr:'Q4',status:'planning',brief:null,jira:'MKT-13951'},];
 
 // Apply live Jira statuses to p1progs; remove items Jira has marked done
 (function(){
@@ -24622,8 +24646,8 @@ function prioBadge(p){return `<span class="prio-badge ${PRIO_CLS[p]||'prio-p3'}"
 /* ══════════════════════════════════════════════════════
    TAB
 ══════════════════════════════════════════════════════ */
-let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q3', delPage=1;
-let rmQtr='Q3', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
+let ofBU='All', ofCh='All', ofLbl='All', ofSP='All', ofPrio='All', ofQtr='All', ofPeriod='All', ofStatus='All', ofOwner='All', delQtr='Q4', delPage=1;
+let rmQtr='Q4', rmFn='All', rmBU='All', rmStatus='All', rmOwner='All', rmShowDone=false;
 let _rmCollapsed=new Set();
 let _rmFocusMode=false;
 function setRM(w,v){
@@ -24958,22 +24982,22 @@ function toggleP1Overflow(btn, count) {
 ══════════════════════════════════════════════════════ */
 function genInsight(ini){
   const blkCnt=(ini.p1progs||[]).filter(p=>p.status==='blocked').length;
-  const behind=Q3_PCT-ini.pct;
-  const projPct=Q3_PCT>0?Math.min(100,Math.round(ini.pct/Q3_PCT*100)):ini.pct;
+  const behind=Q4_PCT-ini.pct;
+  const projPct=Q4_PCT>0?Math.min(100,Math.round(ini.pct/Q4_PCT*100)):ini.pct;
   const projDone=Math.round(ini.total*projPct/100);
   const willSlip=Math.max(0,ini.total-projDone);
   if(ini.status==='off-track'){
     const blkStr=blkCnt>0?` ${blkCnt} program${blkCnt>1?'s':''} blocked.`:'';
-    return `<div class="sp-insight sp-insight-risk"><span class="sp-i-icon">⚠</span><span>${Math.abs(behind)}pts behind Q3 pace.${blkStr} At current velocity: ${projDone} of ${ini.total} tasks close by Q3 — <strong>${willSlip} tasks may carry to Q4.</strong></span></div>`;
+    return `<div class="sp-insight sp-insight-risk"><span class="sp-i-icon">⚠</span><span>${Math.abs(behind)}pts behind Q4 pace.${blkStr} At current velocity: ${projDone} of ${ini.total} tasks close by Q4 end — <strong>${willSlip} tasks may carry beyond Q4.</strong></span></div>`;
   }
   if(ini.status==='at-risk'){
     const blkStr=blkCnt>0?`${blkCnt} program${blkCnt>1?'s':''} blocked · `:'';
-    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>${blkStr}Projecting ${projDone} of ${ini.total} tasks by Q3 end — <strong>${willSlip} task${willSlip===1?'':'s'} may carry to Q4.</strong></span></div>`;
+    return `<div class="sp-insight sp-insight-warn"><span class="sp-i-icon">⚡</span><span>${blkStr}Projecting ${projDone} of ${ini.total} tasks by Q4 end — <strong>${willSlip} task${willSlip===1?'':'s'} may carry beyond Q4.</strong></span></div>`;
   }
   const ip=(ini.p1progs||[]).filter(p=>p.status==='in-progress').length;
   if(ip>0)
     return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↑</span><span>${ip} program${ip>1?'s':''} actively in execution — on track for Q3.</span></div>`;
-  return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↗</span><span>Q3 underway — planning active across ${ini.total} tasks through Sep 30.</span></div>`;
+  return `<div class="sp-insight sp-insight-ok"><span class="sp-i-icon">↗</span><span>Q4 underway — planning active across ${ini.total} tasks through Sep 30.</span></div>`;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -28776,7 +28800,7 @@ function renderBriefing(){
   const _h2Active = inits.filter(i=>(i.p1progs||[]).some(p=>['in-progress','planning'].includes(p.status))).length;
   const _riskItems = inits.filter(i=>i.status==='at-risk'||i.status==='off-track');
 
-  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track. We're in <strong>Q3 week ${_weekInQ3} of 13</strong> with <strong>${_p1Running} P1 programs</strong> in active execution.`;
+  const _bs1 = `H2 is underway — ${onTrack===7?'all 7':'<strong>'+onTrack+' of 7</strong>'} goal areas on track. We're in <strong>Q4 week ${_weekInQ4} of 13</strong> with <strong>${_p1Running} P1 programs</strong> in active execution.`;
   const _bs2 = _activeSps.length
     ? `The most active areas are ${_activeSps.map(x=>`<strong>${_sn(x.ini)}</strong>`).join(', ')} — together running <strong>${_activeSps.reduce((s,x)=>s+x.n,0)} programs</strong> in parallel.`
     : '';
@@ -28890,7 +28914,7 @@ function renderBriefing(){
   // ── Needs-attention items ────────────────────────────
   const attItems = [];
   atRiskInits.forEach(ini=>{
-    const proj=Q3_PCT>0?Math.round(ini.pct/Q3_PCT*100):ini.pct;
+    const proj=Q4_PCT>0?Math.round(ini.pct/Q4_PCT*100):ini.pct;
     const slip=Math.max(0,ini.total-Math.round(ini.total*proj/100));
     const blkStr=ini.blocked>0?` · ${ini.blocked} blocked`:'';
     const nm=ini.title.split('—').pop().trim();
@@ -28938,7 +28962,7 @@ function renderBriefing(){
       <span>${_winsIsQ2Fallback?'Q2 Highlights':'Recently shipped'}</span>
       <a href="#" onclick="event.preventDefault();go('deliverables',document.querySelector('.tbtn[onclick*=deliverables]'))">${_winsIsQ2Fallback?`View Q2 archive (${_q2Wins.length}+) →`:`View all ${DATA.shipped.length} →`}</a>
     </span>
-    ${_winsIsQ2Fallback?`<div style="font-size:11px;color:var(--g500);padding:0 0 8px 2px;font-style:italic">Q3 items will appear here as they ship · ${_q2Dels.toLocaleString()} deliverables shipped in Q2</div>`:''}
+    ${_winsIsQ2Fallback?`<div style="font-size:11px;color:var(--g500);padding:0 0 8px 2px;font-style:italic">Q4 items will appear here as they ship · ${_q2Dels.toLocaleString()} deliverables shipped in Q2</div>`:''}
     ${_statsHtml}
     <div class="wins-scroll">
       ${_winsItems.map(s=>{
@@ -28959,12 +28983,12 @@ function renderBriefing(){
   const tl2Insight = (()=>{
     if(atRiskInits.length>0){
       const worst=atRiskInits.reduce((a,b)=>a.pct<b.pct?a:b);
-      const proj=Q3_PCT>0?Math.min(100,Math.round(worst.pct/Q3_PCT*100)):worst.pct;
+      const proj=Q4_PCT>0?Math.min(100,Math.round(worst.pct/Q4_PCT*100)):worst.pct;
       const slip=Math.max(0,worst.total-Math.round(worst.total*proj/100));
       const wname=worst.title.split('—').pop().trim();
       const blk=worst.blocked>0?` ${worst.blocked} programs blocked.`:'';
       const others=atRiskInits.length>1?` ${atRiskInits.length} initiatives at risk total.`:'';
-      return {cls:'is-risk',icon:'⚠',txt:`<strong>${wname}</strong> is the critical Q3 risk — ${worst.pct}% of tasks complete with ${_daysToQ3End} day${_daysToQ3End===1?'':'s'} remaining in Q3.${blk}${slip>0?` At current pace, ~${slip} tasks will carry into Q4.`:''}${others}`};
+      return {cls:'is-risk',icon:'⚠',txt:`<strong>${wname}</strong> is the critical Q4 risk — ${worst.pct}% of tasks complete with ${_daysToQ4End} day${_daysToQ3End===1?'':'s'} remaining in Q3.${blk}${slip>0?` At current pace, ~${slip} tasks will carry into Q4.`:''}${others}`};
     }
     const totalDoneAll=inits.reduce((s,i)=>s+i.done,0),totalAll=inits.reduce((s,i)=>s+i.total,0);
     const ipCount=(DATA.programs||[]).filter(p=>p.status==='in-progress').length;
@@ -29126,9 +29150,9 @@ function renderBriefing(){
     const launchesHtml=_sortedLaunches.length?
       '<div class="sp-launches2">'
       +_sortedLaunches.map(function(l){
-        const isDone=l.status==='done';
-        const sc=_lStCol[l.status]||'#94a3b8';
-        const sl=_lStLbl[l.status]||l.status;
+        const isDone=l.status==='done';const isOverdue=l.status==='in-progress'&&l.due&&(()=>{const d=new Date(String(l.due).replace(/\s*\(.*\)/,'')+' 2026');return !isNaN(d)&&d<new Date();})();
+        const sc=isOverdue?'#d97706':(_lStCol[l.status]||'#94a3b8');
+        const sl=isOverdue?'Post-launch':(_lStLbl[l.status]||l.status);
         const buLbl=_buTagLbl(l.bu);
         const buBadge=buLbl?'<span class="sp-bu-tag sp-bu-'+_buTagCls(l.bu)+'">'+buLbl+'</span>':'';
         return '<div class="sp-launch2'+(isDone?' sp-l2-done':'')+'">'
@@ -29314,7 +29338,7 @@ function renderBriefing(){
   };
   // Epic row
   const _buEpRow=function(l){
-    const done=l.status==='done';const sc=_stC2[l.status]||'#94a3b8';const sl=_stL2[l.status]||l.status;
+    const done=l.status==='done';const isOverdue=l.status==='in-progress'&&l.due&&(()=>{const d=new Date(String(l.due).replace(/\s*\(.*\)/,'')+' 2026');return !isNaN(d)&&d<new Date();})();const sc=isOverdue?'#d97706':(_stC2[l.status]||'#94a3b8');const sl=isOverdue?'Post-launch':(_stL2[l.status]||l.status);
     const isBlocked=l.status==='blocked';
     const isActive=l.status==='in-progress'||l.status==='confirmed';
     const isPlan=l.status==='planning'||l.status==='intake';
@@ -29452,9 +29476,9 @@ function renderBriefing(){
 
   // Full-year timeline bar gradient
   const _barGrad=`linear-gradient(90deg,
-    #94a3b8 0%,#94a3b8 ${_q3Pct}%,
-    #22c55e ${_q3Pct}%,#16a34a ${_q4Pct}%,
-    #cbd5e1 ${_q4Pct}%,#cbd5e1 100%)`;
+    #94a3b8 0%,#94a3b8 ${_q4Pct}%,
+    #22c55e ${_q4Pct}%,#22c55e ${_yearPct}%,
+    #cbd5e1 ${_yearPct}%,#cbd5e1 100%)`;
 
   // ── Team Load strip (from CAP_DATA) ─────────────────
   const _pSn=n=>{const p=n.split(', ');return p.length>1?p[1].trim().split(' ')[0]+' '+p[0]:n;};
@@ -29604,9 +29628,9 @@ function renderBriefing(){
       </div>
       <div class="tl2-qlabels">
         <div class="tl2-ql" style="width:${_q2Pct}%">Q1 · Jan–Mar</div>
-        <div class="tl2-ql is-active" style="width:${_q3Pct-_q2Pct}%">Q2 · Apr–Jun</div>
-        <div class="tl2-ql is-h2" style="width:${_q4Pct-_q3Pct}%">Q3 · Jul–Sep</div>
-        <div class="tl2-ql is-h2" style="flex:1">Q4 · Oct–Dec</div>
+        <div class="tl2-ql" style="width:${_q3Pct-_q2Pct}%">Q2 · Apr–Jun</div>
+        <div class="tl2-ql" style="width:${_q4Pct-_q3Pct}%">Q3 · Jul–Sep</div>
+        <div class="tl2-ql is-h2 is-active" style="flex:1">Q4 · Oct–Dec</div>
       </div>
 
       ${winsHtml}
@@ -29795,7 +29819,7 @@ function renderDeliverables(){
   // ── Build sources ──────────────────────────────────────────────────────
   const _planningSrc=(DATA.planning||[]).map(i=>({..._norm(i),_st:'planning'}));
   const _activeSrc=(DATA.active||[]).map(i=>({..._norm(i),_st:'in-progress'}));
-  const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):DATA.shipped;
+  const _raw=delQtr==='Q2'?(DATA.q2deliverables||[]):delQtr==='Q4'?DATA.shipped.filter(i=>i.doneDate&&new Date(i.doneDate)>=_q4s):DATA.shipped.filter(i=>!i.doneDate||new Date(i.doneDate)<_q4s);
   const _shippedSrc=_raw.map(i=>({..._norm(i),_st:'done'}));
   const _allSrc=(()=>{const _seen=new Set();return[..._activeSrc,..._planningSrc,..._shippedSrc].filter(i=>_seen.has(i.key)?false:(_seen.add(i.key),true));})();
   _allSrc.forEach(i=>{if(i.ch&&!chColMap[i.ch])chColMap[i.ch]=CH_COLOR_MAP[i.ch]||_chFallback[_chFbIdx++%_chFallback.length];});
@@ -29852,7 +29876,7 @@ function renderDeliverables(){
   const chDrop=`<select class="dv-drop${ofCh!=='All'?' active':''}" onchange="setOF('ch',this.value)"><option value="All"${ofCh==='All'?' selected':''}>Channel: All</option>${Object.keys(_chTotals).sort((a,b)=>(_chTotals[b]||0)-(_chTotals[a]||0)).map(ch=>`<option value="${ch}"${ofCh===ch?' selected':''}>${ch} (${_chCnt[ch]||0})</option>`).join('')}</select>`;
 
   const qtrCtrl=(ofStatus==='Planning'||ofStatus==='In Progress')?'':
-    `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
+    `<div class="dv-qtr"><button class="dv-qtr-btn${delQtr==='Q4'?' on':''}" onclick="setDelQtr('Q4')">Q4 2026</button><button class="dv-qtr-btn${delQtr==='Q3'?' on':''}" onclick="setDelQtr('Q3')">Q3 2026</button><button class="dv-qtr-btn${delQtr==='Q2'?' on':''}" onclick="setDelQtr('Q2')">Q2 2026</button></div>`;
 
   const PERIODS=[{k:'All',lbl:'All'},{k:'Month',lbl:'This Month'},{k:'Week',lbl:'This Week'},{k:'Today',lbl:'Today'}];
   const periodCtrl=(ofStatus==='Planning'||ofStatus==='In Progress'||delQtr==='Q2')?'':
@@ -30124,7 +30148,7 @@ function renderAnalytics(){
     +'<div style="display:flex;align-items:center;gap:8px;background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:8px 14px"><span style="font-size:22px;font-weight:900;color:var(--g400);line-height:1">'+_aLt.length+'</span><div><div style="font-size:11px;font-weight:700;color:var(--g500)">Light load</div><div style="font-size:10px;color:var(--g500)">&lt;16h &middot; '+_ltChs.length+' channels</div></div></div>'
     +'<div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--g500);padding-right:4px"><span style="background:var(--g100);border-radius:6px;padding:4px 10px;font-weight:600">'+CAP_DATA.pulledAt+'</span></div>'
     +'</div>'
-    +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:#92400E;margin-bottom:7px">&#128204;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' with a full Q3 queue &mdash; work is assigned and sequenced</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
+    +(_overChs.length>0?'<div class="cap-attn"><div style="font-size:12px;font-weight:800;color:#92400E;margin-bottom:7px">&#128204;&nbsp;'+_overChs.length+' channel'+(_overChs.length>1?'s':'')+' with a full Q4 queue &mdash; work is assigned and sequenced</div><div class="cap-attn-tags">'+_overChs.map(c=>'<span class="cap-attn-tag">'+c.ch+' &middot; '+c.hours+'h</span>').join('')+'</div></div>':'')
     +'<div class="cap-seg-wrap">'
     +'<div style="font-size:11px;font-weight:700;color:var(--g500);margin-bottom:6px">Channel health distribution &mdash; '+CAP_DATA.channels.length+' teams</div>'
     +'<div class="cap-seg">'
@@ -30163,7 +30187,7 @@ function renderAnalytics(){
     +'</div>'
     +'</div>'
     +'<div style="margin-top:14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--g700);line-height:1.65">'
-    +'<strong style="color:#92400E">&#128204; Workload snapshot:</strong> <strong>Michael Young-Ward</strong> has the largest queue (~828h planned) as primary WE developer across all 3 BU web streams. <strong>Soumya Ghosh</strong> ~378h &middot; <strong>Stephanie McPhee</strong> ~266h &middot; <strong>Nikol Topozliyska</strong> ~242h. All channels are fully loaded for Q3 &mdash; work is assigned, sequenced, and actively in progress. This is planned capacity, not overdue work.'
+    +'<strong style="color:#92400E">&#128204; Workload snapshot:</strong> <strong>Michael Young-Ward</strong> has the largest queue (~828h planned) as primary WE developer across all 3 BU web streams. <strong>Soumya Ghosh</strong> ~378h &middot; <strong>Stephanie McPhee</strong> ~266h &middot; <strong>Nikol Topozliyska</strong> ~242h. All channels are fully loaded for Q4 &mdash; work is assigned, sequenced, and actively in progress. This is planned capacity, not overdue work.'
     +'</div>'
     +'<div class="cap-insights-row">'
     +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
@@ -30174,7 +30198,7 @@ function renderAnalytics(){
     +'<div class="cap-ins" style="border-top:3px solid var(--amber)">'
     +'<div class="cap-ins-icon">&#128336;</div>'
     +'<div class="cap-ins-title">Q3 queue</div>'
-    +'<div class="cap-ins-body">Most channels are fully loaded for Q3 &mdash; work is assigned, sequenced, and in progress. Highest queues: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics has the lightest load (32h).</div>'
+    +'<div class="cap-ins-body">Most channels are fully loaded for Q4 &mdash; work is assigned, sequenced, and in progress. Highest queues: Web &amp; Digital (1,696h), Creative &amp; Design (742h), Demand Gen (438h), Email (364h). Marketing Analytics has the lightest load (32h).</div>'
     +'</div>'
     +'<div class="cap-ins" style="border-top:3px solid var(--green)">'
     +'<div class="cap-ins-icon">&#9989;</div>'
@@ -30522,7 +30546,8 @@ function renderTeamsDashboard(){
 ══════════════════════════════════════════════════════ */
 const _wsExpanded={};
 function wsToggle(ch){
-  _wsExpanded[ch]=!_wsExpanded[ch];
+  _wsExpanded[ch]=!_wsExpanded[ch
+  // Q4 â”€â”€ Core Webinar Series (new, Sep 18 2026) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€];
   // browser stores data attributes decoded, so query with unencoded value
   const card=document.querySelector('.ws-card[data-ch="'+ch.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"]');
   if(card)card.classList.toggle('open',!!_wsExpanded[ch]);
