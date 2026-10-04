@@ -30550,8 +30550,7 @@ function renderTeamsDashboard(){
 ══════════════════════════════════════════════════════ */
 const _wsExpanded={};
 function wsToggle(ch){
-  _wsExpanded[ch]=!_wsExpanded[ch
-  // Q4 â”€â”€ Core Webinar Series (new, Sep 18 2026) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€];
+  _wsExpanded[ch]=!_wsExpanded[ch];
   // browser stores data attributes decoded, so query with unencoded value
   const card=document.querySelector('.ws-card[data-ch="'+ch.replace(/\\/g,'\\\\').replace(/"/g,'\\"')+'"]');
   if(card)card.classList.toggle('open',!!_wsExpanded[ch]);
@@ -30568,7 +30567,7 @@ function wsShowMore(safeId){
    BOOT
 ══════════════════════════════════════════════════════ */
 document.getElementById('upd-badge').textContent = DATA.lastUpdated;
-try{renderBriefing();}catch(e){document.getElementById('brief').innerHTML='<div style="padding:40px;background:#fff;font-family:monospace;color:#dc2626;font-size:12px;white-space:pre-wrap;border-radius:8px;margin:20px"><strong>renderBriefing() error:</strong>\n'+e+'\n\n'+e.stack+'</div>';}
+renderBriefing();
 </script>
 
 <div id="copy-toast">✓ Copied to clipboard</div>
