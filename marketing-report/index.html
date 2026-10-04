@@ -977,7 +977,7 @@ a.tw-seg-chip:hover{background:#fff;border-color:var(--g300)}
 .pw-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px;color:#94a3b8;display:flex;line-height:1}
 .pw-eye:hover{color:#64748b}
 @keyframes pwShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
-.pw-btn{width:100%;margin-top:12px;padding:14px;background:linear-gradient(135deg,#F23E30 0%,#d42a1d 100%);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;transition:all .15s;letter-spacing:.3px;box-shadow:0 4px 18px rgba(242,62,48,.4)}
+@keyframes pw-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}.pw-shake{animation:pw-shake 0.5s ease;}.pw-btn{width:100%;margin-top:12px;padding:14px;background:linear-gradient(135deg,#F23E30 0%,#d42a1d 100%);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;transition:all .15s;letter-spacing:.3px;box-shadow:0 4px 18px rgba(242,62,48,.4)}
 .pw-btn:hover{transform:translateY(-1px);box-shadow:0 7px 24px rgba(242,62,48,.5)}
 .pw-btn:active{transform:translateY(0);box-shadow:0 3px 12px rgba(242,62,48,.35)}
 .pw-hint{font-size:11.5px;color:#94a3b8;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px}
@@ -1443,8 +1443,8 @@ function checkPW(){
     const err=document.getElementById('pw-error');
     err.textContent='Incorrect code. Try again.';
     inp.value='';
-    inp.classList.add('shake');
-    inp.addEventListener('animationend',()=>inp.classList.remove('shake'),{once:true});
+    inp.classList.add('pw-shake');
+    inp.addEventListener('animationend',()=>inp.classList.remove('pw-shake'),{once:true});
     inp.focus();
   }
 }
