@@ -30568,7 +30568,7 @@ function wsShowMore(safeId){
    BOOT
 ══════════════════════════════════════════════════════ */
 document.getElementById('upd-badge').textContent = DATA.lastUpdated;
-renderBriefing();
+try{renderBriefing();}catch(e){document.getElementById('brief').innerHTML='<div style="padding:40px;background:#fff;font-family:monospace;color:#dc2626;font-size:12px;white-space:pre-wrap;border-radius:8px;margin:20px"><strong>renderBriefing() error:</strong>\n'+e+'\n\n'+e.stack+'</div>';}
 </script>
 
 <div id="copy-toast">✓ Copied to clipboard</div>
