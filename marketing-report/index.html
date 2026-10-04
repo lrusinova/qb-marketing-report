@@ -1434,7 +1434,7 @@ function checkPW(){
   const _key=atob('bWt0MjAyNlFCIQ==');
   const val=document.getElementById('pw-input').value;
   if(val===_key){
-    localStorage.setItem('mkt_auth',JSON.stringify({exp:Date.now()+365*24*60*60*1000}));
+    try{localStorage.setItem('mkt_auth',JSON.stringify({exp:Date.now()+365*24*60*60*1000}));}catch(e){}
     const g=document.getElementById('pw-gate');
     g.classList.add('fade-out');
     setTimeout(()=>g.style.display='none',420);
