@@ -1,8 +1,89 @@
 {
-  "generatedAt": "Oct 2, 2026",
-  "total": 3,
+  "generatedAt": "Oct 5, 2026",
+  "total": 12,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-1046",
+      "title": "Pass UTMs through login page URL",
+      "type": "Task",
+      "assignee": "Boostrom , Max",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-1047",
+      "title": "Add UserAgent hidden field to web-hosted trial form payload",
+      "type": "Task",
+      "assignee": "Boostrom , Max",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12634",
+      "title": "[Cross-BU] Vector to UserGems Migration",
+      "type": "Epic",
+      "assignee": "Tan, Lynn",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13053",
+      "title": "[Cross-BU] CRO & A/B Testing Program — Q3 2026",
+      "type": "Marketing Initiative",
+      "assignee": "(unassigned)",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13055",
+      "title": "[Pave] A/B Testing — Q3 2026",
+      "type": "Epic",
+      "assignee": "(unassigned)",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12437",
+      "title": "[Cross-BU] Marketing Program Setup — Q3 2026",
+      "type": "Marketing Initiative",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-11747",
+      "title": "Office Hours — QB Extensions",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": "QB-Core",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12286",
+      "title": "[FF] Paid Media — Always-On — Q3 2026",
+      "type": "Epic",
+      "assignee": "Martins, Raul",
+      "partialBU": "FastField",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-12430",
+      "title": "[Pave] Campaigns — Q3 2026",
+      "type": "Marketing Initiative",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-12300",
       "title": "[Pave] Paid Media — Always-On — Q3 2026",
