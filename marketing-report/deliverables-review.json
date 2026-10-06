@@ -1,8 +1,116 @@
 {
-  "generatedAt": "Oct 5, 2026",
-  "total": 12,
+  "generatedAt": "Oct 6, 2026",
+  "total": 19,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13464",
+      "title": "Keynote rehearsals",
+      "type": "Task",
+      "assignee": "Speidel, Lindsey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13462",
+      "title": "Keynote Speakers",
+      "type": "Task",
+      "assignee": "Kampf, Mirissa",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14088",
+      "title": "Core AE - End-User Re-engage",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13418",
+      "title": "Advertising: competitor intent campaign: comparison pages ",
+      "type": "Task",
+      "assignee": "Tan, Lynn",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13417",
+      "title": "Advertising: Past champ campaign ",
+      "type": "Task",
+      "assignee": "Tan, Lynn",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13415",
+      "title": "Expand - Family Tree Enrichment: clay to enrich/research fam tree accounts/persona",
+      "type": "Task",
+      "assignee": "Robinson, Mia",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13091",
+      "title": "Build master template in usergems, one for ABM playbook, one for Commercial Expand, one for Core new for consistency in future build",
+      "type": "Task",
+      "assignee": "Robinson, Mia",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13351",
+      "title": "Define scale-up plan beyond initial ELT profiles",
+      "type": "Task",
+      "assignee": "Tan, Lynn",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13350",
+      "title": "Pilot with existing 5 ELT profiles",
+      "type": "Task",
+      "assignee": "Tan, Lynn",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13349",
+      "title": "Build approval workflow for exec-facing outreach",
+      "type": "Task",
+      "assignee": "Tan, Lynn",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13467",
+      "title": "Keynotes Recorded",
+      "type": "Task",
+      "assignee": "Speidel, Lindsey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13466",
+      "title": "Keynote Recording ROS",
+      "type": "Task",
+      "assignee": "Speidel, Lindsey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "WE-1046",
       "title": "Pass UTMs through login page URL",
@@ -63,51 +171,6 @@
       "type": "Task",
       "assignee": "(unassigned)",
       "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12286",
-      "title": "[FF] Paid Media — Always-On — Q3 2026",
-      "type": "Epic",
-      "assignee": "Martins, Raul",
-      "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12430",
-      "title": "[Pave] Campaigns — Q3 2026",
-      "type": "Marketing Initiative",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12300",
-      "title": "[Pave] Paid Media — Always-On — Q3 2026",
-      "type": "Epic",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12299",
-      "title": "[Pave] Monthly Ad & Copy Cycle — Always-On — Q3 2026",
-      "type": "Epic",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12295",
-      "title": "[Pave] Content — Always-On — Q3 2026",
-      "type": "Epic",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
