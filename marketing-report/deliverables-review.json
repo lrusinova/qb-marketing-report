@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Oct 6, 2026",
-  "total": 19,
+  "generatedAt": "Oct 7, 2026",
+  "total": 16,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-1071",
+      "title": "Subprocessor Page Updates - Q3 2026",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13464",
       "title": "Keynote rehearsals",
@@ -135,42 +144,6 @@
       "type": "Epic",
       "assignee": "Tan, Lynn",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13053",
-      "title": "[Cross-BU] CRO & A/B Testing Program — Q3 2026",
-      "type": "Marketing Initiative",
-      "assignee": "(unassigned)",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13055",
-      "title": "[Pave] A/B Testing — Q3 2026",
-      "type": "Epic",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12437",
-      "title": "[Cross-BU] Marketing Program Setup — Q3 2026",
-      "type": "Marketing Initiative",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-11747",
-      "title": "Office Hours — QB Extensions",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "QB-Core",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
