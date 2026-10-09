@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Oct 8, 2026",
-  "total": 16,
+  "generatedAt": "Oct 9, 2026",
+  "total": 14,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -126,24 +126,6 @@
       "type": "Task",
       "assignee": "Tan, Lynn",
       "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13467",
-      "title": "Keynotes Recorded",
-      "type": "Task",
-      "assignee": "Speidel, Lindsey",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13466",
-      "title": "Keynote Recording ROS",
-      "type": "Task",
-      "assignee": "Speidel, Lindsey",
-      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
