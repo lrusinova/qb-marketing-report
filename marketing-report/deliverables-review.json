@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Oct 9, 2026",
-  "total": 14,
+  "generatedAt": "Oct 12, 2026",
+  "total": 3,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -27,105 +27,6 @@
       "type": "Task",
       "assignee": "Nickols, Meaghan",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1071",
-      "title": "Subprocessor Page Updates - Q3 2026",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13464",
-      "title": "Keynote rehearsals",
-      "type": "Task",
-      "assignee": "Speidel, Lindsey",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13462",
-      "title": "Keynote Speakers",
-      "type": "Task",
-      "assignee": "Kampf, Mirissa",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14088",
-      "title": "Core AE - End-User Re-engage",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13418",
-      "title": "Advertising: competitor intent campaign: comparison pages ",
-      "type": "Task",
-      "assignee": "Tan, Lynn",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13417",
-      "title": "Advertising: Past champ campaign ",
-      "type": "Task",
-      "assignee": "Tan, Lynn",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13415",
-      "title": "Expand - Family Tree Enrichment: clay to enrich/research fam tree accounts/persona",
-      "type": "Task",
-      "assignee": "Robinson, Mia",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13091",
-      "title": "Build master template in usergems, one for ABM playbook, one for Commercial Expand, one for Core new for consistency in future build",
-      "type": "Task",
-      "assignee": "Robinson, Mia",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13351",
-      "title": "Define scale-up plan beyond initial ELT profiles",
-      "type": "Task",
-      "assignee": "Tan, Lynn",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13350",
-      "title": "Pilot with existing 5 ELT profiles",
-      "type": "Task",
-      "assignee": "Tan, Lynn",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13349",
-      "title": "Build approval workflow for exec-facing outreach",
-      "type": "Task",
-      "assignee": "Tan, Lynn",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
