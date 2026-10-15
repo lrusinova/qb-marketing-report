@@ -1,34 +1,5 @@
 {
-  "generatedAt": "Oct 14, 2026",
-  "total": 3,
-  "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
-  "items": [
-    {
-      "key": "MKT-13744",
-      "title": "[Partners] Trinity — Q4 2026",
-      "type": "Epic",
-      "assignee": "Nickols, Meaghan",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13756",
-      "title": "Edge IQ — Internal Enablement Session (Sept 8, via Corey Goolsby)",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13752",
-      "title": "Advantage/Form Engine — Internal Enablement Lunch-and-Learn (Sept)",
-      "type": "Task",
-      "assignee": "Nickols, Meaghan",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    }
-  ]
+  "generatedAt": "Oct 15, 2026",
+  "total": 0,
+  "items": []
 }
