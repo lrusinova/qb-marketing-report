@@ -1,5 +1,16 @@
 {
-  "generatedAt": "Oct 15, 2026",
-  "total": 0,
-  "items": []
+  "generatedAt": "Oct 16, 2026",
+  "total": 1,
+  "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
+  "items": [
+    {
+      "key": "MKT-12635",
+      "title": "Replicate Vector tracking in UserGems & compare data",
+      "type": "Task",
+      "assignee": "Robinson, Mia",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    }
+  ]
 }
