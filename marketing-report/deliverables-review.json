@@ -1,8 +1,35 @@
 {
-  "generatedAt": "Oct 16, 2026",
-  "total": 1,
+  "generatedAt": "Oct 19, 2026",
+  "total": 4,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13998",
+      "title": "EmpowerPro Product Launch Hub",
+      "type": "Task",
+      "assignee": "Englert , Caroline",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13329",
+      "title": "[Empower Pro] Platform & Registration Ops — Empower Pro 26 — Q3-Q4 2026",
+      "type": "Epic",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14608",
+      "title": "Trim on demand recordings",
+      "type": "Task",
+      "assignee": "Maganini , Joey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-12635",
       "title": "Replicate Vector tracking in UserGems & compare data",
