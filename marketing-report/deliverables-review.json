@@ -1,8 +1,44 @@
 {
-  "generatedAt": "Oct 20, 2026",
-  "total": 4,
+  "generatedAt": "Oct 21, 2026",
+  "total": 8,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-1004",
+      "title": "[Cross-BU] Functional prototype — 12 priority pages",
+      "type": "Task",
+      "assignee": "de Agosto, Ericson",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-1043",
+      "title": "Implement FT/LT UTM localStorage buckets",
+      "type": "Task",
+      "assignee": "Boostrom , Max",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-1044",
+      "title": "Send both FT + LT UTMs through utm_all field on web-hosted form",
+      "type": "Task",
+      "assignee": "Boostrom , Max",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-1068",
+      "title": "Paid Media Navigation Version for FastField",
+      "type": "Task",
+      "assignee": "Boostrom , Max",
+      "partialBU": "FastField",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13998",
       "title": "EmpowerPro Product Launch Hub",
