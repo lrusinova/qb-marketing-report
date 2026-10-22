@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Oct 21, 2026",
-  "total": 8,
+  "generatedAt": "Oct 22, 2026",
+  "total": 9,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-1057",
+      "title": "Call with Partner Central admin (Mallorie DePenning) — discuss & refine PC data/fields",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "WE-1004",
       "title": "[Cross-BU] Functional prototype — 12 priority pages",
