@@ -1,8 +1,26 @@
 {
-  "generatedAt": "Oct 22, 2026",
-  "total": 9,
+  "generatedAt": "Oct 23, 2026",
+  "total": 10,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13602",
+      "title": "On-site team onboarding call - Boston",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13607",
+      "title": "Onsite GSD Task List/Assignments - Boston",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "WE-1057",
       "title": "Call with Partner Central admin (Mallorie DePenning) — discuss & refine PC data/fields",
@@ -72,15 +90,6 @@
       "type": "Task",
       "assignee": "Maganini , Joey",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-12635",
-      "title": "Replicate Vector tracking in UserGems & compare data",
-      "type": "Task",
-      "assignee": "Robinson, Mia",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
