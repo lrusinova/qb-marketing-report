@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Oct 23, 2026",
-  "total": 10,
+  "generatedAt": "Oct 26, 2026",
+  "total": 11,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-14613",
+      "title": "update static image ads",
+      "type": "Sub-task",
+      "assignee": "Tenki, Michele",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13602",
       "title": "On-site team onboarding call - Boston",
