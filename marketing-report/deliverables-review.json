@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Oct 26, 2026",
-  "total": 11,
+  "generatedAt": "Oct 27, 2026",
+  "total": 7,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -63,42 +63,6 @@
       "type": "Task",
       "assignee": "Boostrom , Max",
       "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1068",
-      "title": "Paid Media Navigation Version for FastField",
-      "type": "Task",
-      "assignee": "Boostrom , Max",
-      "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13998",
-      "title": "EmpowerPro Product Launch Hub",
-      "type": "Task",
-      "assignee": "Englert , Caroline",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13329",
-      "title": "[Empower Pro] Platform & Registration Ops — Empower Pro 26 — Q3-Q4 2026",
-      "type": "Epic",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14608",
-      "title": "Trim on demand recordings",
-      "type": "Task",
-      "assignee": "Maganini , Joey",
-      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
