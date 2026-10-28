@@ -1,8 +1,44 @@
 {
-  "generatedAt": "Oct 27, 2026",
+  "generatedAt": "Oct 28, 2026",
   "total": 7,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13592",
+      "title": "Scripts Locked",
+      "type": "Task",
+      "assignee": "Pepe, Heather",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14733",
+      "title": "[Cross-BU] Skill Template and Versioning — AI Skill Build System",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14721",
+      "title": "[Cross-BU] Juno Brand Check: Stage 1 Prototype — AI Teammates Pilot",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14720",
+      "title": "[Cross-BU] Marketing AI Blueprint v0.2 — AI Roadshow",
+      "type": "Task",
+      "assignee": "(unassigned)",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-14613",
       "title": "update static image ads",
@@ -27,42 +63,6 @@
       "type": "Task",
       "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1057",
-      "title": "Call with Partner Central admin (Mallorie DePenning) — discuss & refine PC data/fields",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1004",
-      "title": "[Cross-BU] Functional prototype — 12 priority pages",
-      "type": "Task",
-      "assignee": "de Agosto, Ericson",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1043",
-      "title": "Implement FT/LT UTM localStorage buckets",
-      "type": "Task",
-      "assignee": "Boostrom , Max",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1044",
-      "title": "Send both FT + LT UTMs through utm_all field on web-hosted form",
-      "type": "Task",
-      "assignee": "Boostrom , Max",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
