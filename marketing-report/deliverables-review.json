@@ -1,5 +1,5 @@
 {
-  "generatedAt": "Oct 28, 2026",
+  "generatedAt": "Oct 29, 2026",
   "total": 7,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
