@@ -1,8 +1,35 @@
 {
-  "generatedAt": "Oct 29, 2026",
-  "total": 7,
+  "generatedAt": "Oct 30, 2026",
+  "total": 10,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-997",
+      "title": "[QB] Demo — Figma rebrand mockup",
+      "type": "Task",
+      "assignee": "Gooding, Carrly",
+      "partialBU": "QB-Core",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-998",
+      "title": "[QB] Homepage — Figma rebrand mockup",
+      "type": "Task",
+      "assignee": "Gooding, Carrly",
+      "partialBU": "QB-Core",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-1003",
+      "title": "[FF] Start Trial — Figma rebrand mockup",
+      "type": "Task",
+      "assignee": "Gooding, Carrly",
+      "partialBU": "FastField",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13592",
       "title": "Scripts Locked",
