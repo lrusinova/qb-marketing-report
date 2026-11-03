@@ -1,8 +1,44 @@
 {
-  "generatedAt": "Oct 30, 2026",
-  "total": 10,
+  "generatedAt": "Nov 3, 2026",
+  "total": 11,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13550",
+      "title": "[Empower Pro] General Session(s) Planning — Camp Quickbase — Q3-Q4 2026",
+      "type": "Epic",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13609",
+      "title": "Speaker Tech Check Onsite - Boston",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-995",
+      "title": "[QB] Partners — Figma rebrand mockup",
+      "type": "Task",
+      "assignee": "Gooding, Carrly",
+      "partialBU": "QB-Core",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "WE-996",
+      "title": "[QB] Trial — Figma rebrand mockup",
+      "type": "Task",
+      "assignee": "Gooding, Carrly",
+      "partialBU": "QB-Core",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "WE-997",
       "title": "[QB] Demo — Figma rebrand mockup",
@@ -62,33 +98,6 @@
       "title": "[Cross-BU] Marketing AI Blueprint v0.2 — AI Roadshow",
       "type": "Task",
       "assignee": "(unassigned)",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14613",
-      "title": "update static image ads",
-      "type": "Sub-task",
-      "assignee": "Tenki, Michele",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13602",
-      "title": "On-site team onboarding call - Boston",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13607",
-      "title": "Onsite GSD Task List/Assignments - Boston",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
