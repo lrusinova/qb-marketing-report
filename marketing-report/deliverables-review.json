@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Nov 3, 2026",
-  "total": 11,
+  "generatedAt": "Nov 4, 2026",
+  "total": 12,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13635",
+      "title": "Onsite GSD Task List/Assignments - Ft. Lauderdale",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13550",
       "title": "[Empower Pro] General Session(s) Planning — Camp Quickbase — Q3-Q4 2026",
