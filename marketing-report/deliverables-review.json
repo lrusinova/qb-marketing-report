@@ -1,6 +1,6 @@
 {
-  "generatedAt": "Nov 4, 2026",
-  "total": 12,
+  "generatedAt": "Nov 5, 2026",
+  "total": 11,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
     {
@@ -96,15 +96,6 @@
     {
       "key": "MKT-14721",
       "title": "[Cross-BU] Juno Brand Check: Stage 1 Prototype — AI Teammates Pilot",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14720",
-      "title": "[Cross-BU] Marketing AI Blueprint v0.2 — AI Roadshow",
       "type": "Task",
       "assignee": "(unassigned)",
       "partialBU": "Cross-BU",
