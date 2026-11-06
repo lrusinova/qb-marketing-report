@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Nov 5, 2026",
-  "total": 11,
+  "generatedAt": "Nov 6, 2026",
+  "total": 9,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-14843",
+      "title": "Update G2 badges on QB home page",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13635",
       "title": "Onsite GSD Task List/Assignments - Ft. Lauderdale",
@@ -72,33 +81,6 @@
       "type": "Task",
       "assignee": "Gooding, Carrly",
       "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13592",
-      "title": "Scripts Locked",
-      "type": "Task",
-      "assignee": "Pepe, Heather",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14733",
-      "title": "[Cross-BU] Skill Template and Versioning — AI Skill Build System",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14721",
-      "title": "[Cross-BU] Juno Brand Check: Stage 1 Prototype — AI Teammates Pilot",
-      "type": "Task",
-      "assignee": "(unassigned)",
-      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
