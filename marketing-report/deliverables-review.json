@@ -1,8 +1,53 @@
 {
-  "generatedAt": "Nov 6, 2026",
-  "total": 9,
+  "generatedAt": "Nov 9, 2026",
+  "total": 7,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-14974",
+      "title": "[Cross-BU] Marketing AI Blueprint v0.3: Where We Are Dashboard — AI Roadshow",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14972",
+      "title": "[Cross-BU] Wren Build Line: Test Runner and Release Check — AI Skill Build System",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14968",
+      "title": "[FF] Iris Customer Proof: Stage 1 Prototype — AI Teammates",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14965",
+      "title": "[Cross-BU] Piper Request Intake, Program Setup and Program Runner: Stage 1 Prototypes — AI Teammates",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14964",
+      "title": "[Cross-BU] Theo Brief Builder: Stage 1 Prototype — AI Teammates",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-14843",
       "title": "Update G2 badges on QB home page",
@@ -18,69 +63,6 @@
       "type": "Task",
       "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13550",
-      "title": "[Empower Pro] General Session(s) Planning — Camp Quickbase — Q3-Q4 2026",
-      "type": "Epic",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13609",
-      "title": "Speaker Tech Check Onsite - Boston",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-995",
-      "title": "[QB] Partners — Figma rebrand mockup",
-      "type": "Task",
-      "assignee": "Gooding, Carrly",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-996",
-      "title": "[QB] Trial — Figma rebrand mockup",
-      "type": "Task",
-      "assignee": "Gooding, Carrly",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-997",
-      "title": "[QB] Demo — Figma rebrand mockup",
-      "type": "Task",
-      "assignee": "Gooding, Carrly",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-998",
-      "title": "[QB] Homepage — Figma rebrand mockup",
-      "type": "Task",
-      "assignee": "Gooding, Carrly",
-      "partialBU": "QB-Core",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1003",
-      "title": "[FF] Start Trial — Figma rebrand mockup",
-      "type": "Task",
-      "assignee": "Gooding, Carrly",
-      "partialBU": "FastField",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
