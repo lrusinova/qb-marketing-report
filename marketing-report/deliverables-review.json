@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Nov 12, 2026",
-  "total": 7,
+  "generatedAt": "Nov 13, 2026",
+  "total": 6,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13669",
+      "title": "Source customer testimonials — Quickbase master brand & Core homepages",
+      "type": "Task",
+      "assignee": "Englert , Caroline",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-14974",
       "title": "[Cross-BU] Marketing AI Blueprint v0.3: Where We Are Dashboard — AI Roadshow",
@@ -44,24 +53,6 @@
       "title": "[Cross-BU] Theo Brief Builder: Stage 1 Prototype — AI Teammates",
       "type": "Task",
       "assignee": "Rusinova, Luiza",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14843",
-      "title": "Update G2 badges on QB home page",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13635",
-      "title": "Onsite GSD Task List/Assignments - Ft. Lauderdale",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
