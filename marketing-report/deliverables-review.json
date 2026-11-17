@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Nov 16, 2026",
-  "total": 6,
+  "generatedAt": "Nov 17, 2026",
+  "total": 5,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "WE-1097",
+      "title": "Create topic checklist page/table in Confluence for tracking training topics covered and how recently",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13669",
       "title": "Source customer testimonials — Quickbase master brand & Core homepages",
@@ -33,24 +42,6 @@
     {
       "key": "MKT-14968",
       "title": "[FF] Iris Customer Proof: Stage 1 Prototype — AI Teammates",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14965",
-      "title": "[Cross-BU] Piper Request Intake, Program Setup and Program Runner: Stage 1 Prototypes — AI Teammates",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14964",
-      "title": "[Cross-BU] Theo Brief Builder: Stage 1 Prototype — AI Teammates",
       "type": "Task",
       "assignee": "Rusinova, Luiza",
       "partialBU": "Cross-BU",
