@@ -1,8 +1,107 @@
 {
-  "generatedAt": "Nov 18, 2026",
-  "total": 10,
+  "generatedAt": "Nov 19, 2026",
+  "total": 20,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-14988",
+      "title": "Fastfield Website Hero Illustration",
+      "type": "Task",
+      "assignee": "Brady, Jessica",
+      "partialBU": "FastField",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13385",
+      "title": "Storefront/swag launch coordination (with Lynn Tan, SRE)",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14253",
+      "title": "[Pave] Team Alignment — Scope Definition & Meeting Notes",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13391",
+      "title": "Website priority-page delivery tracking (Partner across all 14 Highest-priority pages)",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13389",
+      "title": "Marketing Enablement coordination (Lead, with Jenny & Mirissa)",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13388",
+      "title": "Product Updates program coordination (Lead, with Jenny)",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13384",
+      "title": "Town Hall launch coordination (Sept 15)",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13383",
+      "title": "SLT sneak peek scheduling (Sept 9-10)",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13382",
+      "title": "Stakeholder onboarding: Jeff Stay, Ryan, Harrison",
+      "type": "Task",
+      "assignee": "Rusinova, Luiza",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-15245",
+      "title": "Pave/FastField claims & canonical one-liners ",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-15244",
+      "title": "Quickbase Understanding Doc",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-15243",
       "title": "Peec query list: approve new prompts, add more Pave prompts",
@@ -80,15 +179,6 @@
       "title": "Create topic checklist page/table in Confluence for tracking training topics covered and how recently",
       "type": "Sub-task",
       "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13669",
-      "title": "Source customer testimonials — Quickbase master brand & Core homepages",
-      "type": "Task",
-      "assignee": "Englert , Caroline",
       "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
