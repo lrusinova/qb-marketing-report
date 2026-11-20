@@ -1,8 +1,44 @@
 {
-  "generatedAt": "Nov 19, 2026",
-  "total": 20,
+  "generatedAt": "Nov 20, 2026",
+  "total": 21,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-14812",
+      "title": "[Cross-BU] [Phase 1] Sponsorship Prospectus — Empower 27",
+      "type": "Task",
+      "assignee": "Speidel, Lindsey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14950",
+      "title": "[Cross-BU] [Phase 1] Sponsorship Application Form — Empower 27",
+      "type": "Task",
+      "assignee": "Speidel, Lindsey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14951",
+      "title": "[Cross-BU] [Phase 1] Sponsorship Payment Process Confirmed — Empower 27",
+      "type": "Task",
+      "assignee": "Speidel, Lindsey",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-14803",
+      "title": "[Cross-BU] [Phase 1] Internal Project Kickoff — Empower 27",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-14988",
       "title": "Fastfield Website Hero Illustration",
@@ -153,33 +189,6 @@
       "type": "Task",
       "assignee": "Hightower , Bridgette",
       "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-934",
-      "title": "Add test coverage for legacy and new-service check-user/register flows",
-      "type": "QA",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13636",
-      "title": "General Session Rehearsals Onsite - Ft. Lauderdale",
-      "type": "Task",
-      "assignee": "Speidel, Lindsey",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "WE-1097",
-      "title": "Create topic checklist page/table in Confluence for tracking training topics covered and how recently",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
