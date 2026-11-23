@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Nov 20, 2026",
-  "total": 21,
+  "generatedAt": "Nov 23, 2026",
+  "total": 22,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-15357",
+      "title": "Pave competitor pages - replace existing clear/white hero images with new ",
+      "type": "Task",
+      "assignee": "Robinson, Mia",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-14812",
       "title": "[Cross-BU] [Phase 1] Sponsorship Prospectus — Empower 27",
