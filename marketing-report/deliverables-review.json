@@ -1,8 +1,44 @@
 {
-  "generatedAt": "Nov 23, 2026",
-  "total": 22,
+  "generatedAt": "Nov 24, 2026",
+  "total": 21,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-13644",
+      "title": "On-site team onboarding call - Dallas",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13649",
+      "title": "Onsite GSD Task List/Assignments - Dallas",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-15375",
+      "title": "CAB Plan and charter complete ",
+      "type": "Task",
+      "assignee": "Englert , Caroline",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-13643",
+      "title": "Staffing List & Assignments for Location - Dallas",
+      "type": "Task",
+      "assignee": "Hightower , Bridgette",
+      "partialBU": "Cross-BU",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-15357",
       "title": "Pave competitor pages - replace existing clear/white hero images with new ",
@@ -153,51 +189,6 @@
       "type": "Sub-task",
       "assignee": "(unassigned)",
       "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-15249",
-      "title": "Brand mentions: iTechGuides publisher review",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": "FastField",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13581",
-      "title": "AV Vendor Contracts",
-      "type": "Task",
-      "assignee": "Speidel, Lindsey",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13629",
-      "title": "Staffing List & Assignments for Location - Ft. Lauderdale",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13637",
-      "title": "Speaker Tech Check Onsite - Ft. Lauderdale",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-14808",
-      "title": "[Cross-BU] [Phase 1] Registration Platform Link for Web Team — Empower 27",
-      "type": "Task",
-      "assignee": "Hightower , Bridgette",
-      "partialBU": "Cross-BU",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
