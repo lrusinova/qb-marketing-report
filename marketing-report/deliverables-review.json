@@ -1,8 +1,44 @@
 {
-  "generatedAt": "Nov 24, 2026",
+  "generatedAt": "Nov 25, 2026",
   "total": 21,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-15433",
+      "title": "Remove \"$20,\" \"buy credits",
+      "type": "Sub-task",
+      "assignee": "Martins, Raul",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-15432",
+      "title": "sitelinks review",
+      "type": "Sub-task",
+      "assignee": "Martins, Raul",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-15427",
+      "title": "Review (4) guest posts",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
+    {
+      "key": "MKT-15253",
+      "title": "Brand mentions: Layer3Labs.io (Pave)",
+      "type": "Sub-task",
+      "assignee": "(unassigned)",
+      "partialBU": "Pave",
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-13644",
       "title": "On-site team onboarding call - Dallas",
@@ -153,42 +189,6 @@
       "type": "Task",
       "assignee": "Rusinova, Luiza",
       "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13382",
-      "title": "Stakeholder onboarding: Jeff Stay, Ryan, Harrison",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-15245",
-      "title": "Pave/FastField claims & canonical one-liners ",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-15244",
-      "title": "Quickbase Understanding Doc",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-15243",
-      "title": "Peec query list: approve new prompts, add more Pave prompts",
-      "type": "Sub-task",
-      "assignee": "(unassigned)",
-      "partialBU": "Pave",
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
