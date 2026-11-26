@@ -1,8 +1,17 @@
 {
-  "generatedAt": "Nov 25, 2026",
-  "total": 21,
+  "generatedAt": "Nov 26, 2026",
+  "total": 18,
   "note": "These items exhausted all categorization signals (labels, summary, description, comments, Claude). Please assign a BU label or channel in Jira.",
   "items": [
+    {
+      "key": "MKT-15438",
+      "title": "review negative keywords",
+      "type": "Sub-task",
+      "assignee": "Martins, Raul",
+      "partialBU": null,
+      "partialChannel": null,
+      "note": "Could not determine channel from labels, summary, description, or comments"
+    },
     {
       "key": "MKT-15433",
       "title": "Remove \"$20,\" \"buy credits",
@@ -153,42 +162,6 @@
       "type": "Task",
       "assignee": "Rusinova, Luiza",
       "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13389",
-      "title": "Marketing Enablement coordination (Lead, with Jenny & Mirissa)",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13388",
-      "title": "Product Updates program coordination (Lead, with Jenny)",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": "Pave",
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13384",
-      "title": "Town Hall launch coordination (Sept 15)",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": null,
-      "partialChannel": null,
-      "note": "Could not determine channel from labels, summary, description, or comments"
-    },
-    {
-      "key": "MKT-13383",
-      "title": "SLT sneak peek scheduling (Sept 9-10)",
-      "type": "Task",
-      "assignee": "Rusinova, Luiza",
-      "partialBU": null,
       "partialChannel": null,
       "note": "Could not determine channel from labels, summary, description, or comments"
     }
